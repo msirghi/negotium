@@ -3,8 +3,9 @@ import { Typography } from '@mui/material';
 
 type Props = {
   title: string;
+  className?: string;
 };
 
-export const ListItemTitle: FC<Props> = ({ title }) => {
-  return <Typography sx={{ fontSize: 14 }}>{title}</Typography>;
+export const ListItemTitle: FC<Props> = ({ title, className }) => {
+  return <Typography sx={{ fontSize: 14 }} className={className}>{title}</Typography>;
 };
