@@ -23,4 +23,6 @@ export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   },
 ];
 
+export const PROJECT_NAME = 'Negotium';
+
 export const BASE_API_URL = 'http://localhost:3000/api';
