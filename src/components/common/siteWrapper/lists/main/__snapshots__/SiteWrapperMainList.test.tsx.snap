@@ -26,7 +26,7 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
     >
       <svg
         aria-hidden={true}
-        className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall activeItem css-ptiqhd-MuiSvgIcon-root"
         data-testid="InboxIcon"
         focusable="false"
         viewBox="0 0 24 24"
@@ -43,7 +43,7 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
         className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
       >
         <p
-          className="MuiTypography-root MuiTypography-body1 css-1d9ye53-MuiTypography-root"
+          className="MuiTypography-root MuiTypography-body1 activeItem css-1d9ye53-MuiTypography-root"
         >
           Inbox
         </p>

@@ -42,25 +42,32 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions }) => {
             onChange={(e) => setFieldValue(e.target.value)}
             value={fieldValue}
             variant="standard"
-            inputProps={{ style: { fontSize: 34 } }}
+            inputProps={{
+              style: { fontSize: 34 },
+              'data-testid': 'et-title-field',
+            }}
             error={!!error}
             helperText={error}
           />
-          <IconButton onClick={onSave}>
+          <IconButton onClick={onSave} data-testid={'et-save-button'}>
             <Tooltip title={'Save'}>
               <CheckIcon color={'primary'} />
             </Tooltip>
           </IconButton>
-          <IconButton>
+          <IconButton onClick={onCancel} data-testid={'et-cancel-button'}>
             <Tooltip title={'Cancel'}>
-              <ClearIcon color={'secondary'} onClick={onCancel} />
+              <ClearIcon color={'error'} />
             </Tooltip>
           </IconButton>
         </Row>
       </If>
 
       <If condition={!editMode}>
-        <Typography onClick={toggleEditMode} fontSize={34}>
+        <Typography
+          onClick={toggleEditMode}
+          fontSize={34}
+          data-testid="et-title"
+        >
           {title}
         </Typography>
       </If>

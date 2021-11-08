@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskWrapper should match the snapshot 1`] = `
+<div>
+  <div>
+    <p
+      className="MuiTypography-root MuiTypography-body1 css-mfnxei-MuiTypography-root"
+    >
+      Title
+    </p>
+  </div>
+</div>
+`;

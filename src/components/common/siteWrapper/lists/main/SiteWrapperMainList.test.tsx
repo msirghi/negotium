@@ -4,6 +4,12 @@ import { MAIN_MENU_ITEMS } from '../../../../../common/constants/constants';
 import { mount } from 'enzyme';
 import { ListItem } from '@mui/material';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'inbox',
+  }),
+}));
+
 describe('SiteWrapperMainList', () => {
   afterAll(() => {
     jest.clearAllMocks();

@@ -6,6 +6,12 @@ import { IGetProjectResponse } from '../../../../common/requests/types';
 import { mount } from 'enzyme';
 import TestUtils from '../../../../common/tests/TestUtils';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'inbox',
+  }),
+}));
+
 describe('SiteWrapper', () => {
   const queryClient = new QueryClient();
 

@@ -17,20 +17,15 @@ export const SiteWrapperMainList = () => {
   return (
     <List sx={{ padding: 1 }}>
       {MAIN_MENU_ITEMS.map(({ Icon, title }) => {
+        const activeItemClassName = isActive(title) ? styles.activeItem : '';
         return (
           <ListItem button key={title}>
             <ListItemIcon>
-              <Icon
-                fontSize={'small'}
-                className={isActive(title) ? styles.activeItem : ''}
-              />
+              <Icon fontSize={'small'} className={activeItemClassName} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <ListItemTitle
-                  className={isActive(title) && styles.activeItem}
-                  title={title}
-                />
+                <ListItemTitle className={activeItemClassName} title={title} />
               }
             />
           </ListItem>

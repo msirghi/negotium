@@ -7,6 +7,12 @@ import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
 import { IGetProjectResponse } from '../../../../common/requests/types';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'inbox',
+  }),
+}));
+
 describe('SiteWrapperDrawer', () => {
   const queryClient = new QueryClient();
 
