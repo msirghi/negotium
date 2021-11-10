@@ -21,7 +21,12 @@ const error = {
   main: '#db3a00',
 };
 
+const reds = {
+  100: '#ffeded'
+}
+
 export default {
+  reds,
   white,
   black,
   greys,

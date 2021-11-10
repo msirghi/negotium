@@ -3,12 +3,14 @@ import { FC } from 'react';
 type Props = {
   alignVerticalCenter?: boolean;
   alignHorizontalCenter?: boolean;
+  className?: string;
 };
 
 export const Row: FC<Props> = ({
   children,
   alignHorizontalCenter,
   alignVerticalCenter,
+  className,
 }) => {
   const defaultStyles = {
     display: 'flex',
@@ -24,5 +26,9 @@ export const Row: FC<Props> = ({
     defaultStyles.alignItems = 'center';
   }
 
-  return <div style={defaultStyles}>{children}</div>;
+  return (
+    <div style={defaultStyles} className={className}>
+      {children}
+    </div>
+  );
 };

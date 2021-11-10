@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { PageTitle } from '../../pageTitle/PageTitle';
 import { TaskWrapperTitleOptions } from '../../types';
+import { Tab, Tabs } from '@mui/material';
+import { AddSectionRow } from '../section/add/AddSectionRow';
 
 type Props = {
   title: string;
@@ -12,6 +14,7 @@ export const TaskWrapper: FC<Props> = ({
   title,
   upperHeaderTitle,
   editableOptions,
+  children,
 }) => {
   return (
     <div>
@@ -21,6 +24,16 @@ export const TaskWrapper: FC<Props> = ({
         showUpperHeader
         upperHeaderTitle={upperHeaderTitle}
       />
+      <Tabs value={1}>
+        <Tab label={'3 Todos'} value={1} />
+        <Tab label={'Notes'} value={2} />
+      </Tabs>
+
+      <div role={'tabpanel'} style={{ marginTop: '1rem' }}>
+        {children}{' '}
+      </div>
+
+      <AddSectionRow onClick={() => {}} />
     </div>
   );
 };

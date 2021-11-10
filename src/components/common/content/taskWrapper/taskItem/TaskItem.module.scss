@@ -1,0 +1,7 @@
+.tiItem {
+  &:hover {
+    background: #f6f6f6 !important;
+    border-radius: 8px;
+    transition: .2s background-color ease-in-out;
+  }
+}
