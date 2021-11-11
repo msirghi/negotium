@@ -5,10 +5,10 @@ import { If } from '../../../../utilities/if/If';
 import { Row } from '../../../../utilities/row/Row';
 
 type Props = {
-  onClick: (sectionName: string) => void;
+  onSectionSave: (title: string, orderNumber: number) => void;
 };
 
-export const AddSectionRow: FC<Props> = ({}) => {
+export const AddSectionRow: FC<Props> = ({ onSectionSave }) => {
   const [editMode, setEditMode] = useState(false);
   const [fieldValue, setFieldValue] = useState('');
 
@@ -18,7 +18,13 @@ export const AddSectionRow: FC<Props> = ({}) => {
 
   const onCancelClick = () => {
     setEditMode(false);
-  }
+  };
+
+  const onSave = () => {
+    onSectionSave(fieldValue, 1);
+    setEditMode(false);
+    setFieldValue('');
+  };
 
   return (
     <div>
@@ -36,10 +42,18 @@ export const AddSectionRow: FC<Props> = ({}) => {
           sx={{ marginTop: '1rem' }}
         />
         <Row className={styles.buttonRow}>
-          <Button disabled={!fieldValue} color={'primary'} variant={'contained'} size={'small'}>
+          <Button
+            onClick={onSave}
+            disabled={!fieldValue}
+            color={'primary'}
+            variant={'contained'}
+            size={'small'}
+          >
             Add section
           </Button>
-          <Button onClick={onCancelClick} size={'small'}>Cancel</Button>
+          <Button onClick={onCancelClick} size={'small'}>
+            Cancel
+          </Button>
         </Row>
       </If>
     </div>

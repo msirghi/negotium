@@ -7,6 +7,7 @@ const tasks = [
     createdDate: '2021-10-30T13:00:00',
     dueDate: new Date().toString(),
     completed: false,
+    orderNumber: 1,
   },
   {
     id: 'uuid-2',
@@ -14,6 +15,7 @@ const tasks = [
     createdDate: '2021-10-30T13:00:00',
     dueDate: '2021-10-30T13:00:00',
     completed: false,
+    orderNumber: 2,
   },
   {
     id: 'uuid-3',
@@ -21,6 +23,7 @@ const tasks = [
     createdDate: '2021-10-30T13:00:00',
     dueDate: '2021-10-31T13:00:00',
     completed: false,
+    orderNumber: 3,
   },
 ];
 
@@ -28,12 +31,20 @@ const tasksWithSection = [
   {
     id: 'section-1',
     sectionTitle: 'Design',
+    orderNumber: 2,
     sectionTasks: [...tasks],
   },
   {
     id: 'section-2',
+    orderNumber: 1,
     sectionTitle: 'Computer',
-    sectionTasks: [...tasks],
+    sectionTasks: [
+      {
+        ...tasks[0],
+        title: 'Section 2 task',
+        dueDate: null
+      },
+    ],
   },
 ];
 

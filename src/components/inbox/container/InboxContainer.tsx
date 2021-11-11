@@ -4,7 +4,12 @@ import { useQuery } from 'react-query';
 import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { SectionWrapper } from '../../common/content/taskWrapper/section/wrapper/SectionWrapper';
-import { AddSectionRow } from '../../common/content/taskWrapper/section/add/AddSectionRow';
+import { useEffect, useState } from 'react';
+import { ISection, ITask } from '../../../common/types/tasks.types';
+import dayjs from 'dayjs';
+import SortUtils from '../../../common/utils/sortUtils';
+import {useFetchTasks} from "../../../common/hooks/tasks/useFetchTasks";
+import {useFetchTasksBySection} from "../../../common/hooks/tasks/useFetchTasksBySection";
 
 const editableOptions: TaskWrapperTitleOptions = {
   title: 'Inbox',
@@ -12,20 +17,51 @@ const editableOptions: TaskWrapperTitleOptions = {
 };
 
 export const InboxContainer = () => {
-  const { isLoading, data } = useQuery('inboxQuery', tasksRequests.fetchTasks);
-  const { isLoading: sectionsLoading, data: sectionData } = useQuery(
-    'sectionsQuery',
-    tasksRequests.fetchTasksGroupedBySection
-  );
+  const { isLoading, data } = useFetchTasks();
+  const { isLoading: sectionsLoading, data: sectionData } = useFetchTasksBySection();
+
+  const [sections, setSections] = useState<ISection[]>([]);
+
+  useEffect(() => {
+    if (sectionData) {
+      setSections(sectionData.data);
+    }
+  }, [sectionData]);
+
+  const onSectionAdd = (title: string, orderNumber: number) => {
+    const newSection: ISection = {
+      id: 'new',
+      sectionTasks: [],
+      sectionTitle: title,
+      orderNumber,
+    };
+
+    setSections([...sections, newSection]);
+  };
+
+  const onTaskAdd = (title: string, sectionId: string) => {
+    const newTask: ITask = {
+      title,
+      orderNumber: 0,
+      id: 'task',
+      createdDate: dayjs().format(),
+      completed: false,
+    };
+
+    const updatedSections = sections.map((section) => {
+      if (section.id === sectionId) {
+        section.sectionTasks.push(newTask);
+      }
+      return section;
+    });
+    setSections(updatedSections);
+  };
 
   if (isLoading || !data || sectionsLoading || !sectionData) {
     return <div>Loading...</div>;
   }
 
-  console.log(sectionData);
-
   return (
-    // <div style={{ padding: '0 2rem' }}>
     <div>
       <TaskWrapper
         title={'Inbox'}
@@ -37,12 +73,15 @@ export const InboxContainer = () => {
         })}
 
         <div>
-          {sectionData.data.map((section) => {
+          {SortUtils.sortSectionsByOrder(sections).map((section) => {
             return (
               <SectionWrapper
+                key={section.id}
+                sectionId={section.id}
+                onTaskAdd={onTaskAdd}
+                onSectionAdd={onSectionAdd}
                 title={section.sectionTitle}
                 tasks={section.sectionTasks}
-                key={section.id}
               />
             );
           })}

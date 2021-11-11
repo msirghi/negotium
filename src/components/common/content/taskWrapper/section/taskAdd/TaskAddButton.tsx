@@ -1,6 +1,6 @@
 import { Box, Button, ButtonProps, styled, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { If } from '../../../../utilities/if/If';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
@@ -8,7 +8,11 @@ const CustomButton = styled(Button)<ButtonProps>(() => ({
   paddingRight: '95%',
 }));
 
-export const TaskAddButton = () => {
+type Props = {
+  onTaskAdd: (title: string) => void;
+};
+
+export const TaskAddButton: FC<Props> = ({ onTaskAdd }) => {
   const [editMode, setEditMode] = useState(false);
   const [fieldValue, setFieldValue] = useState('');
 
@@ -19,12 +23,19 @@ export const TaskAddButton = () => {
   const onCancelClick = () => {
     setEditMode(false);
     setFieldValue('');
-  }
+  };
+
+  const onSave = () => {
+    onTaskAdd(fieldValue);
+    setEditMode(false);
+    setFieldValue('');
+  };
 
   return (
     <>
       <If condition={!editMode}>
         <CustomButton
+            data-testid={'tab-add-button'}
           startIcon={<AddIcon />}
           disableRipple
           onClick={toggleEditMode}
@@ -38,14 +49,22 @@ export const TaskAddButton = () => {
             value={fieldValue}
             fullWidth
             size={'small'}
+            inputProps={{
+              'data-testid': 'tab-title-field',
+            }}
             placeholder={'New task'}
             onChange={(e) => setFieldValue(e.target.value)}
           />
           <Box sx={{ marginTop: '.5rem' }}>
-            <Button variant={'contained'} disabled={!fieldValue}>
+            <Button
+              variant={'contained'}
+              data-testid={'tab-submit-button'}
+              disabled={!fieldValue}
+              onClick={onSave}
+            >
               Add task
             </Button>
-            <Button onClick={onCancelClick}>Cancel</Button>
+            <Button data-testid={'tab-cancel-button'} onClick={onCancelClick}>Cancel</Button>
           </Box>
         </Box>
       </If>
