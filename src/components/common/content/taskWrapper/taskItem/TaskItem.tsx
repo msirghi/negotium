@@ -8,9 +8,10 @@ import TaskItemUtils from './utils/utils';
 
 type Props = {
   task: ITask;
+  markAsDone: (id: ITask['id']) => void;
 };
 
-export const TaskItem: FC<Props> = ({ task }) => {
+export const TaskItem: FC<Props> = ({ task, markAsDone }) => {
   const { title, dueDate } = task;
 
   const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate);
@@ -18,6 +19,7 @@ export const TaskItem: FC<Props> = ({ task }) => {
   return (
     <Row className={styles.tiItem} alignVerticalCenter>
       <FormControlLabel
+        onChange={() => markAsDone(task.id)}
         control={<Checkbox />}
         label={title}
         sx={{ width: '%' }}

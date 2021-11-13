@@ -4,7 +4,7 @@ import { IGetProjectResponse } from './types';
 
 async function fetchProjects() {
   const { data } = await axios.get(`${BASE_API_URL}/projects`);
-  return data as IGetProjectResponse;
+  return data as IGetProjectResponse['projects'];
 }
 
 export const projectsRequests = {

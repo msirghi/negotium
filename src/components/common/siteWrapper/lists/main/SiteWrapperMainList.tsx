@@ -10,16 +10,20 @@ import { useRouter } from 'next/router';
 export const SiteWrapperMainList = () => {
   const router = useRouter();
 
-  const isActive = (title: string) => {
-    return router.route.includes(title.toLowerCase());
+  const isActive = (route: string) => {
+    return router.route.includes(route.toLowerCase());
+  };
+
+  const onItemClick = (route: string) => {
+    router.push(route);
   };
 
   return (
     <List sx={{ padding: 1 }}>
-      {MAIN_MENU_ITEMS.map(({ Icon, title }) => {
-        const activeItemClassName = isActive(title) ? styles.activeItem : '';
+      {MAIN_MENU_ITEMS.map(({ Icon, title, route }) => {
+        const activeItemClassName = isActive(route) ? styles.activeItem : '';
         return (
-          <ListItem button key={title}>
+          <ListItem button key={title} onClick={() => onItemClick(route)}>
             <ListItemIcon>
               <Icon fontSize={'small'} className={activeItemClassName} />
             </ListItemIcon>

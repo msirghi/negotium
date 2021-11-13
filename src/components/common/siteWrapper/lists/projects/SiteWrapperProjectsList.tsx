@@ -18,7 +18,7 @@ export const SiteWrapperProjectsList = () => {
     <SiteWrapperList title={'Projects'}>
       <Fade in>
         <List sx={{ padding: 1 }} data-testid={'projects-list'}>
-          {data.projects.map((project) => {
+          {data.map((project) => {
             return (
               <ListItem button key={project.id}>
                 <ListItemIcon>

@@ -4,12 +4,13 @@ import { IGetTasksResponse, IGetTasksWithSectionResponse } from './types';
 
 async function fetchTasks() {
   const { data } = await axios.get(`${BASE_API_URL}/tasks`);
-  return data as IGetTasksResponse;
+  return data as IGetTasksResponse['tasks'];
 }
 
 async function fetchTasksGroupedBySection() {
-  const { data } = await axios.get(`${BASE_API_URL}/tasks?groupBy=section`);
-  return data as IGetTasksWithSectionResponse;
+  // const { data } = await axios.get(`${BASE_API_URL}/tasks?groupBy=section`);
+  const { data } = await axios.get(`${BASE_API_URL}/tasksWithSections`);
+  return data as IGetTasksWithSectionResponse['data'];
 }
 
 export const tasksRequests = {

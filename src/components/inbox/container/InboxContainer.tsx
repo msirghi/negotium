@@ -1,15 +1,13 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskWrapperTitleOptions } from '../../common/content/types';
-import { useQuery } from 'react-query';
-import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
-import { SectionWrapper } from '../../common/content/taskWrapper/section/wrapper/SectionWrapper';
 import { useEffect, useState } from 'react';
 import { ISection, ITask } from '../../../common/types/tasks.types';
 import dayjs from 'dayjs';
-import SortUtils from '../../../common/utils/sortUtils';
-import {useFetchTasks} from "../../../common/hooks/tasks/useFetchTasks";
-import {useFetchTasksBySection} from "../../../common/hooks/tasks/useFetchTasksBySection";
+import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
+import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
+import TaskService from '../../../services/TaskService';
+import { NullableDate } from '../../../common/types/common.types';
 
 const editableOptions: TaskWrapperTitleOptions = {
   title: 'Inbox',
@@ -17,47 +15,35 @@ const editableOptions: TaskWrapperTitleOptions = {
 };
 
 export const InboxContainer = () => {
-  const { isLoading, data } = useFetchTasks();
-  const { isLoading: sectionsLoading, data: sectionData } = useFetchTasksBySection();
-
+  const { isLoading, data, refetch } = useFetchTasks();
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [sections, setSections] = useState<ISection[]>([]);
 
   useEffect(() => {
-    if (sectionData) {
-      setSections(sectionData.data);
+    if (data) {
+      setTasks(data);
     }
-  }, [sectionData]);
+  }, [data]);
 
-  const onSectionAdd = (title: string, orderNumber: number) => {
-    const newSection: ISection = {
-      id: 'new',
-      sectionTasks: [],
-      sectionTitle: title,
-      orderNumber,
-    };
-
-    setSections([...sections, newSection]);
-  };
-
-  const onTaskAdd = (title: string, sectionId: string) => {
-    const newTask: ITask = {
+  const onAddTask = async (title: string, date: NullableDate) => {
+    const newTask: Omit<ITask, 'id'> = {
       title,
-      orderNumber: 0,
-      id: 'task',
+      orderNumber: tasks.length + 1,
       createdDate: dayjs().format(),
+      dueDate: date ? dayjs(date as unknown as Date).format() : '',
       completed: false,
     };
-
-    const updatedSections = sections.map((section) => {
-      if (section.id === sectionId) {
-        section.sectionTasks.push(newTask);
-      }
-      return section;
-    });
-    setSections(updatedSections);
+    setTasks((prevState) => [...prevState, newTask as ITask]);
+    await TaskService.createTask(newTask);
+    await refetch();
   };
 
-  if (isLoading || !data || sectionsLoading || !sectionData) {
+  const markAsDone = async (taskId: ITask['id']) => {
+    await TaskService.markTaskAsDone(taskId);
+    await refetch();
+  };
+
+  if (isLoading || !data) {
     return <div>Loading...</div>;
   }
 
@@ -68,24 +54,14 @@ export const InboxContainer = () => {
         upperHeaderTitle={'Inbox'}
         editableOptions={editableOptions}
       >
-        {data.tasks.map((task) => {
-          return <TaskItem key={task.id} task={task} />;
-        })}
-
-        <div>
-          {SortUtils.sortSectionsByOrder(sections).map((section) => {
+        {tasks
+          .filter((task) => !task.completed)
+          .map((task) => {
             return (
-              <SectionWrapper
-                key={section.id}
-                sectionId={section.id}
-                onTaskAdd={onTaskAdd}
-                onSectionAdd={onSectionAdd}
-                title={section.sectionTitle}
-                tasks={section.sectionTasks}
-              />
+              <TaskItem key={task.id} task={task} markAsDone={markAsDone} />
             );
           })}
-        </div>
+        <TaskAddButton onTaskAdd={onAddTask} />
       </TaskWrapper>
     </div>
   );

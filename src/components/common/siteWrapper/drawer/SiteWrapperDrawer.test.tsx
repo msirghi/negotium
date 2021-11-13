@@ -22,9 +22,7 @@ describe('SiteWrapperDrawer', () => {
 
   beforeAll(() => {
     projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve({
-        projects: [...projectsMock],
-      } as IGetProjectResponse)
+      Promise.resolve([...projectsMock])
     );
   });
 

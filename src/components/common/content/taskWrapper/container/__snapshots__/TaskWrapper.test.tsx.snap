@@ -49,7 +49,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
           tabIndex={0}
           type="button"
         >
-          3 Todos
+          Todos
           <span
             className="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
             style={Object {}}
@@ -90,18 +90,6 @@ exports[`TaskWrapper should match the snapshot 1`] = `
     }
   >
      
-  </div>
-  <div>
-    <div
-      className="adrTitleContainer"
-      onClick={[Function]}
-    >
-      <span
-        className="adrTitle"
-      >
-        Add section
-      </span>
-    </div>
   </div>
 </div>
 `;

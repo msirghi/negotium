@@ -8,21 +8,25 @@ export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
     Icon: InboxIcon,
     title: 'Inbox',
+    route: '/home/inbox',
   },
   {
     Icon: StarBorderIcon,
     title: 'Today',
+    route: '/home/today',
   },
   {
     Icon: DateRangeIcon,
     title: 'Upcoming',
+    route: '/home/upcoming',
   },
   {
     Icon: DoneIcon,
     title: 'Completed',
+    route: '/home/completed',
   },
 ];
 
 export const PROJECT_NAME = 'Negotium';
 
-export const BASE_API_URL = 'http://localhost:3000/api';
+export const BASE_API_URL = 'http://localhost:4000';

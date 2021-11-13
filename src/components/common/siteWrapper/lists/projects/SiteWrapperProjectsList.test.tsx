@@ -15,9 +15,7 @@ describe('SiteWrapperProjectsList', () => {
   it('should render project list', async () => {
     jest.useFakeTimers();
     projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve({
-        projects: [...projectsMock],
-      } as IGetProjectResponse)
+      Promise.resolve([...projectsMock])
     );
 
     const { getByTestId } = render(

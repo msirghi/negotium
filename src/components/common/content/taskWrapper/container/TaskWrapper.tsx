@@ -8,6 +8,8 @@ type Props = {
   title: string;
   upperHeaderTitle?: string;
   editableOptions?: TaskWrapperTitleOptions;
+  onSectionAdd?: (title: string, orderNumber: number) => void;
+  showSections?: boolean;
 };
 
 export const TaskWrapper: FC<Props> = ({
@@ -15,6 +17,8 @@ export const TaskWrapper: FC<Props> = ({
   upperHeaderTitle,
   editableOptions,
   children,
+  onSectionAdd,
+  showSections,
 }) => {
   return (
     <div>
@@ -25,7 +29,7 @@ export const TaskWrapper: FC<Props> = ({
         upperHeaderTitle={upperHeaderTitle}
       />
       <Tabs value={1}>
-        <Tab label={'3 Todos'} value={1} />
+        <Tab label={'Todos'} value={1} />
         <Tab label={'Notes'} value={2} />
       </Tabs>
 
@@ -33,7 +37,13 @@ export const TaskWrapper: FC<Props> = ({
         {children}{' '}
       </div>
 
-      <AddSectionRow onClick={() => {}} />
+      {showSections && (
+        <AddSectionRow
+          onSectionSave={(title, orderNumber) =>
+            onSectionAdd && onSectionAdd(title, orderNumber)
+          }
+        />
+      )}
     </div>
   );
 };

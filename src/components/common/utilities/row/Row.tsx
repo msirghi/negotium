@@ -4,6 +4,7 @@ type Props = {
   alignVerticalCenter?: boolean;
   alignHorizontalCenter?: boolean;
   className?: string;
+  fullWidth?: boolean;
 };
 
 export const Row: FC<Props> = ({
@@ -11,11 +12,13 @@ export const Row: FC<Props> = ({
   alignHorizontalCenter,
   alignVerticalCenter,
   className,
+  fullWidth,
 }) => {
   const defaultStyles = {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    width: 'initial',
   };
 
   if (alignHorizontalCenter) {
@@ -24,6 +27,10 @@ export const Row: FC<Props> = ({
 
   if (alignVerticalCenter) {
     defaultStyles.alignItems = 'center';
+  }
+
+  if (fullWidth) {
+    defaultStyles.width = '100%';
   }
 
   return (

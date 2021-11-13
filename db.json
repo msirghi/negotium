@@ -1,0 +1,222 @@
+{
+  "projects": [
+    {
+      "id": "uuid-1",
+      "name": "Project 1"
+    },
+    {
+      "id": "uuid-2",
+      "name": "Project 2"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "uuid-1",
+      "title": "Buy milk",
+      "createdDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "dueDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "completed": true,
+      "orderNumber": 1
+    },
+    {
+      "id": "uuid-2",
+      "title": "Study for exam",
+      "createdDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "dueDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "completed": true,
+      "orderNumber": 2
+    },
+    {
+      "id": "uuid-3",
+      "title": "Buy a new phone for grandmother",
+      "createdDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "dueDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+      "completed": true,
+      "orderNumber": 3
+    },
+    {
+      "title": "test",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:04:58+00:00",
+      "dueDate": "2021-11-12T08:04:58+00:00",
+      "completed": true,
+      "id": "R65zPcP"
+    },
+    {
+      "title": "another test",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:07:27+00:00",
+      "dueDate": "2021-11-12T08:07:27+00:00",
+      "completed": true,
+      "id": "h0TVgat"
+    },
+    {
+      "title": "one more test",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:07:42+00:00",
+      "dueDate": "2021-11-12T08:07:42+00:00",
+      "completed": true,
+      "id": "K_HKnhD"
+    },
+    {
+      "title": "some more tst",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:07:52+00:00",
+      "dueDate": "2021-11-12T08:07:52+00:00",
+      "completed": true,
+      "id": "aR9wtG3"
+    },
+    {
+      "title": "maybe one more",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:08:19+00:00",
+      "dueDate": "2021-11-12T08:08:19+00:00",
+      "completed": true,
+      "id": "gQATpA0"
+    },
+    {
+      "title": "New task",
+      "orderNumber": 1,
+      "createdDate": "2021-11-12T08:12:18+00:00",
+      "dueDate": "2021-11-12T08:12:18+00:00",
+      "completed": true,
+      "id": "3WLd--0"
+    },
+    {
+      "title": "new task",
+      "orderNumber": 10,
+      "createdDate": "2021-11-12T08:14:51+00:00",
+      "dueDate": "2021-11-12T08:14:51+00:00",
+      "completed": true,
+      "id": "4tkjbfD"
+    },
+    {
+      "title": "another task",
+      "orderNumber": 11,
+      "createdDate": "2021-11-12T08:14:56+00:00",
+      "dueDate": "2021-11-12T08:14:56+00:00",
+      "completed": true,
+      "id": "VigeK30"
+    },
+    {
+      "title": "New task",
+      "orderNumber": 12,
+      "createdDate": "2021-11-12T08:15:42+00:00",
+      "dueDate": "2021-11-12T08:15:42+00:00",
+      "completed": true,
+      "id": "H5p00Dh"
+    },
+    {
+      "title": "Tasks",
+      "orderNumber": 13,
+      "createdDate": "2021-11-12T08:28:51+00:00",
+      "dueDate": "2021-11-12T08:28:51+00:00",
+      "completed": true,
+      "id": "S9MGb14"
+    },
+    {
+      "title": "gdfgd",
+      "orderNumber": 14,
+      "createdDate": "2021-11-12T08:28:56+00:00",
+      "dueDate": "2021-11-12T08:28:56+00:00",
+      "completed": true,
+      "id": "YaOXUSy"
+    },
+    {
+      "title": "new task",
+      "orderNumber": 15,
+      "createdDate": "2021-11-13T08:05:48+00:00",
+      "dueDate": "2021-11-13T08:05:48+00:00",
+      "completed": true,
+      "id": "UkP31bh"
+    },
+    {
+      "title": "new task",
+      "orderNumber": 16,
+      "createdDate": "2021-11-13T08:17:37+00:00",
+      "dueDate": "",
+      "completed": false,
+      "id": "wW1dSp4"
+    },
+    {
+      "title": "new task",
+      "orderNumber": 17,
+      "createdDate": "2021-11-13T08:17:43+00:00",
+      "dueDate": "2021-11-13T08:17:41+00:00",
+      "completed": true,
+      "id": "D17m7h4"
+    },
+    {
+      "title": "new task for tomorrow",
+      "orderNumber": 18,
+      "createdDate": "2021-11-13T08:18:02+00:00",
+      "dueDate": "2021-11-14T08:18:00+00:00",
+      "completed": true,
+      "id": "AGump5M"
+    },
+    {
+      "title": "new task for today",
+      "orderNumber": 19,
+      "createdDate": "2021-11-13T08:18:07+00:00",
+      "dueDate": "2021-11-14T08:18:00+00:00",
+      "completed": true,
+      "id": "d62KMXK"
+    },
+    {
+      "title": "new task for today",
+      "orderNumber": 20,
+      "createdDate": "2021-11-13T08:18:17+00:00",
+      "dueDate": "2021-11-13T08:18:15+00:00",
+      "completed": true,
+      "id": "s4tpFZN"
+    },
+    {
+      "title": "another task for today",
+      "orderNumber": 21,
+      "createdDate": "2021-11-13T08:22:44+00:00",
+      "dueDate": "",
+      "completed": true,
+      "id": "hJol3xo"
+    },
+    {
+      "title": "yet another task for today",
+      "orderNumber": 22,
+      "createdDate": "2021-11-13T08:22:53+00:00",
+      "dueDate": "2021-11-13T08:22:52+00:00",
+      "completed": true,
+      "id": "VgJDyeK"
+    },
+    {
+      "title": "tas",
+      "orderNumber": 23,
+      "createdDate": "2021-11-13T09:18:28+00:00",
+      "dueDate": "",
+      "completed": true,
+      "id": "jpls4-d"
+    },
+    {
+      "title": " new",
+      "orderNumber": 24,
+      "createdDate": "2021-11-13T09:29:33+00:00",
+      "dueDate": "2021-11-14T00:00:00+00:00",
+      "completed": true,
+      "id": "4sjH2In"
+    }
+  ],
+  "tasksWithSections": [
+    {
+      "id": "Section 1",
+      "sectionTitle": "Design",
+      "sectionTasks": [
+        {
+          "id": "uuid-1",
+          "title": "Buy milk [Section]",
+          "createdDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+          "dueDate": "Fri Nov 12 2021 07:53:34 GMT+0000",
+          "completed": false,
+          "orderNumber": 1
+        }
+      ]
+    }
+  ]
+}
