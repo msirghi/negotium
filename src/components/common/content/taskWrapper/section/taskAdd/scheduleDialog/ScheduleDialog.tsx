@@ -52,7 +52,7 @@ export const ScheduleDialog: FC<Props> = ({ onDateSelect, defaultDate }) => {
         style={{
           border: selectedDate
             ? `1px solid ${colors.primaries.lightBlue_1}`
-            : '1px solid grey',
+            : '1px solid lightgrey',
 
           color: selectedDate ? colors.primaries.lightBlue_1 : '',
         }}

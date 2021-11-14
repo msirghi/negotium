@@ -1,23 +1,24 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
-import { TaskWrapperTitleOptions } from '../../common/content/types';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { useEffect, useState } from 'react';
-import { ISection, ITask } from '../../../common/types/tasks.types';
-import dayjs from 'dayjs';
+import { ITask } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
 import { NullableDate } from '../../../common/types/common.types';
-
-const editableOptions: TaskWrapperTitleOptions = {
-  title: 'Inbox',
-  onSave: (val) => console.log(val),
-};
+import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
+import { useSnackbar } from 'notistack';
+import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
+import SortUtils from '../../../common/utils/sortUtils';
+import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
+import { Row } from '../../common/utilities/row/Row';
+import { SelectedTaskSection } from '../../common/content/selectedTask';
 
 export const InboxContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [sections, setSections] = useState<ISection[]>([]);
+  const { enqueueSnackbar } = useSnackbar();
+  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   useEffect(() => {
     if (data) {
@@ -26,43 +27,59 @@ export const InboxContainer = () => {
   }, [data]);
 
   const onAddTask = async (title: string, date: NullableDate) => {
-    const newTask: Omit<ITask, 'id'> = {
+    const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
-      orderNumber: tasks.length + 1,
-      createdDate: dayjs().format(),
-      dueDate: date ? dayjs(date as unknown as Date).format() : '',
-      completed: false,
-    };
+      date,
+      tasks.length - 1
+    );
     setTasks((prevState) => [...prevState, newTask as ITask]);
+    enqueueSnackbar('Task added', {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
     await TaskService.createTask(newTask);
     await refetch();
   };
 
   const markAsDone = async (taskId: ITask['id']) => {
-    await TaskService.markTaskAsDone(taskId);
-    await refetch();
+    enqueueSnackbar('Task marked as done', {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
+    setSelectedTask(null);
+    await TaskUtils.markAsDone(taskId, refetch);
+  };
+
+  const onTaskUpdate = (updatedTask: ITask) => {
+    const {id} = updatedTask;
+    const updatedTasks = tasks.map(task => task.id === id ? updatedTask: task);
+    setTasks([...updatedTasks]);
+  }
+
+  const onTaskSelect = (task: ITask) => {
+    setSelectedTask(task);
   };
 
   if (isLoading || !data) {
-    return <div>Loading...</div>;
+    return <TaskSkeleton />;
   }
 
   return (
-    <div>
-      <TaskWrapper
-        title={'Inbox'}
-        upperHeaderTitle={'Inbox'}
-        editableOptions={editableOptions}
-      >
-        {tasks
-          .filter((task) => !task.completed)
-          .map((task) => {
-            return (
-              <TaskItem key={task.id} task={task} markAsDone={markAsDone} />
-            );
-          })}
-        <TaskAddButton onTaskAdd={onAddTask} />
-      </TaskWrapper>
-    </div>
+    <Row fullWidth>
+      <div style={{ width: '50%' }}>
+        <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
+          {SortUtils.sortByDate(tasks)
+            .filter((task) => !task.completed)
+            .map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                markAsDone={markAsDone}
+                onTaskSelect={onTaskSelect}
+              />
+            ))}
+          <TaskAddButton onTaskAdd={onAddTask} />
+        </TaskWrapper>
+      </div>
+      <SelectedTaskSection task={selectedTask} onTaskUpdate={onTaskUpdate}/>
+    </Row>
   );
 };

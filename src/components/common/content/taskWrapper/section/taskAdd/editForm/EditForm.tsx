@@ -20,7 +20,7 @@ export const EditForm: FC<Props> = ({
     <div
       style={{
         padding: 10,
-        border: '1px solid grey',
+        border: '1px solid lightgrey',
         borderRadius: 5,
       }}
     >

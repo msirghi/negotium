@@ -13,9 +13,16 @@ const markTaskAsDone = (id: ITask['id']) => {
   });
 };
 
+const updateTaskName = (id: ITask['id'], title: ITask['title']) => {
+  return Requests.restApiCall(`${BASE_API_URL}/tasks/${id}`, HttpMethod.PATCH, {
+    title,
+  });
+};
+
 const TaskService = {
   createTask,
   markTaskAsDone,
+  updateTaskName,
 };
 
 export default TaskService;

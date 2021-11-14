@@ -9,18 +9,22 @@ import TaskItemUtils from './utils/utils';
 type Props = {
   task: ITask;
   markAsDone: (id: ITask['id']) => void;
+  onTaskSelect: (task: ITask) => void;
 };
 
-export const TaskItem: FC<Props> = ({ task, markAsDone }) => {
+export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
   const { title, dueDate } = task;
 
   const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate);
 
   return (
-    <Row className={styles.tiItem} alignVerticalCenter>
+    <Row
+      className={styles.tiItem}
+      alignVerticalCenter
+      onClick={() => onTaskSelect(task)}
+    >
       <FormControlLabel
-        onChange={() => markAsDone(task.id)}
-        control={<Checkbox />}
+        control={<Checkbox onChange={() => markAsDone(task.id)} />}
         label={title}
         sx={{ width: '%' }}
       />

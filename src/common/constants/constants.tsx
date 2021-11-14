@@ -3,6 +3,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DoneIcon from '@mui/icons-material/Done';
+import { SnackbarOrigin } from 'notistack';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -30,3 +31,7 @@ export const MAIN_MENU_ITEMS: MainMenuItem[] = [
 export const PROJECT_NAME = 'Negotium';
 
 export const BASE_API_URL = 'http://localhost:4000';
+
+export const SNACKBAR_POSITIONS: { [key: string]: SnackbarOrigin } = {
+  BOTTOM_CENTER: { horizontal: 'center', vertical: 'bottom' },
+};

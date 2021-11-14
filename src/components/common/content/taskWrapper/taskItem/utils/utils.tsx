@@ -8,10 +8,18 @@ const getDateBadgeLabel = (dueDate?: string) => {
 
   const isToday = DateUtils.isTodayDate(dueDate);
   if (isToday) {
-    return { title: 'Today', backgroundColor: colors.primaries.lightBlue_1, textColor: colors.white };
+    return {
+      title: 'Today',
+      backgroundColor: colors.primaries.lightBlue_1,
+      textColor: colors.white,
+    };
   }
 
   const dayDifferences = DateUtils.getDateDifference(dueDate);
+  if (dayDifferences === 0) {
+    return { title: 'Tomorrow', backgroundColor: 'orange', textColor: colors.white };
+  }
+
   if (dayDifferences > 0) {
     return {
       title: `${dayDifferences} days ago`,
@@ -19,7 +27,6 @@ const getDateBadgeLabel = (dueDate?: string) => {
       textColor: 'red',
     };
   }
-  return { title: 'Test', backgroundColor: '', textColor: colors.white };
 };
 
 const TaskItemUtils = {

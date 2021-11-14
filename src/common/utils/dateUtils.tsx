@@ -21,8 +21,7 @@ const getDateDifference = (date: string) => {
 };
 
 const getWeekDay = (date: Date) => {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  return days[date.getDay()];
+  return dayjs(date).format('ddd');
 };
 
 const getDateLabel = (date: NullableDate) => {
@@ -40,11 +39,19 @@ const getDateLabel = (date: NullableDate) => {
   return newDate.format('D MMM');
 };
 
+const isDateInThePast = (date: string | undefined) => {
+  if (!date) {
+    return false;
+  }
+  return getDateDifference(date) > 0;
+};
+
 const DateUtils = {
   isTodayDate,
   getDateDifference,
   getWeekDay,
   getDateLabel,
+  isDateInThePast,
 };
 
 export default DateUtils;

@@ -5,6 +5,7 @@ type Props = {
   alignHorizontalCenter?: boolean;
   className?: string;
   fullWidth?: boolean;
+  onClick?: () => void;
 };
 
 export const Row: FC<Props> = ({
@@ -13,6 +14,7 @@ export const Row: FC<Props> = ({
   alignVerticalCenter,
   className,
   fullWidth,
+  onClick,
 }) => {
   const defaultStyles = {
     display: 'flex',
@@ -34,7 +36,11 @@ export const Row: FC<Props> = ({
   }
 
   return (
-    <div style={defaultStyles} className={className}>
+    <div
+      style={defaultStyles}
+      className={className}
+      onClick={() => onClick && onClick()}
+    >
       {children}
     </div>
   );

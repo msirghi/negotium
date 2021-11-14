@@ -8,11 +8,17 @@ import { ITask } from '../../../common/types/tasks.types';
 import { useEffect, useRef, useState } from 'react';
 import { NullableDate } from '../../../common/types/common.types';
 import dayjs from 'dayjs';
+import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
+import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
+import { useSnackbar } from 'notistack';
+import { CircularProgress } from '@mui/material';
+import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
 
 export const TodayContainer = () => {
-  const { isLoading, data } = useFetchTasks();
+  const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const defaultDay = useRef(dayjs().toDate());
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (data) {
@@ -20,24 +26,31 @@ export const TodayContainer = () => {
     }
   }, [data]);
 
-  if (isLoading || !data) {
-    return <div>Loading</div>;
-  }
-
   const onMarkAsDone = async (taskId: ITask['id']) => {
     setTasks((prevState) => prevState.filter(({ id }) => id !== taskId));
+    enqueueSnackbar('Task marked as done', {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
     await TaskService.markTaskAsDone(taskId);
   };
 
-  const onTaskAdd = (title: string, date: NullableDate) => {
-    const task: Omit<ITask, 'id'> = {
+  const onTaskAdd = async (title: string, date: NullableDate) => {
+    const task: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
-      dueDate: date ? dayjs(date as unknown as Date).format() : '',
-      orderNumber: tasks.length,
-      createdDate: dayjs().format(),
-      completed: false,
-    };
+      date,
+      tasks.length
+    );
+    enqueueSnackbar('Task added', {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
+    setTasks((prevState) => [...prevState, task as ITask]);
+    await TaskService.createTask(task);
+    await refetch();
   };
+
+  if (isLoading || !data) {
+    return <TaskSkeleton />;
+  }
 
   return (
     <div>
