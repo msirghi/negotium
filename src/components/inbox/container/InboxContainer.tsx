@@ -49,10 +49,12 @@ export const InboxContainer = () => {
   };
 
   const onTaskUpdate = (updatedTask: ITask) => {
-    const {id} = updatedTask;
-    const updatedTasks = tasks.map(task => task.id === id ? updatedTask: task);
+    const { id } = updatedTask;
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? updatedTask : task
+    );
     setTasks([...updatedTasks]);
-  }
+  };
 
   const onTaskSelect = (task: ITask) => {
     setSelectedTask(task);
@@ -64,7 +66,7 @@ export const InboxContainer = () => {
 
   return (
     <Row fullWidth>
-      <div style={{ width: '50%' }}>
+      <div style={{ width: '50%', padding: 20 }}>
         <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
           {SortUtils.sortByDate(tasks)
             .filter((task) => !task.completed)
@@ -79,7 +81,11 @@ export const InboxContainer = () => {
           <TaskAddButton onTaskAdd={onAddTask} />
         </TaskWrapper>
       </div>
-      <SelectedTaskSection task={selectedTask} onTaskUpdate={onTaskUpdate}/>
+      <SelectedTaskSection
+        key={selectedTask ? selectedTask.id : ''}
+        task={selectedTask}
+        onTaskUpdate={onTaskUpdate}
+      />
     </Row>
   );
 };

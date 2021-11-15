@@ -5,6 +5,7 @@ import styles from './TaskItem.module.scss';
 import { Row } from '../../../utilities/row/Row';
 import { If } from '../../../utilities/if/If';
 import TaskItemUtils from './utils/utils';
+import { makeStyles } from '@mui/styles';
 
 type Props = {
   task: ITask;
@@ -12,8 +13,15 @@ type Props = {
   onTaskSelect: (task: ITask) => void;
 };
 
+const useStyles = makeStyles({
+  chip: {
+    marginLeft: 10,
+  },
+});
+
 export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
   const { title, dueDate } = task;
+  const classes = useStyles();
 
   const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate);
 
@@ -23,15 +31,15 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
       alignVerticalCenter
       onClick={() => onTaskSelect(task)}
     >
-      <FormControlLabel
-        control={<Checkbox onChange={() => markAsDone(task.id)} />}
-        label={title}
-        sx={{ width: '%' }}
-      />
+      <Row alignVerticalCenter>
+        <Checkbox onChange={() => markAsDone(task.id)} />
+        <div>{title}</div>
+      </Row>
       <div>
         <If condition={!!chipOptions}>
           <Chip
             label={chipOptions?.title}
+            className={classes.chip}
             style={{
               backgroundColor: chipOptions?.backgroundColor,
               color: chipOptions?.textColor,
