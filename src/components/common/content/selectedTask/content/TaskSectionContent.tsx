@@ -53,7 +53,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
         variant={'standard'}
         InputProps={{
           disableUnderline: true,
-          style: { fontWeight: 'bold', fontSize: 21 },
+          style: { fontWeight: 'bold', fontSize: 18 },
         }}
       />
 

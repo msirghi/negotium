@@ -1,10 +1,17 @@
-import { Box, Button, ButtonProps, styled, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonProps,
+  styled,
+  TextField,
+  useMediaQuery,
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { FC, MutableRefObject, useRef, useState } from 'react';
 import { If } from '../../../../utilities/if/If';
 import { EditForm } from './editForm/EditForm';
 import { makeStyles } from '@mui/styles';
-import { NullableDate } from '../../../../../../common/types/common.types';
+import { Nullable } from '../../../../../../common/types/common.types';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
@@ -18,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 type Props = {
-  onTaskAdd: (title: string, date: NullableDate) => void;
+  onTaskAdd: (title: string, date: Nullable<Date>) => void;
   defaultDate?: Date;
 };
 
@@ -26,9 +33,10 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   const [editMode, setEditMode] = useState(false);
   const [fieldValue, setFieldValue] = useState('');
   const classes = useStyles();
-  const selectedDate = useRef<NullableDate>(
-    (defaultDate || null) as unknown as NullableDate
-  ) as MutableRefObject<NullableDate>;
+  const selectedDate = useRef<Nullable<Date>>(
+    defaultDate || null
+  ) as MutableRefObject<Nullable<Date>>;
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -41,12 +49,12 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
 
   const onSave = () => {
     onTaskAdd(fieldValue, selectedDate.current);
-    onDateSelect(null as unknown as NullableDate);
+    onDateSelect(null);
     setEditMode(false);
     setFieldValue('');
   };
 
-  const onDateSelect = (date: NullableDate) => {
+  const onDateSelect = (date: Nullable<Date>) => {
     selectedDate.current = date;
   };
 
@@ -63,7 +71,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
         </CustomButton>
       </If>
       <If condition={editMode}>
-        <Box sx={{ marginTop: '1rem' }}>
+        <Box sx={{ marginTop: '1rem', maxWidth: isMobile ? 'initial' : '75%' }}>
           <form onSubmit={onSave}>
             <EditForm
               defaultDate={defaultDate}

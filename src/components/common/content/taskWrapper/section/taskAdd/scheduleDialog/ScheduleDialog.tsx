@@ -4,11 +4,11 @@ import { MenuContent } from './content';
 import DateUtils from '../../../../../../../common/utils/dateUtils';
 import colors from '../../../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
-import { NullableDate } from '../../../../../../../common/types/common.types';
+import { Nullable } from '../../../../../../../common/types/common.types';
 import { If } from '../../../../../utilities/if/If';
 
 type Props = {
-  onDateSelect: (date: NullableDate) => void;
+  onDateSelect: (date: Nullable<Date>) => void;
   defaultDate?: Date;
   className?: string;
   customTitle?: string;
@@ -32,12 +32,12 @@ export const ScheduleDialog: FC<Props> = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [selectedDate, setSelectedDate] = useState<NullableDate>(
-    (defaultDate || null) as unknown as NullableDate
+  const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(
+    defaultDate || null
   );
   const classes = useStyles();
 
-  const onDatePick = (date: NullableDate) => {
+  const onDatePick = (date: Nullable<Date>) => {
     onDateSelect(date);
     setSelectedDate(date);
     handleClose();
@@ -69,9 +69,7 @@ export const ScheduleDialog: FC<Props> = ({
           <If condition={!customTitle}>
             {selectedDate ? DateUtils.getDateLabel(selectedDate) : 'Schedule'}
           </If>
-          <If condition={!!customTitle}>
-            {customTitle}
-          </If>
+          <If condition={!!customTitle}>{customTitle}</If>
         </div>
       </div>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

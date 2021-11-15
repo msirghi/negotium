@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { Box } from '@mui/system';
 import { Checkbox, Divider } from '@mui/material';
 import { ITask } from '../../../../../common/types/tasks.types';
@@ -9,12 +9,12 @@ import colors from '../../../../../common/styles/colors';
 import dayjs from 'dayjs';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { ScheduleDialog } from '../../taskWrapper/section/taskAdd/scheduleDialog/ScheduleDialog';
-import { NullableDate } from '../../../../../common/types/common.types';
+import { Nullable } from '../../../../../common/types/common.types';
 import TaskService from '../../../../../services/TaskService';
 
 type Props = {
   task: ITask;
-  onTaskDateUpdate: (newDate: NullableDate) => void;
+  onTaskDateUpdate: (newDate: Nullable<Date>) => void;
 };
 
 const useStyles = makeStyles(() => ({
@@ -49,10 +49,12 @@ export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
   const { dueDate, id } = task;
   const classes = useStyles();
   const isDateInThePast = DateUtils.isDateInThePast(dueDate);
-  const [selectedDate, setSelectedDate] = useState<NullableDate>(dueDate);
+  const [selectedDate, setSelectedDate] = useState<Nullable<Date>>(
+    dueDate as unknown as Date
+  );
 
-  const onDateSelect = async (dueDate: NullableDate) => {
-    setSelectedDate(dueDate as NullableDate);
+  const onDateSelect = async (dueDate: Nullable<Date>) => {
+    setSelectedDate(dueDate);
     onTaskDateUpdate(dueDate);
     await TaskService.updateTaskDueDate(
       id,
@@ -90,7 +92,7 @@ export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
             <CalendarTodayIcon color={'primary'} fontSize={'small'} />
             <Box className={classes.dateTitle}>
               <ScheduleDialog
-                defaultDate={selectedDate}
+                defaultDate={selectedDate!}
                 onDateSelect={onDateSelect}
                 className={classes.test}
               />

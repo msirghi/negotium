@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { TextField } from '@mui/material';
 import { ScheduleDialog } from '../scheduleDialog/ScheduleDialog';
-import { NullableDate } from '../../../../../../../common/types/common.types';
+import { Nullable } from '../../../../../../../common/types/common.types';
 
 type Props = {
   fieldValue: string;
   setFieldValue: (title: string) => void;
-  onDateSelect: (date: NullableDate) => void;
+  onDateSelect: (date: Nullable<Date>) => void;
   defaultDate?: Date;
 };
 

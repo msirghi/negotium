@@ -4,7 +4,6 @@ import DateAdapter from '@mui/lab/AdapterDayjs';
 import { LocalizationProvider } from '@mui/lab';
 import { MenuContent } from './MenuContent';
 import { ScheduleCalendar } from '../calendar/ScheduleCalendar';
-import { NullableDate } from '../../../../../../../../../common/types/common.types';
 import { act } from '@testing-library/react';
 
 describe('MenuContent', () => {
@@ -34,7 +33,7 @@ describe('MenuContent', () => {
     );
     const calendar = wrapper.find(ScheduleCalendar);
     act(() => {
-      calendar.props().onDatePick(null as unknown as NullableDate);
+      calendar.props().onDatePick(null);
     });
     expect(defaultProps.onDatePick).toBeCalled();
   });

@@ -10,6 +10,7 @@ import { FC, useState } from 'react';
 import { useMediaQuery } from '@mui/material';
 import { SiteWrapperDrawer } from '../drawer/SiteWrapperDrawer';
 import { If } from '../../utilities/if/If';
+import colors from '../../../../common/styles/colors';
 
 const drawerWidth = 240;
 
@@ -33,7 +34,7 @@ export const SiteWrapper: FC = ({ children }) => {
             ml: { sm: `${drawerWidth}px` },
           }}
         >
-          <Toolbar>
+          <Toolbar sx={{ backgroundColor: colors.primaries.lightBlue_1 }}>
             <IconButton
               id="menu-icon"
               color="inherit"
@@ -45,7 +46,7 @@ export const SiteWrapper: FC = ({ children }) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Responsive drawer
+              Negotium
             </Typography>
           </Toolbar>
         </AppBar>
@@ -91,9 +92,9 @@ export const SiteWrapper: FC = ({ children }) => {
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
+          // flexGrow: 1,
           // p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: isMobile ? 'initial' : { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <If condition={isMobile}>

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { NullableDate } from '../types/common.types';
+import { Nullable } from '../types/common.types';
 
-const isTodayDate = (date?: string) => {
+const isTodayDate = (date?: string | null) => {
   if (!date) {
     return false;
   }
@@ -24,11 +24,11 @@ const getWeekDay = (date: Date) => {
   return dayjs(date).format('ddd');
 };
 
-const getDateLabel = (date: NullableDate) => {
+const getDateLabel = (date: Nullable<Date>) => {
   if (!date) {
     return '';
   }
-  const newDate = dayjs(date as unknown as Date);
+  const newDate = dayjs(date);
 
   if (isTodayDate(newDate.format())) {
     return 'Today';
@@ -39,7 +39,7 @@ const getDateLabel = (date: NullableDate) => {
   return newDate.format('D MMM');
 };
 
-const isDateInThePast = (date: string | undefined) => {
+const isDateInThePast = (date: string | null | undefined) => {
   if (!date) {
     return false;
   }

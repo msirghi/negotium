@@ -6,12 +6,12 @@ import DateUtils from '../../../common/utils/dateUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import TaskService from '../../../services/TaskService';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
-import { NullableDate } from '../../../common/types/common.types';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import SortUtils from '../../../common/utils/sortUtils';
 import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
+import {Nullable} from "../../../common/types/common.types";
 
 export const UpcomingContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
@@ -37,7 +37,7 @@ export const UpcomingContainer = () => {
     await TaskUtils.markAsDone(taskId, refetch);
   };
 
-  const onAddTask = async (title: string, date: NullableDate) => {
+  const onAddTask = async (title: string, date: Nullable<Date>) => {
     const newTask = TaskUtils.getNewTaskObject(title, date, tasks.length - 1);
     setTasks((prevState) => [...prevState, newTask as ITask]);
     enqueueSnackbar('Task added', {

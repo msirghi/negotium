@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { PredefinedOptions } from '../predefined/PredefinedOptions';
 import { ScheduleCalendar } from '../calendar/ScheduleCalendar';
 import { CommonDateProps } from '../types';
-import { NullableDate } from '../../../../../../../../../common/types/common.types';
+import {Nullable} from '../../../../../../../../../common/types/common.types';
 
 export const MenuContent: FC<CommonDateProps> = ({
   onDatePick,
   selectedDate,
 }) => {
-  const onDateSelect = (date: NullableDate) => {
+  const onDateSelect = (date: Nullable<Date>) => {
     onDatePick(date);
   };
 

@@ -6,9 +6,25 @@ import { MAIN_MENU_ITEMS } from '../../../../../common/constants/constants';
 import { ListItemTitle } from '../listItemTitle/ListItemTitle';
 import styles from './SiteWrapperMainList.module.scss';
 import { useRouter } from 'next/router';
+import { Box } from '@mui/system';
+import colors from '../../../../../common/styles/colors';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  activeItem: {
+    backgroundColor: colors.primaries.lightBlue_1,
+    color: colors.white,
+    borderRadius: 10,
+    transition: 'all .1s ease-in-out',
+  },
+  activeIcon: {
+    color: colors.white,
+  },
+});
 
 export const SiteWrapperMainList = () => {
   const router = useRouter();
+  const classes = useStyles();
 
   const isActive = (route: string) => {
     return router.route.includes(route.toLowerCase());
@@ -21,18 +37,23 @@ export const SiteWrapperMainList = () => {
   return (
     <List sx={{ padding: 1 }}>
       {MAIN_MENU_ITEMS.map(({ Icon, title, route }) => {
-        const activeItemClassName = isActive(route) ? styles.activeItem : '';
+        const isItemActive = isActive(route);
         return (
-          <ListItem button key={title} onClick={() => onItemClick(route)}>
-            <ListItemIcon>
-              <Icon fontSize={'small'} className={activeItemClassName} />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <ListItemTitle className={activeItemClassName} title={title} />
-              }
-            />
-          </ListItem>
+          <Box
+            key={title}
+            className={isItemActive ? classes.activeItem : ''}
+            sx={{ borderRadius: 15 }}
+          >
+            <ListItem button onClick={() => onItemClick(route)}>
+              <ListItemIcon>
+                <Icon
+                  fontSize={'small'}
+                  className={isItemActive ? classes.activeIcon : ''}
+                />
+              </ListItemIcon>
+              <ListItemText primary={<ListItemTitle title={title} />} />
+            </ListItem>
+          </Box>
         );
       })}
     </List>

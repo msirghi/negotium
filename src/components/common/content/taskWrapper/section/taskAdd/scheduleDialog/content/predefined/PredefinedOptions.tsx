@@ -10,7 +10,6 @@ import PredefinedOptionsUtils from './utils';
 import DateUtils from '../../../../../../../../../common/utils/dateUtils';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { CommonDateProps } from '../types';
-import { NullableDate } from '../../../../../../../../../common/types/common.types';
 import dayjs from 'dayjs';
 
 const iconItems: IPredefinedOption[] = [
@@ -74,7 +73,7 @@ export const PredefinedOptions: FC<CommonDateProps> = ({
               }}
               key={code}
               className={classes.row}
-              onClick={() => onDatePick(date as unknown as NullableDate)}
+              onClick={() => onDatePick(date)}
             >
               <Row alignVerticalCenter fullWidth>
                 <Icon color={'primary'} fontSize={'small'} />
@@ -89,7 +88,7 @@ export const PredefinedOptions: FC<CommonDateProps> = ({
         {selectedDate && (
           <ListItem
             className={classes.row}
-            onClick={() => onDatePick(null as unknown as NullableDate)}
+            onClick={() => onDatePick(null)}
           >
             <Row alignVerticalCenter>
               <RotateLeftIcon />

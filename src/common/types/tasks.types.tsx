@@ -1,9 +1,11 @@
+import {Nullable} from "./common.types";
+
 export type ITask = {
   id: string;
   title: string;
   createdDate: string;
   completed: boolean;
-  dueDate?: string;
+  dueDate?: Nullable<string>;
   orderNumber?: number;
 };
 

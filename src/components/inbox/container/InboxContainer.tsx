@@ -5,7 +5,6 @@ import { ITask } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
-import { NullableDate } from '../../../common/types/common.types';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
@@ -13,12 +12,15 @@ import SortUtils from '../../../common/utils/sortUtils';
 import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
+import { useMediaQuery } from '@mui/material';
+import { Nullable } from '../../../common/types/common.types';
 
 export const InboxContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { enqueueSnackbar } = useSnackbar();
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     if (data) {
@@ -26,7 +28,7 @@ export const InboxContainer = () => {
     }
   }, [data]);
 
-  const onAddTask = async (title: string, date: NullableDate) => {
+  const onAddTask = async (title: string, date: Nullable<Date>) => {
     const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
@@ -60,13 +62,15 @@ export const InboxContainer = () => {
     setSelectedTask(task);
   };
 
+  const deselectTask = () => setSelectedTask(null);
+
   if (isLoading || !data) {
     return <TaskSkeleton />;
   }
 
   return (
     <Row fullWidth>
-      <div style={{ width: '50%', padding: 20 }}>
+      <div style={{ width: isMobile ? '100%' : '50%', padding: 20 }}>
         <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
           {SortUtils.sortByDate(tasks)
             .filter((task) => !task.completed)
@@ -83,6 +87,7 @@ export const InboxContainer = () => {
       </div>
       <SelectedTaskSection
         key={selectedTask ? selectedTask.id : ''}
+        deselectTask={deselectTask}
         task={selectedTask}
         onTaskUpdate={onTaskUpdate}
       />

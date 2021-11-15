@@ -6,13 +6,12 @@ import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/
 import TaskService from '../../../services/TaskService';
 import { ITask } from '../../../common/types/tasks.types';
 import { useEffect, useRef, useState } from 'react';
-import { NullableDate } from '../../../common/types/common.types';
 import dayjs from 'dayjs';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import { useSnackbar } from 'notistack';
-import { CircularProgress } from '@mui/material';
 import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
+import {Nullable} from "../../../common/types/common.types";
 
 export const TodayContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
@@ -34,7 +33,7 @@ export const TodayContainer = () => {
     await TaskService.markTaskAsDone(taskId);
   };
 
-  const onTaskAdd = async (title: string, date: NullableDate) => {
+  const onTaskAdd = async (title: string, date: Nullable<Date>) => {
     const task: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,

@@ -1,6 +1,5 @@
 import DateUtils from '../dateUtils';
 import dayjs from 'dayjs';
-import { NullableDate } from '../../types/common.types';
 
 describe('Date Utils', () => {
   describe('isTodayDate', () => {
@@ -36,28 +35,22 @@ describe('Date Utils', () => {
 
   describe('getDateLabel', () => {
     it('should return empty string if null is provided', () => {
-      const result = DateUtils.getDateLabel(null as unknown as NullableDate);
+      const result = DateUtils.getDateLabel(null);
       expect(result).toEqual('');
     });
 
     it('should return today label', () => {
-      const result = DateUtils.getDateLabel(
-        dayjs().toDate() as unknown as NullableDate
-      );
+      const result = DateUtils.getDateLabel(dayjs().toDate());
       expect(result).toEqual('Today');
     });
 
     xit('should return tomorrow label', () => {
-      const result = DateUtils.getDateLabel(
-        dayjs().add(-2, 'day').toDate() as unknown as NullableDate
-      );
+      const result = DateUtils.getDateLabel(dayjs().add(-2, 'day').toDate());
       expect(result).toEqual('Tomorrow');
     });
 
     it('should return date label', () => {
-      const result = DateUtils.getDateLabel(
-        dayjs().add(2, 'day').toDate() as unknown as NullableDate
-      );
+      const result = DateUtils.getDateLabel(dayjs().add(2, 'day').toDate());
       expect(result.length > 3).toBeTruthy();
     });
   });

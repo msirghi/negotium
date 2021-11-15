@@ -1,6 +1,6 @@
-import { NullableDate } from '../../../../../../../../common/types/common.types';
+import { Nullable } from '../../../../../../../../common/types/common.types';
 
 export type CommonDateProps = {
-  onDatePick: (date: NullableDate) => void;
-  selectedDate: NullableDate;
+  onDatePick: (date: Nullable<Date>) => void;
+  selectedDate: Nullable<Date>;
 };

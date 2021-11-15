@@ -4,7 +4,6 @@ import { LocalizationProvider } from '@mui/lab';
 import { ScheduleDialog } from './ScheduleDialog';
 import { MenuContent } from './content';
 import { act } from '@testing-library/react';
-import { NullableDate } from '../../../../../../../common/types/common.types';
 import { Menu } from '@mui/material';
 
 describe('ScheduleDialog', () => {
@@ -41,7 +40,7 @@ describe('ScheduleDialog', () => {
 
     const content = wrapper.find(MenuContent);
     act(() => {
-      content.props().onDatePick(new Date() as unknown as NullableDate);
+      content.props().onDatePick(new Date());
     });
 
     wrapper.update();

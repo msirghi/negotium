@@ -2,14 +2,13 @@ import { CommonDateProps } from '../types';
 import { mount } from 'enzyme';
 import { PredefinedOptions } from './PredefinedOptions';
 import { ListItem } from '@mui/material';
-import { NullableDate } from '../../../../../../../../../common/types/common.types';
 import { act } from '@testing-library/react';
 
 describe('PredefinedOptions', () => {
   const defaultProps = {
     onDatePick: jest.fn(),
     selectedDate: null,
-  } as unknown as CommonDateProps;
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -22,10 +21,7 @@ describe('PredefinedOptions', () => {
 
   it('should render 3 list items is selected date is defined', () => {
     const wrapper = mount(
-      <PredefinedOptions
-        {...defaultProps}
-        selectedDate={new Date() as unknown as NullableDate}
-      />
+      <PredefinedOptions {...defaultProps} selectedDate={new Date()} />
     );
     expect(wrapper.find(ListItem)).toHaveLength(3);
   });
@@ -41,10 +37,7 @@ describe('PredefinedOptions', () => {
 
   it('should call prop method on no-date item click', () => {
     const wrapper = mount(
-      <PredefinedOptions
-        {...defaultProps}
-        selectedDate={new Date() as unknown as NullableDate}
-      />
+      <PredefinedOptions {...defaultProps} selectedDate={new Date()} />
     );
     const item = wrapper.find(ListItem).at(2);
     act(() => {
