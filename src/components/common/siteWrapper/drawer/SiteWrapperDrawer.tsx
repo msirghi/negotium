@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: (isMobile) => (isMobile ? 0 : 8),
+    marginTop: (isMobile) => (isMobile ? 0 : 60),
   },
 });
 
