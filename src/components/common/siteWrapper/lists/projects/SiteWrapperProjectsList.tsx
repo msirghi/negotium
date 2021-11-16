@@ -13,6 +13,8 @@ import ProjectService from '../../../../../services/ProjectService';
 import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
 import colors from '../../../../../common/styles/colors';
+import { useDispatch } from 'react-redux';
+import { setProjectsList } from '../../../../../redux/projects/projectsSlice';
 
 const useStyles = makeStyles({
   activeItem: {
@@ -35,10 +37,12 @@ export const SiteWrapperProjectsList = () => {
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
   const router = useRouter();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (data) {
       setProjects(data);
+      dispatch(setProjectsList(data));
     }
   }, [data]);
 
