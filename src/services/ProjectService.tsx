@@ -9,8 +9,16 @@ const addProject = (project: Omit<IProject, 'id'>) => {
   });
 };
 
+const getProjectById = (projectId: IProject['id']) => {
+  return Requests.restApiCall(
+    `${BASE_API_URL}/projects/${projectId}`,
+    HttpMethod.GET
+  );
+};
+
 const ProjectService = {
   addProject,
+  getProjectById,
 };
 
 export default ProjectService;

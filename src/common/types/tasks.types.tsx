@@ -7,6 +7,7 @@ export type ITask = {
   completed: boolean;
   dueDate?: Nullable<string>;
   orderNumber?: number;
+  projectId?: string;
 };
 
 export type ISection = {

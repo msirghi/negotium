@@ -2,7 +2,7 @@ import { ITask } from '../../../../../common/types/tasks.types';
 import { FC, useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import { Divider, SwipeableDrawer, useMediaQuery } from '@mui/material';
+import { Divider, SwipeableDrawer } from '@mui/material';
 import { TaskSectionHeader } from '../header/TaskSectionHeader';
 import { TaskSectionContent } from '../content/TaskSectionContent';
 import { Row } from '../../../utilities/row/Row';
@@ -11,9 +11,10 @@ import { NotSelectedSection } from '../notSelected/NotSelectedSection';
 import colors from '../../../../../common/styles/colors';
 import { Nullable } from '../../../../../common/types/common.types';
 import dayjs from 'dayjs';
+import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
 
 type Props = {
-  task: ITask | null;
+  task: Nullable<ITask>;
   onTaskUpdate: (task: ITask) => void;
   deselectTask: () => void;
 };
@@ -36,7 +37,7 @@ export const SelectedTaskSection: FC<Props> = ({
   deselectTask,
 }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useIsMobile();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {

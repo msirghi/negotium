@@ -1,10 +1,11 @@
-import { Box, Button, ButtonProps, styled, useMediaQuery } from '@mui/material';
+import { Box, Button, ButtonProps, styled } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { FC, MutableRefObject, useRef, useState } from 'react';
 import { If } from '../../../../utilities/if/If';
 import { EditForm } from './editForm/EditForm';
 import { makeStyles } from '@mui/styles';
 import { Nullable } from '../../../../../../common/types/common.types';
+import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
@@ -29,7 +30,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   const selectedDate = useRef<Nullable<Date>>(
     defaultDate || null
   ) as MutableRefObject<Nullable<Date>>;
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useIsMobile();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);

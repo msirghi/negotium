@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { SiteWrapperListOptions } from './types';
 import { Row } from '../../../utilities/row/Row';
 import AddIcon from '@mui/icons-material/Add';
+import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
 
 type Props = {
   title?: string;
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
     marginLeft: 'auto',
     marginRight: 12,
     marginBottom: 2,
-    opacity: 0,
+    opacity: (isMobile) => (isMobile ? 1 : 0),
     transition: '.2s opacity ease-in-out',
     '&:hover': {
       opacity: 1,
@@ -33,7 +34,8 @@ const useStyles = makeStyles({
 });
 
 export const SiteWrapperList: FC<Props> = ({ children, title, options }) => {
-  const classes = useStyles();
+  const isMobile = useIsMobile();
+  const classes = useStyles(isMobile);
 
   return (
     <div>

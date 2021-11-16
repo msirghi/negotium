@@ -11,96 +11,113 @@ import { useMediaQuery } from '@mui/material';
 import { SiteWrapperDrawer } from '../drawer/SiteWrapperDrawer';
 import { If } from '../../utilities/if/If';
 import colors from '../../../../common/styles/colors';
+import { makeStyles } from '@mui/styles';
+import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
+import { HeaderSearch } from '../search/HeaderSearch';
+import { Row } from '../../utilities/row/Row';
 
 const drawerWidth = 240;
 
+const useStyles = makeStyles({
+  appBar: {
+    minHeight: 50,
+    backgroundColor: colors.greys['900'],
+  },
+});
+
 export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useIsMobile();
+  const classes = useStyles();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-
-      <If condition={isMobile}>
-        <AppBar
-          position="fixed"
-          sx={{
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            ml: { sm: `${drawerWidth}px` },
-          }}
-        >
-          <Toolbar sx={{ backgroundColor: colors.primaries.lightBlue_1 }}>
-            <IconButton
-              id="menu-icon"
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
+    <Box>
+      <AppBar
+        position="fixed"
+        sx={{
+          ml: { sm: `${drawerWidth}px` },
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+      >
+        <Toolbar className={classes.appBar}>
+          <IconButton
+            id="menu-icon"
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Row alignVerticalCenter>
             <Typography variant="h6" noWrap component="div">
               Negotium
             </Typography>
-          </Toolbar>
-        </AppBar>
-      </If>
-
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        <Drawer
-          id="drawer"
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
+            <HeaderSearch />
+          </Row>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ display: 'flex', marginTop: isMobile ? 0 : 6 }}>
+        <CssBaseline />
+        <Box
+          component="nav"
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+            width: { sm: drawerWidth },
+            flexShrink: { sm: 0 },
+          }}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            id="drawer"
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              zIndex: 111111,
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+          >
+            <SiteWrapperDrawer />
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            <SiteWrapperDrawer />
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            width: isMobile
+              ? 'initial'
+              : { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
-          <SiteWrapperDrawer />
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          <SiteWrapperDrawer />
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          // flexGrow: 1,
-          // p: 3,
-          width: isMobile ? 'initial' : { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <If condition={isMobile}>
-          <Toolbar />
-        </If>
-        {children}
+          <If condition={isMobile}>
+            <Toolbar />
+          </If>
+          {children}
+        </Box>
       </Box>
     </Box>
   );

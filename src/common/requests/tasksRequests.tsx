@@ -13,7 +13,15 @@ async function fetchTasksGroupedBySection() {
   return data as IGetTasksWithSectionResponse['data'];
 }
 
+async function fetchTasksByProject(projectId: string) {
+  const { data } = await axios.get(
+    `${BASE_API_URL}/tasks?projectId=${projectId}`
+  );
+  return data as IGetTasksResponse['tasks'];
+}
+
 export const tasksRequests = {
   fetchTasks,
-  fetchTasksGroupedBySection
+  fetchTasksGroupedBySection,
+  fetchTasksByProject
 };

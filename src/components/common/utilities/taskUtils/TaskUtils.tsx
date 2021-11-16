@@ -6,7 +6,8 @@ import TaskService from '../../../../services/TaskService';
 const getNewTaskObject = (
   title: string,
   date: Nullable<Date>,
-  orderNumber: number
+  orderNumber: number,
+  projectId?: string
 ) => {
   const newTask: Omit<ITask, 'id'> = {
     title,
@@ -14,6 +15,7 @@ const getNewTaskObject = (
     createdDate: dayjs().format(),
     dueDate: date ? dayjs(date).format() : null,
     completed: false,
+    projectId
   };
   return newTask;
 };

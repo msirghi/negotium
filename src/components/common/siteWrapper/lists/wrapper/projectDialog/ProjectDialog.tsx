@@ -6,10 +6,10 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  useMediaQuery,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
+import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 
 type Props = {
   onSubmit: (title: string) => void;
@@ -37,7 +37,7 @@ export const ProjectDialog: FC<Props> = ({
   dialogTitle,
   onSubmit,
 }) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useIsMobile();
   const classes = useStyles(isMobile);
 
   const [name, setName] = useState('');
