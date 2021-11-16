@@ -7,6 +7,10 @@
     {
       "id": "uuid-2",
       "name": "Project 2"
+    },
+    {
+      "name": "New project",
+      "id": "qHr6a4z"
     }
   ],
   "tasks": [
@@ -201,6 +205,14 @@
       "dueDate": "2021-11-14T00:00:00+00:00",
       "completed": true,
       "id": "4sjH2In"
+    },
+    {
+      "title": "task for today",
+      "orderNumber": 23,
+      "createdDate": "2021-11-16T09:34:37+00:00",
+      "dueDate": "2021-11-16T00:00:00+00:00",
+      "completed": false,
+      "id": "FMECWAF"
     }
   ],
   "tasksWithSections": [

@@ -54,4 +54,16 @@ describe('Date Utils', () => {
       expect(result.length > 3).toBeTruthy();
     });
   });
+
+  describe('isDateInThePast', () => {
+    it('should return false if nothing was provided', () => {
+      const result = DateUtils.isDateInThePast(null);
+      expect(result).toBeFalsy();
+    });
+
+    it('should return true if the date is in the past', () => {
+      const result = DateUtils.isDateInThePast(dayjs().add(-1, 'day').format());
+      expect(result).toBeTruthy();
+    });
+  });
 });

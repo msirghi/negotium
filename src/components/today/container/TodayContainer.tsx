@@ -11,13 +11,17 @@ import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import { useSnackbar } from 'notistack';
 import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
-import {Nullable} from "../../../common/types/common.types";
+import { Nullable } from '../../../common/types/common.types';
+import { ContentBox } from '../../common/boxes/content/ContentBox';
+import { Row } from '../../common/utilities/row/Row';
+import { SelectedTaskSection } from '../../common/content/selectedTask';
 
 export const TodayContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const defaultDay = useRef(dayjs().toDate());
   const { enqueueSnackbar } = useSnackbar();
+  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
   useEffect(() => {
     if (data) {
@@ -47,23 +51,53 @@ export const TodayContainer = () => {
     await refetch();
   };
 
+  const updateTaskHandler = (updatedTask: ITask) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+    setTasks([...updatedTasks]);
+  };
+
+  const onTaskSelect = (task: ITask) => {
+    setSelectedTask(task);
+  };
+
+  const deselectTask = () => setSelectedTask(null);
+
   if (isLoading || !data) {
     return <TaskSkeleton />;
   }
 
   return (
-    <div>
-      <TaskWrapper title={'Today'} upperHeaderTitle={'Today'}>
-        {tasks
-          .filter(
-            ({ dueDate, completed }) =>
-              DateUtils.isTodayDate(dueDate) && !completed
-          )
-          .map((task) => (
-            <TaskItem key={task.id} task={task} markAsDone={onMarkAsDone} />
-          ))}
-        <TaskAddButton onTaskAdd={onTaskAdd} defaultDate={defaultDay.current} />
-      </TaskWrapper>
-    </div>
+    <Row fullWidth>
+      <ContentBox>
+        <TaskWrapper title={'Today'} upperHeaderTitle={'Today'}>
+          {tasks
+            .filter(
+              ({ dueDate, completed }) =>
+                DateUtils.isTodayDate(dueDate) && !completed
+            )
+            .map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                markAsDone={onMarkAsDone}
+                onTaskSelect={onTaskSelect}
+              />
+            ))}
+          <TaskAddButton
+            onTaskAdd={onTaskAdd}
+            defaultDate={defaultDay.current}
+          />
+        </TaskWrapper>
+      </ContentBox>
+
+      <SelectedTaskSection
+        key={selectedTask ? selectedTask.id : ''}
+        deselectTask={deselectTask}
+        task={selectedTask}
+        onTaskUpdate={updateTaskHandler}
+      />
+    </Row>
   );
 };

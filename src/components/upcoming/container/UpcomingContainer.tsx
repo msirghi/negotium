@@ -12,6 +12,7 @@ import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import SortUtils from '../../../common/utils/sortUtils';
 import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import {Nullable} from "../../../common/types/common.types";
+import {ContentBox} from "../../common/boxes/content/ContentBox";
 
 export const UpcomingContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
@@ -52,13 +53,13 @@ export const UpcomingContainer = () => {
   }
 
   return (
-    <div>
+    <ContentBox>
       <TaskWrapper title={'Upcoming'} upperHeaderTitle={'Upcoming'}>
         {SortUtils.sortByDate(tasks).map((task) => (
           <TaskItem key={task.id} task={task} markAsDone={markAsDone} />
         ))}
         <TaskAddButton onTaskAdd={onAddTask} />
       </TaskWrapper>
-    </div>
+    </ContentBox>
   );
 };

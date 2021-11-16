@@ -12,15 +12,14 @@ import SortUtils from '../../../common/utils/sortUtils';
 import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
-import { useMediaQuery } from '@mui/material';
 import { Nullable } from '../../../common/types/common.types';
+import { ContentBox } from '../../common/boxes/content/ContentBox';
 
 export const InboxContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { enqueueSnackbar } = useSnackbar();
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
-  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     if (data) {
@@ -70,7 +69,7 @@ export const InboxContainer = () => {
 
   return (
     <Row fullWidth>
-      <div style={{ width: isMobile ? '100%' : '50%', padding: 20 }}>
+      <ContentBox>
         <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
           {SortUtils.sortByDate(tasks)
             .filter((task) => !task.completed)
@@ -84,7 +83,7 @@ export const InboxContainer = () => {
             ))}
           <TaskAddButton onTaskAdd={onAddTask} />
         </TaskWrapper>
-      </div>
+      </ContentBox>
       <SelectedTaskSection
         key={selectedTask ? selectedTask.id : ''}
         deselectTask={deselectTask}
