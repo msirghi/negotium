@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskSkeleton should match the snapshot 1`] = `
+<div
+  className="MuiBox-root css-0"
+>
+  <span
+    className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse css-1n7gpw1-MuiSkeleton-root"
+    style={
+      Object {
+        "height": 40,
+        "width": 100,
+      }
+    }
+  />
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": 28,
+        }
+      }
+    />
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave makeStyles-rowItem-2 css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": 28,
+        }
+      }
+    />
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave makeStyles-rowItem-2 css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": 28,
+        }
+      }
+    />
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave makeStyles-rowItem-2 css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": 28,
+        }
+      }
+    />
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave makeStyles-rowItem-2 css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": 28,
+        }
+      }
+    />
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave makeStyles-rowItem-2 css-1dk1h2u-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 40,
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+</div>
+`;

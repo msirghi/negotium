@@ -51,6 +51,9 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
         value={titleValue}
         onChange={(e) => onTitleChange(e.target.value)}
         variant={'standard'}
+        inputProps={{
+          'data-testid': 'title-input',
+        }}
         InputProps={{
           disableUnderline: true,
           style: { fontWeight: 'bold', fontSize: 18 },
@@ -62,7 +65,6 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
         value={descriptionValue}
         multiline
         rows={4}
-        onChange={(e) => setTitleValue(e.target.value)}
         variant={'standard'}
         InputProps={{ disableUnderline: true }}
       />

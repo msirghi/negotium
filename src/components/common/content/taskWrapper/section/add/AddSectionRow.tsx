@@ -29,7 +29,7 @@ export const AddSectionRow: FC<Props> = ({ onSectionSave }) => {
   return (
     <div>
       <If condition={!editMode}>
-        <div className={styles.adrTitleContainer} onClick={onTitleClick}>
+        <div className={styles.adrTitleContainer} onClick={onTitleClick} data-testid={'title'}>
           <span className={styles.adrTitle}>Add section</span>
         </div>
       </If>
@@ -39,19 +39,21 @@ export const AddSectionRow: FC<Props> = ({ onSectionSave }) => {
           fullWidth
           size={'small'}
           placeholder={'Name this section'}
+          inputProps={{'data-testid': 'section-name-field'}}
           sx={{ marginTop: '1rem' }}
         />
         <Row className={styles.buttonRow}>
           <Button
             onClick={onSave}
             disabled={!fieldValue}
+            data-testid={'save-button'}
             color={'primary'}
             variant={'contained'}
             size={'small'}
           >
             Add section
           </Button>
-          <Button onClick={onCancelClick} size={'small'}>
+          <Button onClick={onCancelClick} size={'small'} data-testid={'cancel-button'}>
             Cancel
           </Button>
         </Row>

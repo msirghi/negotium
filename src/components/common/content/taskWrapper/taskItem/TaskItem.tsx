@@ -22,8 +22,7 @@ const useStyles = makeStyles({
 export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
   const { title, dueDate } = task;
   const classes = useStyles();
-
-  const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate);
+  const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate!);
 
   return (
     <Row

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditForm should match the snapshot 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+  >
+    <div
+      className="MuiInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall css-1pa58rh-MuiInputBase-root-MuiInput-root"
+      onClick={[Function]}
+    >
+      <input
+        aria-invalid={false}
+        autoFocus={false}
+        className="MuiInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-nz481w-MuiInputBase-input-MuiInput-input"
+        data-testid="tab-title-field"
+        disabled={false}
+        onAnimationStart={[Function]}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="New task"
+        required={false}
+        type="text"
+        value="val"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="makeStyles-root-2"
+      id="schedule-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid lightgrey",
+          "color": "",
+        }
+      }
+    >
+      <div>
+        Schedule
+      </div>
+    </div>
+  </div>
+</div>
+`;

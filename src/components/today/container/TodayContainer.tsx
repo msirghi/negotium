@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import { useSnackbar } from 'notistack';
-import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
+import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import {Nullable} from "../../../common/types/common.types";
 
 export const TodayContainer = () => {

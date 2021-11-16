@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
   dateTitle: {
     marginLeft: 10,
   },
-  test: {
+  scheduleDialog: {
     padding: 5,
     borderRadius: 5,
   },
@@ -61,16 +61,6 @@ export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
       dayjs(dueDate as unknown as Date).format()
     );
   };
-
-  // let title = '';
-  //
-  // if (selectedDate && !DateUtils.isTodayDate(dueDate)) {
-  //   title = isDateInThePast
-  //     ? `${DateUtils.getDateDifference(dueDate!)} day(s) ago, ${dayjs(
-  //         dueDate
-  //       ).format('DD.MM.YYYY')}`
-  //     : dayjs(dueDate).format('DD.MM.YYYY');
-  // }
 
   return (
     <Box
@@ -94,7 +84,7 @@ export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
               <ScheduleDialog
                 defaultDate={selectedDate!}
                 onDateSelect={onDateSelect}
-                className={classes.test}
+                className={classes.scheduleDialog}
               />
             </Box>
           </Row>

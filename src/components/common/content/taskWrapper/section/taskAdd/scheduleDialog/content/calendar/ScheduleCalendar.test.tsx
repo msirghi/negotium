@@ -29,6 +29,7 @@ describe('ScheduleCalendar', () => {
       </LocalizationProvider>
     );
     const calendar = wrapper.find(StaticDatePicker);
+    calendar.props().renderInput();
 
     act(() => {
       calendar.props().onChange(new Date());

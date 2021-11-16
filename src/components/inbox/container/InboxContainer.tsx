@@ -9,7 +9,7 @@ import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import SortUtils from '../../../common/utils/sortUtils';
-import { TaskSkeleton } from '../../common/spinners/taskSkeleton/TaskSkeleton';
+import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { useMediaQuery } from '@mui/material';
