@@ -26,4 +26,13 @@ describe('tasksRequests', () => {
       };
     expect(data.data.tasks).toEqual([]);
   });
+
+  it('should fetch tasks by project', async () => {
+    const data = (await tasksRequests.fetchTasksByProject(
+      'project'
+    )) as unknown as {
+      data: IGetTasksResponse;
+    };
+    expect(data.data.tasks).toEqual([]);
+  });
 });

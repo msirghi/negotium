@@ -23,8 +23,7 @@ const useStyles = makeStyles({
     padding: '5px 0',
   },
   input: {
-    // @ts-ignore
-    minWidth: (isMobile: boolean) => (isMobile ? '100%' : 400),
+    minWidth: (isMobile) => (isMobile ? '100%' : 400),
   },
   buttons: {
     marginTop: 10,
@@ -62,17 +61,19 @@ export const ProjectDialog: FC<Props> = ({
             className={classes.input}
             size={'small'}
             label={'Name'}
+            inputProps={{'data-testid': 'name-field'}}
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
         </Box>
 
         <DialogActions className={classes.buttons}>
-          <Button fullWidth={isMobile} onClick={handleClose}>
+          <Button fullWidth={isMobile} onClick={handleClose} data-testid={'cancel-button'}>
             Cancel
           </Button>
           <Button
             variant={'contained'}
+            data-testid={'save-button'}
             fullWidth={isMobile}
             disabled={!name}
             onClick={onSave}
