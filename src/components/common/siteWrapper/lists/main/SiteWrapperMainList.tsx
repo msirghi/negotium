@@ -44,7 +44,11 @@ export const SiteWrapperMainList = () => {
             className={isItemActive ? classes.activeItem : ''}
             sx={{ borderRadius: 15 }}
           >
-            <ListItem button onClick={() => onItemClick(route)}>
+            <ListItem
+              button
+              onClick={() => onItemClick(route)}
+              sx={{ borderRadius: 5 }}
+            >
               <ListItemIcon>
                 <Icon
                   fontSize={'small'}

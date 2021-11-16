@@ -3,6 +3,8 @@ import { PageTitle } from '../../pageTitle/PageTitle';
 import { TaskWrapperTitleOptions } from '../../types';
 import { Tab, Tabs } from '@mui/material';
 import { AddSectionRow } from '../section/add/AddSectionRow';
+import { SettingsOptions } from '../../pageTitle/types';
+import SmoothList from 'react-smooth-list';
 
 type Props = {
   title: string;
@@ -10,7 +12,7 @@ type Props = {
   editableOptions?: TaskWrapperTitleOptions;
   onSectionAdd?: (title: string, orderNumber: number) => void;
   showSections?: boolean;
-};
+} & SettingsOptions;
 
 export const TaskWrapper: FC<Props> = ({
   title,
@@ -34,7 +36,7 @@ export const TaskWrapper: FC<Props> = ({
       </Tabs>
 
       <div role={'tabpanel'} style={{ marginTop: '1rem' }}>
-        {children}{' '}
+        <SmoothList>{children}</SmoothList>
       </div>
 
       {showSections && (

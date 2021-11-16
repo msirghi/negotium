@@ -3,7 +3,18 @@ import { SiteWrapperProjectsList } from './SiteWrapperProjectsList';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../../common/tests/mockData/projects-mock';
-import { IGetProjectResponse } from '../../../../../common/requests/types';
+import { MockReduxProvider } from '../../../../../common/tests/TestUtils';
+
+const mockProjects = [...projectsMock];
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'inbox',
+    query: {
+      id: mockProjects[0].id,
+    },
+  }),
+}));
 
 describe('SiteWrapperProjectsList', () => {
   const queryClient = new QueryClient();
@@ -19,9 +30,11 @@ describe('SiteWrapperProjectsList', () => {
     );
 
     const { getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <SiteWrapperProjectsList />
-      </QueryClientProvider>
+      <MockReduxProvider reduxStore={{}}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapperProjectsList />
+        </QueryClientProvider>
+      </MockReduxProvider>
     );
 
     await waitFor(() => {

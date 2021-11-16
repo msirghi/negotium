@@ -91,7 +91,10 @@ export const ProjectContainer = () => {
     <div>
       <Row fullWidth>
         <ContentBox>
-          <TaskWrapper title={selectedProject.name} upperHeaderTitle={'Projects'}>
+          <TaskWrapper
+            title={selectedProject.name}
+            upperHeaderTitle={'Projects'}
+          >
             {SortUtils.sortByDate(tasks)
               .filter(({ completed }) => !completed)
               .map((task) => {

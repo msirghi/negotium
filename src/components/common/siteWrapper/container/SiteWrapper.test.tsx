@@ -2,13 +2,19 @@ import { SiteWrapper } from './SiteWrapper';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
-import { IGetProjectResponse } from '../../../../common/requests/types';
 import { mount } from 'enzyme';
-import TestUtils from '../../../../common/tests/TestUtils';
+import TestUtils, {
+  MockReduxProvider,
+} from '../../../../common/tests/TestUtils';
+
+const mockProjects = [...projectsMock];
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
     route: 'inbox',
+    query: {
+      id: mockProjects[0].id,
+    },
   }),
 }));
 
@@ -27,11 +33,13 @@ describe('SiteWrapper', () => {
 
   it('should render children', () => {
     const wrapper = mount(
-      <QueryClientProvider client={queryClient}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </QueryClientProvider>
+      <MockReduxProvider reduxStore={{}}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </QueryClientProvider>
+      </MockReduxProvider>
     );
     expect(wrapper.find('#content')).toHaveLength(1);
   });
@@ -39,11 +47,13 @@ describe('SiteWrapper', () => {
   it('should handle drawer status on open drawer button click', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
     const wrapper = mount(
-      <QueryClientProvider client={queryClient}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </QueryClientProvider>
+      <MockReduxProvider reduxStore={{}}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </QueryClientProvider>
+      </MockReduxProvider>
     );
     wrapper.update();
     const button = wrapper.find('#menu-icon').at(0);
