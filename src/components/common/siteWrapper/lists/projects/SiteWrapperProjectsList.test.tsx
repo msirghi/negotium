@@ -25,13 +25,18 @@ jest.mock('next/router', () => ({
 
 describe('SiteWrapperProjectsList', () => {
   const queryClient = new QueryClient();
+  const reduxStore = {
+    projects: {
+      projects: [...projectsMock]
+    }
+  }
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   const renderComponent = () => (
-    <MockReduxProvider reduxStore={{}}>
+    <MockReduxProvider reduxStore={reduxStore}>
       <QueryClientProvider client={queryClient}>
         <SiteWrapperProjectsList />
       </QueryClientProvider>

@@ -16,9 +16,29 @@ const getProjectById = (projectId: IProject['id']) => {
   );
 };
 
+const updateProjectName = (
+  projectId: IProject['id'],
+  name: IProject['name']
+) => {
+  return Requests.restApiCall(
+    `${BASE_API_URL}/projects/${projectId}`,
+    HttpMethod.PATCH,
+    { name }
+  );
+};
+
+const deleteProjectById = (projectId: IProject['id']) => {
+  return Requests.restApiCall(
+    `${BASE_API_URL}/projects/${projectId}`,
+    HttpMethod.DELETE
+  );
+};
+
 const ProjectService = {
   addProject,
   getProjectById,
+  updateProjectName,
+  deleteProjectById
 };
 
 export default ProjectService;

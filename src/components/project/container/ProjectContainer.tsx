@@ -15,12 +15,14 @@ import { Nullable } from '../../../common/types/common.types';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import TaskService from '../../../services/TaskService';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
+import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
 
 export const ProjectContainer = () => {
   const router = useRouter();
   const projectId = useRef<string>(router.query.id as string);
   const [selectedProject, setSelectedProjects] = useState<IProject>();
   const projects = useSelector((state: RootState) => state.projects.projects);
+  const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [tasks, setTasks] = useState<ITask[]>();
   const {
     data: taskData,
@@ -50,9 +52,12 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     if (projects) {
-      setSelectedProjects(projects.find((p) => p.id === router.query.id));
+      setSelectedProjects(projects.find((p) => String(p.id) === String(router.query.id)));
     }
   }, [projects, router.query.id]);
+
+  const toggleProjectDialog = () =>
+    setProjectDialogOpened(!isProjectDialogOpened);
 
   if (!selectedProject || loadingTasks || !tasks) {
     return <div />;
@@ -84,16 +89,27 @@ export const ProjectContainer = () => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? updatedTask : task
     );
+
     setTasks([...updatedTasks]);
   };
 
   return (
-    <div>
+    <div key={selectedProject.id}>
+      <ProjectDialogWrapper
+        project={selectedProject}
+        open={isProjectDialogOpened}
+        setOpen={setProjectDialogOpened}
+      />
       <Row fullWidth>
         <ContentBox>
           <TaskWrapper
+            projectOptions={{
+              show: true,
+              onClick: () => {},
+            }}
             title={selectedProject.name}
             upperHeaderTitle={'Projects'}
+            settingsOptions={{ onClick: toggleProjectDialog }}
           >
             {SortUtils.sortByDate(tasks)
               .filter(({ completed }) => !completed)
@@ -101,7 +117,7 @@ export const ProjectContainer = () => {
                 return (
                   <TaskItem
                     task={task}
-                    key={task.id}
+                    key={`${task.id} ${task.title}`}
                     markAsDone={markAsDone}
                     onTaskSelect={selectTask}
                   />

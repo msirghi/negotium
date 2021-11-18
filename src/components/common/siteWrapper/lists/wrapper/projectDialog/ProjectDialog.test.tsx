@@ -3,6 +3,7 @@ import { ProjectDialog } from './ProjectDialog';
 import { mount } from 'enzyme';
 import { Dialog } from '@mui/material';
 import { act, fireEvent, render } from '@testing-library/react';
+import {projectsMock} from "../../../../../../common/tests/mockData/projects-mock";
 
 describe('ProjectDialog', () => {
   const defaultProps = {
@@ -30,6 +31,12 @@ describe('ProjectDialog', () => {
     });
     wrapper.update();
     expect(defaultProps.setOpen).toBeCalled();
+  });
+
+  it('should set selected project if provided', () => {
+    const wrapper = mount(<ProjectDialog {...defaultProps} selectedProject={projectsMock[0]} />);
+    wrapper.update();
+    expect(wrapper.find(Dialog)).toHaveLength(1);
   });
 
   it('should render disabled save button by default', () => {

@@ -93,7 +93,7 @@ exports[`TaskSectionHeader should match the snapshot 1`] = `
               }
             >
               <div>
-                12 Nov
+                11 Nov
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@ exports[`TaskSectionHeader should match the snapshot with date not in the past 1
               }
             >
               <div>
-                12 Nov
+                11 Nov
               </div>
             </div>
           </div>

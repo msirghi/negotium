@@ -22,6 +22,7 @@ const useStyles = makeStyles({
   appBar: {
     minHeight: 50,
     backgroundColor: colors.greys['900'],
+    paddingRight: 0
   },
 });
 
@@ -109,7 +110,7 @@ export const SiteWrapper: FC = ({ children }) => {
           component="main"
           sx={{
             width: isMobile
-              ? 'initial'
+              ? '100%'
               : { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >

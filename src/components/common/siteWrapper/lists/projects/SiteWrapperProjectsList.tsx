@@ -1,6 +1,6 @@
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { List, ListItem, Fade } from '@mui/material';
+import { List, ListItem } from '@mui/material';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import MenuSkeleton from '../skeleton/MenuSkeleton';
 import { SiteWrapperList } from '../';
@@ -13,8 +13,12 @@ import ProjectService from '../../../../../services/ProjectService';
 import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
 import colors from '../../../../../common/styles/colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setProjectsList } from '../../../../../redux/projects/projectsSlice';
+import { RootState } from '../../../../../redux/store';
+import SmoothList from 'react-smooth-list';
+import { ProjectListMoreItem } from './more/ProjectListMoreItem';
+import { MAX_PROJECT_LIST_COUNT } from '../../../../../common/constants/constants';
 
 const useStyles = makeStyles({
   activeItem: {
@@ -33,8 +37,13 @@ const useStyles = makeStyles({
 
 export const SiteWrapperProjectsList = () => {
   const { isLoading, data, refetch } = useFetchProjects();
+  const [showAll, setShowAll] = useState(false);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
+  const projectsFromStore = useSelector(
+    (state: RootState) => state.projects.projects
+  );
+
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -45,6 +54,10 @@ export const SiteWrapperProjectsList = () => {
       dispatch(setProjectsList(data));
     }
   }, [data]);
+
+  useEffect(() => {
+    refetch();
+  }, [projectsFromStore]);
 
   const openDialog = () => setProjectDialogOpen(true);
 
@@ -59,8 +72,10 @@ export const SiteWrapperProjectsList = () => {
 
   const isProjectActive = (projectId: string) => {
     const { id } = router.query;
-    return id === projectId;
+    return String(id) === String(projectId);
   };
+
+  const toggleShowAll = () => setShowAll(!showAll);
 
   if (isLoading || !data) {
     return <MenuSkeleton />;
@@ -78,32 +93,35 @@ export const SiteWrapperProjectsList = () => {
         title={'Projects'}
         options={{ addOptions: { onClick: openDialog } }}
       >
-        <Fade in>
+        <SmoothList>
           <List sx={{ padding: 1 }} data-testid={'projects-list'}>
-            {projects.map((project) => {
-              const isActive = isProjectActive(project.id);
-              return (
-                <ListItem
-                  button
-                  sx={{ borderRadius: 10 }}
-                  className={isActive ? classes.activeItem : ''}
-                  key={project.id}
-                  onClick={() => onProjectClick(project.id)}
-                >
-                  <ListItemIcon>
-                    <ReorderIcon
-                      fontSize={'small'}
-                      className={isActive ? classes.activeIcon : ''}
+            {projects
+              .slice(0, showAll ? projects.length : MAX_PROJECT_LIST_COUNT)
+              .map((project) => {
+                const isActive = isProjectActive(project.id);
+                return (
+                  <ListItem
+                    button
+                    sx={{ borderRadius: 10 }}
+                    className={isActive ? classes.activeItem : ''}
+                    key={project.id}
+                    onClick={() => onProjectClick(project.id)}
+                  >
+                    <ListItemIcon>
+                      <ReorderIcon
+                        fontSize={'small'}
+                        className={isActive ? classes.activeIcon : ''}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={<ListItemTitle title={project.name} />}
                     />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={<ListItemTitle title={project.name} />}
-                  />
-                </ListItem>
-              );
-            })}
+                  </ListItem>
+                );
+              })}
           </List>
-        </Fade>
+          {projects.length > MAX_PROJECT_LIST_COUNT && <ProjectListMoreItem toggleShowAll={toggleShowAll} showAll={showAll}/>}
+        </SmoothList>
       </SiteWrapperList>
     </>
   );

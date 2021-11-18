@@ -72,7 +72,7 @@ export const InboxContainer = () => {
       <ContentBox>
         <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
           {SortUtils.sortByDate(tasks)
-            .filter((task) => !task.completed)
+            .filter((task) => !task.completed && !task.projectId)
             .map((task) => (
               <TaskItem
                 key={task.id}

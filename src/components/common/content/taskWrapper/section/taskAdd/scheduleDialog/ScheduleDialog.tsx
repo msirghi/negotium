@@ -61,7 +61,6 @@ export const ScheduleDialog: FC<Props> = ({
           border: selectedDate
             ? `1px solid ${colors.primaries.lightBlue_1}`
             : '1px solid lightgrey',
-
           color: selectedDate ? colors.primaries.lightBlue_1 : '',
         }}
       >

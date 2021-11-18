@@ -8,6 +8,7 @@ import { Row } from '../../utilities/row/Row';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { makeStyles } from '@mui/styles';
 import { SettingsOptions } from './types';
+import { ProjectOptions } from './projectOptions/ProjectOptions';
 
 type Props = {
   title: string;
@@ -28,6 +29,7 @@ export const PageTitle: FC<Props> = ({
   upperHeaderTitle,
   editableOptions,
   settingsOptions,
+  projectOptions,
 }) => {
   const classes = useStyles();
 
@@ -43,10 +45,17 @@ export const PageTitle: FC<Props> = ({
         <Row alignVerticalCenter>
           <Typography fontSize={34}>{title}</Typography>
           {settingsOptions && (
-            <IconButton className={classes.settingsIcon}>
+            <IconButton
+              className={classes.settingsIcon}
+              onClick={settingsOptions!.onClick}
+            >
               <SettingsIcon />
             </IconButton>
           )}
+
+          <If condition={!!projectOptions}>
+            <ProjectOptions />
+          </If>
         </Row>
       </If>
     </div>

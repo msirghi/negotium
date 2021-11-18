@@ -9,7 +9,7 @@ import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
-  paddingRight: '95%',
+  width: '100%'
 }));
 
 const useStyles = makeStyles({
@@ -65,7 +65,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
         </CustomButton>
       </If>
       <If condition={editMode}>
-        <Box sx={{ marginTop: '1rem', maxWidth: isMobile ? 'initial' : '75%' }}>
+        <Box sx={{ marginTop: '1rem' }}>
           <form onSubmit={onSave}>
             <EditForm
               defaultDate={defaultDate}

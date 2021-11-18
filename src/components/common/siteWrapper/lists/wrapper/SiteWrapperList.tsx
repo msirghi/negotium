@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     marginLeft: 'auto',
     marginRight: 12,
     marginBottom: 2,
-    opacity: (isMobile) => (isMobile ? 1 : 0),
+    opacity: (isMobile) => (isMobile ? 1 : 0.5),
     transition: '.2s opacity ease-in-out',
     '&:hover': {
       opacity: 1,

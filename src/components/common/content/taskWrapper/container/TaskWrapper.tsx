@@ -21,6 +21,8 @@ export const TaskWrapper: FC<Props> = ({
   children,
   onSectionAdd,
   showSections,
+  settingsOptions,
+  projectOptions,
 }) => {
   return (
     <div>
@@ -29,6 +31,8 @@ export const TaskWrapper: FC<Props> = ({
         title={title}
         showUpperHeader
         upperHeaderTitle={upperHeaderTitle}
+        settingsOptions={settingsOptions}
+        projectOptions={projectOptions}
       />
       <Tabs value={1}>
         <Tab label={'Todos'} value={1} />

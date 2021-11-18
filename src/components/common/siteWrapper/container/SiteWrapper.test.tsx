@@ -20,6 +20,11 @@ jest.mock('next/router', () => ({
 
 describe('SiteWrapper', () => {
   const queryClient = new QueryClient();
+  const reduxStore = {
+    projects: {
+      projects: [...projectsMock]
+    }
+  }
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -33,7 +38,7 @@ describe('SiteWrapper', () => {
 
   it('should render children', () => {
     const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
+      <MockReduxProvider reduxStore={reduxStore}>
         <QueryClientProvider client={queryClient}>
           <SiteWrapper>
             <div id={'content'} />
@@ -47,7 +52,7 @@ describe('SiteWrapper', () => {
   it('should handle drawer status on open drawer button click', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
     const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
+      <MockReduxProvider reduxStore={reduxStore}>
         <QueryClientProvider client={queryClient}>
           <SiteWrapper>
             <div id={'content'} />

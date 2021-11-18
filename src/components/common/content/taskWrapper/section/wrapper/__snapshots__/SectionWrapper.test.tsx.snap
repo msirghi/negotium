@@ -155,7 +155,7 @@ exports[`SectionWrapper should match the snapshot 1`] = `
       <div />
     </div>
     <button
-      className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root css-hzzop2-MuiButtonBase-root-MuiButton-root"
+      className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root css-1osibp4-MuiButtonBase-root-MuiButton-root"
       data-testid="tab-add-button"
       disabled={false}
       onBlur={[Function]}

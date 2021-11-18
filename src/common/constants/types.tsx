@@ -7,3 +7,8 @@ export type MainMenuItem = {
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
   route: string;
 };
+
+export type ProjectColor = {
+  name: string;
+  color: string;
+}

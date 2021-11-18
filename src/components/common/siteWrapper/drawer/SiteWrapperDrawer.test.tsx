@@ -17,8 +17,14 @@ jest.mock('next/router', () => ({
     },
   }),
 }));
+
 describe('SiteWrapperDrawer', () => {
   const queryClient = new QueryClient();
+  const reduxStore = {
+    projects: {
+      projects: [...projectsMock]
+    }
+  }
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -32,7 +38,7 @@ describe('SiteWrapperDrawer', () => {
 
   it('should render main list', () => {
     const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
+      <MockReduxProvider reduxStore={reduxStore}>
         <QueryClientProvider client={queryClient}>
           <SiteWrapperDrawer />
         </QueryClientProvider>
@@ -43,7 +49,7 @@ describe('SiteWrapperDrawer', () => {
 
   it('should render projects list', () => {
     const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
+      <MockReduxProvider reduxStore={reduxStore}>
         <QueryClientProvider client={queryClient}>
           <SiteWrapperDrawer />
         </QueryClientProvider>

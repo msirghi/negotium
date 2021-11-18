@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { tasksRequests } from '../../../requests/tasksRequests';
 import { useFetchTasks } from '../useFetchTasks';
+import { useFetchProjectTasks } from '../useFetchProjectTasks';
 
 describe('useFetchTasks', () => {
   const queryClient = new QueryClient();
@@ -12,11 +13,10 @@ describe('useFetchTasks', () => {
   );
 
   beforeAll(() => {
-    tasksRequests.fetchTasks = jest.fn(
-      () =>
-        Promise.resolve({
-          tasks: [],
-        }) as any
+    tasksRequests.fetchTasksByProject = jest.fn(() =>
+      Promise.resolve({
+        tasks: [],
+      } as any)
     );
   });
 
@@ -25,9 +25,12 @@ describe('useFetchTasks', () => {
   });
 
   it('should get the response from the hook', async () => {
-    const { result, waitFor } = renderHook(() => useFetchTasks(), {
-      wrapper,
-    });
+    const { result, waitFor } = renderHook(
+      () => useFetchProjectTasks('projectId'),
+      {
+        wrapper,
+      }
+    );
 
     await waitFor(() => {
       return result.current.isSuccess;
