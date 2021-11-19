@@ -12,7 +12,7 @@ export const TasksMock = [
     title: 'Study for exam',
     createdDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',
     dueDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',
-    completed: true,
+    completed: false,
     orderNumber: 2,
   },
 ];

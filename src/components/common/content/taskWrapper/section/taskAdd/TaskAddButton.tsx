@@ -30,7 +30,6 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   const selectedDate = useRef<Nullable<Date>>(
     defaultDate || null
   ) as MutableRefObject<Nullable<Date>>;
-  const isMobile = useIsMobile();
 
   const toggleEditMode = () => {
     setEditMode(!editMode);

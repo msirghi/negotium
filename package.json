@@ -30,7 +30,8 @@
     "react-firebase-hooks": "3.0.4",
     "react-query": "3.32.0",
     "react-redux": "7.2.6",
-    "react-smooth-list": "1.0.2"
+    "react-smooth-list": "1.0.2",
+    "setimmediate": "1.0.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.15.0",

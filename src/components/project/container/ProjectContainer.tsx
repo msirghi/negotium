@@ -20,20 +20,25 @@ import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
 export const ProjectContainer = () => {
   const router = useRouter();
   const projectId = useRef<string>(router.query.id as string);
-  const [selectedProject, setSelectedProjects] = useState<IProject>();
+
   const projects = useSelector((state: RootState) => state.projects.projects);
+
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [selectedProject, setSelectedProjects] = useState<IProject>();
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
-  const [tasks, setTasks] = useState<ITask[]>();
+  const [selectedTask, setSelectedTask] = useState<Nullable<ITask>>(null);
+
   const {
     data: taskData,
     isLoading: loadingTasks,
     refetch,
   } = useFetchProjectTasks(projectId.current);
-  const [selectedTask, setSelectedTask] = useState<Nullable<ITask>>(null);
 
   const initTasks = async () => {
     await refetch();
-    setTasks(taskData);
+    if (taskData) {
+      setTasks(taskData);
+    }
   };
 
   useEffect(() => {
@@ -52,14 +57,16 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     if (projects) {
-      setSelectedProjects(projects.find((p) => String(p.id) === String(router.query.id)));
+      setSelectedProjects(
+        projects.find((p) => String(p.id) === String(router.query.id))
+      );
     }
   }, [projects, router.query.id]);
 
   const toggleProjectDialog = () =>
     setProjectDialogOpened(!isProjectDialogOpened);
 
-  if (!selectedProject || loadingTasks || !tasks) {
+  if (!selectedProject || loadingTasks) {
     return <div />;
   }
 
@@ -87,14 +94,14 @@ export const ProjectContainer = () => {
   const onTaskUpdate = (updatedTask: ITask) => {
     const { id } = updatedTask;
     const updatedTasks = tasks.map((task) =>
-      task.id === id ? updatedTask : task
+      task?.id === id ? updatedTask : task
     );
 
     setTasks([...updatedTasks]);
   };
 
   return (
-    <div key={selectedProject.id}>
+    <div key={selectedProject.id} data-testid={'content'}>
       <ProjectDialogWrapper
         project={selectedProject}
         open={isProjectDialogOpened}
