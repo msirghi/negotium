@@ -43,7 +43,7 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     initTasks();
-  }, [projectId.current]);
+  }, [projectId.current, taskData]);
 
   useEffect(() => {
     if (taskData) {

@@ -64,6 +64,20 @@ describe('ProjectContainer', () => {
     );
   };
 
+  const getRenderedList = async () => {
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
+
+    const selectedTaskSection = wrapper.find(SelectedTaskSection);
+    act(() => {
+      selectedTaskSection.props().deselectTask();
+    });
+    wrapper.update();
+    return wrapper;
+  };
+
   it('should toggle project dialog', async () => {
     const wrapper = await mount(renderComponent());
     wrapper.update();
@@ -94,10 +108,7 @@ describe('ProjectContainer', () => {
 
   it('should handle task deselect', async () => {
     TaskService.createTask = jest.fn();
-    const wrapper = await mount(renderComponent());
-    wrapper.update();
-    await TestUtils.runAllPromises();
-    wrapper.update();
+    const wrapper = await getRenderedList();
 
     const selectedTaskSection = wrapper.find(SelectedTaskSection);
     act(() => {
@@ -110,16 +121,7 @@ describe('ProjectContainer', () => {
   it('should mark the task as done', async () => {
     TaskService.createTask = jest.fn();
     TaskUtils.markAsDone = jest.fn();
-    const wrapper = await mount(renderComponent());
-    wrapper.update();
-    await TestUtils.runAllPromises();
-    wrapper.update();
-
-    const selectedTaskSection = wrapper.find(SelectedTaskSection);
-    act(() => {
-      selectedTaskSection.props().deselectTask();
-    });
-    wrapper.update();
+    const wrapper = await getRenderedList();
 
     const taskItem = wrapper.find(TaskItem);
     act(() => {
@@ -129,25 +131,17 @@ describe('ProjectContainer', () => {
   });
 
   it('should update the task', async () => {
-    const wrapper = await mount(renderComponent());
-    wrapper.update();
-    await TestUtils.runAllPromises();
-    wrapper.update();
-
+    const wrapper = await getRenderedList();
     const selectedTaskSection = wrapper.find(SelectedTaskSection);
     act(() => {
       selectedTaskSection.props().onTaskUpdate(TasksMock[0]);
     });
-    expect(wrapper.find(TaskItem)).toHaveLength(0);
+    expect(wrapper.find(TaskItem)).toHaveLength(1);
   });
 
-  xit('should set the selected task', async () => {
+  it('should set the selected task', async () => {
     TaskUtils.markAsDone = jest.fn();
-    const wrapper = await mount(renderComponent());
-    wrapper.update();
-    await TestUtils.runAllPromises();
-    wrapper.update();
-
+    const wrapper = await getRenderedList();
     const taskItem = wrapper.find(TaskItem);
     act(() => {
       taskItem.props().onTaskSelect(TasksMock[1]);

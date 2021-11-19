@@ -5,7 +5,7 @@ import DateUtils from '../../../common/utils/dateUtils';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
 import { ITask } from '../../../common/types/tasks.types';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
@@ -16,7 +16,11 @@ import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 
-export const TodayContainer = () => {
+type Props = {
+  useData?: boolean;
+};
+
+export const TodayContainer: FC<Props> = ({ useData }) => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const defaultDay = useRef(dayjs().toDate());
@@ -68,11 +72,13 @@ export const TodayContainer = () => {
     return <TaskSkeleton />;
   }
 
+  const renderData = useData ? data : tasks;
+
   return (
     <Row fullWidth>
       <ContentBox>
         <TaskWrapper title={'Today'} upperHeaderTitle={'Today'}>
-          {tasks
+          {renderData
             .filter(
               ({ dueDate, completed }) =>
                 DateUtils.isTodayDate(dueDate) && !completed
