@@ -14,7 +14,6 @@ import { act } from '@testing-library/react';
 import TaskService from '../../../services/TaskService';
 import DateUtils from '../../../common/utils/dateUtils';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
-import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 
 require('setimmediate');
@@ -28,20 +27,20 @@ describe('TodayContainer', () => {
 
   const reduxStore = {};
 
-  const renderComponent = () => {
+  const renderComponent = (useData = true) => {
     return (
       <MockQueryClient>
         <MockReduxProvider reduxStore={reduxStore}>
           <SnackbarProvider>
-            <TodayContainer useData />
+            <TodayContainer useData={useData} />
           </SnackbarProvider>
         </MockReduxProvider>
       </MockQueryClient>
     );
   };
 
-  const renderContent = async () => {
-    const wrapper = await mount(renderComponent());
+  const renderContent = async (useData = true) => {
+    const wrapper = await mount(renderComponent(useData));
     wrapper.update();
     await TestUtils.runAllPromises();
     wrapper.update();
@@ -61,6 +60,11 @@ describe('TodayContainer', () => {
 
   it('should render content when all requests are completed', async () => {
     const wrapper = await renderContent();
+    expect(wrapper.find(ContentBox)).toHaveLength(1);
+  });
+
+  it('should render content when all requests are completed and with no prop', async () => {
+    const wrapper = await renderContent(false);
     expect(wrapper.find(ContentBox)).toHaveLength(1);
   });
 

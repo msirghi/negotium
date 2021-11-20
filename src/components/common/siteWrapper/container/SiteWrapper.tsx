@@ -7,7 +7,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { FC, useState } from 'react';
-import { useMediaQuery } from '@mui/material';
 import { SiteWrapperDrawer } from '../drawer/SiteWrapperDrawer';
 import { If } from '../../utilities/if/If';
 import colors from '../../../../common/styles/colors';
@@ -29,6 +28,7 @@ const useStyles = makeStyles({
 export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
+
   const classes = useStyles();
 
   const handleDrawerToggle = () => {
