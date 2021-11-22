@@ -1,0 +1,38 @@
+{
+  "mainMenuList": {
+    "inbox": "Inbox",
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "addProject": "Add project"
+  },
+  "pageTitles": {
+    "inbox": "Inbox",
+    "today": "Today",
+    "upcoming": "Upcoming-RU"
+  },
+  "buttonLabels": {
+    "cancel": "Cancel",
+    "add": "Add",
+    "submit": "Submit",
+    "addTask": "Add task",
+    "addSection": "Add section"
+  },
+  "inputPlaceholders": {
+    "addTask": "Add new task",
+    "nameNewSection": "Name this section"
+  },
+  "common": {
+    "schedule": "Schedule",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "noDate": "No date",
+    "more": "More",
+    "less": "Less",
+    "todos": "Todos",
+    "notes": "Notes"
+  },
+  "snackbarTitles": {
+    "taskAdded": "Task added",
+    "taskMarkedAsDone": "Task marked as done"
+  }
+}

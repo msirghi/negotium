@@ -5,6 +5,7 @@ import colors from '../../../../../../common/styles/colors';
 import { FC } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles({
   root: {
@@ -30,6 +31,7 @@ type Props = {
 
 export const ProjectListMoreItem: FC<Props> = ({ toggleShowAll, showAll }) => {
   const classes = useStyles();
+  const { t } = useTranslation('common');
 
   return (
     <div className={classes.root}>
@@ -37,12 +39,12 @@ export const ProjectListMoreItem: FC<Props> = ({ toggleShowAll, showAll }) => {
         {showAll ? (
           <>
             <ArrowDropUpIcon fontSize={'small'} className={classes.icon} />
-            <Box className={classes.title}>Less</Box>
+            <Box className={classes.title}>{t('common.less')}</Box>
           </>
         ) : (
           <>
             <ArrowDropDownIcon fontSize={'small'} className={classes.icon} />
-            <Box className={classes.title}>More</Box>
+            <Box className={classes.title}>{t('common.more')}</Box>
           </>
         )}
       </Row>

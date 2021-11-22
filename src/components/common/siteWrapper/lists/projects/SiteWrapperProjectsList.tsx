@@ -19,6 +19,7 @@ import { RootState } from '../../../../../redux/store';
 import SmoothList from 'react-smooth-list';
 import { ProjectListMoreItem } from './more/ProjectListMoreItem';
 import { MAX_PROJECT_LIST_COUNT } from '../../../../../common/constants/constants';
+import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles({
   activeItem: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles({
 
 export const SiteWrapperProjectsList = () => {
   const { isLoading, data, refetch } = useFetchProjects();
+  const { t } = useTranslation('common');
   const [showAll, setShowAll] = useState(false);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
@@ -84,7 +86,7 @@ export const SiteWrapperProjectsList = () => {
   return (
     <>
       <ProjectDialog
-        dialogTitle={'Add project'}
+        dialogTitle={t('mainMenuList.addProject')}
         onSubmit={onSubmit}
         open={isProjectDialogOpen}
         setOpen={setProjectDialogOpen}
@@ -120,7 +122,12 @@ export const SiteWrapperProjectsList = () => {
                 );
               })}
           </List>
-          {projects.length > MAX_PROJECT_LIST_COUNT && <ProjectListMoreItem toggleShowAll={toggleShowAll} showAll={showAll}/>}
+          {projects.length > MAX_PROJECT_LIST_COUNT && (
+            <ProjectListMoreItem
+              toggleShowAll={toggleShowAll}
+              showAll={showAll}
+            />
+          )}
         </SmoothList>
       </SiteWrapperList>
     </>

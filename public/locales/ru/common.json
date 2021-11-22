@@ -1,0 +1,34 @@
+{
+  "mainMenuList": {
+    "inbox": "Инбокс",
+    "today": "Сегодня",
+    "upcoming": "Следующие",
+    "addProject": "Add project"
+  },
+  "pageTitles": {
+    "inbox": "Инбокс",
+    "today": "Сегодня",
+    "upcoming": "Upcoming-RU"
+  },
+  "buttonLabels": {
+    "cancel": "Отмена",
+    "add": "Добавить",
+    "submit": "Submit",
+    "addTask": "Добавить задание"
+  },
+  "inputPlaceholders": {
+    "addTask": "Добавить новое задание"
+  },
+  "common": {
+    "schedule": "Schedule",
+    "today": "Сегодня",
+    "tomorrow": "Завтра",
+    "noDate": "Без даты",
+    "more": "More",
+    "less": "Less"
+  },
+  "snackbarTitles": {
+    "taskAdded": "Task added",
+    "taskMarkedAsDone": "Task marked as done"
+  }
+}

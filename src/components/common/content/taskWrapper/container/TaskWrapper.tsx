@@ -5,6 +5,7 @@ import { Tab, Tabs } from '@mui/material';
 import { AddSectionRow } from '../section/add/AddSectionRow';
 import { SettingsOptions } from '../../pageTitle/types';
 import SmoothList from 'react-smooth-list';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   title: string;
@@ -24,6 +25,8 @@ export const TaskWrapper: FC<Props> = ({
   settingsOptions,
   projectOptions,
 }) => {
+  const { t } = useTranslation('common');
+
   return (
     <div>
       <PageTitle
@@ -35,8 +38,8 @@ export const TaskWrapper: FC<Props> = ({
         projectOptions={projectOptions}
       />
       <Tabs value={1}>
-        <Tab label={'Todos'} value={1} />
-        <Tab label={'Notes'} value={2} />
+        <Tab label={t('common.todos')} value={1} />
+        <Tab label={t('common.notes')} value={2} />
       </Tabs>
 
       <div role={'tabpanel'} style={{ marginTop: '1rem' }}>

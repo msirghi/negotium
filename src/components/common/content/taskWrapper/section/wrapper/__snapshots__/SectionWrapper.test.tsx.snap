@@ -189,7 +189,7 @@ exports[`SectionWrapper should match the snapshot 1`] = `
           />
         </svg>
       </span>
-      Add
+      buttonLabels.add
     </button>
   </div>
 </div>

@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import { Box } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
+import { useTranslation } from 'next-i18next';
+import i18next from 'i18next';
 
 const useStyles = makeStyles({
   activeItem: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles({
 });
 
 export const SiteWrapperMainList = () => {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const classes = useStyles();
 
@@ -36,30 +39,32 @@ export const SiteWrapperMainList = () => {
 
   return (
     <List sx={{ padding: 1 }}>
-      {MAIN_MENU_ITEMS.map(({ Icon, title, route }) => {
-        const isItemActive = isActive(route);
-        return (
-          <Box
-            key={title}
-            className={isItemActive ? classes.activeItem : ''}
-            sx={{ borderRadius: 15 }}
-          >
-            <ListItem
-              button
-              onClick={() => onItemClick(route)}
-              sx={{ borderRadius: 5 }}
+      {MAIN_MENU_ITEMS.map((item) => ({ ...item, title: t(item.title) })).map(
+        ({ Icon, title, route }) => {
+          const isItemActive = isActive(route);
+          return (
+            <Box
+              key={title}
+              className={isItemActive ? classes.activeItem : ''}
+              sx={{ borderRadius: 15 }}
             >
-              <ListItemIcon>
-                <Icon
-                  fontSize={'small'}
-                  className={isItemActive ? classes.activeIcon : ''}
-                />
-              </ListItemIcon>
-              <ListItemText primary={<ListItemTitle title={title} />} />
-            </ListItem>
-          </Box>
-        );
-      })}
+              <ListItem
+                button
+                onClick={() => onItemClick(route)}
+                sx={{ borderRadius: 5 }}
+              >
+                <ListItemIcon>
+                  <Icon
+                    fontSize={'small'}
+                    className={isItemActive ? classes.activeIcon : ''}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={<ListItemTitle title={title} />} />
+              </ListItem>
+            </Box>
+          );
+        }
+      )}
     </List>
   );
 };

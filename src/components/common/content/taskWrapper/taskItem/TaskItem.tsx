@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ITask } from '../../../../../common/types/tasks.types';
-import { Checkbox, Chip, FormControlLabel } from '@mui/material';
+import { Checkbox, Chip } from '@mui/material';
 import styles from './TaskItem.module.scss';
 import { Row } from '../../../utilities/row/Row';
 import { If } from '../../../utilities/if/If';

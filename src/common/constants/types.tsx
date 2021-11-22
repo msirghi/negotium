@@ -12,3 +12,7 @@ export type ProjectColor = {
   name: string;
   color: string;
 }
+
+export type StaticProps = {
+  locale: string;
+}

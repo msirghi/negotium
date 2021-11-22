@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { ScheduleDialog } from '../scheduleDialog/ScheduleDialog';
 import { Nullable } from '../../../../../../../common/types/common.types';
 import { makeStyles } from '@mui/styles';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   fieldValue: string;
@@ -26,6 +27,7 @@ export const EditForm: FC<Props> = ({
   defaultDate,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
@@ -37,7 +39,7 @@ export const EditForm: FC<Props> = ({
         inputProps={{
           'data-testid': 'tab-title-field',
         }}
-        placeholder={'New task'}
+        placeholder={t('inputPlaceholders.addTask')}
         InputProps={{ disableUnderline: true }}
         onChange={(e) => setFieldValue(e.target.value)}
       />

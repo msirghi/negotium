@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   },
   dateTitle: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
   },
   scheduleDialog: {
     padding: 5,

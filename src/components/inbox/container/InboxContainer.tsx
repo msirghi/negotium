@@ -15,11 +15,14 @@ import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 
+import { useTranslation } from 'next-i18next';
+
 export const InboxContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { enqueueSnackbar } = useSnackbar();
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if (data) {
@@ -34,7 +37,7 @@ export const InboxContainer = () => {
       tasks.length - 1
     );
     setTasks((prevState) => [...prevState, newTask as ITask]);
-    enqueueSnackbar('Task added', {
+    enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     await TaskService.createTask(newTask);
@@ -42,7 +45,7 @@ export const InboxContainer = () => {
   };
 
   const markAsDone = async (taskId: ITask['id']) => {
-    enqueueSnackbar('Task marked as done', {
+    enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     setSelectedTask(null);
@@ -70,7 +73,10 @@ export const InboxContainer = () => {
   return (
     <Row fullWidth>
       <ContentBox>
-        <TaskWrapper title={'Inbox'} upperHeaderTitle={'Inbox'}>
+        <TaskWrapper
+          title={t('pageTitles.inbox')}
+          upperHeaderTitle={t('pageTitles.inbox')}
+        >
           {SortUtils.sortByDate(tasks)
             .filter((task) => !task.completed && !task.projectId)
             .map((task) => (

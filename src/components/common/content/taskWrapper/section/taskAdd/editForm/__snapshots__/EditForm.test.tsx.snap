@@ -21,7 +21,7 @@ exports[`EditForm should match the snapshot 1`] = `
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
-        placeholder="New task"
+        placeholder="inputPlaceholders.addTask"
         required={false}
         type="text"
         value="val"
@@ -41,7 +41,7 @@ exports[`EditForm should match the snapshot 1`] = `
       }
     >
       <div>
-        Schedule
+        common.schedule
       </div>
     </div>
   </div>

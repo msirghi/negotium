@@ -8,17 +8,17 @@ import { SnackbarOrigin } from 'notistack';
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
     Icon: InboxIcon,
-    title: 'Inbox',
+    title: 'pageTitles.inbox',
     route: '/home/inbox',
   },
   {
     Icon: StarBorderIcon,
-    title: 'Today',
+    title: 'pageTitles.today',
     route: '/home/today',
   },
   {
     Icon: DateRangeIcon,
-    title: 'Upcoming',
+    title: 'pageTitles.upcoming',
     route: '/home/upcoming',
   },
   // {

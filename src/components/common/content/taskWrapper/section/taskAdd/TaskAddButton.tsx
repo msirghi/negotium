@@ -5,11 +5,11 @@ import { If } from '../../../../utilities/if/If';
 import { EditForm } from './editForm/EditForm';
 import { makeStyles } from '@mui/styles';
 import { Nullable } from '../../../../../../common/types/common.types';
-import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
+import { useTranslation } from 'next-i18next';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
-  width: '100%'
+  width: '100%',
 }));
 
 const useStyles = makeStyles({
@@ -30,6 +30,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   const selectedDate = useRef<Nullable<Date>>(
     defaultDate || null
   ) as MutableRefObject<Nullable<Date>>;
+  const { t } = useTranslation('common');
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -60,7 +61,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
           disableRipple
           onClick={toggleEditMode}
         >
-          Add
+          {t('buttonLabels.add')}
         </CustomButton>
       </If>
       <If condition={editMode}>
@@ -80,7 +81,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
                 onClick={onSave}
                 size={'small'}
               >
-                Add task
+                {t('buttonLabels.addTask')}
               </Button>
               <Button
                 className={classes.cancelButton}
@@ -88,7 +89,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
                 onClick={onCancelClick}
                 size={'small'}
               >
-                Cancel
+                {t('buttonLabels.cancel')}
               </Button>
             </Box>
           </form>

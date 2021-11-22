@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { SiteWrapper } from '../src/components/common/siteWrapper';
@@ -15,6 +14,7 @@ import { appTheme } from '../src/common/theme/appTheme';
 import createEmotionCache from '../src/common/config/cache/createEmotionCache';
 import { CacheProvider } from '@emotion/react';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
+import { appWithTranslation } from 'next-i18next';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
@@ -63,4 +63,4 @@ function MyApp({
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

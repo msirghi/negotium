@@ -11,6 +11,7 @@ import DateUtils from '../../../../../../../../../common/utils/dateUtils';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { CommonDateProps } from '../types';
 import dayjs from 'dayjs';
+import { useTranslation } from 'next-i18next';
 
 const iconItems: IPredefinedOption[] = [
   {
@@ -50,6 +51,7 @@ export const PredefinedOptions: FC<CommonDateProps> = ({
   selectedDate,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation('common');
 
   const isDateSelected = (date: Date) => {
     date.setHours(0, 0, 0, 0);
@@ -86,13 +88,10 @@ export const PredefinedOptions: FC<CommonDateProps> = ({
           );
         })}
         {selectedDate && (
-          <ListItem
-            className={classes.row}
-            onClick={() => onDatePick(null)}
-          >
+          <ListItem className={classes.row} onClick={() => onDatePick(null)}>
             <Row alignVerticalCenter>
               <RotateLeftIcon />
-              <div className={classes.itemTitle}>No date</div>
+              <div className={classes.itemTitle}>{t('common.noDate')}</div>
             </Row>
           </ListItem>
         )}

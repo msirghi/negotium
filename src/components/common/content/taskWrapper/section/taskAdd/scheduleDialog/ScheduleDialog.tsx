@@ -6,6 +6,7 @@ import colors from '../../../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
 import { Nullable } from '../../../../../../../common/types/common.types';
 import { If } from '../../../../../utilities/if/If';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   onDateSelect: (date: Nullable<Date>) => void;
@@ -36,6 +37,7 @@ export const ScheduleDialog: FC<Props> = ({
     defaultDate || null
   );
   const classes = useStyles();
+  const { t } = useTranslation('common');
 
   const onDatePick = (date: Nullable<Date>) => {
     onDateSelect(date);
@@ -66,7 +68,9 @@ export const ScheduleDialog: FC<Props> = ({
       >
         <div>
           <If condition={!customTitle}>
-            {selectedDate ? DateUtils.getDateLabel(selectedDate) : 'Schedule'}
+            {selectedDate
+              ? DateUtils.getDateLabel(selectedDate)
+              : t('common.schedule')}
           </If>
           <If condition={!!customTitle}>{customTitle}</If>
         </div>

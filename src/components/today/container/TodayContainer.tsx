@@ -15,6 +15,7 @@ import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   useData?: boolean;
@@ -26,6 +27,7 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
   const defaultDay = useRef(dayjs().toDate());
   const { enqueueSnackbar } = useSnackbar();
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if (data) {
@@ -35,7 +37,7 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
 
   const onMarkAsDone = async (taskId: ITask['id']) => {
     setTasks((prevState) => prevState.filter(({ id }) => id !== taskId));
-    enqueueSnackbar('Task marked as done', {
+    enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     await TaskService.markTaskAsDone(taskId);
@@ -47,7 +49,7 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
       date,
       tasks.length
     );
-    enqueueSnackbar('Task added', {
+    enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     setTasks((prevState) => [...prevState, task as ITask]);
@@ -77,7 +79,10 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
   return (
     <Row fullWidth>
       <ContentBox>
-        <TaskWrapper title={'Today'} upperHeaderTitle={'Today'}>
+        <TaskWrapper
+          title={t('pageTitles.today')}
+          upperHeaderTitle={t('pageTitles.today')}
+        >
           {renderData
             .filter(
               ({ dueDate, completed }) =>
