@@ -33,9 +33,14 @@ export const MockQueryClient: FC = ({ children }) => {
 
 const runAllPromises = () => new Promise(setImmediate);
 
+const testData = {
+  fakeTitle: '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]'
+}
+
 const TestUtils = {
   createMatchMedia,
-  runAllPromises
+  runAllPromises,
+  testData
 };
 
 export default TestUtils;

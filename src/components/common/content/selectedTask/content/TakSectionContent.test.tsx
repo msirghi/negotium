@@ -2,6 +2,9 @@ import { TasksMock } from '../../../../../common/tests/mockData/tasks-mock';
 import { TaskSectionContent } from './TaskSectionContent';
 import { act, fireEvent, render } from '@testing-library/react';
 import TaskService from '../../../../../services/TaskService';
+import {mount} from "enzyme";
+import MentionInput from "../../../form/input/mention/MentionInput";
+import TestUtils from "../../../../../common/tests/TestUtils";
 
 describe('TaskSectionContent', () => {
   const defaultProps = {
@@ -18,25 +21,24 @@ describe('TaskSectionContent', () => {
   });
 
   it('should handle title change event', () => {
-    jest.useFakeTimers();
-    const { getByTestId } = render(<TaskSectionContent {...defaultProps} />);
-    const titleInput = getByTestId('title-input');
+    const wrapper = mount(<TaskSectionContent {...defaultProps} />);
+    const titleInput = wrapper.find(MentionInput).at(0);
 
     act(() => {
-      fireEvent.change(titleInput, { target: { value: 'new value' } });
+      titleInput.props().onChange(JSON.parse(TestUtils.testData.fakeTitle));
     });
-    jest.runOnlyPendingTimers();
-    expect(titleInput).toHaveValue('new value');
+    expect(titleInput.props().defaultValue).toBeDefined();
   });
 
   it('should call TaskService on title update', () => {
     jest.useFakeTimers();
-    const { getByTestId } = render(<TaskSectionContent {...defaultProps} />);
-    const titleInput = getByTestId('title-input');
+    const wrapper = mount(<TaskSectionContent {...defaultProps} />);
+    const titleInput = wrapper.find(MentionInput).at(0);
 
     act(() => {
-      fireEvent.change(titleInput, { target: { value: 'new value' } });
+      titleInput.props().onChange(JSON.parse(TestUtils.testData.fakeTitle));
     });
+
     jest.runOnlyPendingTimers();
     expect(TaskService.updateTaskName).toBeCalled();
   });

@@ -5,6 +5,7 @@ module.exports = {
     '!**/src/**/TestUtils.tsx',
     '!**/*.d.ts',
     '!**/node_modules/**',
+    '!**/src/**/MentionInput.tsx'
   ],
   moduleNameMapper: {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',

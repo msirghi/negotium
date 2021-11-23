@@ -56,6 +56,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
     <>
       <If condition={!editMode}>
         <CustomButton
+            id={'tab-add-button'}
           data-testid={'tab-add-button'}
           startIcon={<AddIcon />}
           disableRipple
@@ -66,7 +67,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
       </If>
       <If condition={editMode}>
         <Box sx={{ marginTop: '1rem' }}>
-          <form onSubmit={onSave}>
+          <form onSubmit={onSave} data-testid={'tab-title-field'}>
             <EditForm
               defaultDate={defaultDate}
               fieldValue={fieldValue}
@@ -80,11 +81,13 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
                 disabled={!fieldValue}
                 onClick={onSave}
                 size={'small'}
+                id={'tab-submit-button'}
               >
                 {t('buttonLabels.addTask')}
               </Button>
               <Button
                 className={classes.cancelButton}
+                id={'tab-cancel-button'}
                 data-testid={'tab-cancel-button'}
                 onClick={onCancelClick}
                 size={'small'}

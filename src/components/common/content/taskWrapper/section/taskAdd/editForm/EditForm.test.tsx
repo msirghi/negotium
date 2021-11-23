@@ -1,12 +1,14 @@
 import renderer from 'react-test-renderer';
 import { EditForm } from './EditForm';
-import { act, fireEvent, render } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { mount } from 'enzyme';
 import { ScheduleDialog } from '../scheduleDialog/ScheduleDialog';
+import MentionInput from '../../../../../form/input/mention/MentionInput';
+import TestUtils from "../../../../../../../common/tests/TestUtils";
 
 describe('EditForm', () => {
   const defaultProps = {
-    fieldValue: 'val',
+    fieldValue: TestUtils.testData.fakeTitle,
     setFieldValue: jest.fn(),
     onDateSelect: jest.fn(),
   };
@@ -15,17 +17,12 @@ describe('EditForm', () => {
     jest.clearAllMocks();
   });
 
-  it('should match the snapshot', () => {
-    const tree = renderer.create(<EditForm {...defaultProps} />);
-    expect(tree).toMatchSnapshot();
-  });
-
   it('should call prop method on input change', () => {
-    const { getByTestId } = render(<EditForm {...defaultProps} />);
-    const input = getByTestId('tab-title-field');
+    const wrapper = mount(<EditForm {...defaultProps} />);
+    const input = wrapper.find(MentionInput);
 
     act(() => {
-      fireEvent.change(input, { target: { value: 'new' } });
+      input.props().onChange([]);
     });
     expect(defaultProps.setFieldValue).toBeCalled();
   });

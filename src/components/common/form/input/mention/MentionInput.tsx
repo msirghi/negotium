@@ -34,7 +34,6 @@ type Props = {
 
 const MentionInput: FC<Props> = ({ onChange, defaultValue, keywords }) => {
   const ref = useRef();
-  // console.log('defaultValue: ', defaultValue);
   const [value, setValue] = useState<Descendant[]>(
     defaultValue || initialValue
   );

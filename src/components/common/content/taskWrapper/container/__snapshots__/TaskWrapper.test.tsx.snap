@@ -61,7 +61,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
           tabIndex={0}
           type="button"
         >
-          Todos
+          common.todos
           <span
             className="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
             style={Object {}}
@@ -88,7 +88,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
           tabIndex={-1}
           type="button"
         >
-          Notes
+          common.notes
         </button>
       </div>
     </div>

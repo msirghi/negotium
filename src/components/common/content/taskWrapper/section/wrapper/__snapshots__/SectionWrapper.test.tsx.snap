@@ -86,7 +86,7 @@ exports[`SectionWrapper should match the snapshot 1`] = `
           </svg>
         </span>
         <div>
-          Buy milk
+          new task for 123 
         </div>
       </div>
       <div />
@@ -149,7 +149,7 @@ exports[`SectionWrapper should match the snapshot 1`] = `
           </svg>
         </span>
         <div>
-          Study for exam
+          new task for 123 
         </div>
       </div>
       <div />
@@ -158,6 +158,7 @@ exports[`SectionWrapper should match the snapshot 1`] = `
       className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root css-1osibp4-MuiButtonBase-root-MuiButton-root"
       data-testid="tab-add-button"
       disabled={false}
+      id="tab-add-button"
       onBlur={[Function]}
       onClick={[Function]}
       onContextMenu={[Function]}

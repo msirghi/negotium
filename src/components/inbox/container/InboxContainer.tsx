@@ -1,6 +1,6 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
-import { useEffect, useState } from 'react';
+import {FC, useEffect, useState} from 'react';
 import { ITask } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
@@ -17,7 +17,11 @@ import { ContentBox } from '../../common/boxes/content/ContentBox';
 
 import { useTranslation } from 'next-i18next';
 
-export const InboxContainer = () => {
+type Props = {
+  useData?: boolean;
+}
+
+export const InboxContainer: FC<Props> = ({useData}) => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { enqueueSnackbar } = useSnackbar();
@@ -63,7 +67,7 @@ export const InboxContainer = () => {
   };
 
   const updateSelectedTask = (tasks: ITask[]) => {
-    setSelectedTask(tasks.find((t) => t.id === selectedTask!.id)!);
+    setSelectedTask(tasks.find((t) => t.id === selectedTask?.id)!);
   };
 
   const onTaskSelect = (task: ITask) => {
@@ -83,7 +87,7 @@ export const InboxContainer = () => {
           title={t('pageTitles.inbox')}
           upperHeaderTitle={t('pageTitles.inbox')}
         >
-          {SortUtils.sortByDate(tasks)
+          {SortUtils.sortByDate(useData ? data : tasks)
             .filter((task) => !task.completed && !task.projectId)
             .map((task) => (
               <TaskItem

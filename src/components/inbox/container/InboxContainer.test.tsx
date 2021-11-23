@@ -10,6 +10,10 @@ import { act } from '@testing-library/react';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
+import SlateUtils from '../../../common/utils/slateUtils';
+import TestUtils from '../../../common/tests/TestUtils';
+
+require('setimmediate');
 
 const queryClient = new QueryClient();
 
@@ -21,6 +25,8 @@ describe('InboxContainer', () => {
         { ...TasksMock[0], id: '1', completed: false },
       ])
     );
+    JSON.parse = jest.fn();
+    SlateUtils.serialize = jest.fn();
   });
 
   afterEach(() => {
@@ -31,24 +37,33 @@ describe('InboxContainer', () => {
     return (
       <QueryClientProvider client={queryClient}>
         <SnackbarProvider>
-          <InboxContainer />
+          <InboxContainer useData />
         </SnackbarProvider>
       </QueryClientProvider>
     );
   };
 
-  it('should fetch the tasks on mount', () => {
-    mount(renderComponent());
+  it('should fetch the tasks on mount', async () => {
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
     expect(tasksRequests.fetchTasks).toBeCalled();
   });
 
-  it('should render content box after fetch', () => {
-    const wrapper = mount(renderComponent());
+  it('should render content box after fetch', async () => {
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
     expect(wrapper.find(ContentBox)).toHaveLength(1);
   });
 
-  it('should deselect the task properly', () => {
-    const wrapper = mount(renderComponent());
+  it('should deselect the task properly', async () => {
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
     const taskItem = wrapper.find(TaskItem).at(0);
     act(() => {
       taskItem.props().onTaskSelect(TasksMock[0]);
@@ -65,6 +80,10 @@ describe('InboxContainer', () => {
 
   it('should select the task properly', async () => {
     const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
+
     const item = wrapper.find(TaskItem).at(0);
     act(() => {
       item.props().onTaskSelect(TasksMock[0]);
@@ -77,6 +96,10 @@ describe('InboxContainer', () => {
   it('should mark the task as done', async () => {
     TaskUtils.markAsDone = jest.fn(() => Promise.resolve());
     const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
+
     const item = wrapper.find(TaskItem).at(0);
     act(() => {
       item.props().markAsDone('1');
@@ -84,35 +107,38 @@ describe('InboxContainer', () => {
     expect(TaskUtils.markAsDone).toBeCalled();
   });
 
-  it('should update the task', async () => {
-    TaskUtils.markAsDone = jest.fn(() => Promise.resolve());
-    const wrapper = await mount(renderComponent());
-    const section = wrapper.find(SelectedTaskSection);
-    act(() => {
-      section
-        .props()
-        .onTaskUpdate({
-          ...TasksMock[0],
-          title: 'new title',
-          completed: false,
-        });
-    });
-    wrapper.update();
-    expect(wrapper.find(TaskItem)).not.toHaveLength(1);
-  });
-
-  it('should add the task', () => {
-    jest.useFakeTimers();
+  it('should add the task', async () => {
     TaskUtils.getNewTaskObject = jest.fn(() =>
       Promise.resolve({ ...TasksMock[0] })
     ) as any;
-    const wrapper = mount(renderComponent());
+
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
     const item = wrapper.find(TaskAddButton);
     act(() => {
-      item.props().onTaskAdd('title', null);
+      item.props().onTaskAdd(TestUtils.testData.fakeTitle, null);
     });
     wrapper.update();
-    jest.runOnlyPendingTimers();
     expect(TaskUtils.getNewTaskObject).toBeCalled();
+  });
+
+  it('should update the task', async () => {
+    TaskUtils.markAsDone = jest.fn(() => Promise.resolve());
+    const wrapper = await mount(renderComponent());
+    wrapper.update();
+    await TestUtils.runAllPromises();
+    wrapper.update();
+    const section = wrapper.find(SelectedTaskSection);
+    act(() => {
+      section.props().onTaskUpdate({
+        ...TasksMock[0],
+        title: TestUtils.testData.fakeTitle,
+        completed: false,
+      });
+    });
+    wrapper.update();
+    expect(wrapper.find(TaskItem)).not.toHaveLength(1);
   });
 });

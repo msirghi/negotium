@@ -59,7 +59,7 @@ exports[`TaskItem should match the snapshot 1`] = `
       </svg>
     </span>
     <div>
-      Buy milk
+      new task for 123 
     </div>
   </div>
   <div />
