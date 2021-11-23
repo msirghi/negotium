@@ -53,3 +53,5 @@ export const PROJECT_COLORS: ProjectColor[] = [
     name: 'Yellow',
   },
 ];
+
+export const MENTION_ARRAY_KEYWORDS = ['Today', 'Tomorrow'];

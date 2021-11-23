@@ -6,6 +6,7 @@ import { Row } from '../../../utilities/row/Row';
 import { If } from '../../../utilities/if/If';
 import TaskItemUtils from './utils/utils';
 import { makeStyles } from '@mui/styles';
+import SlateUtils from "../../../../../common/utils/slateUtils";
 
 type Props = {
   task: ITask;
@@ -32,7 +33,7 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
     >
       <Row alignVerticalCenter>
         <Checkbox onChange={() => markAsDone(task.id)} />
-        <div>{title}</div>
+        <div>{SlateUtils.serialize(JSON.parse(title))}</div>
       </Row>
       <div>
         <If condition={!!chipOptions}>

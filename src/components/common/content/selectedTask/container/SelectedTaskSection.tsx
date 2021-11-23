@@ -93,7 +93,11 @@ export const SelectedTaskSection: FC<Props> = ({
         <Box sx={{ p: 1 }}>
           <Row alignVerticalCenter>
             <ArrowBackIcon onClick={closeDrawer} />
-            <TaskSectionHeader task={task} onTaskDateUpdate={onDateUpdate} />
+            <TaskSectionHeader
+              task={task}
+              onTaskDateUpdate={onDateUpdate}
+              key={task.dueDate}
+            />
           </Row>
           {renderContent()}
         </Box>
@@ -103,7 +107,11 @@ export const SelectedTaskSection: FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <TaskSectionHeader task={task} onTaskDateUpdate={onDateUpdate} />
+      <TaskSectionHeader
+        task={task}
+        onTaskDateUpdate={onDateUpdate}
+        key={task.dueDate}
+      />
       {renderContent()}
     </div>
   );

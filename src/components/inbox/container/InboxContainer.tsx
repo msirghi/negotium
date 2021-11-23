@@ -54,10 +54,16 @@ export const InboxContainer = () => {
 
   const onTaskUpdate = (updatedTask: ITask) => {
     const { id } = updatedTask;
+    console.log('updatedTask: ', updatedTask);
     const updatedTasks = tasks.map((task) =>
       task.id === id ? updatedTask : task
     );
     setTasks([...updatedTasks]);
+    updateSelectedTask(updatedTasks);
+  };
+
+  const updateSelectedTask = (tasks: ITask[]) => {
+    setSelectedTask(tasks.find((t) => t.id === selectedTask!.id)!);
   };
 
   const onTaskSelect = (task: ITask) => {
@@ -81,7 +87,7 @@ export const InboxContainer = () => {
             .filter((task) => !task.completed && !task.projectId)
             .map((task) => (
               <TaskItem
-                key={task.id}
+                key={`${task.id} ${task.dueDate} ${task.title}`}
                 task={task}
                 markAsDone={markAsDone}
                 onTaskSelect={onTaskSelect}
@@ -91,7 +97,7 @@ export const InboxContainer = () => {
         </TaskWrapper>
       </ContentBox>
       <SelectedTaskSection
-        key={selectedTask ? selectedTask.id : ''}
+        key={selectedTask ? `${selectedTask.id}` : ''}
         deselectTask={deselectTask}
         task={selectedTask}
         onTaskUpdate={onTaskUpdate}

@@ -11,8 +11,13 @@ export type MainMenuItem = {
 export type ProjectColor = {
   name: string;
   color: string;
-}
+};
 
 export type StaticProps = {
   locale: string;
-}
+};
+
+export type SlateNode = {
+  type: string;
+  children: Array<{ text: string }>;
+};
