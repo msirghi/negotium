@@ -1,0 +1,5 @@
+export enum SETTINGS_OPTIONS {
+    ACCOUNT = 'ACCOUNT',
+    GENERAL = 'GENERAL',
+    THEMES = 'THEMES'
+}

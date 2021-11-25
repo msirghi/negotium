@@ -14,6 +14,8 @@ import { makeStyles } from '@mui/styles';
 import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
 import { HeaderSearch } from '../search/HeaderSearch';
 import { Row } from '../../utilities/row/Row';
+import { AccountCircle } from '@mui/icons-material';
+import {AccountMenu} from "../account";
 
 const drawerWidth = 240;
 
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
   appBar: {
     minHeight: 50,
     backgroundColor: colors.greys['900'],
-    paddingRight: 0
+    paddingRight: 0,
   },
 });
 
@@ -61,6 +63,9 @@ export const SiteWrapper: FC = ({ children }) => {
             </Typography>
             <HeaderSearch />
           </Row>
+          <Box sx={{ flexGrow: 1 }} />
+
+         <AccountMenu />
         </Toolbar>
       </AppBar>
       <Box sx={{ display: 'flex', marginTop: isMobile ? 0 : 6 }}>
@@ -109,9 +114,7 @@ export const SiteWrapper: FC = ({ children }) => {
         <Box
           component="main"
           sx={{
-            width: isMobile
-              ? '100%'
-              : { sm: `calc(100% - ${drawerWidth}px)` },
+            width: isMobile ? '100%' : { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
           <If condition={isMobile}>

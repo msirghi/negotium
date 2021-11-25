@@ -4,7 +4,7 @@ import colors from '../styles/colors';
 export const appTheme = createTheme({
   typography: {
     allVariants: {
-      fontFamily: `"Raleway", "Roboto", "Helvetica", "Arial", sans-serif`,
+      fontFamily: `"Open Sans", "Roboto", "Helvetica", "Arial", sans-serif`,
     },
   },
   palette: {

@@ -9,7 +9,7 @@ const initialState: ProjectsState = {
   projects: [],
 };
 
-export const counterSlice = createSlice({
+export const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
@@ -22,7 +22,6 @@ export const counterSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { setProjectsList, removeProjectFromList } = counterSlice.actions;
+export const { setProjectsList, removeProjectFromList } = projectsSlice.actions;
 
-export default counterSlice.reducer;
+export default projectsSlice.reducer;
