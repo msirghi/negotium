@@ -1,13 +1,12 @@
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import colors from '../../../../../../common/styles/colors';
 import { SettingsMenuListItem } from './item/SettingsMenuListItem';
 import {
   AccountCircleOutlined,
   PaletteOutlined,
   SettingsOutlined,
 } from '@mui/icons-material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { SETTINGS_OPTIONS } from '../../../../../../common/types/enums';
 
 const useStyles = makeStyles({
@@ -22,7 +21,6 @@ const useStyles = makeStyles({
   },
   menuContainer: {
     marginTop: 20,
-    // paddingRight: 15,
   },
 });
 

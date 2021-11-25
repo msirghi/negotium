@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderSearchOption should match the snapshot 1`] = `
+<div
+  className="MuiBox-root css-0"
+  onClick={[MockFunction]}
+>
+  <div
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  >
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-ci5apu-MuiSvgIcon-root"
+      data-testid="CloseIcon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      />
+    </svg>
+    <div
+      className="makeStyles-optionTitle-1"
+    >
+      Title
+    </div>
+  </div>
+  <div
+    className="makeStyles-optionType-2"
+  >
+    <i>
+      Project
+    </i>
+  </div>
+</div>
+`;

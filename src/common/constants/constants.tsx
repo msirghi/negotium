@@ -55,3 +55,37 @@ export const PROJECT_COLORS: ProjectColor[] = [
 ];
 
 export const MENTION_ARRAY_KEYWORDS = ['Today', 'Tomorrow'];
+
+export const SUPPORTED_LANGUAGES = [
+  {
+    code: 'en',
+    title: 'English'
+  },
+  {
+    code: 'ru',
+    title: 'Russian'
+  }
+];
+
+export const HOME_VIEW_LIST = [
+  {
+    title: 'Inbox',
+    url: '/home/inbox'
+  },
+  {
+    title: 'Today',
+    url: '/home/today'
+  }
+]
+
+
+export const TIME_FORMATS = [
+  {
+    title: '13:00',
+    key: '24h'
+  },
+  {
+    title: '1pm',
+    key: 'am/pm'
+  }
+]

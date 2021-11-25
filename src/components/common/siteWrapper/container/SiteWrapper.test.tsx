@@ -6,6 +6,7 @@ import { mount } from 'enzyme';
 import TestUtils, {
   MockReduxProvider,
 } from '../../../../common/tests/TestUtils';
+import { accountInfoMock } from '../../../../common/tests/mockData/account-mock';
 
 const mockProjects = [...projectsMock];
 
@@ -22,9 +23,12 @@ describe('SiteWrapper', () => {
   const queryClient = new QueryClient();
   const reduxStore = {
     projects: {
-      projects: [...projectsMock]
-    }
-  }
+      projects: [...projectsMock],
+    },
+    account: {
+      info: accountInfoMock,
+    },
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();

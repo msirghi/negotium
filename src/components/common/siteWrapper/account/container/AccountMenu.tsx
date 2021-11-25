@@ -64,8 +64,8 @@ export const AccountMenu = () => {
       />
 
       <IconButton
+          id={'account-circle'}
         size="large"
-        aria-label="show 4 new mails"
         color="inherit"
         sx={{ marginRight: 2 }}
         onClick={handleMenu}
@@ -103,7 +103,7 @@ export const AccountMenu = () => {
 
         <Divider />
 
-        <MenuItem onClick={onSettingsItemClick}>
+        <MenuItem onClick={onSettingsItemClick} id={'settings-item'}>
           <Row alignVerticalCenter>
             <SettingsIcon fontSize={'small'} />
             <span className={commonStyles.itemTitle}>Settings</span>

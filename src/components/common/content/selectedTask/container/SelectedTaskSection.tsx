@@ -30,6 +30,9 @@ const useStyles = makeStyles({
   divider: {
     padding: '10px 0',
   },
+  drawer: {
+    zIndex: 99999
+  }
 });
 
 export const SelectedTaskSection: FC<Props> = ({
@@ -88,9 +91,9 @@ export const SelectedTaskSection: FC<Props> = ({
         open={drawerOpen}
         onOpen={openDrawer}
         onClose={closeDrawer}
-        anchor={'right'}
+          className={classes.drawer}
       >
-        <Box sx={{ p: 1 }}>
+        <Box sx={{ p: 1, width: '100vw' }}>
           <Row alignVerticalCenter>
             <ArrowBackIcon onClick={closeDrawer} />
             <TaskSectionHeader

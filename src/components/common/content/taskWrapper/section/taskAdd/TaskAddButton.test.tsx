@@ -34,7 +34,6 @@ describe('TaskAddButton', () => {
   });
 
   it('should render input field on add button click', () => {
-    // const wrapper = mount(<TaskAddButton {...defaultProps}/>);
     const { getByTestId } = render(<TaskAddButton {...defaultProps} />);
 
     const addButton = getByTestId('tab-add-button');

@@ -9,6 +9,7 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
 import CloseIcon from '@mui/icons-material/Close';
+import { GeneralSettings } from './general/GeneralSettings';
 
 type Props = {
   open: boolean;
@@ -28,13 +29,13 @@ const useStyles = makeStyles({
     paddingBottom: 10,
   },
   titleContainer: {
-    position: 'relative'
+    position: 'relative',
   },
   closeIcon: {
     position: 'absolute',
     right: 0,
-    top: -10
-  }
+    top: -10,
+  },
 });
 
 export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
@@ -49,13 +50,15 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
     let title = '';
     if (selectedItem === SETTINGS_OPTIONS.ACCOUNT) {
       title = 'Account';
+    } else if (selectedItem === SETTINGS_OPTIONS.GENERAL) {
+      title = 'General';
     }
 
     return (
       <Box className={classes.titleContainer}>
-        <Box>{title}</Box>
+        <Box id={'ssd-title'}>{title}</Box>
         <Box className={classes.closeIcon}>
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleClose} id={'ssd-close-icon'}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -77,6 +80,9 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
             <div className={classes.content}>
               <If condition={selectedItem === SETTINGS_OPTIONS.ACCOUNT}>
                 <AccountSettings />
+              </If>
+              <If condition={selectedItem === SETTINGS_OPTIONS.GENERAL}>
+                <GeneralSettings />
               </If>
             </div>
           </Box>

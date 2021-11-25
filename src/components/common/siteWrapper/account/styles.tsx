@@ -5,4 +5,11 @@ export const useCommonStyles = makeStyles({
     marginLeft: 10,
     fontSize: 14
   },
+  sectionTitle: {
+    fontWeight: 'bold',
+    marginTop: 15,
+  },
+  sectionBody: {
+    marginTop: 10,
+  },
 });

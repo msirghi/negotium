@@ -4,13 +4,12 @@ import colors from '../../../../common/styles/colors';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HeaderSearchOptions } from './types';
 import { useRouter } from 'next/router';
-import { Box } from '@mui/system';
 import ReorderIcon from '@mui/icons-material/Reorder';
-import { Row } from '../../utilities/row/Row';
 import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
+import { HeaderSearchOption } from './option/HeaderSearchOption';
 
 const useStyles = makeStyles({
   input: {
@@ -23,13 +22,6 @@ const useStyles = makeStyles({
       border: 'none',
       width: 400,
     },
-  },
-  optionTitle: {
-    marginLeft: 10,
-  },
-  optionType: {
-    marginLeft: 'auto',
-    color: colors.greys['400'],
   },
 });
 
@@ -90,6 +82,7 @@ export const HeaderSearch = () => {
         value.onClick();
       }}
       size={'small'}
+      id={'header-autocomplete'}
       className={classes.input}
       disablePortal
       open={open}
@@ -100,23 +93,9 @@ export const HeaderSearch = () => {
         <TextField {...params} size={'small'} placeholder={'Search'} />
       )}
       options={Array.from(new Set(options))}
-      renderOption={(props, option) => {
-        const { title, Icon, id } = option;
-        if (!title) {
-          return;
-        }
-        return (
-          <Box {...props} onClick={() => option.onClick()} key={id}>
-            <Row alignVerticalCenter>
-              <Icon color={'primary'} />
-              <div className={classes.optionTitle}>{title}</div>
-            </Row>
-            <div className={classes.optionType}>
-              <i>Project</i>
-            </div>
-          </Box>
-        );
-      }}
+      renderOption={(props, option) => (
+        <HeaderSearchOption props={props} option={option} />
+      )}
     />
   );
 };

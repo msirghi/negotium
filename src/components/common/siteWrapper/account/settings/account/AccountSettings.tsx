@@ -7,15 +7,9 @@ import { deepOrange } from '@mui/material/colors';
 import { makeStyles } from '@mui/styles';
 import { Row } from '../../../../utilities/row/Row';
 import colors from '../../../../../../common/styles/colors';
+import { useCommonStyles } from '../../styles';
 
 const useStyles = makeStyles({
-  sectionTitle: {
-    fontWeight: 'bold',
-    marginTop: 15,
-  },
-  sectionBody: {
-    marginTop: 10,
-  },
   photoContent: {
     marginLeft: 10,
   },
@@ -31,12 +25,13 @@ export const AccountSettings = () => {
     (state: RootState) => state.account.info
   );
   const classes = useStyles();
+  const commonClasses = useCommonStyles();
 
   return (
     <Box>
       <div>
-        <Box className={classes.sectionTitle}>Photo</Box>
-        <Box className={classes.sectionBody}>
+        <Box className={commonClasses.sectionTitle}>Photo</Box>
+        <Box className={commonClasses.sectionBody}>
           <Row alignVerticalCenter>
             <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56 }}>
               {accountInfo.name[0]}
@@ -52,17 +47,18 @@ export const AccountSettings = () => {
           </Row>
         </Box>
 
-        <Box className={classes.sectionTitle}>Name</Box>
-        <Box className={classes.sectionBody}>
+        <Box className={commonClasses.sectionTitle}>Name</Box>
+        <Box className={commonClasses.sectionBody}>
           <TextField
+            id={'name-field'}
             size={'small'}
             placeholder={'Name'}
             value={accountInfo.name}
           />
         </Box>
 
-        <Box className={classes.sectionTitle}>Email</Box>
-        <Box className={classes.sectionBody}>
+        <Box className={commonClasses.sectionTitle}>Email</Box>
+        <Box className={commonClasses.sectionBody}>
           <Box>
             <span>{accountInfo.email}</span>
           </Box>
@@ -71,8 +67,8 @@ export const AccountSettings = () => {
           </Button>
         </Box>
 
-        <Box className={classes.sectionTitle}>Password</Box>
-        <Box className={classes.sectionBody}>
+        <Box className={commonClasses.sectionTitle}>Password</Box>
+        <Box className={commonClasses.sectionBody}>
           <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }}>
             Change Password
           </Button>

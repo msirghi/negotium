@@ -47,22 +47,12 @@ const removeDateKeyword = (value: string) => {
   }
 };
 
-const isEmptyValue = (value: string) => {
-  try {
-    const parsed = JSON.parse(value).children.filter((p) => p.text);
-    console.log('parsed.length', parsed.length);
-    return parsed.length === 0;
-  } catch (e) {
-    return true;
-  }
-};
-
 const SlateUtils = {
   serialize,
   detectDateInInput,
   detectDateKeywords,
   removeDateKeyword,
-  isEmptyValue,
+  transformKeywordToDate
 };
 
 export default SlateUtils;
