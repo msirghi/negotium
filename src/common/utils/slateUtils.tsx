@@ -40,7 +40,9 @@ const detectDateKeywords = (
 const removeDateKeyword = (value: string) => {
   try {
     const parsed = JSON.parse(value);
-    parsed[0].children = parsed[0].children.filter((p) => p.type !== 'mention');
+    parsed[0].children = parsed[0].children.filter(
+      (p: { type: string }) => p.type !== 'mention'
+    );
     return JSON.stringify(parsed);
   } catch (e) {
     return value;
@@ -52,7 +54,7 @@ const SlateUtils = {
   detectDateInInput,
   detectDateKeywords,
   removeDateKeyword,
-  transformKeywordToDate
+  transformKeywordToDate,
 };
 
 export default SlateUtils;

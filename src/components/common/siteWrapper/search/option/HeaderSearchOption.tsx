@@ -1,13 +1,12 @@
 import { Box } from '@mui/system';
 import { Row } from '../../../utilities/row/Row';
-import { FC } from 'react';
+import {FC, HTMLAttributes} from 'react';
 import { makeStyles } from '@mui/styles';
 import colors from '../../../../../common/styles/colors';
-import { HtmlAttributes } from 'csstype';
 import { HeaderSearchOptions } from '../types';
 
 type Props = {
-  props: HtmlAttributes;
+  props: HTMLAttributes<HTMLLIElement>;
   option: HeaderSearchOptions;
 };
 

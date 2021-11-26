@@ -89,3 +89,9 @@ export const TIME_FORMATS = [
     key: 'am/pm'
   }
 ]
+
+export const tempAccountInfo = {
+  id: '1',
+  email: 'mihail.sirghi@gmail.com',
+  name: 'Mihail',
+};

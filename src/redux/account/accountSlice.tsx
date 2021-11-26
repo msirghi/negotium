@@ -1,22 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AccountInfo } from '../../common/types/account.types';
+import { tempAccountInfo } from '../../common/constants/constants';
 
 export interface AccountState {
   info: AccountInfo;
 }
 
 const initialState: AccountState = {
-  info: {
-    id: '1',
-    email: 'mihail.sirghi@gmail.com',
-    name: 'Mihail',
-  },
+  info: tempAccountInfo,
 };
 
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {},
+  reducers: {
+    setAccountInfo: (state, action) => {
+      state.info = action.payload;
+    },
+  },
 });
+
+export const { setAccountInfo } = accountSlice.actions;
 
 export default accountSlice.reducer;

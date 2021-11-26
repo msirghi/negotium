@@ -3,8 +3,6 @@ import { MockReduxProvider } from '../../../../common/tests/TestUtils';
 import { HeaderSearch } from './HeaderSearch';
 import renderer, { act } from 'react-test-renderer';
 import { mount } from 'enzyme';
-import Autocomplete from '@mui/material/Autocomplete';
-import CloseIcon from '@mui/icons-material/Close';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -42,13 +40,38 @@ describe('HeaderSearch', () => {
     expect(spy).toBeCalled();
   });
 
-  // it('should handle option render', () => {
-  //   const wrapper = mount(renderComponent());
-  //   const autocomplete = wrapper.find('#header-autocomplete').at(0) as any;
-  //   const spy = jest.fn();
-  //   const Options = autocomplete.props().renderOption(
-  //     {},
-  //     { title: 'Title', Icon: CloseIcon, id: 1, onClick: spy }
-  //   );
-  // });
+  it('should handle open state', () => {
+    jest.useFakeTimers();
+    const wrapper = mount(renderComponent());
+    const autocomplete = wrapper.find('#header-autocomplete').at(0) as any;
+
+    act(() => {
+      autocomplete.props().onOpen();
+    });
+    jest.runOnlyPendingTimers();
+    wrapper.update();
+    expect(autocomplete.props().open).toBeDefined();
+  });
+
+  it('should handle close state', () => {
+    jest.useFakeTimers();
+    const wrapper = mount(renderComponent());
+    const autocomplete = wrapper.find('#header-autocomplete').at(0) as any;
+
+    act(() => {
+      autocomplete.props().onClose();
+    });
+    jest.runOnlyPendingTimers();
+    wrapper.update();
+    expect(autocomplete.props().open).toBeDefined();
+  });
+
+  it('should return empty value for option label', () => {
+    jest.useFakeTimers();
+    const wrapper = mount(renderComponent());
+    const autocomplete = wrapper.find('#header-autocomplete').at(0) as any;
+
+    const result = autocomplete.props().getOptionLabel();
+    expect(result).toEqual('');
+  });
 });
