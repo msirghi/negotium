@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderSearchOption should match the snapshot 1`] = `
-<div
+<li
   className="MuiBox-root css-0"
   onClick={[MockFunction]}
 >
@@ -40,5 +40,5 @@ exports[`HeaderSearchOption should match the snapshot 1`] = `
       Project
     </i>
   </div>
-</div>
+</li>
 `;

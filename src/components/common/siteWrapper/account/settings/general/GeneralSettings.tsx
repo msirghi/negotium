@@ -6,7 +6,7 @@ import {
   TIME_FORMATS,
 } from '../../../../../../common/constants/constants';
 import { useState } from 'react';
-import { i18n } from 'next-i18next';
+import { i18n, useTranslation } from 'next-i18next';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
 
@@ -20,10 +20,11 @@ export const GeneralSettings = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n?.language);
   const commonClasses = useCommonStyles();
   const classes = useStyles();
+  const { t } = useTranslation('settings');
 
   return (
     <div>
-      <Box className={commonClasses.sectionTitle}>Language</Box>
+      <Box className={commonClasses.sectionTitle}>{t('language')}</Box>
       <Box className={commonClasses.sectionBody}>
         <TextField
           select
@@ -41,7 +42,7 @@ export const GeneralSettings = () => {
         </TextField>
       </Box>
 
-      <Box className={commonClasses.sectionTitle}>Home view</Box>
+      <Box className={commonClasses.sectionTitle}>{t('homeView')}</Box>
       <Box className={commonClasses.sectionBody}>
         <TextField
           select
@@ -63,7 +64,7 @@ export const GeneralSettings = () => {
         <Divider />
       </Box>
 
-      <Box className={commonClasses.sectionTitle}>Time format</Box>
+      <Box className={commonClasses.sectionTitle}>{t('timeFormat')}</Box>
       <Box className={commonClasses.sectionBody}>
         <TextField
           select

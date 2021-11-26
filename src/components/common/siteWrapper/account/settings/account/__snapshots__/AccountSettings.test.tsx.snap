@@ -50,12 +50,12 @@ exports[`AccountSettings should match the snapshot 1`] = `
             tabIndex={0}
             type="button"
           >
-            Upload photo
+            photo.upload
           </button>
           <div
             className="makeStyles-photoHelperText-2 MuiBox-root css-0"
           >
-            Pick a photo up to 4MB.
+            photo.helperText
           </div>
         </div>
       </div>

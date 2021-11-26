@@ -29,7 +29,7 @@ export const HeaderSearchOption: FC<Props> = ({ option, props }) => {
   }
   return (
     // @ts-ignore
-    <Box {...props} onClick={onClick} key={id}>
+    <Box {...props} component={'li'} onClick={onClick} key={id}>
       <Row alignVerticalCenter>
         <Icon color={'primary'} />
         <div className={classes.optionTitle}>{title}</div>

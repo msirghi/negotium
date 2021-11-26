@@ -17,6 +17,7 @@ import { ChangeLog } from '../changelog/ChangeLog';
 import { useCommonStyles } from '../styles';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
+import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles({
   accountContainer: {
@@ -42,6 +43,7 @@ export const AccountMenu = () => {
   const classes = useStyles();
   const commonStyles = useCommonStyles();
   const [isSettingsDialogOpened, setSettingsDialogOpened] = useState(false);
+  const { t } = useTranslation('settings');
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +66,7 @@ export const AccountMenu = () => {
       />
 
       <IconButton
-          id={'account-circle'}
+        id={'account-circle'}
         size="large"
         color="inherit"
         sx={{ marginRight: 2 }}
@@ -106,14 +108,16 @@ export const AccountMenu = () => {
         <MenuItem onClick={onSettingsItemClick} id={'settings-item'}>
           <Row alignVerticalCenter>
             <SettingsIcon fontSize={'small'} />
-            <span className={commonStyles.itemTitle}>Settings</span>
+            <span className={commonStyles.itemTitle}>
+              {t('titles.settings')}
+            </span>
           </Row>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
           <Row alignVerticalCenter>
             <PaletteOutlinedIcon fontSize={'small'} />
-            <span className={commonStyles.itemTitle}>Theme</span>
+            <span className={commonStyles.itemTitle}>{t('titles.themes')}</span>
           </Row>
         </MenuItem>
 
@@ -122,7 +126,7 @@ export const AccountMenu = () => {
         <MenuItem onClick={handleClose}>
           <Row alignVerticalCenter>
             <ExitToAppOutlinedIcon fontSize={'small'} />
-            <span className={commonStyles.itemTitle}>Log out</span>
+            <span className={commonStyles.itemTitle}>{t('titles.logOut')}</span>
           </Row>
         </MenuItem>
 

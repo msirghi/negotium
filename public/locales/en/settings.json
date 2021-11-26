@@ -1,0 +1,18 @@
+{
+  "titles": {
+    "settings": "Settings",
+    "account": "Account",
+    "general": "General",
+    "themes": "Themes",
+    "logOut": "Log out",
+    "changeLog": "Changelog"
+  },
+  "version": "Version",
+  "language": "Language",
+  "homeView": "Home view",
+  "timeFormat": "Time format",
+  "photo": {
+    "upload": "Upload photo",
+    "helperText": "Pick a photo up to 4MB."
+  }
+}

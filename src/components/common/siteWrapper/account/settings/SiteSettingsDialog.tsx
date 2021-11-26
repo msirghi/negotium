@@ -10,6 +10,7 @@ import { Box } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
 import CloseIcon from '@mui/icons-material/Close';
 import { GeneralSettings } from './general/GeneralSettings';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   open: boolean;
@@ -42,6 +43,7 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
   const [selectedItem, setSelectedItem] = useState<SETTINGS_OPTIONS>(
     SETTINGS_OPTIONS.ACCOUNT
   );
+  const { t } = useTranslation('settings');
   const classes = useStyles();
 
   const handleClose = () => setOpen(false);
@@ -49,9 +51,9 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
   const getTitle = () => {
     let title = '';
     if (selectedItem === SETTINGS_OPTIONS.ACCOUNT) {
-      title = 'Account';
+      title = t('titles.account');
     } else if (selectedItem === SETTINGS_OPTIONS.GENERAL) {
-      title = 'General';
+      title = t('titles.general');
     }
 
     return (

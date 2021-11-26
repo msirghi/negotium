@@ -49,9 +49,9 @@ export const HeaderSearch = () => {
       return {
         id: project.id,
         title: project.name,
-        onClick: () => {
+        onClick: async () => {
           closePopper();
-          router.push(`/home/projects/${project.id}`);
+          await router.push(`/home/projects/${project.id}`, undefined, { shallow: true });
           setSelectedOption(project.id);
         },
         Icon: ReorderIcon,

@@ -13,7 +13,7 @@ const Inbox = () => {
 export async function getStaticProps({ locale }: StaticProps) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common', 'settings'])),
     },
   };
 }

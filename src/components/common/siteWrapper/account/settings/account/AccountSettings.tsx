@@ -8,6 +8,7 @@ import { makeStyles } from '@mui/styles';
 import { Row } from '../../../../utilities/row/Row';
 import colors from '../../../../../../common/styles/colors';
 import { useCommonStyles } from '../../styles';
+import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles({
   photoContent: {
@@ -26,6 +27,7 @@ export const AccountSettings = () => {
   );
   const classes = useStyles();
   const commonClasses = useCommonStyles();
+  const { t } = useTranslation('settings');
 
   return (
     <Box>
@@ -38,10 +40,10 @@ export const AccountSettings = () => {
             </Avatar>
             <Box className={classes.photoContent}>
               <Button size={'small'} variant={'outlined'}>
-                Upload photo
+                {t('photo.upload')}
               </Button>
               <Box className={classes.photoHelperText}>
-                Pick a photo up to 4MB.
+                {t('photo.helperText')}
               </Box>
             </Box>
           </Row>

@@ -8,6 +8,7 @@ import {
 } from '@mui/icons-material';
 import { FC } from 'react';
 import { SETTINGS_OPTIONS } from '../../../../../../common/types/enums';
+import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles({
   container: {
@@ -34,6 +35,7 @@ export const SettingsDialogMenu: FC<Props> = ({
   setSelectedItem,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation('settings');
 
   const onOptionSelect = (option: SETTINGS_OPTIONS) => {
     setSelectedItem(option);
@@ -49,21 +51,21 @@ export const SettingsDialogMenu: FC<Props> = ({
             onClick={() => onOptionSelect(SETTINGS_OPTIONS.ACCOUNT)}
             isActive={selectedItem === SETTINGS_OPTIONS.ACCOUNT}
             Icon={AccountCircleOutlined}
-            title={'Account'}
+            title={t('titles.account')}
           />
 
           <SettingsMenuListItem
             onClick={() => onOptionSelect(SETTINGS_OPTIONS.GENERAL)}
             isActive={selectedItem === SETTINGS_OPTIONS.GENERAL}
             Icon={SettingsOutlined}
-            title={'General'}
+            title={t('titles.general')}
           />
 
           <SettingsMenuListItem
             onClick={() => onOptionSelect(SETTINGS_OPTIONS.THEMES)}
             Icon={PaletteOutlined}
             isActive={selectedItem === SETTINGS_OPTIONS.THEMES}
-            title={'Themes'}
+            title={t('titles.themes')}
           />
         </Box>
       </Box>
