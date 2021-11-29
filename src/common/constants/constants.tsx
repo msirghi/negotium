@@ -32,6 +32,8 @@ export const PROJECT_NAME = 'Negotium';
 
 export const BASE_API_URL = 'http://localhost:4000';
 
+export const BASE_API_URL_V1 = 'https://negotium-api.herokuapp.com/api/v1'
+
 export const MAX_PROJECT_LIST_COUNT = 5;
 
 export const SNACKBAR_POSITIONS: { [key: string]: SnackbarOrigin } = {
@@ -59,39 +61,40 @@ export const MENTION_ARRAY_KEYWORDS = ['Today', 'Tomorrow'];
 export const SUPPORTED_LANGUAGES = [
   {
     code: 'en',
-    title: 'English'
+    title: 'English',
   },
   {
     code: 'ru',
-    title: 'Russian'
-  }
+    title: 'Russian',
+  },
 ];
 
 export const HOME_VIEW_LIST = [
   {
     title: 'Inbox',
-    url: '/home/inbox'
+    url: '/home/inbox',
   },
   {
     title: 'Today',
-    url: '/home/today'
-  }
-]
-
+    url: '/home/today',
+  },
+];
 
 export const TIME_FORMATS = [
   {
     title: '13:00',
-    key: '24h'
+    key: '24h',
   },
   {
     title: '1pm',
-    key: 'am/pm'
-  }
-]
+    key: 'am/pm',
+  },
+];
 
 export const tempAccountInfo = {
   id: '1',
   email: 'mihail.sirghi@gmail.com',
   name: 'Mihail',
 };
+
+export const pagesWithoutWrapper = ['/login'];

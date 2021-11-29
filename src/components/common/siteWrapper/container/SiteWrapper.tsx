@@ -15,7 +15,9 @@ import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
 import { HeaderSearch } from '../search/HeaderSearch';
 import { Row } from '../../utilities/row/Row';
 import { AccountCircle } from '@mui/icons-material';
-import {AccountMenu} from "../account";
+import { AccountMenu } from '../account';
+import { useRouter } from 'next/router';
+import { pagesWithoutWrapper } from '../../../../common/constants/constants';
 
 const drawerWidth = 240;
 
@@ -30,12 +32,19 @@ const useStyles = makeStyles({
 export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
+  const router = useRouter();
 
   const classes = useStyles();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  console.log(router.route);
+  if (pagesWithoutWrapper.includes(router.route)) {
+    return children;
+  }
+
 
   return (
     <Box>
@@ -65,7 +74,7 @@ export const SiteWrapper: FC = ({ children }) => {
           </Row>
           <Box sx={{ flexGrow: 1 }} />
 
-         <AccountMenu />
+          <AccountMenu />
         </Toolbar>
       </AppBar>
       <Box sx={{ display: 'flex', marginTop: isMobile ? 0 : 6 }}>
