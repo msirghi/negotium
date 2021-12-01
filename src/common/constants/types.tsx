@@ -4,7 +4,7 @@ import { SvgIconTypeMap } from '@mui/material';
 
 export type MainMenuItem = {
   title: string;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
+  Icon: OverridableComponent<SvgIconTypeMap> & { muiName: string };
   route: string;
 };
 

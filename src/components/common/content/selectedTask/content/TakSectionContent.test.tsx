@@ -1,6 +1,6 @@
 import { TasksMock } from '../../../../../common/tests/mockData/tasks-mock';
 import { TaskSectionContent } from './TaskSectionContent';
-import { act, fireEvent, render } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import TaskService from '../../../../../services/TaskService';
 import {mount} from "enzyme";
 import MentionInput from "../../../form/input/mention/MentionInput";

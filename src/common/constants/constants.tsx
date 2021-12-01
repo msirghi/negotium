@@ -32,7 +32,7 @@ export const PROJECT_NAME = 'Negotium';
 
 export const BASE_API_URL = 'http://localhost:4000';
 
-export const BASE_API_URL_V1 = 'https://negotium-api.herokuapp.com/api/v1'
+export const BASE_API_URL_V1 = 'https://negotium-api.herokuapp.com/api/v1';
 
 export const MAX_PROJECT_LIST_COUNT = 5;
 
@@ -98,3 +98,10 @@ export const tempAccountInfo = {
 };
 
 export const pagesWithoutWrapper = ['/login', '/registration'];
+
+export const passwordStatusColors = {
+  tooWeak: 'red',
+  weak: 'orange',
+  medium: 'purple',
+  strong: 'green',
+};

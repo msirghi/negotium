@@ -7,7 +7,8 @@ import ValidationService from '../../../services/ValidationService';
 import { useSnackbar } from 'notistack';
 import AuthService from '../../../services/AuthService';
 import colors from '../../../common/styles/colors';
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router';
+import RegistrationFormUtils from './utils';
 
 const useStyles = makeStyles({
   buttonContainer: {
@@ -36,21 +37,21 @@ export const RegistrationForm = () => {
 
   const onSubmit = async (values: FormValues) => {
     const errors = validateFields(values);
-    if (!Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length !== 0) {
       return;
     }
 
     try {
       setLoading(true);
       const { email, password, name } = values;
-      const res = await AuthService.register(email, password, name);
+      await AuthService.register(email, password, name);
       setLoading(false);
       enqueueSnackbar('Registration completed.', {
         variant: 'success',
       });
       await router.push('/login');
     } catch (e) {
-      setError(e.message);
+      setError((e as Error).message);
     }
   };
 
@@ -77,27 +78,9 @@ export const RegistrationForm = () => {
     return errors;
   };
 
-  const getPasswordConfig = () => {
-    const { password } = formik.values;
-    if (!password) {
-      return null;
-    }
-    const passwordStrength = ValidationService.getPasswordStrength(password);
-    if (passwordStrength === 'Too weak') {
-      return { title: 'Too weak', color: 'red' };
-    }
-    if (passwordStrength === 'Weak') {
-      return { title: 'Weak', color: 'orange' };
-    }
-    if (passwordStrength === 'Medium') {
-      return { title: 'Medium', color: 'purple' };
-    }
-    if (passwordStrength === 'Strong') {
-      return { title: 'Strong', color: 'green' };
-    }
-  };
-
-  const passConfig = getPasswordConfig();
+  const passConfig = RegistrationFormUtils.getPasswordConfig(
+    formik.values.password
+  );
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -105,6 +88,7 @@ export const RegistrationForm = () => {
       <div>
         <TextField
           required
+          inputProps={{ 'data-testid': 'name-field' }}
           onChange={formik.handleChange}
           value={formik.values.name}
           error={formik.touched.name && Boolean(formik.errors.name)}
@@ -117,6 +101,7 @@ export const RegistrationForm = () => {
         />
 
         <TextField
+          inputProps={{ 'data-testid': 'email-field' }}
           required
           onChange={formik.handleChange}
           value={formik.values.email}
@@ -130,6 +115,7 @@ export const RegistrationForm = () => {
         />
 
         <TextField
+          inputProps={{ 'data-testid': 'password-field' }}
           required
           onChange={formik.handleChange}
           value={formik.values.password}
@@ -148,6 +134,7 @@ export const RegistrationForm = () => {
         />
 
         <TextField
+          inputProps={{ 'data-testid': 'repeat-password-field' }}
           required
           name={'repeatPassword'}
           onChange={formik.handleChange}
@@ -167,6 +154,7 @@ export const RegistrationForm = () => {
         />
         <div className={classes.buttonContainer}>
           <LoadingButton
+            data-testid={'submit-button'}
             disabled={!formik.isValid}
             loading={loading}
             type={'submit'}
