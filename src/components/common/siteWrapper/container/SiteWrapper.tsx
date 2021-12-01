@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SiteWrapperDrawer } from '../drawer/SiteWrapperDrawer';
 import { If } from '../../utilities/if/If';
 import colors from '../../../../common/styles/colors';
@@ -18,6 +18,9 @@ import { AccountCircle } from '@mui/icons-material';
 import { AccountMenu } from '../account';
 import { useRouter } from 'next/router';
 import { pagesWithoutWrapper } from '../../../../common/constants/constants';
+import { useDispatch } from 'react-redux';
+import AuthService from '../../../../services/AuthService';
+import { setAccountInfo } from '../../../../redux/account/accountSlice';
 
 const drawerWidth = 240;
 
@@ -33,6 +36,7 @@ export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const classes = useStyles();
 
@@ -40,11 +44,18 @@ export const SiteWrapper: FC = ({ children }) => {
     setMobileOpen(!mobileOpen);
   };
 
-  console.log(router.route);
-  if (pagesWithoutWrapper.includes(router.route)) {
-    return children;
-  }
+  const fetchUserInfo = async () => {
+    const userInfo = await AuthService.getUserInfo();
+    dispatch(setAccountInfo(userInfo.data));
+  };
 
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  if (pagesWithoutWrapper.includes(router.route)) {
+    return <>{children}</>;
+  }
 
   return (
     <Box>

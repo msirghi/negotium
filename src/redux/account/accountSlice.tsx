@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AccountInfo } from '../../common/types/account.types';
-import { tempAccountInfo } from '../../common/constants/constants';
 
 export interface AccountState {
   info: AccountInfo;
 }
 
 const initialState: AccountState = {
-  info: tempAccountInfo,
+  info: {
+    name: '',
+    email: '',
+    id: ''
+  },
 };
 
 export const accountSlice = createSlice({

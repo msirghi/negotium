@@ -21,3 +21,8 @@ export type SlateNode = {
   type: string;
   children: Array<{ text: string }>;
 };
+
+export type LoginResponse = {
+  access_token: string;
+  refresh_token: string;
+}

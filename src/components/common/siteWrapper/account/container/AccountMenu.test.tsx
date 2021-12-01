@@ -4,7 +4,18 @@ import { act } from '@testing-library/react';
 import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
 import { MockReduxProvider } from '../../../../../common/tests/TestUtils';
 import { accountInfoMock } from '../../../../../common/tests/mockData/account-mock';
-import { Menu } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
+import { MouseEventHandler } from 'react';
+
+const mockPush = jest.fn();
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'inbox',
+    query: {},
+    push: mockPush,
+  }),
+}));
 
 describe('AccountMenu', () => {
   const defaultProps = {};
@@ -57,5 +68,21 @@ describe('AccountMenu', () => {
     });
     wrapper.update();
     expect(menuElement.props().anchorEl).toBeNull();
+  });
+
+  it('should handle logout click', () => {
+    const wrapper = mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <AccountMenu {...defaultProps} />
+      </MockReduxProvider>
+    );
+    const menuItems = wrapper.find(MenuItem);
+    const logoutItem = wrapper.find(MenuItem).at(menuItems.length - 2)!;
+
+    act(() => {
+      // @ts-ignore
+      logoutItem.props().onClick();
+    });
+    expect(mockPush).toBeCalled();
   });
 });

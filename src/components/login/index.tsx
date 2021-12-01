@@ -1,1 +1,1 @@
-export { LoginContainer } from './container/LoginContainer';
+export { AuthContainer } from './container/AuthContainer';

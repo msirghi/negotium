@@ -4,7 +4,11 @@ import { tempAccountInfo } from '../../common/constants/constants';
 describe('Account slice', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, { type: 'type' })).toEqual({
-      info: tempAccountInfo,
+      info: {
+        email: '',
+        name: '',
+        id: ''
+      },
     });
   });
 

@@ -1,39 +1,37 @@
-import { Button, Fade, TextField } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Fade, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import { LoadingButton } from '@mui/lab';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { If } from '../../common/utilities/if/If';
-import colors from '../../../common/styles/colors';
 import AuthService from '../../../services/AuthService';
-
-const useStyles = makeStyles({
-  field: {
-    marginTop: 20,
-  },
-  buttonContainer: {
-    marginTop: 30,
-  },
-  error: {
-    marginTop: 20,
-    color: colors.error.main,
-    textAlign: 'center',
-  },
-});
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setAccountInfo } from '../../../redux/account/accountSlice';
+import authorizationStore from '../../../common/requests/authorizationStore';
+import { useLoginFormStyles } from './styles';
 
 export const LoginForm = () => {
-  const classes = useStyles();
+  const classes = useLoginFormStyles();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      const response = await AuthService.login(email, password);
+      const loginResponse = await AuthService.login(email, password);
+      const { data } = loginResponse;
+      localStorage.setItem('rt', data.refresh_token);
+      authorizationStore.setAuthToken(data.access_token);
+      const accountResponse = await AuthService.getUserInfo();
+      dispatch(setAccountInfo(accountResponse.data));
+      await router.push('/home/inbox');
     } catch (e) {
       setError((e as Error).message);
     }
@@ -42,14 +40,17 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <If condition={!!error}>
         <Fade in>
-          <div className={classes.error}>{error}</div>
+          <div data-testid={'login-error'} className={classes.error}>
+            {error}
+          </div>
         </Fade>
       </If>
       <TextField
         value={email}
+        inputProps={{ 'data-testid': 'email-input' }}
         onChange={(e) => setEmail(e.target.value)}
         style={{ marginTop: 30 }}
         size={'small'}
@@ -58,6 +59,7 @@ export const LoginForm = () => {
       />
       <TextField
         value={password}
+        inputProps={{ 'data-testid': 'password-input' }}
         onChange={(e) => setPassword(e.target.value)}
         style={{ marginTop: 30 }}
         size={'small'}
@@ -67,9 +69,10 @@ export const LoginForm = () => {
       />
       <Box className={classes.buttonContainer}>
         <LoadingButton
+          data-testid={'submit-button'}
           disabled={!email || !password}
           loading={loading}
-          onClick={onSubmit}
+          type={'submit'}
           color={'primary'}
           variant={'contained'}
           fullWidth
@@ -77,6 +80,6 @@ export const LoginForm = () => {
           Sign in
         </LoadingButton>
       </Box>
-    </div>
+    </form>
   );
 };

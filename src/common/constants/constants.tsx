@@ -97,4 +97,4 @@ export const tempAccountInfo = {
   name: 'Mihail',
 };
 
-export const pagesWithoutWrapper = ['/login'];
+export const pagesWithoutWrapper = ['/login', '/registration'];

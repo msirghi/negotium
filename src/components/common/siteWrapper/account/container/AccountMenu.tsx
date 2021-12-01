@@ -18,10 +18,12 @@ import { useCommonStyles } from '../styles';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
 import { useTranslation } from 'next-i18next';
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles({
   accountContainer: {
     minWidth: 300,
+    maxWidth: 450
   },
   accountTitles: {
     marginLeft: 15,
@@ -44,6 +46,12 @@ export const AccountMenu = () => {
   const commonStyles = useCommonStyles();
   const [isSettingsDialogOpened, setSettingsDialogOpened] = useState(false);
   const { t } = useTranslation('settings');
+  const router = useRouter();
+
+  const handleLogout = async() => {
+    localStorage.removeItem('rt');
+    await router.push('/login');
+  }
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -91,7 +99,7 @@ export const AccountMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <Row alignVerticalCenter>
             <Avatar sx={{ bgcolor: deepOrange[500] }}>
               {accountInfo.name[0]}
@@ -123,7 +131,7 @@ export const AccountMenu = () => {
 
         <ChangeLog closeMenu={handleClose} />
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <Row alignVerticalCenter>
             <ExitToAppOutlinedIcon fontSize={'small'} />
             <span className={commonStyles.itemTitle}>{t('titles.logOut')}</span>

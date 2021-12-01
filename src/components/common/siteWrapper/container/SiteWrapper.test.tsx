@@ -7,6 +7,7 @@ import TestUtils, {
   MockReduxProvider,
 } from '../../../../common/tests/TestUtils';
 import { accountInfoMock } from '../../../../common/tests/mockData/account-mock';
+import AuthService from '../../../../services/AuthService';
 
 const mockProjects = [...projectsMock];
 
@@ -38,6 +39,7 @@ describe('SiteWrapper', () => {
     projectsRequests.fetchProjects = jest.fn(() =>
       Promise.resolve([...projectsMock])
     );
+    AuthService.getUserInfo = jest.fn(() => Promise.resolve() as any);
   });
 
   it('should render children', () => {
@@ -69,5 +71,18 @@ describe('SiteWrapper', () => {
     button.simulate('click');
     wrapper.update();
     expect(wrapper.find('#drawer').at(0).props().open).toBeTruthy();
+  });
+
+  it('should get user info on mount', () => {
+    mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </QueryClientProvider>
+      </MockReduxProvider>
+    );
+    expect(AuthService.getUserInfo).toBeCalled();
   });
 });

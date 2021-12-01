@@ -1,23 +1,20 @@
-import { makeStyles } from '@mui/styles';
-import colors from '../../../common/styles/colors';
-
-const useStyles = makeStyles({
-  link: {
-    cursor: 'pointer',
-    color: colors.primaries.lightBlue_1,
-  },
-  container: {
-    fontSize: 13,
-    textAlign: 'center'
-  },
-});
+import { useRouter } from 'next/router';
+import { useFooterStyles } from './styles';
 
 export const LoginFooter = () => {
-  const classes = useStyles();
+  const classes = useFooterStyles();
+  const router = useRouter();
+
+  const onSignUpClick = () => {
+    router.push('/registration');
+  };
 
   return (
     <div className={classes.container}>
-      Don’t have an account? <span className={classes.link}>Sign Up</span>
+      Don’t have an account?{' '}
+      <span className={classes.link} onClick={onSignUpClick}>
+        Sign Up
+      </span>
     </div>
   );
 };
