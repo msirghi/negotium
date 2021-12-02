@@ -1,10 +1,16 @@
-import axios from 'axios';
-import { BASE_API_URL } from '../constants/constants';
-import { IGetProjectResponse } from './types';
+import { BASE_API_URL_V1 } from '../constants/constants';
+import { HttpMethod, IGetProjectResponse } from './types';
+import ServiceResultFactory from './serviceResultFactory';
+import Requests from './request';
 
 async function fetchProjects() {
-  const { data } = await axios.get(`${BASE_API_URL}/projects`);
-  return data as IGetProjectResponse['projects'];
+  const { data } = await Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects`,
+    HttpMethod.GET
+  );
+  return ServiceResultFactory.convertMongoIdToJSId(
+    data as IGetProjectResponse['projects']
+  );
 }
 
 export const projectsRequests = {

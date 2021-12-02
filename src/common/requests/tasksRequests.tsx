@@ -1,10 +1,19 @@
 import axios from 'axios';
-import { BASE_API_URL } from '../constants/constants';
-import { IGetTasksResponse, IGetTasksWithSectionResponse } from './types';
+import { BASE_API_URL, BASE_API_URL_V1 } from '../constants/constants';
+import {
+  HttpMethod,
+  IGetTasksResponse,
+  IGetTasksWithSectionResponse,
+} from './types';
+import Requests from './request';
+import ServiceResultFactory from "./serviceResultFactory";
 
 async function fetchTasks() {
-  const { data } = await axios.get(`${BASE_API_URL}/tasks`);
-  return data as IGetTasksResponse['tasks'];
+  const { data } = await Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/tasks`,
+    HttpMethod.GET
+  );
+  return ServiceResultFactory.convertMongoIdToJSId(data as IGetTasksResponse['tasks']);
 }
 
 async function fetchTasksGroupedBySection() {
@@ -23,5 +32,5 @@ async function fetchTasksByProject(projectId: string) {
 export const tasksRequests = {
   fetchTasks,
   fetchTasksGroupedBySection,
-  fetchTasksByProject
+  fetchTasksByProject,
 };
