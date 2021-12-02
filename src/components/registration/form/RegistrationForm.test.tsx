@@ -49,7 +49,7 @@ describe('RegistrationForm', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should submit the form properly', () => {
+  it('should submit the form properly', async () => {
     AuthService.register = jest.fn(() => Promise.resolve() as any);
     const {
       repeatPasswordField,
@@ -66,9 +66,9 @@ describe('RegistrationForm', () => {
       fireEvent.change(repeatPasswordField, { target: { value: 'Test123@!' } });
       fireEvent.click(submitButton);
     });
-    // waitFor(() => {
-    //   expect(mockPush).toBeCalledWith('/login');
-    // });
+    await waitFor(() => {
+      expect(mockPush).toBeCalledWith('/login');
+    });
   });
 
   it('should not push the router if api call failed', async () => {
@@ -88,9 +88,9 @@ describe('RegistrationForm', () => {
       fireEvent.change(repeatPasswordField, { target: { value: 'Test123@!' } });
       fireEvent.click(submitButton);
     });
-    // await waitFor(() => {
-    //   expect(mockPush).not.toBeCalledWith('/login');
-    // });
+    await waitFor(() => {
+      expect(mockPush).not.toBeCalledWith('/login');
+    });
   });
 
   it('should show the email error', async () => {
