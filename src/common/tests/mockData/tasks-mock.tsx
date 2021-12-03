@@ -1,6 +1,7 @@
 export const TasksMock = [
   {
     id: 'uuid-1',
+    _id: 'uuid-1',
     title: '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]',
     createdDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',
     dueDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',
@@ -9,6 +10,7 @@ export const TasksMock = [
   },
   {
     id: 'uuid-2',
+    _id: 'uuid-2',
     title: '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]',
     createdDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',
     dueDate: 'Fri Nov 12 2021 07:53:34 GMT+0000',

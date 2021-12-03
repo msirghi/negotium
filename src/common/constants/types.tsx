@@ -23,6 +23,16 @@ export type SlateNode = {
 };
 
 export type LoginResponse = {
-  access_token: string;
-  refresh_token: string;
-}
+  data: {
+    access_token: string;
+    refresh_token: string;
+  };
+};
+
+export type AxiosRequestInstance = {
+  response: {
+    config: {
+      headers: { [key: string]: string };
+    };
+  };
+};

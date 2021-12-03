@@ -48,7 +48,7 @@ exports[`TaskItem should match the snapshot 1`] = `
       />
       <svg
         aria-hidden={true}
-        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
         data-testid="CheckBoxOutlineBlankIcon"
         focusable="false"
         viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ exports[`TaskItem should match the snapshot 1`] = `
       </svg>
     </span>
     <div>
-      new task for 123 
+      [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
     </div>
   </div>
   <div />

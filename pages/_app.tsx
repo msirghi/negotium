@@ -1,24 +1,28 @@
+import axios from 'axios';
 import '../styles/globals.css';
+import { Provider } from 'react-redux';
+import { useRouter } from 'next/router';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { SiteWrapper } from '../src/components/common/siteWrapper';
-import { useRouter } from 'next/router';
-import DateAdapter from '@mui/lab/AdapterDayjs';
-import { LocalizationProvider } from '@mui/lab';
 import { SnackbarProvider } from 'notistack';
-import { Provider } from 'react-redux';
-import { store } from '../src/redux/store';
-import { ThemeProvider } from '@mui/material/styles';
-import { appTheme } from '../src/common/theme/appTheme';
-import createEmotionCache from '../src/common/config/cache/createEmotionCache';
-import { CacheProvider, EmotionCache } from '@emotion/react';
-import { StylesProvider, createGenerateClassName } from '@mui/styles';
+import { LocalizationProvider } from '@mui/lab';
+import DateAdapter from '@mui/lab/AdapterDayjs';
 import { appWithTranslation } from 'next-i18next';
+import { ThemeProvider } from '@mui/material/styles';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { StylesProvider, createGenerateClassName } from '@mui/styles';
+
+import { store } from '../src/redux/store';
+import Routes from '../src/common/config/routes';
 import AuthService from '../src/services/AuthService';
-import { LoginResponse } from '../src/common/constants/types';
-import { FullscreenLoader } from '../src/components/common/spinners/fullscreen/FullscreenLoader';
+import { appTheme } from '../src/common/theme/appTheme';
+import { SiteWrapper } from '../src/components/common/siteWrapper';
+import { AxiosRequestInstance } from '../src/common/constants/types';
 import authorizationStore from '../src/common/requests/authorizationStore';
+import createEmotionCache from '../src/common/config/cache/createEmotionCache';
+import { FullscreenLoader } from '../src/components/common/spinners/fullscreen/FullscreenLoader';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
@@ -36,7 +40,21 @@ function MyApp({
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
+  const refreshAuthLogic = async <T extends AxiosRequestInstance>(
+    failedRequest: T
+  ) => {
+    const response = await AuthService.getRefreshedToken();
+    const token = response.data.access_token;
+    authorizationStore.setAuthToken(token);
+    failedRequest.response.config.headers['Authorization'] = `Bearer ${token}`;
+    return Promise.resolve();
+  };
+
+  const setupAxiosInterceptor = () =>
+    createAuthRefreshInterceptor(axios, refreshAuthLogic);
+
   useEffect(() => {
+    setupAxiosInterceptor();
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement!.removeChild(jssStyles);
@@ -46,25 +64,19 @@ function MyApp({
 
   const refreshToken = async () => {
     try {
-      const res = (await AuthService.getRefreshedToken()) as {
-        data: LoginResponse;
-      };
+      const res = await AuthService.getRefreshedToken();
       authorizationStore.setAuthToken(res.data.access_token);
-      if (router.route === '/login' || router.route === '/register') {
-        await router.push('/home/inbox');
+      if (router.route === Routes.login || router.route === Routes.register) {
+        await router.push(Routes.inbox);
       }
     } catch (e) {
-      await router.push('/login');
+      await router.push(Routes.login);
     }
     setLoading(false);
   };
 
   if (loading) {
     return <FullscreenLoader />;
-  }
-
-  if (router.route.includes('/auth')) {
-    return <Component {...pageProps} />;
   }
 
   return (

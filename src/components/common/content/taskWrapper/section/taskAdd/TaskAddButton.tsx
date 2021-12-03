@@ -56,7 +56,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
     <>
       <If condition={!editMode}>
         <CustomButton
-            id={'tab-add-button'}
+          id={'tab-add-button'}
           data-testid={'tab-add-button'}
           startIcon={<AddIcon />}
           disableRipple

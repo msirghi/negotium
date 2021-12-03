@@ -43,7 +43,7 @@ export const PageTitle: FC<Props> = ({
       </If>
       <If condition={!editableOptions}>
         <Row alignVerticalCenter>
-          <Typography fontSize={34}>{title}</Typography>
+          <Typography fontSize={28}>{title}</Typography>
           {settingsOptions && (
             <IconButton
               className={classes.settingsIcon}

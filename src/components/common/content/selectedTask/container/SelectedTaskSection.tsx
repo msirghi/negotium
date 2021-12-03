@@ -15,8 +15,9 @@ import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
 
 type Props = {
   task: Nullable<ITask>;
-  onTaskUpdate: (task: ITask) => void;
+  onTaskUpdate: (task: ITask, options?: { deselectTask: boolean }) => void;
   deselectTask: () => void;
+  markAsDone: (id: ITask['id']) => void;
 };
 
 const useStyles = makeStyles({
@@ -31,14 +32,15 @@ const useStyles = makeStyles({
     padding: '10px 0',
   },
   drawer: {
-    zIndex: 99999
-  }
+    zIndex: 99999,
+  },
 });
 
 export const SelectedTaskSection: FC<Props> = ({
   task,
   onTaskUpdate,
   deselectTask,
+  markAsDone,
 }) => {
   const classes = useStyles();
   const isMobile = useIsMobile();
@@ -76,6 +78,10 @@ export const SelectedTaskSection: FC<Props> = ({
     } as unknown as ITask);
   };
 
+  const handleDoneChange = () => {
+    markAsDone(task.id);
+  };
+
   const renderContent = () => {
     return (
       <>
@@ -91,7 +97,7 @@ export const SelectedTaskSection: FC<Props> = ({
         open={drawerOpen}
         onOpen={openDrawer}
         onClose={closeDrawer}
-          className={classes.drawer}
+        className={classes.drawer}
       >
         <Box sx={{ p: 1, width: '100vw' }}>
           <Row alignVerticalCenter>
@@ -100,6 +106,7 @@ export const SelectedTaskSection: FC<Props> = ({
               task={task}
               onTaskDateUpdate={onDateUpdate}
               key={task.dueDate}
+              markTaskAsDone={handleDoneChange}
             />
           </Row>
           {renderContent()}
@@ -114,6 +121,7 @@ export const SelectedTaskSection: FC<Props> = ({
         task={task}
         onTaskDateUpdate={onDateUpdate}
         key={task.dueDate}
+        markTaskAsDone={handleDoneChange}
       />
       {renderContent()}
     </div>

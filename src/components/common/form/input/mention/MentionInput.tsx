@@ -197,7 +197,7 @@ const Element = (props) => {
     case 'mention':
       return <Mention {...props} />;
     default:
-      return <p {...attributes}>{children}</p>;
+      return <b {...attributes} style={{margin: 0}}>{children}</b>;
   }
 };
 

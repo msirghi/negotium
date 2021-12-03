@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     transition: '.3s background-color ease-in-out',
     padding: '10px 15px',
     borderRadius: 5,
+    width: '220px !important',
     '&:hover': {
       backgroundColor: colors.greys['200'],
       cursor: 'pointer',

@@ -70,7 +70,7 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
-      <DialogContent>
+      <DialogContent style={{minHeight: 500}}>
         <Row>
           <SettingsDialogMenu
             selectedItem={selectedItem}

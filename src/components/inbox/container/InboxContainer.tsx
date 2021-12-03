@@ -1,6 +1,6 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
-import {FC, useEffect, useState} from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ITask } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
@@ -19,9 +19,9 @@ import { useTranslation } from 'next-i18next';
 
 type Props = {
   useData?: boolean;
-}
+};
 
-export const InboxContainer: FC<Props> = ({useData}) => {
+export const InboxContainer: FC<Props> = ({ useData }) => {
   const { isLoading, data, refetch } = useFetchTasks();
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { enqueueSnackbar } = useSnackbar();
@@ -56,14 +56,19 @@ export const InboxContainer: FC<Props> = ({useData}) => {
     await TaskUtils.markAsDone(taskId, refetch);
   };
 
-  const onTaskUpdate = (updatedTask: ITask) => {
+  const onTaskUpdate = (
+    updatedTask: ITask,
+    options?: { deselectTask: boolean }
+  ) => {
     const { id } = updatedTask;
-    console.log('updatedTask: ', updatedTask);
     const updatedTasks = tasks.map((task) =>
       task.id === id ? updatedTask : task
     );
     setTasks([...updatedTasks]);
     updateSelectedTask(updatedTasks);
+    if (options && options.deselectTask) {
+      deselectTask();
+    }
   };
 
   const updateSelectedTask = (tasks: ITask[]) => {
@@ -101,6 +106,7 @@ export const InboxContainer: FC<Props> = ({useData}) => {
         </TaskWrapper>
       </ContentBox>
       <SelectedTaskSection
+        markAsDone={markAsDone}
         key={selectedTask ? `${selectedTask.id}` : ''}
         deselectTask={deselectTask}
         task={selectedTask}

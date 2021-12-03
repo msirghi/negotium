@@ -14,6 +14,7 @@ describe('SelectedTaskSection', () => {
     task: TasksMock[0],
     onTaskUpdate: jest.fn(),
     deselectTask: jest.fn(),
+    markAsDone: jest.fn(),
   };
 
   afterEach(() => {
@@ -98,5 +99,17 @@ describe('SelectedTaskSection', () => {
       header.props().onTaskDateUpdate(new Date());
     });
     expect(defaultProps.onTaskUpdate).toBeCalled();
+  });
+
+  it('should call prop method on marking the task as done', () => {
+    const spy = jest.fn();
+    const wrapper = mount(
+      <SelectedTaskSection {...defaultProps} markAsDone={spy} />
+    );
+    const header = wrapper.find(TaskSectionHeader);
+    act(() => {
+      header.props().markTaskAsDone();
+    });
+    expect(spy).toBeCalled();
   });
 });

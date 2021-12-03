@@ -16,6 +16,8 @@ import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
+import FeatureToggles from "../../../utilities/featureToggles/FeatureToggles";
+import ProjectService from "../../../services/ProjectService";
 
 require('setimmediate');
 
@@ -37,6 +39,7 @@ jest.mock('next/router', () => ({
 describe('ProjectContainer', () => {
   beforeAll(() => {
     jest.clearAllMocks();
+    FeatureToggles.isFeatureEnabled = jest.fn(() => true);
     tasksRequests.fetchTasksByProject = jest.fn(() =>
       Promise.resolve([...TasksMock])
     );
@@ -92,8 +95,21 @@ describe('ProjectContainer', () => {
     expect(wrapper.find(ProjectDialogWrapper).props().open).toBeFalsy();
   });
 
+  it('should set the selected task', async () => {
+    ProjectService.addProjectTask = jest.fn();
+    ProjectService.updateProjectTask = jest.fn();
+    const wrapper = await getRenderedList();
+
+    const taskItem = wrapper.find(TaskItem);
+    act(() => {
+      taskItem.props().onTaskSelect(TasksMock[1]);
+    });
+    wrapper.update();
+    expect(wrapper.find(SelectedTaskSection)).toBeDefined();
+  });
+
   it('should handle task add', async () => {
-    TaskService.createTask = jest.fn();
+    ProjectService.addProjectTask = jest.fn();
     const wrapper = await mount(renderComponent());
     wrapper.update();
     await TestUtils.runAllPromises();
@@ -103,11 +119,11 @@ describe('ProjectContainer', () => {
     act(() => {
       taskButton.props().onTaskAdd('title', null);
     });
-    expect(TaskService.createTask).toBeCalled();
+    expect(ProjectService.addProjectTask).toBeCalled();
   });
 
   it('should handle task deselect', async () => {
-    TaskService.createTask = jest.fn();
+    ProjectService.addProjectTask = jest.fn();
     const wrapper = await getRenderedList();
 
     const selectedTaskSection = wrapper.find(SelectedTaskSection);
@@ -119,35 +135,25 @@ describe('ProjectContainer', () => {
   });
 
   it('should mark the task as done', async () => {
-    TaskService.createTask = jest.fn();
-    TaskUtils.markAsDone = jest.fn();
+    ProjectService.addProjectTask = jest.fn();
+    ProjectService.updateProjectTask = jest.fn();
     const wrapper = await getRenderedList();
 
     const taskItem = wrapper.find(TaskItem);
     act(() => {
       taskItem.props().markAsDone(TasksMock[1].id);
     });
-    expect(TaskUtils.markAsDone).toBeCalled();
+    expect(ProjectService.updateProjectTask).toBeCalled();
   });
 
   it('should update the task', async () => {
     const wrapper = await getRenderedList();
+    ProjectService.updateProjectTask = jest.fn();
     const selectedTaskSection = wrapper.find(SelectedTaskSection);
     act(() => {
-      selectedTaskSection.props().onTaskUpdate(TasksMock[0]);
+      selectedTaskSection.props().onTaskUpdate({...TasksMock[0], completed: false});
     });
-    expect(wrapper.find(TaskItem)).toHaveLength(1);
-  });
-
-  it('should set the selected task', async () => {
-    TaskUtils.markAsDone = jest.fn();
-    const wrapper = await getRenderedList();
-    const taskItem = wrapper.find(TaskItem);
-    act(() => {
-      taskItem.props().onTaskSelect(TasksMock[1]);
-    });
-    wrapper.update();
-    expect(wrapper.find(SelectedTaskSection)).toBeDefined();
+    expect(wrapper.find(SelectedTaskSection)).toHaveLength(1);
   });
 
   it('should render loader on initial render', () => {

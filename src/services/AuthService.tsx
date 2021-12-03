@@ -2,6 +2,7 @@ import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import { HttpMethod } from '../common/requests/types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
+import {LoginResponse} from "../common/constants/types";
 
 const login = (email: string, password: string) => {
   return Requests.restApiCall(
@@ -35,7 +36,7 @@ const getUserInfo = () => {
     .catch(ServiceResultFactory.fromError);
 };
 
-const getRefreshedToken = () => {
+const getRefreshedToken = (): Promise<LoginResponse> => {
   const body = {
     refresh_token: localStorage.getItem('rt'),
   };

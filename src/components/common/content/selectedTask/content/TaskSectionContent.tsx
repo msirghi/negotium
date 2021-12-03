@@ -9,6 +9,10 @@ import MentionInput from '../../../form/input/mention/MentionInput';
 import { MENTION_ARRAY_KEYWORDS } from '../../../../../common/constants/constants';
 import SlateUtils from '../../../../../common/utils/slateUtils';
 import { Descendant } from 'slate';
+import ProjectService from '../../../../../services/ProjectService';
+import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
+import { If } from '../../../utilities/if/If';
+import StringUtils from "../../../../../common/utils/stringUtils";
 
 type Props = {
   task: ITask;
@@ -29,16 +33,32 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
   const [descriptionValue, setDescriptionValue] = useState('No description.');
   const _dueDate = useRef(task.dueDate);
   const classes = useStyles();
+  const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
+    FeatureToggles.keys.SLATE_INPUT
+  );
+
+  console.log('isSlateInputEnabled: ', isSlateInputEnabled);
 
   const updateTaskTitle = (title: string) => {
     const updatedTitle = SlateUtils.removeDateKeyword(title);
-    TaskService.updateTaskName(task.id, updatedTitle);
+    if (task.projectId) {
+      ProjectService.updateProjectTask(task.projectId, {
+        ...task,
+        title: updatedTitle,
+      });
+    } else {
+      TaskService.updateTaskName(task.id, updatedTitle);
+    }
     onTaskUpdate({ ...task, title: updatedTitle, dueDate: _dueDate.current });
   };
 
   const updatedTitleDueDate = (dueDate: string) => {
     _dueDate.current = dueDate;
-    TaskService.updateTaskDueDate(task.id, dueDate);
+    if (task.projectId) {
+      ProjectService.updateProjectTask(task.projectId, task);
+    } else {
+      TaskService.updateTaskDueDate(task.id, dueDate);
+    }
     onTaskUpdate({ ...task, dueDate });
   };
 
@@ -46,20 +66,34 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
     task,
   ]);
 
-  const updateDueDateDebounce = useCallback(debounce(updatedTitleDueDate, 1000), [
-    _dueDate.current,
-  ]);
+  const updateDueDateDebounce = useCallback(
+    debounce(updatedTitleDueDate, 1000),
+    [_dueDate.current]
+  );
 
-  const onTitleChange = useCallback((value: Descendant[]) =>{
-    const stringified = JSON.stringify(value);
-    SlateUtils.detectDateKeywords(
-      stringified,
-      (transformedToDate) =>
-        transformedToDate && updateDueDateDebounce(transformedToDate)
-    );
-    setTitleValue(stringified);
-    updateTitleDebounce(stringified);
-  }, [task]);
+  const onTitleChange = useCallback(
+    (value: Descendant[] | string) => {
+      if (isSlateInputEnabled) {
+        const stringified = JSON.stringify(value);
+        SlateUtils.detectDateKeywords(
+          stringified,
+          (transformedToDate) =>
+            transformedToDate && updateDueDateDebounce(transformedToDate)
+        );
+        setTitleValue(stringified);
+        updateTitleDebounce(stringified);
+        return;
+      }
+
+      const values = StringUtils.getTaskInputDateByKeywords(value as string);
+      if (values.date) {
+        updateDueDateDebounce(values.date);
+      }
+      setTitleValue(value as string);
+      updateTitleDebounce(value as string);
+    },
+    [task]
+  );
 
   useEffect(() => {
     setTitleValue(task.title);
@@ -67,11 +101,28 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
 
   return (
     <Box className={classes.root}>
-      <MentionInput
-        onChange={onTitleChange}
-        defaultValue={JSON.parse(titleValue)}
-        keywords={MENTION_ARRAY_KEYWORDS}
-      />
+      <If condition={isSlateInputEnabled}>
+        <MentionInput
+          onChange={onTitleChange}
+          // defaultValue={JSON.parse(titleValue)}
+          keywords={MENTION_ARRAY_KEYWORDS}
+        />
+      </If>
+
+      <If condition={!isSlateInputEnabled}>
+        <TextField
+          fullWidth
+          className={classes.input}
+          value={titleValue}
+          onChange={(e) => onTitleChange(e.target.value)}
+          variant={'standard'}
+          inputProps={{'data-testid': 'title-input'}}
+          InputProps={{
+            disableUnderline: true,
+            style: { fontWeight: 'bold', fontSize: 18 },
+          }}
+        />
+      </If>
 
       <TextField
         className={classes.input}

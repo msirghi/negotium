@@ -6,14 +6,16 @@ import {
   IGetTasksWithSectionResponse,
 } from './types';
 import Requests from './request';
-import ServiceResultFactory from "./serviceResultFactory";
+import ServiceResultFactory from './serviceResultFactory';
 
 async function fetchTasks() {
   const { data } = await Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/tasks`,
     HttpMethod.GET
   );
-  return ServiceResultFactory.convertMongoIdToJSId(data as IGetTasksResponse['tasks']);
+  return ServiceResultFactory.convertMongoIdToJSId(
+    data as IGetTasksResponse['tasks']
+  );
 }
 
 async function fetchTasksGroupedBySection() {
@@ -24,9 +26,9 @@ async function fetchTasksGroupedBySection() {
 
 async function fetchTasksByProject(projectId: string) {
   const { data } = await axios.get(
-    `${BASE_API_URL}/tasks?projectId=${projectId}`
+    `${BASE_API_URL_V1}/projects/${projectId}/tasks`
   );
-  return data as IGetTasksResponse['tasks'];
+  return ServiceResultFactory.convertMongoIdToJSId(data as IGetTasksResponse['tasks']);
 }
 
 export const tasksRequests = {

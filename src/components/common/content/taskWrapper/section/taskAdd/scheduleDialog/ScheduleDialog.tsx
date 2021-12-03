@@ -1,4 +1,4 @@
-import { FC, useState, MouseEvent } from 'react';
+import { FC, useState, MouseEvent, useEffect } from 'react';
 import { Menu } from '@mui/material';
 import { MenuContent } from './content';
 import DateUtils from '../../../../../../../common/utils/dateUtils';
@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next';
 type Props = {
   onDateSelect: (date: Nullable<Date>) => void;
   defaultDate?: Date;
+  value?: Date;
   className?: string;
   customTitle?: string;
 };
@@ -30,6 +31,7 @@ export const ScheduleDialog: FC<Props> = ({
   defaultDate,
   className,
   customTitle,
+  value,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -38,6 +40,12 @@ export const ScheduleDialog: FC<Props> = ({
   );
   const classes = useStyles();
   const { t } = useTranslation('common');
+
+  useEffect(() => {
+    if (value) {
+      setSelectedDate(value);
+    }
+  }, [value]);
 
   const onDatePick = (date: Nullable<Date>) => {
     onDateSelect(date);

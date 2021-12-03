@@ -2,11 +2,16 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { TaskAddButton } from './TaskAddButton';
 import { mount } from 'enzyme';
 import { EditForm } from './editForm/EditForm';
+import FeatureToggles from '../../../../../../utilities/featureToggles/FeatureToggles';
 
 describe('TaskAddButton', () => {
   const defaultProps = {
     onTaskAdd: jest.fn(),
   };
+
+  beforeEach(() => {
+    FeatureToggles.isFeatureEnabled = jest.fn(() => true);
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -25,8 +30,7 @@ describe('TaskAddButton', () => {
       editForm.props().onDateSelect(null);
     });
     return wrapper;
-  }
-
+  };
 
   it('should render button on initial render', () => {
     const { getByTestId } = render(<TaskAddButton {...defaultProps} />);

@@ -13,9 +13,9 @@ import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { Nullable } from '../../../common/types/common.types';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
-import TaskService from '../../../services/TaskService';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
+import ProjectService from '../../../services/ProjectService';
 
 export const ProjectContainer = () => {
   const router = useRouter();
@@ -76,7 +76,10 @@ export const ProjectContainer = () => {
 
   const markAsDone = async (taskId: ITask['id']) => {
     setSelectedTask(null);
-    await TaskUtils.markAsDone(taskId, refetch);
+    const task = tasks.find((t) => t.id === taskId)!
+    setTasks(prevState => prevState.filter(t => t.id !== taskId));
+    task.completed = true;
+    await ProjectService.updateProjectTask(projectId.current, task);
   };
 
   const addTaskHandler = async (title: string, date: Nullable<Date>) => {
@@ -87,7 +90,7 @@ export const ProjectContainer = () => {
       projectId.current
     );
     setTasks((prevState) => [...(prevState || []), newTask as ITask]);
-    await TaskService.createTask(newTask);
+    await ProjectService.addProjectTask(projectId.current, newTask);
     await refetch();
   };
 
@@ -134,6 +137,7 @@ export const ProjectContainer = () => {
           </TaskWrapper>
         </ContentBox>
         <SelectedTaskSection
+          markAsDone={markAsDone}
           task={selectedTask}
           deselectTask={deselectTask}
           key={selectedTask ? selectedTask.id : ''}

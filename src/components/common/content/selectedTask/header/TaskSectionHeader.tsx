@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import { FC, useState } from 'react';
 import { Box } from '@mui/system';
 import { Checkbox, Divider } from '@mui/material';
 import { ITask } from '../../../../../common/types/tasks.types';
@@ -15,6 +15,7 @@ import TaskService from '../../../../../services/TaskService';
 type Props = {
   task: ITask;
   onTaskDateUpdate: (newDate: Nullable<Date>) => void;
+  markTaskAsDone: () => void;
 };
 
 const useStyles = makeStyles(() => ({
@@ -46,7 +47,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
+export const TaskSectionHeader: FC<Props> = ({
+  task,
+  onTaskDateUpdate,
+  markTaskAsDone,
+}) => {
   const { dueDate, id } = task;
   const classes = useStyles();
   const isDateInThePast = DateUtils.isDateInThePast(dueDate);
@@ -64,14 +69,9 @@ export const TaskSectionHeader: FC<Props> = ({ task, onTaskDateUpdate }) => {
   };
 
   return (
-    <Box
-      className={classes.root}
-      sx={{
-        border: (theme) => `1px solid ${theme.palette.divider}`,
-      }}
-    >
+    <Box className={classes.root}>
       <Row alignVerticalCenter>
-        <Checkbox />
+        <Checkbox onChange={markTaskAsDone} />
         <Divider orientation="vertical" flexItem />
         <Box
           className={classes.date}

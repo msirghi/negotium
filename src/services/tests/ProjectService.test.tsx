@@ -1,6 +1,8 @@
 import Requests from '../../common/requests/request';
 import ProjectService from '../ProjectService';
 import { projectsMock } from '../../common/tests/mockData/projects-mock';
+import ServiceResultFactory from '../../common/requests/serviceResultFactory';
+import { TasksMock } from '../../common/tests/mockData/tasks-mock';
 
 describe('ProjectService', () => {
   beforeEach(() => {
@@ -29,5 +31,39 @@ describe('ProjectService', () => {
   it('should make a call to updated project name by id', async () => {
     await ProjectService.updateProjectName(projectsMock[0].id, 'name');
     expect(Requests.restApiCallWithBearer).toBeCalled();
+  });
+
+  describe('addProjectTask', () => {
+    it('should handle success response', async () => {
+      ServiceResultFactory.fromResponse = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await ProjectService.addProjectTask('projectId', TasksMock[0]);
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle failed response', async () => {
+      // @ts-ignore
+      ServiceResultFactory.fromError = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await ProjectService.addProjectTask('projectId', TasksMock[0]);
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
+  });
+
+  describe('updateProjectTask', () => {
+    it('should handle success response', async () => {
+      ServiceResultFactory.fromResponse = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await ProjectService.updateProjectTask('projectId', TasksMock[0]);
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle failed response', async () => {
+      // @ts-ignore
+      ServiceResultFactory.fromError = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await ProjectService.updateProjectTask('projectId', TasksMock[0]);
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
   });
 });

@@ -6,7 +6,8 @@ import { Row } from '../../../utilities/row/Row';
 import { If } from '../../../utilities/if/If';
 import TaskItemUtils from './utils/utils';
 import { makeStyles } from '@mui/styles';
-import SlateUtils from "../../../../../common/utils/slateUtils";
+import SlateUtils from '../../../../../common/utils/slateUtils';
+import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
 
 type Props = {
   task: ITask;
@@ -24,6 +25,9 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
   const { title, dueDate } = task;
   const classes = useStyles();
   const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate!);
+  const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
+    FeatureToggles.keys.SLATE_INPUT
+  );
 
   return (
     <Row
@@ -32,8 +36,12 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect }) => {
       onClick={() => onTaskSelect(task)}
     >
       <Row alignVerticalCenter>
-        <Checkbox onChange={() => markAsDone(task.id)} />
-        <div>{SlateUtils.serialize(JSON.parse(title))}</div>
+        <Checkbox size={'small'} onChange={() => markAsDone(task.id)} />
+        <div>
+          {isSlateInputEnabled
+            ? SlateUtils.serialize(JSON.parse(title))
+            : title}
+        </div>
       </Row>
       <div>
         <If condition={!!chipOptions}>

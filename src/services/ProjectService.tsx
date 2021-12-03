@@ -1,13 +1,39 @@
 import Requests from '../common/requests/request';
-import { BASE_API_URL, BASE_API_URL_V1 } from '../common/constants/constants';
+import { BASE_API_URL_V1 } from '../common/constants/constants';
 import { HttpMethod } from '../common/requests/types';
 import { IProject } from '../common/types/projects.types';
+import { ITask } from '../common/types/tasks.types';
+import ServiceResultFactory from '../common/requests/serviceResultFactory';
 
 const addProject = (project: Omit<IProject, 'id'>) => {
-  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/projects`, HttpMethod.POST, {
-    ...project,
-    color: '#ffffff'
-  });
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects`,
+    HttpMethod.POST,
+    {
+      ...project,
+      color: '#ffffff',
+    }
+  );
+};
+
+const addProjectTask = (projectId: IProject['id'], task: Omit<ITask, 'id'>) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/tasks`,
+    HttpMethod.POST,
+    { ...task }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
+const updateProjectTask = (projectId: IProject['id'], task: ITask) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/tasks/${task.id}`,
+    HttpMethod.PATCH,
+    { ...task }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
 };
 
 const getProjectById = (projectId: IProject['id']) => {
@@ -40,6 +66,8 @@ const ProjectService = {
   getProjectById,
   updateProjectName,
   deleteProjectById,
+  addProjectTask,
+  updateProjectTask,
 };
 
 export default ProjectService;

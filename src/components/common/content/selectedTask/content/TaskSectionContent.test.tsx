@@ -1,10 +1,11 @@
 import { TasksMock } from '../../../../../common/tests/mockData/tasks-mock';
 import { TaskSectionContent } from './TaskSectionContent';
-import { act } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import TaskService from '../../../../../services/TaskService';
-import {mount} from "enzyme";
-import MentionInput from "../../../form/input/mention/MentionInput";
-import TestUtils from "../../../../../common/tests/TestUtils";
+import { mount } from 'enzyme';
+import MentionInput from '../../../form/input/mention/MentionInput';
+import TestUtils from '../../../../../common/tests/TestUtils';
+import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
 
 describe('TaskSectionContent', () => {
   const defaultProps = {
@@ -13,6 +14,7 @@ describe('TaskSectionContent', () => {
   };
 
   beforeEach(() => {
+    FeatureToggles.isFeatureEnabled = jest.fn(() => true);
     TaskService.updateTaskName = jest.fn(() => Promise.resolve()) as any;
   });
 
@@ -27,7 +29,7 @@ describe('TaskSectionContent', () => {
     act(() => {
       titleInput.props().onChange(JSON.parse(TestUtils.testData.fakeTitle));
     });
-    expect(titleInput.props().defaultValue).toBeDefined();
+    expect(titleInput.props().defaultValue).toBeUndefined();
   });
 
   it('should call TaskService on title update', () => {
@@ -41,5 +43,18 @@ describe('TaskSectionContent', () => {
 
     jest.runOnlyPendingTimers();
     expect(TaskService.updateTaskName).toBeCalled();
+  });
+
+  it('should handle title change event on feature toggle off', () => {
+    FeatureToggles.isFeatureEnabled = jest.fn(() => false);
+    jest.useFakeTimers();
+    const { getByTestId } = render(<TaskSectionContent {...defaultProps} />);
+    const titleInput = getByTestId('title-input');
+
+    act(() => {
+      fireEvent.change(titleInput, { target: { value: 'new value' } });
+    });
+    jest.runOnlyPendingTimers();
+    expect(titleInput).toHaveValue('new value');
   });
 });
