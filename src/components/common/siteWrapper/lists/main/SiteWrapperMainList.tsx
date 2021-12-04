@@ -4,17 +4,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { MAIN_MENU_ITEMS } from '../../../../../common/constants/constants';
 import { ListItemTitle } from '../listItemTitle/ListItemTitle';
-import styles from './SiteWrapperMainList.module.scss';
 import { useRouter } from 'next/router';
-import { Box } from '@mui/system';
+import { Box, Theme, useTheme } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
 import { useTranslation } from 'next-i18next';
-import i18next from 'i18next';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   activeItem: {
-    backgroundColor: colors.primaries.lightBlue_1,
+    backgroundColor: (props: { theme: Theme }) =>
+      props.theme.palette.custom.menuIconBackground,
     color: colors.white,
     borderRadius: 10,
     transition: 'all .1s ease-in-out',
@@ -22,12 +21,13 @@ const useStyles = makeStyles({
   activeIcon: {
     color: colors.white,
   },
-});
+}));
 
 export const SiteWrapperMainList = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles({ theme });
 
   const isActive = (route: string) => {
     return router.route.includes(route.toLowerCase());

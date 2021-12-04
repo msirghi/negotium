@@ -1,9 +1,10 @@
-import { MainMenuItem, ProjectColor } from './types';
+import { MainMenuItem, ProjectColor, SiteTheme } from './types';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DoneIcon from '@mui/icons-material/Done';
 import { SnackbarOrigin } from 'notistack';
+import colors from "../styles/colors";
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -105,3 +106,16 @@ export const passwordStatusColors = {
   medium: 'purple',
   strong: 'green',
 };
+
+export const siteThemes: SiteTheme[] = [
+  {
+    color: colors.primaries.lightBlue_1,
+    label: 'Default',
+    internalKey: 'default',
+  },
+  {
+    color: colors.black,
+    label: 'Noir',
+    internalKey: 'noir',
+  },
+];

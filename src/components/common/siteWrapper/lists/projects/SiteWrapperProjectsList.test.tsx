@@ -3,7 +3,10 @@ import { SiteWrapperProjectsList } from './SiteWrapperProjectsList';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../../common/tests/mockData/projects-mock';
-import { MockReduxProvider } from '../../../../../common/tests/TestUtils';
+import {
+  MockReduxProvider,
+  MockThemeProvider,
+} from '../../../../../common/tests/TestUtils';
 import ProjectService from '../../../../../services/ProjectService';
 import { mount } from 'enzyme';
 import { ProjectDialog } from '../wrapper/projectDialog/ProjectDialog';
@@ -27,9 +30,9 @@ describe('SiteWrapperProjectsList', () => {
   const queryClient = new QueryClient();
   const reduxStore = {
     projects: {
-      projects: [...projectsMock]
-    }
-  }
+      projects: [...projectsMock],
+    },
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -38,7 +41,9 @@ describe('SiteWrapperProjectsList', () => {
   const renderComponent = () => (
     <MockReduxProvider reduxStore={reduxStore}>
       <QueryClientProvider client={queryClient}>
-        <SiteWrapperProjectsList />
+        <MockThemeProvider>
+          <SiteWrapperProjectsList />
+        </MockThemeProvider>
       </QueryClientProvider>
     </MockReduxProvider>
   );

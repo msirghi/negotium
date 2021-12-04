@@ -42,4 +42,24 @@ describe('ServiceResultFactory', () => {
       }).toThrow();
     });
   });
+
+  describe('convertMongoIdToJSId', () => {
+    it('should return data if value is not an array', () => {
+      const data = { data: 'test' };
+      expect(ServiceResultFactory.convertMongoIdToJSId(data as any)).toEqual(
+        data
+      );
+    });
+
+    it('should return empty array if empty array is provided', () => {
+      expect(ServiceResultFactory.convertMongoIdToJSId([])).toEqual([]);
+    });
+
+    it('should convert id to _id and return new array', () => {
+      const input = [{ _id: 1 }];
+      expect(
+        ServiceResultFactory.convertMongoIdToJSId(input as any)[0].id
+      ).toEqual(input[0]._id);
+    });
+  });
 });

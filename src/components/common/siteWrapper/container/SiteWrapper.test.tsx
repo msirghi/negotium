@@ -8,6 +8,9 @@ import TestUtils, {
 } from '../../../../common/tests/TestUtils';
 import { accountInfoMock } from '../../../../common/tests/mockData/account-mock';
 import AuthService from '../../../../services/AuthService';
+import { reduxStoreMock } from '../../../../common/tests/mockData/redux-store-mock';
+import AccountService from '../../../../services/AccountService';
+import ThemeUtils from '../../../../common/utils/themeUtils';
 
 const mockProjects = [...projectsMock];
 
@@ -22,20 +25,15 @@ jest.mock('next/router', () => ({
 
 describe('SiteWrapper', () => {
   const queryClient = new QueryClient();
-  const reduxStore = {
-    projects: {
-      projects: [...projectsMock],
-    },
-    account: {
-      info: accountInfoMock,
-    },
-  };
-
+  const reduxStore = { ...reduxStoreMock };
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   beforeAll(() => {
+    AccountService.getUserMetadata = jest.fn(() =>
+      Promise.resolve({ data: { theme: 'noir' } })
+    ) as any;
     projectsRequests.fetchProjects = jest.fn(() =>
       Promise.resolve([...projectsMock])
     );
@@ -84,5 +82,32 @@ describe('SiteWrapper', () => {
       </MockReduxProvider>
     );
     expect(AuthService.getUserInfo).toBeCalled();
+  });
+
+  it('should fetch user metadata on mount', () => {
+    mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </QueryClientProvider>
+      </MockReduxProvider>
+    );
+    expect(AccountService.getUserMetadata).toBeCalled();
+  });
+
+  it('should validate fetched theme', async () => {
+    ThemeUtils.isValidTheme = jest.fn(() => false);
+    await mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <QueryClientProvider client={queryClient}>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </QueryClientProvider>
+      </MockReduxProvider>
+    );
+    expect(ThemeUtils.isValidTheme).toBeCalled();
   });
 });

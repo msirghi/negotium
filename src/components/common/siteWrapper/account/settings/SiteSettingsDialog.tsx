@@ -11,6 +11,7 @@ import colors from '../../../../../common/styles/colors';
 import CloseIcon from '@mui/icons-material/Close';
 import { GeneralSettings } from './general/GeneralSettings';
 import { useTranslation } from 'next-i18next';
+import { ThemeSettings } from './theme/ThemeSettings';
 
 type Props = {
   open: boolean;
@@ -18,8 +19,12 @@ type Props = {
 };
 
 const useStyles = makeStyles({
+  container: {
+    height: '100%'
+  },
   content: {
     marginTop: 10,
+    height: '100%'
   },
   rightContainer: {
     width: '100%',
@@ -54,6 +59,8 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
       title = t('titles.account');
     } else if (selectedItem === SETTINGS_OPTIONS.GENERAL) {
       title = t('titles.general');
+    } else if (selectedItem === SETTINGS_OPTIONS.THEMES) {
+      title = t('titles.themes');
     }
 
     return (
@@ -70,8 +77,8 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
-      <DialogContent style={{minHeight: 500}}>
-        <Row>
+      <DialogContent style={{ minHeight: 500 }}>
+        <Row className={classes.container}>
           <SettingsDialogMenu
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
@@ -85,6 +92,9 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
               </If>
               <If condition={selectedItem === SETTINGS_OPTIONS.GENERAL}>
                 <GeneralSettings />
+              </If>
+              <If condition={selectedItem === SETTINGS_OPTIONS.THEMES}>
+                <ThemeSettings />
               </If>
             </div>
           </Box>

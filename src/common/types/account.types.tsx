@@ -3,3 +3,7 @@ export type AccountInfo = {
   name: string;
   email: string;
 };
+
+export type AccountMetadata = {
+  theme: string;
+}

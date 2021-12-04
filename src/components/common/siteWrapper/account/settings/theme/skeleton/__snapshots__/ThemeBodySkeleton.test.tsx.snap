@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThemeBodySkeleton should match the snapshot 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "justifyContent": "flex-start",
+      "width": "initial",
+    }
+  }
+>
+  <span
+    className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+    style={
+      Object {
+        "height": 9,
+        "width": 10,
+      }
+    }
+  />
+  <span
+    className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-4 css-1l6af8c-MuiSkeleton-root"
+    style={
+      Object {
+        "height": 15,
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;

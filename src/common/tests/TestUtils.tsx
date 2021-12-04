@@ -3,6 +3,8 @@ import { FC } from 'react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ThemeProvider } from '@mui/material/styles';
+import { noirAppTheme } from '../theme/appTheme';
 
 function createMatchMedia(width: number) {
   return (query: string) => {
@@ -31,16 +33,21 @@ export const MockQueryClient: FC = ({ children }) => {
   );
 };
 
+export const MockThemeProvider: FC = ({ children }) => {
+  return <ThemeProvider theme={noirAppTheme}>{children}</ThemeProvider>;
+};
+
 const runAllPromises = () => new Promise(setImmediate);
 
 const testData = {
-  fakeTitle: '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]'
-}
+  fakeTitle:
+    '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]',
+};
 
 const TestUtils = {
   createMatchMedia,
   runAllPromises,
-  testData
+  testData,
 };
 
 export default TestUtils;

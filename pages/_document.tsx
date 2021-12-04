@@ -2,14 +2,17 @@ import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import createEmotionCache from '../src/common/config/cache/createEmotionCache';
-import { appTheme } from '../src/common/theme/appTheme';
+import { noirAppTheme } from '../src/common/theme/appTheme';
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
-          <meta name="theme-color" content={appTheme.palette.primary.main} />
+          <meta
+            name="theme-color"
+            content={noirAppTheme.palette.primary.main}
+          />
         </Head>
         <body>
           <Main />

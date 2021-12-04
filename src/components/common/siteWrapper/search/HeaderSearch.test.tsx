@@ -1,5 +1,8 @@
 import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
-import { MockReduxProvider } from '../../../../common/tests/TestUtils';
+import {
+  MockReduxProvider,
+  MockThemeProvider,
+} from '../../../../common/tests/TestUtils';
 import { HeaderSearch } from './HeaderSearch';
 import renderer, { act } from 'react-test-renderer';
 import { mount } from 'enzyme';
@@ -19,7 +22,9 @@ describe('HeaderSearch', () => {
   const renderComponent = () => {
     return (
       <MockReduxProvider reduxStore={reduxStore}>
-        <HeaderSearch />
+        <MockThemeProvider>
+          <HeaderSearch />
+        </MockThemeProvider>
       </MockReduxProvider>
     );
   };
@@ -66,12 +71,12 @@ describe('HeaderSearch', () => {
     expect(autocomplete.props().open).toBeDefined();
   });
 
-  it('should return empty value for option label', () => {
+  it('should return value for option label', () => {
     jest.useFakeTimers();
     const wrapper = mount(renderComponent());
     const autocomplete = wrapper.find('#header-autocomplete').at(0) as any;
 
-    const result = autocomplete.props().getOptionLabel();
-    expect(result).toEqual('');
+    const result = autocomplete.props().getOptionLabel({title: 'title'});
+    expect(result).toEqual('title');
   });
 });

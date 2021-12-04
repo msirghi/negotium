@@ -20,15 +20,18 @@ import SmoothList from 'react-smooth-list';
 import { ProjectListMoreItem } from './more/ProjectListMoreItem';
 import { MAX_PROJECT_LIST_COUNT } from '../../../../../common/constants/constants';
 import { useTranslation } from 'next-i18next';
+import { Theme, useTheme } from '@mui/system';
 
 const useStyles = makeStyles({
   activeItem: {
-    backgroundColor: colors.primaries.lightBlue_1,
+    backgroundColor: (props: { theme: Theme }) =>
+      props.theme.palette.custom.menuIconBackground,
     color: colors.white,
     borderRadius: 10,
     transition: 'all .1s ease-in-out',
     '&:hover': {
-      backgroundColor: colors.primaries.lightBlue_1,
+      backgroundColor: (props: { theme: Theme }) =>
+        props.theme.palette.custom.menuIconBackground,
     },
   },
   activeIcon: {
@@ -39,6 +42,9 @@ const useStyles = makeStyles({
 export const SiteWrapperProjectsList = () => {
   const { isLoading, data, refetch } = useFetchProjects();
   const { t } = useTranslation('common');
+  const theme = useTheme();
+  const classes = useStyles({ theme });
+
   const [showAll, setShowAll] = useState(false);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
@@ -47,7 +53,6 @@ export const SiteWrapperProjectsList = () => {
   );
 
   const router = useRouter();
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {

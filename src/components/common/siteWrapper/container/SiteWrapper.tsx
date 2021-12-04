@@ -9,34 +9,59 @@ import Typography from '@mui/material/Typography';
 import { FC, useEffect, useState } from 'react';
 import { SiteWrapperDrawer } from '../drawer/SiteWrapperDrawer';
 import { If } from '../../utilities/if/If';
-import colors from '../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
 import { HeaderSearch } from '../search/HeaderSearch';
 import { Row } from '../../utilities/row/Row';
-import { AccountCircle } from '@mui/icons-material';
 import { AccountMenu } from '../account';
 import { useRouter } from 'next/router';
-import { pagesWithoutWrapper } from '../../../../common/constants/constants';
-import { useDispatch } from 'react-redux';
+import {
+  pagesWithoutWrapper,
+  siteThemes,
+} from '../../../../common/constants/constants';
+import { useDispatch, useSelector } from 'react-redux';
 import AuthService from '../../../../services/AuthService';
-import { setAccountInfo } from '../../../../redux/account/accountSlice';
+import {
+  setAccountInfo,
+  setMetadata,
+} from '../../../../redux/account/accountSlice';
+import { defaultLightTheme, themeMap } from '../../../../common/theme/appTheme';
+import { RootState } from '../../../../redux/store';
+import AccountService from '../../../../services/AccountService';
+import ThemeUtils from '../../../../common/utils/themeUtils';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   appBar: {
     minHeight: 50,
-    backgroundColor: colors.greys['900'],
     paddingRight: 0,
   },
-});
+}));
 
 export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
+  const siteTheme = useSelector(
+    (state: RootState) => state.account.metadata.theme
+  );
+  const [selectedTheme, setSelectedTheme] = useState(defaultLightTheme);
   const dispatch = useDispatch();
+
+  const fetchUserMetadata = async () => {
+    const response = await AccountService.getUserMetadata();
+    let theme = response.data.theme;
+    if (!ThemeUtils.isValidTheme(theme)) {
+      theme = siteThemes[0].internalKey;
+    }
+    dispatch(setMetadata({ theme }));
+  };
+
+  useEffect(() => {
+    setSelectedTheme(themeMap[siteTheme]);
+  }, [siteTheme]);
 
   const classes = useStyles();
 
@@ -51,6 +76,7 @@ export const SiteWrapper: FC = ({ children }) => {
 
   useEffect(() => {
     fetchUserInfo();
+    fetchUserMetadata();
   }, []);
 
   if (pagesWithoutWrapper.includes(router.route)) {
@@ -58,91 +84,98 @@ export const SiteWrapper: FC = ({ children }) => {
   }
 
   return (
-    <Box>
-      <AppBar
-        position="fixed"
-        sx={{
-          ml: { sm: `${drawerWidth}px` },
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-      >
-        <Toolbar className={classes.appBar}>
-          <IconButton
-            id="menu-icon"
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+    <ThemeProvider theme={selectedTheme}>
+      <Box>
+        <AppBar
+          position="fixed"
+          sx={{
+            ml: { sm: `${drawerWidth}px` },
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
+        >
+          <Toolbar
+            className={classes.appBar}
+            sx={{ backgroundColor: selectedTheme.palette.primary.main }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Row alignVerticalCenter>
-            <Typography variant="h6" noWrap component="div">
-              Negotium
-            </Typography>
-            <HeaderSearch />
-          </Row>
-          <Box sx={{ flexGrow: 1 }} />
+            <IconButton
+              id="menu-icon"
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Row alignVerticalCenter>
+              <Typography variant="h6" noWrap component="div">
+                Negotium
+              </Typography>
+              <HeaderSearch />
+            </Row>
+            <Box sx={{ flexGrow: 1 }} />
 
-          <AccountMenu />
-        </Toolbar>
-      </AppBar>
-      <Box sx={{ display: 'flex', marginTop: isMobile ? 0 : 6 }}>
-        <CssBaseline />
-        <Box
-          component="nav"
-          sx={{
-            width: { sm: drawerWidth },
-            flexShrink: { sm: 0 },
-          }}
-          aria-label="mailbox folders"
-        >
-          <Drawer
-            id="drawer"
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true,
-            }}
+            <AccountMenu />
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ display: 'flex', marginTop: isMobile ? 0 : 6 }}>
+          <CssBaseline />
+          <Box
+            component="nav"
             sx={{
-              zIndex: 111111,
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': {
-                boxSizing: 'border-box',
-                width: drawerWidth,
-              },
+              width: { sm: drawerWidth },
+              flexShrink: { sm: 0 },
+            }}
+            aria-label="mailbox folders"
+          >
+            <Drawer
+              id="drawer"
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true,
+              }}
+              sx={{
+                zIndex: 111111,
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': {
+                  boxSizing: 'border-box',
+                  width: drawerWidth,
+                },
+              }}
+            >
+              <SiteWrapperDrawer />
+            </Drawer>
+            <Drawer
+              variant="permanent"
+              sx={{
+                display: { xs: 'none', sm: 'block' },
+                '& .MuiDrawer-paper': {
+                  boxSizing: 'border-box',
+                  width: drawerWidth,
+                },
+              }}
+              open
+            >
+              <SiteWrapperDrawer />
+            </Drawer>
+          </Box>
+          <Box
+            component="main"
+            sx={{
+              width: isMobile
+                ? '100%'
+                : { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
-            <SiteWrapperDrawer />
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: 'none', sm: 'block' },
-              '& .MuiDrawer-paper': {
-                boxSizing: 'border-box',
-                width: drawerWidth,
-              },
-            }}
-            open
-          >
-            <SiteWrapperDrawer />
-          </Drawer>
-        </Box>
-        <Box
-          component="main"
-          sx={{
-            width: isMobile ? '100%' : { sm: `calc(100% - ${drawerWidth}px)` },
-          }}
-        >
-          <If condition={isMobile}>
-            <Toolbar />
-          </If>
-          {children}
+            <If condition={isMobile}>
+              <Toolbar />
+            </If>
+            {children}
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };

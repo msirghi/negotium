@@ -10,10 +10,12 @@ import { useRouter } from 'next/router';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
 import { HeaderSearchOption } from './option/HeaderSearchOption';
+import { Theme, useTheme } from '@mui/system';
 
 const useStyles = makeStyles({
   input: {
-    backgroundColor: colors.greys['800'],
+    backgroundColor: (props: { theme: Theme }) =>
+      props.theme.palette.custom.headerSearchBackground,
     borderRadius: 5,
     marginLeft: 20,
     transition: '.3s all ease-in-out',
@@ -26,7 +28,8 @@ const useStyles = makeStyles({
 });
 
 export const HeaderSearch = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   const [options, setOptions] = useState<HeaderSearchOptions[]>([]);
   const projects = useSelector((state: RootState) => state.projects.projects);
   const router = useRouter();
@@ -49,9 +52,12 @@ export const HeaderSearch = () => {
       return {
         id: project.id,
         title: project.name,
+        label: project.name,
         onClick: async () => {
           closePopper();
-          await router.push(`/home/projects/${project.id}`, undefined, { shallow: true });
+          await router.push(`/home/projects/${project.id}`, undefined, {
+            shallow: true,
+          });
           setSelectedOption(project.id);
         },
         Icon: ReorderIcon,
@@ -88,7 +94,7 @@ export const HeaderSearch = () => {
       open={open}
       onOpen={openPopper}
       onClose={closePopper}
-      getOptionLabel={() => ''}
+      getOptionLabel={(option) => option.title}
       renderInput={(params) => (
         <TextField {...params} size={'small'} placeholder={'Search'} />
       )}

@@ -639,7 +639,7 @@
       "orderNumber": 77,
       "createdDate": "2021-11-25T17:02:47+00:00",
       "dueDate": "2021-11-26T00:00:00+00:00",
-      "completed": false,
+      "completed": true,
       "id": "4durU-3"
     }
   ],

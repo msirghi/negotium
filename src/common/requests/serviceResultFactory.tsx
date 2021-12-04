@@ -9,7 +9,7 @@ const fromResponse = (res: AxiosResponse) => {
   };
 };
 
-const convertMongoIdToJSId = <T extends { id: string; _id: string }>(
+const convertMongoIdToJSId = <T extends { id: string; _id?: string }>(
   data: T[]
 ) => {
   if (!Array.isArray(data)) {
@@ -19,7 +19,7 @@ const convertMongoIdToJSId = <T extends { id: string; _id: string }>(
     return [];
   }
   return data.map((obj) => {
-    obj.id = obj._id;
+    obj.id = obj._id!;
     return obj;
   });
 };

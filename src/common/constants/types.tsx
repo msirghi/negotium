@@ -36,3 +36,9 @@ export type AxiosRequestInstance = {
     };
   };
 };
+
+export type SiteTheme = {
+  label: string;
+  color: string;
+  internalKey: string;
+};

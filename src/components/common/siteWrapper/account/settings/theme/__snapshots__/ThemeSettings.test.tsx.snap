@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThemeSettings should match the snapshot 1`] = `
+<div>
+  <div
+    className="makeStyles-title-1"
+  >
+    Choose a theme that matches your preference.
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        className="makeStyles-container-2"
+        id="theme-Default"
+        onClick={[Function]}
+      >
+        <div>
+          <div
+            className="makeStyles-title-3 makeStyles-title-7"
+          >
+            Default
+          </div>
+          <div
+            className="makeStyles-skeleton-4"
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        className="makeStyles-container-2"
+        id="theme-Noir"
+        onClick={[Function]}
+      >
+        <div>
+          <div
+            className="makeStyles-title-3 makeStyles-title-11"
+          >
+            Noir
+          </div>
+          <div
+            className="makeStyles-skeleton-4"
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "justifyContent": "flex-start",
+                  "width": "100%",
+                }
+              }
+            >
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall makeStyles-checkIcon-6 css-ptiqhd-MuiSvgIcon-root"
+                data-testid="CheckIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

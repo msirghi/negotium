@@ -8,7 +8,6 @@ import { SnackbarProvider } from 'notistack';
 import { LocalizationProvider } from '@mui/lab';
 import DateAdapter from '@mui/lab/AdapterDayjs';
 import { appWithTranslation } from 'next-i18next';
-import { ThemeProvider } from '@mui/material/styles';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -17,7 +16,6 @@ import { StylesProvider, createGenerateClassName } from '@mui/styles';
 import { store } from '../src/redux/store';
 import Routes from '../src/common/config/routes';
 import AuthService from '../src/services/AuthService';
-import { appTheme } from '../src/common/theme/appTheme';
 import { SiteWrapper } from '../src/components/common/siteWrapper';
 import { AxiosRequestInstance } from '../src/common/constants/types';
 import authorizationStore from '../src/common/requests/authorizationStore';
@@ -86,11 +84,9 @@ function MyApp({
           <QueryClientProvider client={queryClient}>
             <SnackbarProvider maxSnack={3}>
               <LocalizationProvider dateAdapter={DateAdapter}>
-                <ThemeProvider theme={appTheme}>
-                  <SiteWrapper>
-                    <Component {...pageProps} />
-                  </SiteWrapper>
-                </ThemeProvider>
+                <SiteWrapper>
+                  <Component {...pageProps} />
+                </SiteWrapper>
               </LocalizationProvider>
             </SnackbarProvider>
           </QueryClientProvider>

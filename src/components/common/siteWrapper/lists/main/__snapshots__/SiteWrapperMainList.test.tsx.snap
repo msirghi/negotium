@@ -8,7 +8,7 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
     className="MuiBox-root css-arly7"
   >
     <div
-      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-5qtusp-MuiButtonBase-root-MuiListItem-root"
+      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-1n224z5-MuiButtonBase-root-MuiListItem-root"
       onBlur={[Function]}
       onClick={[Function]}
       onContextMenu={[Function]}
@@ -44,10 +44,10 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
         className="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
         <span
-          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-i70aka-MuiTypography-root"
         >
           <p
-            className="MuiTypography-root MuiTypography-body1 css-1d9ye53-MuiTypography-root"
+            className="MuiTypography-root MuiTypography-body1 css-fp2mu1-MuiTypography-root"
           >
             pageTitles.inbox
           </p>
@@ -59,7 +59,7 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
     className="MuiBox-root css-arly7"
   >
     <div
-      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-5qtusp-MuiButtonBase-root-MuiListItem-root"
+      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-1n224z5-MuiButtonBase-root-MuiListItem-root"
       onBlur={[Function]}
       onClick={[Function]}
       onContextMenu={[Function]}
@@ -95,10 +95,10 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
         className="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
         <span
-          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-i70aka-MuiTypography-root"
         >
           <p
-            className="MuiTypography-root MuiTypography-body1 css-1d9ye53-MuiTypography-root"
+            className="MuiTypography-root MuiTypography-body1 css-fp2mu1-MuiTypography-root"
           >
             pageTitles.today
           </p>
@@ -110,7 +110,7 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
     className="MuiBox-root css-arly7"
   >
     <div
-      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-5qtusp-MuiButtonBase-root-MuiListItem-root"
+      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-1n224z5-MuiButtonBase-root-MuiListItem-root"
       onBlur={[Function]}
       onClick={[Function]}
       onContextMenu={[Function]}
@@ -146,10 +146,10 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
         className="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
         <span
-          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-i70aka-MuiTypography-root"
         >
           <p
-            className="MuiTypography-root MuiTypography-body1 css-1d9ye53-MuiTypography-root"
+            className="MuiTypography-root MuiTypography-body1 css-fp2mu1-MuiTypography-root"
           >
             pageTitles.upcoming
           </p>

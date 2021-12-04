@@ -4,7 +4,7 @@ exports[`HeaderSearch should match the snapshot 1`] = `
 <div
   aria-expanded={false}
   aria-owns={null}
-  className="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon makeStyles-input-1 css-dst279-MuiAutocomplete-root"
+  className="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon makeStyles-input-1 makeStyles-input-2 css-dst279-MuiAutocomplete-root"
   onClick={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -14,7 +14,7 @@ exports[`HeaderSearch should match the snapshot 1`] = `
     className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
   >
     <div
-      className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root"
+      className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-brkcn7-MuiInputBase-root-MuiOutlinedInput-root"
       onClick={[Function]}
     >
       <input
