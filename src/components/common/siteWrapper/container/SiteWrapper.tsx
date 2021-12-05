@@ -30,6 +30,8 @@ import { defaultLightTheme, themeMap } from '../../../../common/theme/appTheme';
 import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
+import { Theme } from '@mui/system';
+import Routes from '../../../../common/config/routes';
 
 const drawerWidth = 240;
 
@@ -47,16 +49,19 @@ export const SiteWrapper: FC = ({ children }) => {
   const siteTheme = useSelector(
     (state: RootState) => state.account.metadata.theme
   );
-  const [selectedTheme, setSelectedTheme] = useState(defaultLightTheme);
+  const isPageWithoutWrapper = pagesWithoutWrapper.includes(router.route);
+  const [selectedTheme, setSelectedTheme] = useState<Theme>();
   const dispatch = useDispatch();
 
   const fetchUserMetadata = async () => {
-    const response = await AccountService.getUserMetadata();
-    let theme = response.data.theme;
-    if (!ThemeUtils.isValidTheme(theme)) {
-      theme = siteThemes[0].internalKey;
-    }
-    dispatch(setMetadata({ theme }));
+    try {
+      const response = await AccountService.getUserMetadata();
+      let theme = response.data.theme;
+      if (!ThemeUtils.isValidTheme(theme)) {
+        theme = siteThemes[0].internalKey;
+      }
+      dispatch(setMetadata({ theme }));
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -70,21 +75,29 @@ export const SiteWrapper: FC = ({ children }) => {
   };
 
   const fetchUserInfo = async () => {
-    const userInfo = await AuthService.getUserInfo();
-    dispatch(setAccountInfo(userInfo.data));
+    try {
+      const userInfo = await AuthService.getUserInfo();
+      dispatch(setAccountInfo(userInfo.data));
+    } catch (e) {}
   };
 
   useEffect(() => {
-    fetchUserInfo();
-    fetchUserMetadata();
-  }, []);
+    if (!isPageWithoutWrapper) {
+      fetchUserInfo();
+      fetchUserMetadata();
+    }
+  }, [isPageWithoutWrapper]);
 
-  if (pagesWithoutWrapper.includes(router.route)) {
+  if (!selectedTheme && !isPageWithoutWrapper) {
+    return <div />;
+  }
+
+  if (isPageWithoutWrapper) {
     return <>{children}</>;
   }
 
   return (
-    <ThemeProvider theme={selectedTheme}>
+    <ThemeProvider theme={selectedTheme!}>
       <Box>
         <AppBar
           position="fixed"
@@ -95,7 +108,7 @@ export const SiteWrapper: FC = ({ children }) => {
         >
           <Toolbar
             className={classes.appBar}
-            sx={{ backgroundColor: selectedTheme.palette.primary.main }}
+            sx={{ backgroundColor: selectedTheme!.palette.primary.main }}
           >
             <IconButton
               id="menu-icon"

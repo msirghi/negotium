@@ -4,6 +4,7 @@ import { Row } from '../../common/utilities/row/Row';
 import { LoginFooter } from '../footer/LoginFooter';
 import { FC, ReactNode } from 'react';
 import { useAuthContainerStyles } from './styles';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   footer?: () => ReactNode;
@@ -11,11 +12,12 @@ type Props = {
 
 export const AuthContainer: FC<Props> = ({ children, footer }) => {
   const classes = useAuthContainerStyles();
+  const { t } = useTranslation('auth');
 
   return (
     <div className={classes.container}>
       <div className={classes.contentCard}>
-        <div className={classes.title}>Welcome</div>
+        <div className={classes.title}>{t('common.welcome')}</div>
         <Row fullWidth alignHorizontalCenter className={classes.iconContainer}>
           <AcUnitIcon className={classes.icon} color={'primary'} />
         </Row>

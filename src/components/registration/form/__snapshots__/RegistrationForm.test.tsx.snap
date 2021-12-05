@@ -18,7 +18,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
         className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
       >
-        Name
+        common.name
         <span
           aria-hidden={true}
           className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -33,6 +33,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
       >
         <input
           aria-invalid={false}
+          autoComplete="on"
           autoFocus={false}
           className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
           data-testid="name-field"
@@ -54,7 +55,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
             className="css-dhh0px"
           >
             <span>
-              Name
+              common.name
                *
             </span>
           </legend>
@@ -73,7 +74,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
         className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
       >
-        Email
+        common.email
         <span
           aria-hidden={true}
           className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -88,6 +89,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
       >
         <input
           aria-invalid={false}
+          autoComplete="on"
           autoFocus={false}
           className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
           data-testid="email-field"
@@ -109,7 +111,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
             className="css-dhh0px"
           >
             <span>
-              Email
+              common.email
                *
             </span>
           </legend>
@@ -128,7 +130,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
         className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
       >
-        Password
+        common.password
         <span
           aria-hidden={true}
           className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -164,7 +166,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
             className="css-dhh0px"
           >
             <span>
-              Password
+              common.password
                *
             </span>
           </legend>
@@ -183,7 +185,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
         className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink={false}
       >
-        Repeat password
+        common.repeatPassword
         <span
           aria-hidden={true}
           className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -219,7 +221,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
             className="css-dhh0px"
           >
             <span>
-              Repeat password
+              common.repeatPassword
                *
             </span>
           </legend>
@@ -248,7 +250,7 @@ exports[`RegistrationForm should match the snapshot 1`] = `
         tabIndex={0}
         type="submit"
       >
-        Sign in
+        registration.signIn
       </button>
     </div>
   </div>

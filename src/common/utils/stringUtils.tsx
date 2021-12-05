@@ -2,8 +2,6 @@ import dayjs from 'dayjs';
 
 const taskInputKeywords = ['!today', '!tomorrow'];
 
-// TODO: add tests
-
 const getTaskInputDateByKeywords = (value: string) => {
   const foundKeyword = taskInputKeywords.find((kw) =>
     value.toLowerCase().includes(kw)
@@ -21,8 +19,11 @@ const getTaskInputDateByKeywords = (value: string) => {
   return { value, date: null };
 };
 
+const getPageTitle = (title: string) => `${title} | Negotium`;
+
 const StringUtils = {
   getTaskInputDateByKeywords,
+  getPageTitle
 };
 
 export default StringUtils;

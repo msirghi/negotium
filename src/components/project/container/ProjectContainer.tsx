@@ -16,10 +16,14 @@ import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
 import ProjectService from '../../../services/ProjectService';
+import Head from 'next/head';
+import StringUtils from '../../../common/utils/stringUtils';
+import { useTranslation } from 'next-i18next';
 
 export const ProjectContainer = () => {
   const router = useRouter();
   const projectId = useRef<string>(router.query.id as string);
+  const { t } = useTranslation();
 
   const projects = useSelector((state: RootState) => state.projects.projects);
 
@@ -76,8 +80,8 @@ export const ProjectContainer = () => {
 
   const markAsDone = async (taskId: ITask['id']) => {
     setSelectedTask(null);
-    const task = tasks.find((t) => t.id === taskId)!
-    setTasks(prevState => prevState.filter(t => t.id !== taskId));
+    const task = tasks.find((t) => t.id === taskId)!;
+    setTasks((prevState) => prevState.filter((t) => t.id !== taskId));
     task.completed = true;
     await ProjectService.updateProjectTask(projectId.current, task);
   };
@@ -104,46 +108,51 @@ export const ProjectContainer = () => {
   };
 
   return (
-    <div key={selectedProject.id} data-testid={'content'}>
-      <ProjectDialogWrapper
-        project={selectedProject}
-        open={isProjectDialogOpened}
-        setOpen={setProjectDialogOpened}
-      />
-      <Row fullWidth>
-        <ContentBox>
-          <TaskWrapper
-            projectOptions={{
-              show: true,
-              onClick: () => {},
-            }}
-            title={selectedProject.name}
-            upperHeaderTitle={'Projects'}
-            settingsOptions={{ onClick: toggleProjectDialog }}
-          >
-            {SortUtils.sortByDate(tasks)
-              .filter(({ completed }) => !completed)
-              .map((task) => {
-                return (
-                  <TaskItem
-                    task={task}
-                    key={`${task.id} ${task.title}`}
-                    markAsDone={markAsDone}
-                    onTaskSelect={selectTask}
-                  />
-                );
-              })}
-            <TaskAddButton onTaskAdd={addTaskHandler} />
-          </TaskWrapper>
-        </ContentBox>
-        <SelectedTaskSection
-          markAsDone={markAsDone}
-          task={selectedTask}
-          deselectTask={deselectTask}
-          key={selectedTask ? selectedTask.id : ''}
-          onTaskUpdate={onTaskUpdate}
+    <>
+      <Head>
+        <title>{StringUtils.getPageTitle(selectedProject.name)}</title>
+      </Head>
+      <div key={selectedProject.id} data-testid={'content'}>
+        <ProjectDialogWrapper
+          project={selectedProject}
+          open={isProjectDialogOpened}
+          setOpen={setProjectDialogOpened}
         />
-      </Row>
-    </div>
+        <Row fullWidth>
+          <ContentBox>
+            <TaskWrapper
+              projectOptions={{
+                show: true,
+                onClick: () => {},
+              }}
+              title={selectedProject.name}
+              upperHeaderTitle={'Projects'}
+              settingsOptions={{ onClick: toggleProjectDialog }}
+            >
+              {SortUtils.sortByDate(tasks)
+                .filter(({ completed }) => !completed)
+                .map((task) => {
+                  return (
+                    <TaskItem
+                      task={task}
+                      key={`${task.id} ${task.title}`}
+                      markAsDone={markAsDone}
+                      onTaskSelect={selectTask}
+                    />
+                  );
+                })}
+              <TaskAddButton onTaskAdd={addTaskHandler} />
+            </TaskWrapper>
+          </ContentBox>
+          <SelectedTaskSection
+            markAsDone={markAsDone}
+            task={selectedTask}
+            deselectTask={deselectTask}
+            key={selectedTask ? selectedTask.id : ''}
+            onTaskUpdate={onTaskUpdate}
+          />
+        </Row>
+      </div>
+    </>
   );
 };

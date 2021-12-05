@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Dialog, DialogContent, Divider, IconButton } from '@mui/material';
 import { Row } from '../../../utilities/row/Row';
 import { SettingsDialogMenu } from './menu/SettingsDialogMenu';
@@ -12,44 +12,30 @@ import CloseIcon from '@mui/icons-material/Close';
 import { GeneralSettings } from './general/GeneralSettings';
 import { useTranslation } from 'next-i18next';
 import { ThemeSettings } from './theme/ThemeSettings';
+import { useSiteSettingsDialogStyles } from './styles';
 
 type Props = {
   open: boolean;
   setOpen: (val: boolean) => void;
+  defaultPage?: SETTINGS_OPTIONS;
 };
 
-const useStyles = makeStyles({
-  container: {
-    height: '100%'
-  },
-  content: {
-    marginTop: 10,
-    height: '100%'
-  },
-  rightContainer: {
-    width: '100%',
-    borderLeft: `1px solid ${colors.greys['300']}`,
-    paddingLeft: 30,
-  },
-  title: {
-    paddingBottom: 10,
-  },
-  titleContainer: {
-    position: 'relative',
-  },
-  closeIcon: {
-    position: 'absolute',
-    right: 0,
-    top: -10,
-  },
-});
-
-export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
+export const SiteSettingsDialog: FC<Props> = ({
+  open,
+  setOpen,
+  defaultPage,
+}) => {
   const [selectedItem, setSelectedItem] = useState<SETTINGS_OPTIONS>(
     SETTINGS_OPTIONS.ACCOUNT
   );
   const { t } = useTranslation('settings');
-  const classes = useStyles();
+  const classes = useSiteSettingsDialogStyles();
+
+  useEffect(() => {
+    if (defaultPage) {
+      setSelectedItem(defaultPage);
+    }
+  }, [defaultPage]);
 
   const handleClose = () => setOpen(false);
 
@@ -77,7 +63,7 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
-      <DialogContent style={{ minHeight: 500 }}>
+      <DialogContent style={{ height: 500 }}>
         <Row className={classes.container}>
           <SettingsDialogMenu
             selectedItem={selectedItem}

@@ -16,7 +16,7 @@ exports[`LoginForm should match the snapshot 1`] = `
       className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
       data-shrink={false}
     >
-      Email
+      common.email
     </label>
     <div
       className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
@@ -24,6 +24,7 @@ exports[`LoginForm should match the snapshot 1`] = `
     >
       <input
         aria-invalid={false}
+        autoComplete="on"
         autoFocus={false}
         className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
         data-testid="email-input"
@@ -44,7 +45,7 @@ exports[`LoginForm should match the snapshot 1`] = `
           className="css-dhh0px"
         >
           <span>
-            Email
+            common.email
           </span>
         </legend>
       </fieldset>
@@ -62,7 +63,7 @@ exports[`LoginForm should match the snapshot 1`] = `
       className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
       data-shrink={false}
     >
-      Password
+      common.password
     </label>
     <div
       className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
@@ -70,6 +71,7 @@ exports[`LoginForm should match the snapshot 1`] = `
     >
       <input
         aria-invalid={false}
+        autoComplete="on"
         autoFocus={false}
         className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
         data-testid="password-input"
@@ -90,7 +92,7 @@ exports[`LoginForm should match the snapshot 1`] = `
           className="css-dhh0px"
         >
           <span>
-            Password
+            common.password
           </span>
         </legend>
       </fieldset>
@@ -118,7 +120,7 @@ exports[`LoginForm should match the snapshot 1`] = `
       tabIndex={-1}
       type="submit"
     >
-      Sign in
+      registration.signIn
     </button>
   </div>
 </form>

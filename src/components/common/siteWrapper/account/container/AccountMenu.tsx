@@ -1,15 +1,13 @@
 import IconButton from '@mui/material/IconButton';
 import { AccountCircle } from '@mui/icons-material';
-import { useState, MouseEvent } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import { Avatar, Divider, Menu, MenuItem } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../redux/store';
 import { AccountInfo } from '../../../../../common/types/account.types';
-import { makeStyles } from '@mui/styles';
 import { deepOrange } from '@mui/material/colors';
 import { Row } from '../../../utilities/row/Row';
 import { Box } from '@mui/system';
-import colors from '../../../../../common/styles/colors';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { AppVersion } from '../version/AppVersion';
@@ -18,40 +16,32 @@ import { useCommonStyles } from '../styles';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
 import { useTranslation } from 'next-i18next';
-import {useRouter} from "next/router";
-
-const useStyles = makeStyles({
-  accountContainer: {
-    minWidth: 300,
-    maxWidth: 450
-  },
-  accountTitles: {
-    marginLeft: 15,
-    fontSize: 14,
-  },
-  email: {
-    color: colors.greys['600'],
-  },
-  name: {
-    fontWeight: 'bold',
-  },
-});
+import { useRouter } from 'next/router';
+import { SETTINGS_OPTIONS } from '../../../../../common/types/enums';
+import { useAccountMenuStyles } from './styles';
 
 export const AccountMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const accountInfo: AccountInfo = useSelector(
     (state: RootState) => state.account.info
   );
-  const classes = useStyles();
+  const defaultSettingsPage = useRef<SETTINGS_OPTIONS>();
+  const classes = useAccountMenuStyles();
   const commonStyles = useCommonStyles();
   const [isSettingsDialogOpened, setSettingsDialogOpened] = useState(false);
   const { t } = useTranslation('settings');
   const router = useRouter();
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     localStorage.removeItem('rt');
     await router.push('/login');
-  }
+  };
+
+  const onThemesItemClick = () => {
+    defaultSettingsPage.current = SETTINGS_OPTIONS.THEMES;
+    setSettingsDialogOpened(true);
+    handleClose();
+  };
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,6 +52,7 @@ export const AccountMenu = () => {
   };
 
   const onSettingsItemClick = () => {
+    defaultSettingsPage.current = undefined;
     handleClose();
     setSettingsDialogOpened(true);
   };
@@ -71,6 +62,7 @@ export const AccountMenu = () => {
       <SiteSettingsDialog
         open={isSettingsDialogOpened}
         setOpen={setSettingsDialogOpened}
+        defaultPage={defaultSettingsPage.current}
       />
 
       <IconButton
@@ -99,7 +91,7 @@ export const AccountMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
+        <MenuItem disableRipple>
           <Row alignVerticalCenter>
             <Avatar sx={{ bgcolor: deepOrange[500] }}>
               {accountInfo.name[0]}
@@ -122,7 +114,7 @@ export const AccountMenu = () => {
           </Row>
         </MenuItem>
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onThemesItemClick}>
           <Row alignVerticalCenter>
             <PaletteOutlinedIcon fontSize={'small'} />
             <span className={commonStyles.itemTitle}>{t('titles.themes')}</span>

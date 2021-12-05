@@ -22,7 +22,7 @@ export const useThemeItemStyles = makeStyles({
     fontSize: 14,
   },
   skeleton: {
-    height: 70,
+    height: 75,
     padding: 5,
   },
   textSkeleton: {

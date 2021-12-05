@@ -4,13 +4,13 @@ exports[`Login footer should match snapshot 1`] = `
 <div
   className="makeStyles-container-2"
 >
-  Don’t have an account?
+  login.dontHaveAnAccount
    
   <span
     className="makeStyles-link-1"
     onClick={[Function]}
   >
-    Sign Up
+    login.signUp
   </span>
 </div>
 `;

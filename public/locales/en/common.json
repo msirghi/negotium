@@ -8,7 +8,9 @@
   "pageTitles": {
     "inbox": "Inbox",
     "today": "Today",
-    "upcoming": "Upcoming"
+    "upcoming": "Upcoming",
+    "login": "Login",
+    "registration": "Registration"
   },
   "buttonLabels": {
     "cancel": "Cancel",

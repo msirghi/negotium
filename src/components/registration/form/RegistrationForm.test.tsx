@@ -101,7 +101,7 @@ describe('RegistrationForm', () => {
       fireEvent.click(submitButton);
     });
     await waitFor(() => {
-      expect(renderer.getByText('Invalid email.')).toBeInTheDocument();
+      expect(renderer.getByText('errors.invalidEmail')).toBeInTheDocument();
     });
   });
 
@@ -115,7 +115,9 @@ describe('RegistrationForm', () => {
       fireEvent.click(submitButton);
     });
     await waitFor(() => {
-      expect(renderer.getByText('Passwords do not match.')).toBeInTheDocument();
+      expect(
+        renderer.getByText('errors.passwordsMismatch')
+      ).toBeInTheDocument();
     });
   });
 });

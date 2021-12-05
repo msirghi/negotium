@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { setAccountInfo } from '../../../redux/account/accountSlice';
 import authorizationStore from '../../../common/requests/authorizationStore';
 import { useLoginFormStyles } from './styles';
+import Routes from '../../../common/config/routes';
+import { useTranslation } from 'next-i18next';
 
 export const LoginForm = () => {
   const classes = useLoginFormStyles();
@@ -18,6 +20,7 @@ export const LoginForm = () => {
   const [password, setPassword] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
+  const { t } = useTranslation('auth');
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +34,7 @@ export const LoginForm = () => {
       authorizationStore.setAuthToken(data.access_token);
       const accountResponse = await AuthService.getUserInfo();
       dispatch(setAccountInfo(accountResponse.data));
-      await router.push('/home/inbox');
+      await router.push(Routes.inbox);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -49,23 +52,25 @@ export const LoginForm = () => {
         </Fade>
       </If>
       <TextField
+        autoComplete={'on'}
         value={email}
         inputProps={{ 'data-testid': 'email-input' }}
         onChange={(e) => setEmail(e.target.value)}
         style={{ marginTop: 30 }}
         size={'small'}
         fullWidth
-        label={'Email'}
+        label={t('common.email')}
       />
       <TextField
         value={password}
+        autoComplete={'on'}
         inputProps={{ 'data-testid': 'password-input' }}
         onChange={(e) => setPassword(e.target.value)}
         style={{ marginTop: 30 }}
         size={'small'}
         fullWidth
         type={'password'}
-        label={'Password'}
+        label={t('common.password')}
       />
       <Box className={classes.buttonContainer}>
         <LoadingButton
@@ -77,7 +82,7 @@ export const LoginForm = () => {
           variant={'contained'}
           fullWidth
         >
-          Sign in
+          {t('registration.signIn')}
         </LoadingButton>
       </Box>
     </form>

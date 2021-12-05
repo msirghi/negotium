@@ -1,7 +1,7 @@
 const Routes = {
   inbox: '/home/inbox',
   login: '/login',
-  register: '/register'
+  registration: '/registration'
 };
 
 export default Routes;

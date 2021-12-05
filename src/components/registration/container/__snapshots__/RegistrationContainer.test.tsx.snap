@@ -10,7 +10,7 @@ exports[`Registration container should match the snapshot 1`] = `
     <div
       className="makeStyles-title-5"
     >
-      Welcome
+      common.welcome
     </div>
     <div
       className="makeStyles-iconContainer-7"
@@ -56,7 +56,7 @@ exports[`Registration container should match the snapshot 1`] = `
               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink={false}
             >
-              Name
+              common.name
               <span
                 aria-hidden={true}
                 className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -71,6 +71,7 @@ exports[`Registration container should match the snapshot 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="on"
                 autoFocus={false}
                 className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
                 data-testid="name-field"
@@ -92,7 +93,7 @@ exports[`Registration container should match the snapshot 1`] = `
                   className="css-dhh0px"
                 >
                   <span>
-                    Name
+                    common.name
                      *
                   </span>
                 </legend>
@@ -111,7 +112,7 @@ exports[`Registration container should match the snapshot 1`] = `
               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink={false}
             >
-              Email
+              common.email
               <span
                 aria-hidden={true}
                 className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -126,6 +127,7 @@ exports[`Registration container should match the snapshot 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="on"
                 autoFocus={false}
                 className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
                 data-testid="email-field"
@@ -147,7 +149,7 @@ exports[`Registration container should match the snapshot 1`] = `
                   className="css-dhh0px"
                 >
                   <span>
-                    Email
+                    common.email
                      *
                   </span>
                 </legend>
@@ -166,7 +168,7 @@ exports[`Registration container should match the snapshot 1`] = `
               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink={false}
             >
-              Password
+              common.password
               <span
                 aria-hidden={true}
                 className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -202,7 +204,7 @@ exports[`Registration container should match the snapshot 1`] = `
                   className="css-dhh0px"
                 >
                   <span>
-                    Password
+                    common.password
                      *
                   </span>
                 </legend>
@@ -221,7 +223,7 @@ exports[`Registration container should match the snapshot 1`] = `
               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink={false}
             >
-              Repeat password
+              common.repeatPassword
               <span
                 aria-hidden={true}
                 className="MuiInputLabel-asterisk MuiFormLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
@@ -257,7 +259,7 @@ exports[`Registration container should match the snapshot 1`] = `
                   className="css-dhh0px"
                 >
                   <span>
-                    Repeat password
+                    common.repeatPassword
                      *
                   </span>
                 </legend>
@@ -286,7 +288,7 @@ exports[`Registration container should match the snapshot 1`] = `
               tabIndex={0}
               type="submit"
             >
-              Sign in
+              registration.signIn
             </button>
           </div>
         </div>
@@ -298,14 +300,14 @@ exports[`Registration container should match the snapshot 1`] = `
       <div
         className="makeStyles-container-2"
       >
-        Have an account?
+        registration.haveAnAccount
          
         <span
           className="makeStyles-link-1"
           id="sign-in-link"
           onClick={[Function]}
         >
-          Sign In
+          registration.signIn
         </span>
       </div>
     </div>

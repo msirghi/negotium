@@ -1,25 +1,15 @@
 import { TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import ValidationService from '../../../services/ValidationService';
 import { useSnackbar } from 'notistack';
 import AuthService from '../../../services/AuthService';
-import colors from '../../../common/styles/colors';
 import { useRouter } from 'next/router';
 import RegistrationFormUtils from './utils';
-
-const useStyles = makeStyles({
-  buttonContainer: {
-    marginTop: 30,
-  },
-  error: {
-    marginTop: 15,
-    color: colors.error.main,
-    textAlign: 'center',
-  },
-});
+import { useTranslation } from 'next-i18next';
+import { useRegistrationFormStyles } from './styles';
+import Routes from "../../../common/config/routes";
 
 type FormValues = {
   name: string;
@@ -29,11 +19,12 @@ type FormValues = {
 };
 
 export const RegistrationForm = () => {
-  const classes = useStyles();
+  const classes = useRegistrationFormStyles();
   const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [error, setError] = useState('');
   const router = useRouter();
+  const { t } = useTranslation('auth');
 
   const onSubmit = async (values: FormValues) => {
     const errors = validateFields(values);
@@ -49,7 +40,7 @@ export const RegistrationForm = () => {
       enqueueSnackbar('Registration completed.', {
         variant: 'success',
       });
-      await router.push('/login');
+      await router.push(Routes.login);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -69,10 +60,10 @@ export const RegistrationForm = () => {
     const { email, password, repeatPassword } = values;
     const errors: Partial<FormValues> = {};
     if (!ValidationService.isEmailValid(email)) {
-      errors.email = 'Invalid email.';
+      errors.email = t('errors.invalidEmail');
     }
     if (password !== repeatPassword) {
-      errors.repeatPassword = 'Passwords do not match.';
+      errors.repeatPassword = t('errors.passwordsMismatch');
     }
     formik.setErrors(errors);
     return errors;
@@ -97,7 +88,8 @@ export const RegistrationForm = () => {
           size={'small'}
           fullWidth
           name={'name'}
-          label={'Name'}
+          autoComplete={'on'}
+          label={t('common.name')}
         />
 
         <TextField
@@ -109,9 +101,10 @@ export const RegistrationForm = () => {
           helperText={formik.touched.email && formik.errors.email}
           style={{ marginTop: 30 }}
           size={'small'}
+          autoComplete={'on'}
           name={'email'}
           fullWidth
-          label={'Email'}
+          label={t('common.email')}
         />
 
         <TextField
@@ -124,7 +117,7 @@ export const RegistrationForm = () => {
           size={'small'}
           name={'password'}
           fullWidth
-          label={'Password'}
+          label={t('common.password')}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={
             passConfig && (
@@ -150,7 +143,7 @@ export const RegistrationForm = () => {
           style={{ marginTop: 30 }}
           size={'small'}
           fullWidth
-          label={'Repeat password'}
+          label={t('common.repeatPassword')}
         />
         <div className={classes.buttonContainer}>
           <LoadingButton
@@ -162,7 +155,7 @@ export const RegistrationForm = () => {
             variant={'contained'}
             fullWidth
           >
-            Sign in
+            {t('registration.signIn')}
           </LoadingButton>
         </div>
       </div>
