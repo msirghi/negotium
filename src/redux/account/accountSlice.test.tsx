@@ -2,6 +2,7 @@ import reducer, {
   setAccountInfo,
   setMetadata,
   setSiteTheme,
+  setUserName,
 } from './accountSlice';
 import { tempAccountInfo } from '../../common/constants/constants';
 
@@ -39,6 +40,10 @@ describe('Account slice', () => {
     expect(reducer(testState, setSiteTheme('theme')).metadata.theme).toEqual(
       'theme'
     );
+  });
+
+  it('should set the user name', () => {
+    expect(reducer(testState, setUserName('John')).info.name).toEqual('John');
   });
 
   it('should set the metadata', () => {

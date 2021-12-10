@@ -30,10 +30,13 @@ export const accountSlice = createSlice({
     setMetadata: (state, action: PayloadAction<AccountMetadata>) => {
       state.metadata = action.payload;
     },
+    setUserName: (state, action: PayloadAction<string>) => {
+      state.info.name = action.payload;
+    },
   },
 });
 
-export const { setAccountInfo, setSiteTheme, setMetadata } =
+export const { setAccountInfo, setSiteTheme, setMetadata, setUserName } =
   accountSlice.actions;
 
 export default accountSlice.reducer;

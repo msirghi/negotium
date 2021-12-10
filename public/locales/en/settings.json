@@ -12,7 +12,15 @@
   "homeView": "Home view",
   "timeFormat": "Time format",
   "photo": {
+    "title": "Photo",
     "upload": "Upload photo",
     "helperText": "Pick a photo up to 4MB."
-  }
+  },
+  "save": "Save",
+  "cancel": "Cancel",
+  "email": "Email",
+  "changeEmail": "Change email",
+  "password": "Password",
+  "changePassword": "Change password",
+  "name": "Name"
 }

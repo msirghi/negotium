@@ -8,7 +8,7 @@ exports[`AccountSettings should match the snapshot 1`] = `
     <div
       className="makeStyles-sectionTitle-4 MuiBox-root css-0"
     >
-      Photo
+      photo.title
     </div>
     <div
       className="makeStyles-sectionBody-5 MuiBox-root css-0"
@@ -64,7 +64,7 @@ exports[`AccountSettings should match the snapshot 1`] = `
     <div
       className="makeStyles-sectionTitle-4 MuiBox-root css-0"
     >
-      Name
+      name
     </div>
     <div
       className="makeStyles-sectionBody-5 MuiBox-root css-0"
@@ -80,13 +80,14 @@ exports[`AccountSettings should match the snapshot 1`] = `
             aria-invalid={false}
             autoFocus={false}
             className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
+            data-testid="name-field"
             disabled={false}
             id="name-field"
             onAnimationStart={[Function]}
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
-            placeholder="Name"
+            placeholder="name"
             required={false}
             type="text"
             value="name"
@@ -114,7 +115,7 @@ exports[`AccountSettings should match the snapshot 1`] = `
     <div
       className="makeStyles-sectionTitle-4 MuiBox-root css-0"
     >
-      Email
+      email
     </div>
     <div
       className="makeStyles-sectionBody-5 MuiBox-root css-0"
@@ -144,13 +145,13 @@ exports[`AccountSettings should match the snapshot 1`] = `
         tabIndex={0}
         type="button"
       >
-        Change email
+        changeEmail
       </button>
     </div>
     <div
       className="makeStyles-sectionTitle-4 MuiBox-root css-0"
     >
-      Password
+      password
     </div>
     <div
       className="makeStyles-sectionBody-5 MuiBox-root css-0"
@@ -173,7 +174,7 @@ exports[`AccountSettings should match the snapshot 1`] = `
         tabIndex={0}
         type="button"
       >
-        Change Password
+        changePassword
       </button>
     </div>
   </div>
