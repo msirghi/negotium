@@ -19,6 +19,7 @@ exports[`AccountSettings should match the snapshot 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
             "justifyContent": "flex-start",
             "width": "initial",
           }

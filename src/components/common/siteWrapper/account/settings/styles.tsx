@@ -9,12 +9,12 @@ export const useSiteSettingsDialogStyles = makeStyles({
     marginTop: 10,
     height: '100%',
   },
-  rightContainer: {
+  rightContainer: ({ isMobile }: { isMobile: boolean }) => ({
     width: '100%',
-    borderLeft: `1px solid ${colors.greys['300']}`,
-    paddingLeft: 30,
-    height: '90%'
-  },
+    borderLeft: isMobile ? 'none' : `1px solid ${colors.greys['300']}`,
+    paddingLeft: isMobile ? 0 : 30,
+    height: '90%',
+  }),
   title: {
     paddingBottom: 10,
   },

@@ -9,6 +9,7 @@ import { Row } from '../../../../utilities/row/Row';
 import colors from '../../../../../../common/styles/colors';
 import { useCommonStyles } from '../../styles';
 import { useTranslation } from 'next-i18next';
+import {useIsMobile} from "../../../../../../common/hooks/common/useIsMobile";
 
 const useStyles = makeStyles({
   photoContent: {
@@ -25,6 +26,7 @@ export const AccountSettings = () => {
   const accountInfo: AccountInfo = useSelector(
     (state: RootState) => state.account.info
   );
+  const isMobile = useIsMobile();
   const classes = useStyles();
   const commonClasses = useCommonStyles();
   const { t } = useTranslation('settings');
@@ -56,6 +58,7 @@ export const AccountSettings = () => {
             size={'small'}
             placeholder={'Name'}
             value={accountInfo.name}
+            fullWidth={isMobile}
           />
         </Box>
 
@@ -64,14 +67,14 @@ export const AccountSettings = () => {
           <Box>
             <span>{accountInfo.email}</span>
           </Box>
-          <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }}>
+          <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }} fullWidth={isMobile}>
             Change email
           </Button>
         </Box>
 
         <Box className={commonClasses.sectionTitle}>Password</Box>
         <Box className={commonClasses.sectionBody}>
-          <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }}>
+          <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }} fullWidth={isMobile}>
             Change Password
           </Button>
         </Box>

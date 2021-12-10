@@ -5,14 +5,14 @@ import { SettingsDialogMenu } from './menu/SettingsDialogMenu';
 import { SETTINGS_OPTIONS } from '../../../../../common/types/enums';
 import { If } from '../../../utilities/if/If';
 import { AccountSettings } from './account/AccountSettings';
-import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import colors from '../../../../../common/styles/colors';
 import CloseIcon from '@mui/icons-material/Close';
 import { GeneralSettings } from './general/GeneralSettings';
 import { useTranslation } from 'next-i18next';
 import { ThemeSettings } from './theme/ThemeSettings';
 import { useSiteSettingsDialogStyles } from './styles';
+import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
+import { ROW_DIRECTION } from '../../../../../common/constants/enums';
 
 type Props = {
   open: boolean;
@@ -29,7 +29,8 @@ export const SiteSettingsDialog: FC<Props> = ({
     SETTINGS_OPTIONS.ACCOUNT
   );
   const { t } = useTranslation('settings');
-  const classes = useSiteSettingsDialogStyles();
+  const isMobile = useIsMobile();
+  const classes = useSiteSettingsDialogStyles({ isMobile });
 
   useEffect(() => {
     if (defaultPage) {
@@ -63,8 +64,11 @@ export const SiteSettingsDialog: FC<Props> = ({
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
-      <DialogContent style={{ height: 500 }}>
-        <Row className={classes.container}>
+      <DialogContent style={{ minHeight: 500 }}>
+        <Row
+          className={classes.container}
+          direction={isMobile ? ROW_DIRECTION.COLUMN : ROW_DIRECTION.ROW}
+        >
           <SettingsDialogMenu
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}

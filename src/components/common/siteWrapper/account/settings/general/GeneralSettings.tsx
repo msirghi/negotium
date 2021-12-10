@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { i18n, useTranslation } from 'next-i18next';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
+import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 
 const useStyles = makeStyles({
   dropdown: {
@@ -21,6 +22,7 @@ export const GeneralSettings = () => {
   const commonClasses = useCommonStyles();
   const classes = useStyles();
   const { t } = useTranslation('settings');
+  const isMobile = useIsMobile();
 
   return (
     <div>
@@ -31,6 +33,7 @@ export const GeneralSettings = () => {
           value={selectedLanguage}
           size={'small'}
           className={classes.dropdown}
+          fullWidth={isMobile}
         >
           {SUPPORTED_LANGUAGES.map(({ code, title }) => {
             return (
@@ -49,6 +52,7 @@ export const GeneralSettings = () => {
           value={'Inbox'}
           size={'small'}
           className={classes.dropdown}
+          fullWidth={isMobile}
         >
           {HOME_VIEW_LIST.map(({ title }) => {
             return (
@@ -71,6 +75,7 @@ export const GeneralSettings = () => {
           value={'24h'}
           size={'small'}
           className={classes.dropdown}
+          fullWidth={isMobile}
         >
           {TIME_FORMATS.map(({ title, key }) => {
             return (

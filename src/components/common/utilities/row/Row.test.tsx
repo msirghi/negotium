@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { Row } from './Row';
 import { act } from '@testing-library/react';
+import { ROW_DIRECTION } from '../../../../common/constants/enums';
 
 describe('Row', () => {
   it('should render a div with display: flex', () => {
@@ -49,5 +50,15 @@ describe('Row', () => {
       wrapper.find('div').simulate('click');
     });
     expect(spy).toBeCalled();
+  });
+
+  it('should render div with direction=row by default', () => {
+    const wrapper = shallow(<Row>1</Row>);
+    expect(wrapper.find('div').props().style!.flexDirection).toEqual('row');
+  });
+
+  it('should render div with provided direction', () => {
+    const wrapper = shallow(<Row direction={ROW_DIRECTION.COLUMN}>1</Row>);
+    expect(wrapper.find('div').props().style!.flexDirection).toEqual('column');
   });
 });

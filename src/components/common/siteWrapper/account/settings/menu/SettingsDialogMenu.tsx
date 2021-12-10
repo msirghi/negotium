@@ -1,4 +1,3 @@
-import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { SettingsMenuListItem } from './item/SettingsMenuListItem';
 import {
@@ -9,21 +8,10 @@ import {
 import { FC } from 'react';
 import { SETTINGS_OPTIONS } from '../../../../../../common/types/enums';
 import { useTranslation } from 'next-i18next';
-
-const useStyles = makeStyles({
-  container: {
-    marginRight: 10,
-  },
-  content: {
-    paddingRight: 10,
-  },
-  title: {
-    fontWeight: 'bold',
-  },
-  menuContainer: {
-    marginTop: 20,
-  },
-});
+import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
+import { Row } from '../../../../utilities/row/Row';
+import { ROW_DIRECTION } from '../../../../../../common/constants/enums';
+import { useSettingsDialogMenuStyles } from './styles';
 
 type Props = {
   setSelectedItem: (option: SETTINGS_OPTIONS) => void;
@@ -34,8 +22,9 @@ export const SettingsDialogMenu: FC<Props> = ({
   selectedItem,
   setSelectedItem,
 }) => {
-  const classes = useStyles();
+  const classes = useSettingsDialogMenuStyles();
   const { t } = useTranslation('settings');
+  const isMobile = useIsMobile();
 
   const onOptionSelect = (option: SETTINGS_OPTIONS) => {
     setSelectedItem(option);
@@ -47,26 +36,28 @@ export const SettingsDialogMenu: FC<Props> = ({
         <Box className={classes.title}>Settings</Box>
 
         <Box className={classes.menuContainer}>
-          <SettingsMenuListItem
-            onClick={() => onOptionSelect(SETTINGS_OPTIONS.ACCOUNT)}
-            isActive={selectedItem === SETTINGS_OPTIONS.ACCOUNT}
-            Icon={AccountCircleOutlined}
-            title={t('titles.account')}
-          />
+          <Row direction={isMobile ? ROW_DIRECTION.ROW : ROW_DIRECTION.COLUMN}>
+            <SettingsMenuListItem
+              onClick={() => onOptionSelect(SETTINGS_OPTIONS.ACCOUNT)}
+              isActive={selectedItem === SETTINGS_OPTIONS.ACCOUNT}
+              Icon={AccountCircleOutlined}
+              title={t('titles.account')}
+            />
 
-          <SettingsMenuListItem
-            onClick={() => onOptionSelect(SETTINGS_OPTIONS.GENERAL)}
-            isActive={selectedItem === SETTINGS_OPTIONS.GENERAL}
-            Icon={SettingsOutlined}
-            title={t('titles.general')}
-          />
+            <SettingsMenuListItem
+              onClick={() => onOptionSelect(SETTINGS_OPTIONS.GENERAL)}
+              isActive={selectedItem === SETTINGS_OPTIONS.GENERAL}
+              Icon={SettingsOutlined}
+              title={t('titles.general')}
+            />
 
-          <SettingsMenuListItem
-            onClick={() => onOptionSelect(SETTINGS_OPTIONS.THEMES)}
-            Icon={PaletteOutlined}
-            isActive={selectedItem === SETTINGS_OPTIONS.THEMES}
-            title={t('titles.themes')}
-          />
+            <SettingsMenuListItem
+              onClick={() => onOptionSelect(SETTINGS_OPTIONS.THEMES)}
+              Icon={PaletteOutlined}
+              isActive={selectedItem === SETTINGS_OPTIONS.THEMES}
+              title={t('titles.themes')}
+            />
+          </Row>
         </Box>
       </Box>
     </Box>

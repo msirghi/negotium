@@ -4,3 +4,8 @@ export enum PASSWORD_STRENGTH_STATUS {
   MEDIUM = 'Medium',
   STRONG = 'Strong',
 }
+
+export enum ROW_DIRECTION {
+  ROW = 'row',
+  COLUMN = 'column'
+}

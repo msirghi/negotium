@@ -19,6 +19,7 @@ exports[`TaskSkeleton should match the snapshot 1`] = `
       Object {
         "alignItems": "flex-start",
         "display": "flex",
+        "flexDirection": "row",
         "justifyContent": "flex-start",
         "width": "initial",
       }
@@ -49,6 +50,7 @@ exports[`TaskSkeleton should match the snapshot 1`] = `
       Object {
         "alignItems": "flex-start",
         "display": "flex",
+        "flexDirection": "row",
         "justifyContent": "flex-start",
         "width": "initial",
       }
@@ -79,6 +81,7 @@ exports[`TaskSkeleton should match the snapshot 1`] = `
       Object {
         "alignItems": "flex-start",
         "display": "flex",
+        "flexDirection": "row",
         "justifyContent": "flex-start",
         "width": "initial",
       }
@@ -109,6 +112,7 @@ exports[`TaskSkeleton should match the snapshot 1`] = `
       Object {
         "alignItems": "flex-start",
         "display": "flex",
+        "flexDirection": "row",
         "justifyContent": "flex-start",
         "width": "initial",
       }
@@ -139,6 +143,7 @@ exports[`TaskSkeleton should match the snapshot 1`] = `
       Object {
         "alignItems": "flex-start",
         "display": "flex",
+        "flexDirection": "row",
         "justifyContent": "flex-start",
         "width": "initial",
       }

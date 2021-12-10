@@ -33,6 +33,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -63,6 +64,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -93,6 +95,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -144,6 +147,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -174,6 +178,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -204,6 +209,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "center",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "initial",
                 }
@@ -234,6 +240,7 @@ exports[`ThemeSettings should match the snapshot 1`] = `
                 Object {
                   "alignItems": "flex-start",
                   "display": "flex",
+                  "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "width": "100%",
                 }

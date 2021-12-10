@@ -5,12 +5,14 @@ import { act } from '@testing-library/react';
 import { SettingsDialogMenu } from './menu/SettingsDialogMenu';
 import { SETTINGS_OPTIONS } from '../../../../../common/types/enums';
 import { GeneralSettings } from './general/GeneralSettings';
-import {
+import TestUtils, {
   MockReduxProvider,
   MockThemeProvider,
 } from '../../../../../common/tests/TestUtils';
 import { ThemeSettings } from './theme/ThemeSettings';
 import { reduxStoreMock } from '../../../../../common/tests/mockData/redux-store-mock';
+import { Row } from '../../../utilities/row/Row';
+import { ROW_DIRECTION } from '../../../../../common/constants/enums';
 
 describe('SiteSettingsDialog', () => {
   const defaultProps = {
@@ -79,5 +81,21 @@ describe('SiteSettingsDialog', () => {
     wrapper.update();
 
     expect(wrapper.find(ThemeSettings)).toHaveLength(1);
+  });
+
+  it('should render row with specific direction on mobile', () => {
+    window.matchMedia = TestUtils.createMatchMedia(500) as any;
+    const wrapper = mount(renderContent());
+    expect(wrapper.find(Row).at(0).props().direction).toEqual(
+      ROW_DIRECTION.COLUMN
+    );
+  });
+
+  it('should render row with specific direction on desktop', () => {
+    window.matchMedia = TestUtils.createMatchMedia(1024) as any;
+    const wrapper = mount(renderContent());
+    expect(wrapper.find(Row).at(0).props().direction).toEqual(
+      ROW_DIRECTION.ROW
+    );
   });
 });
