@@ -13,6 +13,7 @@ import { ThemeSettings } from './theme/ThemeSettings';
 import { reduxStoreMock } from '../../../../../common/tests/mockData/redux-store-mock';
 import { Row } from '../../../utilities/row/Row';
 import { ROW_DIRECTION } from '../../../../../common/constants/enums';
+import { SnackbarProvider } from 'notistack';
 
 describe('SiteSettingsDialog', () => {
   const defaultProps = {
@@ -27,9 +28,11 @@ describe('SiteSettingsDialog', () => {
   const renderContent = () => {
     return (
       <MockReduxProvider reduxStore={reduxStoreMock}>
-        <MockThemeProvider>
-          <SiteSettingsDialog {...defaultProps} />
-        </MockThemeProvider>
+        <SnackbarProvider>
+          <MockThemeProvider>
+            <SiteSettingsDialog {...defaultProps} />
+          </MockThemeProvider>
+        </SnackbarProvider>
       </MockReduxProvider>
     );
   };

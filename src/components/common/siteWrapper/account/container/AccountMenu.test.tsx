@@ -5,7 +5,7 @@ import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
 import { MockReduxProvider } from '../../../../../common/tests/TestUtils';
 import { accountInfoMock } from '../../../../../common/tests/mockData/account-mock';
 import { Menu, MenuItem } from '@mui/material';
-import { MouseEventHandler } from 'react';
+import { SnackbarProvider } from 'notistack';
 
 const mockPush = jest.fn();
 
@@ -28,7 +28,9 @@ describe('AccountMenu', () => {
   it('should handle menu opening', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <AccountMenu {...defaultProps} />
+        <SnackbarProvider>
+          <AccountMenu {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const accountButton = wrapper.find('#account-circle').at(0);
@@ -43,7 +45,9 @@ describe('AccountMenu', () => {
   it('should handle settings dialog opening', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <AccountMenu {...defaultProps} />
+        <SnackbarProvider>
+          <AccountMenu {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const settingsItem = wrapper.find('#settings-item').at(0);
@@ -58,7 +62,9 @@ describe('AccountMenu', () => {
   it('should handle handle menu close', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <AccountMenu {...defaultProps} />
+        <SnackbarProvider>
+          <AccountMenu {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const menuElement = wrapper.find(Menu).at(0) as any;
@@ -73,7 +79,9 @@ describe('AccountMenu', () => {
   it('should handle logout click', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <AccountMenu {...defaultProps} />
+        <SnackbarProvider>
+          <AccountMenu {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const menuItems = wrapper.find(MenuItem);

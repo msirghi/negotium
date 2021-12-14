@@ -119,3 +119,5 @@ export const siteThemes: SiteTheme[] = [
     internalKey: 'noir',
   },
 ];
+
+export const ACTIVATION_CODE_VAR_NAME = 'ac';

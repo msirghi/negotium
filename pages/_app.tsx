@@ -41,11 +41,18 @@ function MyApp({
   const refreshAuthLogic = async <T extends AxiosRequestInstance>(
     failedRequest: T
   ) => {
-    const response = await AuthService.getRefreshedToken();
-    const token = response.data.access_token;
-    authorizationStore.setAuthToken(token);
-    failedRequest.response.config.headers['Authorization'] = `Bearer ${token}`;
-    return Promise.resolve();
+    try {
+      const response = await AuthService.getRefreshedToken();
+      const token = response.data.access_token;
+      authorizationStore.setAuthToken(token);
+      localStorage.setItem('rt', token);
+      failedRequest.response.config.headers[
+        'Authorization'
+      ] = `Bearer ${token}`;
+      return Promise.resolve();
+    } catch (e) {
+      await router.push(Routes.login);
+    }
   };
 
   const setupAxiosInterceptor = () =>
@@ -61,10 +68,17 @@ function MyApp({
   }, []);
 
   const refreshToken = async () => {
+    if (router.route === Routes.login) {
+      setLoading(false);
+      return;
+    }
     try {
       const res = await AuthService.getRefreshedToken();
       authorizationStore.setAuthToken(res.data.access_token);
-      if (router.route === Routes.login || router.route === Routes.register) {
+      if (
+        router.route === Routes.login ||
+        router.route === Routes.registration
+      ) {
         await router.push(Routes.inbox);
       }
     } catch (e) {

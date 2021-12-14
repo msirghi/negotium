@@ -22,6 +22,14 @@ const updateUserTheme = (theme: string) => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const activeAccount = (token: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/account-activation/${token}`,
+    HttpMethod.POST
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
 
 const updateUserName = (name: string) => {
   return Requests.restApiCallWithBearer(
@@ -36,7 +44,8 @@ const updateUserName = (name: string) => {
 const AccountService = {
   getUserMetadata,
   updateUserTheme,
-  updateUserName
+  updateUserName,
+  activeAccount
 };
 
 export default AccountService;

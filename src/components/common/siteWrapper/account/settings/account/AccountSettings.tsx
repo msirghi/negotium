@@ -15,6 +15,7 @@ import { If } from '../../../../utilities/if/If';
 import AccountService from '../../../../../../services/AccountService';
 import { LoadingButton } from '@mui/lab';
 import { setUserName } from '../../../../../../redux/account/accountSlice';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles({
   photoContent: {
@@ -35,6 +36,7 @@ export const AccountSettings = () => {
   const isMobile = useIsMobile();
   const classes = useStyles();
   const commonClasses = useCommonStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('settings');
   const [isSubmitting, setSubmitting] = useState(false);
 
@@ -46,14 +48,15 @@ export const AccountSettings = () => {
 
   const updateName = async () => {
     setSubmitting(true);
-    const response = await AccountService.updateUserName(name);
+    await AccountService.updateUserName(name);
     dispatch(setUserName(name));
     setSubmitting(false);
+    enqueueSnackbar(t('successNameChange'), { variant: 'success' });
   };
 
   const onCancelNameClick = () => {
     setName(accountInfo.name);
-  }
+  };
 
   return (
     <Box>
@@ -81,16 +84,25 @@ export const AccountSettings = () => {
             id={'name-field'}
             size={'small'}
             placeholder={t('name')}
-            inputProps={{'data-testid': 'name-field'}}
+            inputProps={{ 'data-testid': 'name-field' }}
             value={name}
             onChange={onNameChange}
             fullWidth={isMobile}
           />
           <If condition={accountInfo.name !== name}>
-            <LoadingButton data-testid={'name-save-button'} color={'primary'} loading={isSubmitting} onClick={updateName}>
+            <LoadingButton
+              data-testid={'name-save-button'}
+              color={'primary'}
+              loading={isSubmitting}
+              onClick={updateName}
+            >
               {t('save')}
             </LoadingButton>
-            <Button data-testid={'name-cancel-button'} disabled={isSubmitting} onClick={onCancelNameClick}>
+            <Button
+              data-testid={'name-cancel-button'}
+              disabled={isSubmitting}
+              onClick={onCancelNameClick}
+            >
               {t('cancel')}
             </Button>
           </If>

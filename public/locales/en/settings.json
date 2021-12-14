@@ -22,5 +22,6 @@
   "changeEmail": "Change email",
   "password": "Password",
   "changePassword": "Change password",
-  "name": "Name"
+  "name": "Name",
+  "successNameChange": "Name changed successfully."
 }

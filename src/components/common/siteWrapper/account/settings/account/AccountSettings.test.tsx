@@ -8,6 +8,7 @@ import { mount } from 'enzyme';
 import { TextField } from '@mui/material';
 import { fireEvent, render } from '@testing-library/react';
 import AccountService from '../../../../../../services/AccountService';
+import { SnackbarProvider } from 'notistack';
 
 describe('AccountSettings', () => {
   const defaultProps = {};
@@ -20,7 +21,9 @@ describe('AccountSettings', () => {
   it('should match the snapshot', () => {
     const tree = renderer.create(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(tree).toMatchSnapshot();
@@ -29,7 +32,9 @@ describe('AccountSettings', () => {
   it('should render input with the default value', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const nameField = wrapper.find('#name-field').at(0);
@@ -40,7 +45,9 @@ describe('AccountSettings', () => {
     window.matchMedia = TestUtils.createMatchMedia(600) as any;
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find(TextField).at(0).props().fullWidth).toBeTruthy();
@@ -49,7 +56,9 @@ describe('AccountSettings', () => {
   it('should have initial name value taken from redux', () => {
     const { getByTestId } = render(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const nameField = getByTestId('name-field');
@@ -59,7 +68,9 @@ describe('AccountSettings', () => {
   it('should show save button on name change', () => {
     const { getByTestId } = render(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const nameField = getByTestId('name-field');
@@ -74,7 +85,9 @@ describe('AccountSettings', () => {
     AccountService.updateUserName = jest.fn(() => Promise.resolve()) as any;
     const { getByTestId } = render(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const nameField = getByTestId('name-field');
@@ -89,7 +102,9 @@ describe('AccountSettings', () => {
   it('should reset the name on button click', () => {
     const { getByTestId } = render(
       <MockReduxProvider reduxStore={reduxState}>
-        <AccountSettings {...defaultProps} />
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     const nameField = getByTestId('name-field');

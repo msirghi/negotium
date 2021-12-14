@@ -3,12 +3,22 @@ import { AuthContainer } from './AuthContainer';
 import { LoginForm } from '../form/LoginForm';
 import { LoginFooter } from '../footer/LoginFooter';
 import { MockReduxProvider } from '../../../common/tests/TestUtils';
+import { SnackbarProvider } from 'notistack';
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: 'registration',
+    query: {},
+  }),
+}));
 
 describe('AuthContainer', () => {
-  it('should render login form if children were not provided', () => {
-    const wrapper = mount(
+  it('should render login form if children were not provided', async () => {
+    const wrapper = await mount(
       <MockReduxProvider reduxStore={{}}>
-        <AuthContainer />
+        <SnackbarProvider>
+          <AuthContainer />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find(LoginForm)).toHaveLength(1);
@@ -17,7 +27,9 @@ describe('AuthContainer', () => {
   it('should render login footer if prop was not provided', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={{}}>
-        <AuthContainer />
+        <SnackbarProvider>
+          <AuthContainer />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find(LoginFooter)).toHaveLength(1);
@@ -26,7 +38,9 @@ describe('AuthContainer', () => {
   it('should render custom footer if prop was provided', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={{}}>
-        <AuthContainer footer={() => <div className={'content'} />} />
+        <SnackbarProvider>
+          <AuthContainer footer={() => <div className={'content'} />} />
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find('.content')).toHaveLength(1);
@@ -35,9 +49,11 @@ describe('AuthContainer', () => {
   it('should render children when provided', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={{}}>
-        <AuthContainer>
-          <div id={'children'} />
-        </AuthContainer>
+        <SnackbarProvider>
+          <AuthContainer>
+            <div id={'children'} />
+          </AuthContainer>
+        </SnackbarProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find('#children')).toHaveLength(1);
