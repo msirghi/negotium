@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {
   useMemo,
   useCallback,
@@ -42,6 +43,7 @@ const MentionInput: FC<Props> = ({ onChange, defaultValue, keywords }) => {
   const [search, setSearch] = useState('');
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const editor = useMemo(
+    // @ts-ignore
     () => withMentions(withSingleLine(withReact(withHistory(createEditor())))),
     []
   );
@@ -197,7 +199,11 @@ const Element = (props) => {
     case 'mention':
       return <Mention {...props} />;
     default:
-      return <b {...attributes} style={{margin: 0}}>{children}</b>;
+      return (
+        <b {...attributes} style={{ margin: 0 }}>
+          {children}
+        </b>
+      );
   }
 };
 

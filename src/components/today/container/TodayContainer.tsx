@@ -108,6 +108,7 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
         deselectTask={deselectTask}
         task={selectedTask}
         onTaskUpdate={updateTaskHandler}
+        markAsDone={() => {}}
       />
     </Row>
   );

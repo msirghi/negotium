@@ -28,7 +28,7 @@ export const SectionWrapper: FC<Props> = ({
       <Divider />
       <div className={styles.swTaskContainer}>
         {tasks.map((task) => {
-          return <TaskItem task={task} key={task.id} />;
+          return <TaskItem task={task} key={task.id} onTaskSelect={() => {}} markAsDone={() => {}} />;
         })}
         <TaskAddButton onTaskAdd={(title) => onTaskAdd(title, sectionId)} />
       </div>

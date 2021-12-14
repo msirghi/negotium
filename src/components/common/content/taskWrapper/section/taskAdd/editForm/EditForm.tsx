@@ -79,6 +79,7 @@ export const EditForm: FC<Props> = ({
       <ScheduleDialog
         onDateSelect={onDateSelect}
         defaultDate={defaultDate}
+          // @ts-ignore
         value={date as string}
       />
     </div>

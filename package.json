@@ -7,6 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "test:cov": "jest --coverage",
+    "test:upd": "npm run test -u",
     "test": "jest --silent",
     "start:json-server": "json-server --watch db.json --port=4000"
   },

@@ -56,7 +56,7 @@ export const UpcomingContainer = () => {
     <ContentBox>
       <TaskWrapper title={'Upcoming'} upperHeaderTitle={'Upcoming'}>
         {SortUtils.sortByDate(tasks).map((task) => (
-          <TaskItem key={task.id} task={task} markAsDone={markAsDone} />
+          <TaskItem key={task.id} task={task} markAsDone={markAsDone} onTaskSelect={() => {}} />
         ))}
         <TaskAddButton onTaskAdd={onAddTask} />
       </TaskWrapper>

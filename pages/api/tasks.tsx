@@ -52,9 +52,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ tasks: typeof tasks }>
 ) {
-  if (req.query.groupBy === 'section') {
-    res.status(200).json({ data: tasksWithSection });
-    return;
-  }
   res.status(200).json({ tasks });
 }

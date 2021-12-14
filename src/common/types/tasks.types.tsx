@@ -2,7 +2,7 @@ import {Nullable} from "./common.types";
 
 export type ITask = {
   id: string;
-  _id: string;
+  _id?: string;
   title: string;
   createdDate: string;
   completed: boolean;
