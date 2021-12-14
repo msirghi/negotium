@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login footer should match snapshot 1`] = `
+<div
+  className="makeStyles-container-2"
+>
+  login.dontHaveAnAccount
+   
+  <span
+    className="makeStyles-link-1"
+    onClick={[Function]}
+  >
+    login.signUp
+  </span>
+</div>
+`;

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NativeSelect should match the snapshot 1`] = `
+<div
+  className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiSelect-root Component-root-1 css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
+  onClick={[Function]}
+>
+  <select
+    className="MuiNativeSelect-select MuiNativeSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-ffg8md-MuiNativeSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+    multiple={false}
+    onAnimationStart={[Function]}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+  <svg
+    aria-hidden={true}
+    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiNativeSelect-icon MuiNativeSelect-iconOutlined css-1g12qau-MuiSvgIcon-root-MuiNativeSelect-icon"
+    data-testid="ArrowDropDownIcon"
+    focusable="false"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M7 10l5 5 5-5z"
+    />
+  </svg>
+  <fieldset
+    aria-hidden={true}
+    className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+  >
+    <legend
+      className="css-1a1ihhj"
+    >
+      <span
+        className="notranslate"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "&#8203;",
+          }
+        }
+      />
+    </legend>
+  </fieldset>
+</div>
+`;

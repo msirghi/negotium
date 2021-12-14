@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddSectionRow should match the snapshot 1`] = `
+<div>
+  <div
+    className="adrTitleContainer"
+    data-testid="title"
+    onClick={[Function]}
+  >
+    <span
+      className="adrTitle"
+    >
+      Add section
+    </span>
+  </div>
+</div>
+`;

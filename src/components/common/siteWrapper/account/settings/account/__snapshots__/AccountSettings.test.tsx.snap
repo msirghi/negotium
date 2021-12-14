@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountSettings should match the snapshot 1`] = `
+<div
+  className="MuiBox-root css-0"
+>
+  <div>
+    <div
+      className="makeStyles-sectionTitle-4 MuiBox-root css-0"
+    >
+      photo.title
+    </div>
+    <div
+      className="makeStyles-sectionBody-5 MuiBox-root css-0"
+    >
+      <div
+        onClick={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "width": "initial",
+          }
+        }
+      >
+        <div
+          className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-s0wybj-MuiAvatar-root"
+        >
+          n
+        </div>
+        <div
+          className="makeStyles-photoContent-1 MuiBox-root css-0"
+        >
+          <button
+            className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root css-1k23hlb-MuiButtonBase-root-MuiButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            photo.upload
+          </button>
+          <div
+            className="makeStyles-photoHelperText-2 MuiBox-root css-0"
+          >
+            photo.helperText
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="makeStyles-sectionTitle-4 MuiBox-root css-0"
+    >
+      name
+    </div>
+    <div
+      className="makeStyles-sectionBody-5 MuiBox-root css-0"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+      >
+        <div
+          className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
+            data-testid="name-field"
+            disabled={false}
+            id="name-field"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="name"
+            required={false}
+            type="text"
+            value="name"
+          />
+          <fieldset
+            aria-hidden={true}
+            className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              className="css-1a1ihhj"
+            >
+              <span
+                className="notranslate"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&#8203;",
+                  }
+                }
+              />
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    <div
+      className="makeStyles-sectionTitle-4 MuiBox-root css-0"
+    >
+      email
+    </div>
+    <div
+      className="makeStyles-sectionBody-5 MuiBox-root css-0"
+    >
+      <div
+        className="MuiBox-root css-0"
+      >
+        <span>
+          mail@yahoo.com
+        </span>
+      </div>
+      <button
+        className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root css-zwh7hc-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        changeEmail
+      </button>
+    </div>
+    <div
+      className="makeStyles-sectionTitle-4 MuiBox-root css-0"
+    >
+      password
+    </div>
+    <div
+      className="makeStyles-sectionBody-5 MuiBox-root css-0"
+    >
+      <button
+        className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root css-zwh7hc-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        changePassword
+      </button>
+    </div>
+  </div>
+</div>
+`;

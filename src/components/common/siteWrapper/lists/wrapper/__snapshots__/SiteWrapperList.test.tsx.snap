@@ -2,6 +2,19 @@
 
 exports[`SiteWrapperList should match the snapshot 1`] = `
 <div>
+  <div
+    className="makeStyles-titleContainer-1"
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "flex-start",
+        "width": "initial",
+      }
+    }
+  />
   <div>
     test
   </div>

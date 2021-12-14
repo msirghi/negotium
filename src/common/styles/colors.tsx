@@ -8,6 +8,10 @@ const primaries = {
   teal: '#db4a00',
 };
 
+const blues = {
+  light: '#8497e8'
+}
+
 const greys = {
   100: '#f6f6f6',
   200: '#eeeeee',
@@ -15,16 +19,24 @@ const greys = {
   400: '#cfcfcf',
   500: '#b0b0b0',
   600: '#8a8a8a',
+  800: '#646464',
+  900: '#272727'
 };
 
 const error = {
   main: '#db3a00',
 };
 
+const reds = {
+  100: '#ffeded'
+}
+
 export default {
+  reds,
   white,
   black,
   greys,
   primaries,
+  blues,
   error,
 };

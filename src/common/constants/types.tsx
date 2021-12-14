@@ -4,5 +4,41 @@ import { SvgIconTypeMap } from '@mui/material';
 
 export type MainMenuItem = {
   title: string;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
+  Icon: OverridableComponent<SvgIconTypeMap> & { muiName: string };
+  route: string;
+};
+
+export type ProjectColor = {
+  name: string;
+  color: string;
+};
+
+export type StaticProps = {
+  locale: string;
+};
+
+export type SlateNode = {
+  type: string;
+  children: Array<{ text: string }>;
+};
+
+export type LoginResponse = {
+  data: {
+    access_token: string;
+    refresh_token: string;
+  };
+};
+
+export type AxiosRequestInstance = {
+  response: {
+    config: {
+      headers: { [key: string]: string };
+    };
+  };
+};
+
+export type SiteTheme = {
+  label: string;
+  color: string;
+  internalKey: string;
 };
