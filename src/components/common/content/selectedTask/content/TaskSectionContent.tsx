@@ -37,8 +37,6 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
     FeatureToggles.keys.SLATE_INPUT
   );
 
-  console.log('isSlateInputEnabled: ', isSlateInputEnabled);
-
   const updateTaskTitle = (title: string) => {
     const updatedTitle = SlateUtils.removeDateKeyword(title);
     if (task.projectId) {
@@ -55,6 +53,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
   const updatedTitleDueDate = (dueDate: string) => {
     _dueDate.current = dueDate;
     if (task.projectId) {
+      task.dueDate = dueDate;
       ProjectService.updateProjectTask(task.projectId, task);
     } else {
       TaskService.updateTaskDueDate(task.id, dueDate);
@@ -68,7 +67,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
 
   const updateDueDateDebounce = useCallback(
     debounce(updatedTitleDueDate, 1000),
-    [_dueDate.current]
+    []
   );
 
   const onTitleChange = useCallback(
@@ -89,10 +88,10 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
       if (values.date) {
         updateDueDateDebounce(values.date);
       }
-      setTitleValue(value as string);
-      updateTitleDebounce(value as string);
+      setTitleValue(values.value as string);
+      updateTitleDebounce(values.value as string);
     },
-    [task]
+    []
   );
 
   useEffect(() => {

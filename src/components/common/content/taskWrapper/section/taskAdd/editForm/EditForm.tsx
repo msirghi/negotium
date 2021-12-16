@@ -64,6 +64,7 @@ export const EditForm: FC<Props> = ({
       </If>
       <If condition={!isSlateInputEnabled}>
         <TextField
+          autoFocus
           value={fieldValue}
           fullWidth
           size={'small'}
@@ -79,7 +80,7 @@ export const EditForm: FC<Props> = ({
       <ScheduleDialog
         onDateSelect={onDateSelect}
         defaultDate={defaultDate}
-          // @ts-ignore
+        // @ts-ignore
         value={date as string}
       />
     </div>
