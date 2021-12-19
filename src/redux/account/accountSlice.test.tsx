@@ -3,6 +3,7 @@ import reducer, {
   setMetadata,
   setSiteTheme,
   setUserName,
+  setLanguage,
 } from './accountSlice';
 import { tempAccountInfo } from '../../common/constants/constants';
 
@@ -13,7 +14,7 @@ describe('Account slice', () => {
       name: 'Name',
       email: 'mail',
     },
-    metadata: { theme: 'Noir' },
+    metadata: { theme: 'Noir', language: 'ru' },
   };
 
   it('should return the initial state', () => {
@@ -25,6 +26,7 @@ describe('Account slice', () => {
       },
       metadata: {
         theme: '',
+        language: '',
       },
     });
   });
@@ -32,7 +34,7 @@ describe('Account slice', () => {
   it('should handle account info set', () => {
     expect(reducer(testState, setAccountInfo(tempAccountInfo))).toEqual({
       info: tempAccountInfo,
-      metadata: { theme: 'Noir' },
+      metadata: { theme: 'Noir', language: 'ru' },
     });
   });
 
@@ -52,8 +54,15 @@ describe('Account slice', () => {
         testState,
         setMetadata({
           theme: 'theme',
+          language: '',
         })
       ).metadata
-    ).toEqual({ theme: 'theme' });
+    ).toEqual({ theme: 'theme', language: '' });
+  });
+
+  it('should set user language', () => {
+    expect(reducer(testState, setLanguage('ru')).metadata.language).toEqual(
+      'ru'
+    );
   });
 });

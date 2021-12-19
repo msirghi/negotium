@@ -56,11 +56,12 @@ export const SiteWrapper: FC = ({ children }) => {
   const fetchUserMetadata = async () => {
     try {
       const response = await AccountService.getUserMetadata();
-      let theme = response.data.theme;
+      let { theme, language } = response.data;
       if (!ThemeUtils.isValidTheme(theme)) {
         theme = siteThemes[0].internalKey;
       }
-      dispatch(setMetadata({ theme }));
+      dispatch(setMetadata({ theme, language }));
+      await router.push(router.route, router.route, { locale: language });
     } catch (e) {}
   };
 
