@@ -4,6 +4,7 @@ import reducer, {
   setSiteTheme,
   setUserName,
   setLanguage,
+  setUserEmail,
 } from './accountSlice';
 import { tempAccountInfo } from '../../common/constants/constants';
 
@@ -63,6 +64,12 @@ describe('Account slice', () => {
   it('should set user language', () => {
     expect(reducer(testState, setLanguage('ru')).metadata.language).toEqual(
       'ru'
+    );
+  });
+
+  it('should set user email', () => {
+    expect(reducer(testState, setUserEmail('email')).info.email).toEqual(
+      'email'
     );
   });
 });

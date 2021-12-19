@@ -9,3 +9,8 @@ export enum ROW_DIRECTION {
   ROW = 'row',
   COLUMN = 'column'
 }
+
+export enum ACCOUNT_SETTINGS_CHANGE_MODE {
+  EMAIL = 'EMAIL',
+  PASSWORD = 'PASSWORD'
+}

@@ -115,4 +115,20 @@ describe('AccountSettings', () => {
     });
     expect(nameField).toHaveValue(reduxState.account.info.name);
   });
+
+  it('should show email change form on button click', () => {
+    const { getByTestId } = render(
+      <MockReduxProvider reduxStore={reduxState}>
+        <SnackbarProvider>
+          <AccountSettings {...defaultProps} />
+        </SnackbarProvider>
+      </MockReduxProvider>
+    );
+    const changeEmailButton = getByTestId('email-change-button');
+
+    act(() => {
+      fireEvent.click(changeEmailButton);
+    });
+    expect(getByTestId('email-change')).toBeInTheDocument();
+  });
 });

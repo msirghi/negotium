@@ -16,6 +16,8 @@ import AccountService from '../../../../../../services/AccountService';
 import { LoadingButton } from '@mui/lab';
 import { setUserName } from '../../../../../../redux/account/accountSlice';
 import { useSnackbar } from 'notistack';
+import { ACCOUNT_SETTINGS_CHANGE_MODE } from '../../../../../../common/constants/enums';
+import { EmailChange } from './email/EmailChange';
 
 const useStyles = makeStyles({
   photoContent: {
@@ -39,11 +41,17 @@ export const AccountSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('settings');
   const [isSubmitting, setSubmitting] = useState(false);
+  const [changeMode, setChangeMode] =
+    useState<ACCOUNT_SETTINGS_CHANGE_MODE | null>(null);
 
   const [name, setName] = useState(accountInfo.name);
 
   const onNameChange = (e: { target: { value: string } }) => {
     setName(e.target.value);
+  };
+
+  const onEmailChangeButtonClick = () => {
+    setChangeMode(ACCOUNT_SETTINGS_CHANGE_MODE.EMAIL);
   };
 
   const updateName = async () => {
@@ -58,9 +66,16 @@ export const AccountSettings = () => {
     setName(accountInfo.name);
   };
 
+  const onChangeModeBackClick = () => setChangeMode(null);
+
   return (
     <Box>
-      <div>
+      <If condition={changeMode === ACCOUNT_SETTINGS_CHANGE_MODE.EMAIL}>
+        <div data-testid={'email-change'}>
+          <EmailChange onBackClick={onChangeModeBackClick} />
+        </div>
+      </If>
+      <If condition={!changeMode}>
         <Box className={commonClasses.sectionTitle}>{t('photo.title')}</Box>
         <Box className={commonClasses.sectionBody}>
           <Row alignVerticalCenter>
@@ -118,6 +133,8 @@ export const AccountSettings = () => {
             variant={'outlined'}
             sx={{ marginTop: 1 }}
             fullWidth={isMobile}
+            data-testid={'email-change-button'}
+            onClick={onEmailChangeButtonClick}
           >
             {t('changeEmail')}
           </Button>
@@ -134,7 +151,7 @@ export const AccountSettings = () => {
             {t('changePassword')}
           </Button>
         </Box>
-      </div>
+      </If>
     </Box>
   );
 };
