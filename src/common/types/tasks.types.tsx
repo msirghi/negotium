@@ -9,6 +9,7 @@ export type ITask = {
   dueDate?: Nullable<string>;
   orderNumber?: number;
   projectId?: string;
+  description?: string;
 };
 
 export type ISection = {

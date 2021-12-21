@@ -4,7 +4,8 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DoneIcon from '@mui/icons-material/Done';
 import { SnackbarOrigin } from 'notistack';
-import colors from "../styles/colors";
+import colors from '../styles/colors';
+import { Descendant } from 'slate';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -117,6 +118,13 @@ export const siteThemes: SiteTheme[] = [
     color: colors.black,
     label: 'Noir',
     internalKey: 'noir',
+  },
+];
+
+export const initialRichTextValue: Descendant[] = [
+  {
+    type: 'paragraph',
+    children: [{ text: '' }],
   },
 ];
 

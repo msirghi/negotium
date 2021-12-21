@@ -6,13 +6,17 @@ import { Box } from '@mui/system';
 import debounce from 'lodash.debounce';
 import TaskService from '../../../../../services/TaskService';
 import MentionInput from '../../../form/input/mention/MentionInput';
-import { MENTION_ARRAY_KEYWORDS } from '../../../../../common/constants/constants';
+import {
+  initialRichTextValue,
+  MENTION_ARRAY_KEYWORDS,
+} from '../../../../../common/constants/constants';
 import SlateUtils from '../../../../../common/utils/slateUtils';
 import { Descendant } from 'slate';
 import ProjectService from '../../../../../services/ProjectService';
 import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
 import { If } from '../../../utilities/if/If';
-import StringUtils from "../../../../../common/utils/stringUtils";
+import StringUtils from '../../../../../common/utils/stringUtils';
+import RichTextField from '../../../form/input/richText/RichTextField';
 
 type Props = {
   task: ITask;
@@ -30,7 +34,9 @@ const useStyles = makeStyles({
 
 export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
   const [titleValue, setTitleValue] = useState(task.title);
-  const [descriptionValue, setDescriptionValue] = useState('No description.');
+  const [descriptionValue, setDescriptionValue] = useState(
+    SlateUtils.getInitialValueForSlate(task.description)
+  );
   const _dueDate = useRef(task.dueDate);
   const classes = useStyles();
   const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
@@ -70,29 +76,46 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
     []
   );
 
-  const onTitleChange = useCallback(
-    (value: Descendant[] | string) => {
-      if (isSlateInputEnabled) {
-        const stringified = JSON.stringify(value);
-        SlateUtils.detectDateKeywords(
-          stringified,
-          (transformedToDate) =>
-            transformedToDate && updateDueDateDebounce(transformedToDate)
-        );
-        setTitleValue(stringified);
-        updateTitleDebounce(stringified);
-        return;
-      }
+  const updateDescription = async (description: Descendant[]) => {
+    const stringified = JSON.stringify(description);
+    await TaskService.updateTaskDescription(task.id, stringified);
+    onTaskUpdate({
+      ...task,
+      description: stringified,
+      dueDate: _dueDate.current,
+    });
+  };
 
-      const values = StringUtils.getTaskInputDateByKeywords(value as string);
-      if (values.date) {
-        updateDueDateDebounce(values.date);
-      }
-      setTitleValue(values.value as string);
-      updateTitleDebounce(values.value as string);
-    },
+  const updateDescriptionDebounce = useCallback(
+    debounce(updateDescription, 1000),
     []
   );
+
+  const updateDescriptionFieldValue = (val: Descendant[]) => {
+    setDescriptionValue(val);
+    updateDescriptionDebounce(val);
+  };
+
+  const onTitleChange = useCallback((value: Descendant[] | string) => {
+    if (isSlateInputEnabled) {
+      const stringified = JSON.stringify(value);
+      SlateUtils.detectDateKeywords(
+        stringified,
+        (transformedToDate) =>
+          transformedToDate && updateDueDateDebounce(transformedToDate)
+      );
+      setTitleValue(stringified);
+      updateTitleDebounce(stringified);
+      return;
+    }
+
+    const values = StringUtils.getTaskInputDateByKeywords(value as string);
+    if (values.date) {
+      updateDueDateDebounce(values.date);
+    }
+    setTitleValue(values.value as string);
+    updateTitleDebounce(values.value as string);
+  }, []);
 
   useEffect(() => {
     setTitleValue(task.title);
@@ -115,21 +138,16 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
           value={titleValue}
           onChange={(e) => onTitleChange(e.target.value)}
           variant={'standard'}
-          inputProps={{'data-testid': 'title-input'}}
+          inputProps={{ 'data-testid': 'title-input' }}
           InputProps={{
             disableUnderline: true,
             style: { fontWeight: 'bold', fontSize: 18 },
           }}
         />
       </If>
-
-      <TextField
-        className={classes.input}
+      <RichTextField
         value={descriptionValue}
-        multiline
-        rows={4}
-        variant={'standard'}
-        InputProps={{ disableUnderline: true }}
+        setValue={updateDescriptionFieldValue}
       />
     </Box>
   );

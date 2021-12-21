@@ -32,6 +32,19 @@ const updateTaskName = (id: ITask['id'], title: ITask['title']) => {
   );
 };
 
+const updateTaskDescription = (
+  id: ITask['id'],
+  description: ITask['description']
+) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/tasks/${id}`,
+    HttpMethod.PATCH,
+    {
+      description,
+    }
+  );
+};
+
 const updateTaskDueDate = (id: ITask['id'], dueDate: ITask['dueDate']) => {
   let validatedDate = null;
   if (dayjs(dueDate).isValid()) {
@@ -51,6 +64,7 @@ const TaskService = {
   markTaskAsDone,
   updateTaskName,
   updateTaskDueDate,
+  updateTaskDescription
 };
 
 export default TaskService;

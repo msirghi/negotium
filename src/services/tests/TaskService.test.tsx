@@ -37,4 +37,10 @@ describe('TaskService', () => {
     await TaskService.updateTaskDueDate('1', 'Invalid');
     expect(Requests.restApiCallWithBearer).toBeCalled();
   });
+
+  it('should make a request to update tasks description', async () => {
+    Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve({} as AxiosResponse));
+    await TaskService.updateTaskDescription('1', '12');
+    expect(Requests.restApiCallWithBearer).toBeCalled();
+  });
 });
