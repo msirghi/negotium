@@ -123,6 +123,7 @@ export const siteThemes: SiteTheme[] = [
 
 export const initialRichTextValue: Descendant[] = [
   {
+    // @ts-ignore
     type: 'paragraph',
     children: [{ text: '' }],
   },
