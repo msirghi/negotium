@@ -78,7 +78,11 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
 
   const updateDescription = async (description: Descendant[]) => {
     const stringified = JSON.stringify(description);
-    await TaskService.updateTaskDescription(task.id, stringified);
+    if (task.projectId) {
+      await ProjectService.updateProjectTaskDescription(task.projectId, task.id, stringified);
+    } else {
+      await TaskService.updateTaskDescription(task.id, stringified);
+    }
     onTaskUpdate({
       ...task,
       description: stringified,

@@ -36,6 +36,16 @@ const updateProjectTask = (projectId: IProject['id'], task: ITask) => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const updateProjectTaskDescription = (projectId: IProject['id'], taskId: ITask['id'], description: ITask['description']) => {
+  return Requests.restApiCallWithBearer(
+      `${BASE_API_URL_V1}/projects/${projectId}/tasks/${taskId}`,
+      HttpMethod.PATCH,
+      { description }
+  )
+      .then(ServiceResultFactory.fromResponse)
+      .catch(ServiceResultFactory.fromError);
+};
+
 const getProjectById = (projectId: IProject['id']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}`,
@@ -68,6 +78,7 @@ const ProjectService = {
   deleteProjectById,
   addProjectTask,
   updateProjectTask,
+  updateProjectTaskDescription
 };
 
 export default ProjectService;

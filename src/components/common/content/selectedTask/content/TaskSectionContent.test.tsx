@@ -6,6 +6,9 @@ import { mount } from 'enzyme';
 import MentionInput from '../../../form/input/mention/MentionInput';
 import TestUtils from '../../../../../common/tests/TestUtils';
 import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
+import ProjectService from "../../../../../services/ProjectService";
+import RichTextField from "../../../form/input/richText/RichTextField";
+import {initialRichTextValue} from "../../../../../common/constants/constants";
 
 describe('TaskSectionContent', () => {
   const defaultProps = {
@@ -56,5 +59,37 @@ describe('TaskSectionContent', () => {
     });
     jest.runOnlyPendingTimers();
     expect(titleInput).toHaveValue('new value');
+  });
+
+  it('should handle project task description update', () => {
+    FeatureToggles.isFeatureEnabled = jest.fn(() => false);
+    ProjectService.updateProjectTaskDescription = jest.fn(() => Promise.resolve()) as any;
+    jest.useFakeTimers();
+    const wrapper = mount(
+      <TaskSectionContent {...defaultProps} task={{ ...defaultProps.task, projectId: '1' }} />
+    );
+    const descriptionField = wrapper.find(RichTextField).at(0);
+
+    act(() => {
+      descriptionField.props().setValue(initialRichTextValue);
+    });
+    jest.runAllTimers();
+    expect(ProjectService.updateProjectTaskDescription).toBeCalled();
+  });
+
+  it('should handle simple task description update', () => {
+    FeatureToggles.isFeatureEnabled = jest.fn(() => false);
+    TaskService.updateTaskDescription = jest.fn(() => Promise.resolve()) as any;
+    jest.useFakeTimers();
+    const wrapper = mount(
+        <TaskSectionContent {...defaultProps} task={{ ...defaultProps.task, projectId: undefined }} />
+    );
+    const descriptionField = wrapper.find(RichTextField).at(0);
+
+    act(() => {
+      descriptionField.props().setValue(initialRichTextValue);
+    });
+    jest.runAllTimers();
+    expect(TaskService.updateTaskDescription).toBeCalled();
   });
 });

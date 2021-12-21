@@ -66,4 +66,29 @@ describe('ProjectService', () => {
       expect(ServiceResultFactory.fromError).toBeCalled();
     });
   });
+
+  describe('updateProjectTaskDescription', () => {
+    it('should handle success response', async () => {
+      ServiceResultFactory.fromResponse = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await ProjectService.updateProjectTaskDescription(
+        'projectId',
+        TasksMock[0].id,
+        'desc'
+      );
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle failed response', async () => {
+      // @ts-ignore
+      ServiceResultFactory.fromError = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await ProjectService.updateProjectTaskDescription(
+        'projectId',
+        TasksMock[0].id,
+        'desc'
+      );
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
+  });
 });
