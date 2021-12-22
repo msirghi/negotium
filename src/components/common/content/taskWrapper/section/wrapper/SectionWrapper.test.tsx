@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 import { TaskAddButton } from '../taskAdd/TaskAddButton';
 import { act } from '@testing-library/react';
 import { AddSectionRow } from '../add/AddSectionRow';
+import { MockDndProvider } from '../../../../../../common/tests/TestUtils';
 
 describe('SectionWrapper', () => {
   const defaultProps = {
@@ -16,12 +17,20 @@ describe('SectionWrapper', () => {
   };
 
   it('should match the snapshot', () => {
-    const tree = renderer.create(<SectionWrapper {...defaultProps} />);
+    const tree = renderer.create(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
     expect(tree).toMatchSnapshot();
   });
 
   it('should handle new task add', () => {
-    const wrapper = mount(<SectionWrapper {...defaultProps} />);
+    const wrapper = mount(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
     const addButton = wrapper.find(TaskAddButton);
     act(() => {
       addButton.props().onTaskAdd('title', null);
@@ -30,7 +39,11 @@ describe('SectionWrapper', () => {
   });
 
   it('should handle new section add', () => {
-    const wrapper = mount(<SectionWrapper {...defaultProps} />);
+    const wrapper = mount(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
     const addSectionRow = wrapper.find(AddSectionRow);
 
     act(() => {

@@ -1,69 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TaskItem should match the snapshot 1`] = `
-<div
-  className="tiItem"
-  onClick={[Function]}
-  style={
-    Object {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "row",
-      "justifyContent": "flex-start",
-      "width": "initial",
-    }
-  }
->
+Array [
   <div
-    onClick={[Function]}
+    aria-describedby="rbd-hidden-text-0-hidden-text-0"
+    data-rbd-drag-handle-context-id="0"
+    data-rbd-drag-handle-draggable-id="uuid-1"
+    data-rbd-draggable-context-id="0"
+    data-rbd-draggable-id="uuid-1"
+    draggable={false}
+    onDragStart={[Function]}
+    onTransitionEnd={null}
+    role="button"
     style={
       Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "flex-start",
-        "width": "initial",
+        "transform": null,
+        "transition": null,
       }
     }
+    tabIndex={0}
   >
-    <span
-      className="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
-      onBlur={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={null}
-    >
-      <input
-        className="PrivateSwitchBase-input css-1m9pwf3"
-        data-indeterminate={false}
-        onChange={[Function]}
-        type="checkbox"
-      />
-      <svg
-        aria-hidden={true}
-        className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
-        data-testid="CheckBoxOutlineBlankIcon"
-        focusable="false"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-        />
-      </svg>
-    </span>
     <div>
-      [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
+      <div
+        className="tiItem"
+        onClick={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "flex-start",
+            "width": "initial",
+          }
+        }
+      >
+        <div
+          onClick={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "width": "initial",
+            }
+          }
+        >
+          <span
+            className="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+            onBlur={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={null}
+          >
+            <input
+              className="PrivateSwitchBase-input css-1m9pwf3"
+              data-indeterminate={false}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="CheckBoxOutlineBlankIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+              />
+            </svg>
+          </span>
+          <div>
+            [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
+          </div>
+        </div>
+        <div />
+      </div>
     </div>
-  </div>
-  <div />
-</div>
+  </div>,
+  " ",
+]
 `;

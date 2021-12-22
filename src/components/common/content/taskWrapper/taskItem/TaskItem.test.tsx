@@ -4,7 +4,8 @@ import { TaskItem } from './TaskItem';
 import { mount } from 'enzyme';
 import { Checkbox } from '@mui/material';
 import { act } from '@testing-library/react';
-import {Row} from "../../../utilities/row/Row";
+import { Row } from '../../../utilities/row/Row';
+import { MockDndProvider } from '../../../../../common/tests/TestUtils';
 
 describe('TaskItem', () => {
   const defaultProps = {
@@ -18,12 +19,20 @@ describe('TaskItem', () => {
   });
 
   it('should match the snapshot', () => {
-    const tree = renderer.create(<TaskItem {...defaultProps} />);
+    const tree = renderer.create(
+      <MockDndProvider>
+        <TaskItem {...defaultProps} />
+      </MockDndProvider>
+    );
     expect(tree).toMatchSnapshot();
   });
 
   it('should mark task as done', () => {
-    const wrapper = mount(<TaskItem {...defaultProps} />);
+    const wrapper = mount(
+      <MockDndProvider>
+        <TaskItem {...defaultProps} />
+      </MockDndProvider>
+    );
     const checkbox = wrapper.find(Checkbox);
     act(() => {
       // @ts-ignore
@@ -33,7 +42,11 @@ describe('TaskItem', () => {
   });
 
   it('should select a task', () => {
-    const wrapper = mount(<TaskItem {...defaultProps} />);
+    const wrapper = mount(
+      <MockDndProvider>
+        <TaskItem {...defaultProps} />
+      </MockDndProvider>
+    );
     const row = wrapper.find(Row).at(0);
     act(() => {
       row.simulate('click');

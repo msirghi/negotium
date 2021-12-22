@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@mui/material/styles';
 import { noirAppTheme } from '../theme/appTheme';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 function createMatchMedia(width: number) {
   return (query: string) => {
@@ -35,6 +36,14 @@ export const MockQueryClient: FC = ({ children }) => {
 
 export const MockThemeProvider: FC = ({ children }) => {
   return <ThemeProvider theme={noirAppTheme}>{children}</ThemeProvider>;
+};
+
+export const MockDndProvider: FC = ({ children }) => {
+  return (
+    <DragDropContext onDragEnd={jest.fn()}>
+      <Droppable droppableId="list">{(provided) => <>{children} </>}</Droppable>
+    </DragDropContext>
+  );
 };
 
 const runAllPromises = () => new Promise(setImmediate);

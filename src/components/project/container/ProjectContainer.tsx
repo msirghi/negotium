@@ -141,8 +141,8 @@ export const ProjectContainer = () => {
                     />
                   );
                 })}
-              <TaskAddButton onTaskAdd={addTaskHandler} />
             </TaskWrapper>
+            <TaskAddButton onTaskAdd={addTaskHandler} />
           </ContentBox>
           <SelectedTaskSection
             markAsDone={markAsDone}

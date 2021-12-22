@@ -102,7 +102,22 @@ exports[`TaskWrapper should match the snapshot 1`] = `
       }
     }
   >
-    <div />
+    <div>
+      <div
+        style={
+          Object {
+            "opacity": 0,
+            "transform": "translateY(20px)",
+            "transition": "opacity 400ms, transform 400ms",
+          }
+        }
+      >
+        <div
+          data-rbd-droppable-context-id="0"
+          data-rbd-droppable-id="list"
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;

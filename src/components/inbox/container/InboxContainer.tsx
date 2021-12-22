@@ -16,6 +16,7 @@ import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 
 import { useTranslation } from 'next-i18next';
+import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 
 type Props = {
   useData?: boolean;
@@ -30,15 +31,16 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
 
   useEffect(() => {
     if (data) {
-      setTasks(data);
+      setTasks(data.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!));
     }
   }, [data]);
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {
+    const orderNumber = TaskUtils.getMaxTaskOrderNumber(tasks) + 1;
     const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
-      tasks.length - 1
+      orderNumber
     );
     setTasks((prevState) => [...prevState, newTask as ITask]);
     enqueueSnackbar(t('snackbarTitles.taskAdded'), {
@@ -88,22 +90,26 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
   return (
     <Row fullWidth>
       <ContentBox>
-        <TaskWrapper
-          title={t('pageTitles.inbox')}
-          upperHeaderTitle={t('pageTitles.inbox')}
-        >
-          {SortUtils.sortByDate(useData ? data : tasks)
-            .filter((task) => !task.completed && !task.projectId)
-            .map((task) => (
-              <TaskItem
-                key={`${task.id} ${task.dueDate} ${task.title}`}
-                task={task}
-                markAsDone={markAsDone}
-                onTaskSelect={onTaskSelect}
-              />
-            ))}
-          <TaskAddButton onTaskAdd={onAddTask} />
-        </TaskWrapper>
+        <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
+          <TaskWrapper
+            title={t('pageTitles.inbox')}
+            upperHeaderTitle={t('pageTitles.inbox')}
+          >
+            {/*{SortUtils.sortByDate(useData ? data : tasks)*/}
+            {tasks
+              .filter((task) => !task.completed && !task.projectId)
+              .map((task, index) => (
+                <TaskItem
+                  dndIndex={index}
+                  key={`${task.id} ${task.dueDate} ${task.title}`}
+                  task={task}
+                  markAsDone={markAsDone}
+                  onTaskSelect={onTaskSelect}
+                />
+              ))}
+          </TaskWrapper>
+        </DndTaskWrapper>
+        <TaskAddButton onTaskAdd={onAddTask} />
       </ContentBox>
       <SelectedTaskSection
         markAsDone={markAsDone}

@@ -96,11 +96,8 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
                 onTaskSelect={onTaskSelect}
               />
             ))}
-          <TaskAddButton
-            onTaskAdd={onTaskAdd}
-            defaultDate={defaultDay.current}
-          />
         </TaskWrapper>
+        <TaskAddButton onTaskAdd={onTaskAdd} defaultDate={defaultDay.current} />
       </ContentBox>
 
       <SelectedTaskSection

@@ -15,9 +15,27 @@ const getNewTaskObject = (
     createdDate: dayjs().format(),
     dueDate: date ? dayjs(date).format() : null,
     completed: false,
-    projectId
+    projectId,
   };
   return newTask;
+};
+
+const getMaxTaskOrderNumber = (tasks: ITask[]) => {
+  const filtered = tasks.filter((p) => !p.completed && !p.projectId);
+  if (!filtered.length) {
+    return 0;
+  }
+
+  const maxTaskOrder = Math.max.apply(
+    Math,
+    filtered.map((t) => {
+      return t.orderNumber!;
+    })
+  );
+  if (!maxTaskOrder) {
+    return 0;
+  }
+  return maxTaskOrder;
 };
 
 const markAsDone = async (taskId: string, callback: () => void) => {
@@ -28,6 +46,7 @@ const markAsDone = async (taskId: string, callback: () => void) => {
 const TaskUtils = {
   getNewTaskObject,
   markAsDone,
+  getMaxTaskOrderNumber,
 };
 
 export default TaskUtils;
