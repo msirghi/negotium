@@ -28,9 +28,7 @@ const getMaxTaskOrderNumber = (tasks: ITask[]) => {
 
   const maxTaskOrder = Math.max.apply(
     Math,
-    filtered.map((t) => {
-      return t.orderNumber!;
-    })
+    filtered.map((t) => t.orderNumber!)
   );
   if (!maxTaskOrder) {
     return 0;

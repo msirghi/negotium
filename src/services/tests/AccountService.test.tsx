@@ -82,4 +82,20 @@ describe('AccountService', () => {
       expect(ServiceResultFactory.fromError).toBeCalled();
     });
   });
+
+  describe('activeAccount', () => {
+    it('should handle success response', async () => {
+      ServiceResultFactory.fromResponse = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await AccountService.activeAccount('token');
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle error response', async () => {
+      ServiceResultFactory.fromError = jest.fn() as any;
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await AccountService.activeAccount('token');
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
+  });
 });

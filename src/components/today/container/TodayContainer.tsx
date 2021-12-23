@@ -16,6 +16,7 @@ import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { useTranslation } from 'next-i18next';
+import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 
 type Props = {
   useData?: boolean;
@@ -79,24 +80,26 @@ export const TodayContainer: FC<Props> = ({ useData }) => {
   return (
     <Row fullWidth>
       <ContentBox>
-        <TaskWrapper
-          title={t('pageTitles.today')}
-          upperHeaderTitle={t('pageTitles.today')}
-        >
-          {renderData
-            .filter(
-              ({ dueDate, completed }) =>
-                DateUtils.isTodayDate(dueDate) && !completed
-            )
-            .map((task) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                markAsDone={onMarkAsDone}
-                onTaskSelect={onTaskSelect}
-              />
-            ))}
-        </TaskWrapper>
+        <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
+          <TaskWrapper
+            title={t('pageTitles.today')}
+            upperHeaderTitle={t('pageTitles.today')}
+          >
+            {renderData
+              .filter(
+                ({ dueDate, completed }) =>
+                  DateUtils.isTodayDate(dueDate) && !completed
+              )
+              .map((task) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  markAsDone={onMarkAsDone}
+                  onTaskSelect={onTaskSelect}
+                />
+              ))}
+          </TaskWrapper>
+        </DndTaskWrapper>
         <TaskAddButton onTaskAdd={onTaskAdd} defaultDate={defaultDay.current} />
       </ContentBox>
 

@@ -104,7 +104,7 @@ export const AccountSettings = () => {
             onChange={onNameChange}
             fullWidth={isMobile}
           />
-          <If condition={accountInfo.name !== name}>
+          <If condition={accountInfo.name.trim() !== name.trim()}>
             <LoadingButton
               data-testid={'name-save-button'}
               color={'primary'}
