@@ -114,7 +114,7 @@ export const AccountMenu = () => {
           </Row>
         </MenuItem>
 
-        <MenuItem onClick={onThemesItemClick}>
+        <MenuItem onClick={onThemesItemClick} id={'themes-item'}>
           <Row alignVerticalCenter>
             <PaletteOutlinedIcon fontSize={'small'} />
             <span className={commonStyles.itemTitle}>{t('titles.themes')}</span>
