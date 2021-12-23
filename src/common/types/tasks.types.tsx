@@ -10,10 +10,12 @@ export type ITask = {
   orderNumber?: number;
   projectId?: string;
   description?: string;
+  sectionId?: string;
 };
 
 export type ISection = {
   id: string;
-  sectionTitle: string;
-  sectionTasks: ITask[];
+  _id?: string;
+  title: string;
+  projectId: string;
 } & Pick<ITask, 'orderNumber'>;

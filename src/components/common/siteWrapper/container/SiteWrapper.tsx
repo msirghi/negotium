@@ -26,12 +26,11 @@ import {
   setAccountInfo,
   setMetadata,
 } from '../../../../redux/account/accountSlice';
-import { defaultLightTheme, themeMap } from '../../../../common/theme/appTheme';
+import { themeMap } from '../../../../common/theme/appTheme';
 import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
-import Routes from '../../../../common/config/routes';
 
 const drawerWidth = 240;
 

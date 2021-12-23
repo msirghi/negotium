@@ -2,7 +2,7 @@ import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import { HttpMethod } from '../common/requests/types';
 import { IProject } from '../common/types/projects.types';
-import { ITask } from '../common/types/tasks.types';
+import {ISection, ITask} from '../common/types/tasks.types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
 
 const addProject = (project: Omit<IProject, 'id'>) => {
@@ -36,14 +36,18 @@ const updateProjectTask = (projectId: IProject['id'], task: ITask) => {
     .catch(ServiceResultFactory.fromError);
 };
 
-const updateProjectTaskDescription = (projectId: IProject['id'], taskId: ITask['id'], description: ITask['description']) => {
+const updateProjectTaskDescription = (
+  projectId: IProject['id'],
+  taskId: ITask['id'],
+  description: ITask['description']
+) => {
   return Requests.restApiCallWithBearer(
-      `${BASE_API_URL_V1}/projects/${projectId}/tasks/${taskId}`,
-      HttpMethod.PATCH,
-      { description }
+    `${BASE_API_URL_V1}/projects/${projectId}/tasks/${taskId}`,
+    HttpMethod.PATCH,
+    { description }
   )
-      .then(ServiceResultFactory.fromResponse)
-      .catch(ServiceResultFactory.fromError);
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
 };
 
 const getProjectById = (projectId: IProject['id']) => {
@@ -71,6 +75,28 @@ const deleteProjectById = (projectId: IProject['id']) => {
   );
 };
 
+const addProjectSection = (projectId: IProject['id'], title: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections`,
+    HttpMethod.POST,
+    {
+      title,
+    }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
+const getProjectSections = (projectId: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections`,
+    HttpMethod.GET
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .then((res) => ServiceResultFactory.convertMongoIdToJSId(res.data))
+    .catch(ServiceResultFactory.fromError);
+};
+
 const ProjectService = {
   addProject,
   getProjectById,
@@ -78,7 +104,9 @@ const ProjectService = {
   deleteProjectById,
   addProjectTask,
   updateProjectTask,
-  updateProjectTaskDescription
+  updateProjectTaskDescription,
+  addProjectSection,
+  getProjectSections,
 };
 
 export default ProjectService;

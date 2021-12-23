@@ -42,7 +42,6 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   };
 
   const onSave = () => {
-    console.log('save...')
     onTaskAdd(fieldValue, selectedDate.current);
     onDateSelect(null);
     setEditMode(false);

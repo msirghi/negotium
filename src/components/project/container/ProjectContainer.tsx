@@ -7,7 +7,7 @@ import { Row } from '../../common/utilities/row/Row';
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { useFetchProjectTasks } from '../../../common/hooks/tasks/useFetchProjectTasks';
-import { ITask } from '../../../common/types/tasks.types';
+import { ISection, ITask } from '../../../common/types/tasks.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
@@ -18,16 +18,18 @@ import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
 import ProjectService from '../../../services/ProjectService';
 import Head from 'next/head';
 import StringUtils from '../../../common/utils/stringUtils';
-import { useTranslation } from 'next-i18next';
+import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
+import { AddSectionRow } from '../../common/content/taskWrapper/section/add/AddSectionRow';
+import { SectionWrapper } from '../../common/content/taskWrapper/section/wrapper/SectionWrapper';
+import { If } from '../../common/utilities/if/If';
 
 export const ProjectContainer = () => {
   const router = useRouter();
   const projectId = useRef<string>(router.query.id as string);
-  const { t } = useTranslation();
-
   const projects = useSelector((state: RootState) => state.projects.projects);
 
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [sections, setSections] = useState<ISection[]>([]);
   const [selectedProject, setSelectedProjects] = useState<IProject>();
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Nullable<ITask>>(null);
@@ -38,6 +40,11 @@ export const ProjectContainer = () => {
     refetch,
   } = useFetchProjectTasks(projectId.current);
 
+  const fetchTaskSections = async () => {
+    const response = await ProjectService.getProjectSections(projectId.current);
+    setSections(response as ISection[]);
+  };
+
   const initTasks = async () => {
     await refetch();
     if (taskData) {
@@ -47,6 +54,9 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     initTasks();
+    if (projectId.current) {
+      fetchTaskSections();
+    }
   }, [projectId.current]);
 
   useEffect(() => {
@@ -86,13 +96,20 @@ export const ProjectContainer = () => {
     await ProjectService.updateProjectTask(projectId.current, task);
   };
 
-  const addTaskHandler = async (title: string, date: Nullable<Date>) => {
+  const addTaskHandler = async (
+    title: string,
+    date: Nullable<Date>,
+    sectionId?: string
+  ) => {
     const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
       tasks.length - 1,
       projectId.current
     );
+    if (sectionId) {
+      newTask.sectionId = sectionId;
+    }
     setTasks((prevState) => [...(prevState || []), newTask as ITask]);
     await ProjectService.addProjectTask(projectId.current, newTask);
     await refetch();
@@ -105,6 +122,32 @@ export const ProjectContainer = () => {
     );
 
     setTasks([...updatedTasks]);
+  };
+
+  const getTasksBySection = (sectionId: string) => {
+    return tasks.filter(
+      (t) =>
+        t.projectId === projectId.current &&
+        !t.completed &&
+        t.sectionId === sectionId
+    );
+  };
+
+  const createNewSection = async (title: string) => {
+    await ProjectService.addProjectSection(projectId.current, title);
+    await fetchTaskSections();
+  };
+
+  const addSectionTaskHandler = () => {
+    return (title: string, date: Nullable<Date>, sectionId: string) =>
+      addTaskHandler(title, date, sectionId);
+  };
+
+  const handleSectionUpdate = (title: string, sectionId: string) => {
+    const updatedSections = sections.map((sec) =>
+      sec.id === sectionId ? { ...sec, title } : sec
+    );
+    setSections(updatedSections);
   };
 
   return (
@@ -120,29 +163,50 @@ export const ProjectContainer = () => {
         />
         <Row fullWidth>
           <ContentBox>
-            <TaskWrapper
-              projectOptions={{
-                show: true,
-                onClick: () => {},
-              }}
-              title={selectedProject.name}
-              upperHeaderTitle={'Projects'}
-              settingsOptions={{ onClick: toggleProjectDialog }}
-            >
-              {SortUtils.sortByDate(tasks)
-                .filter(({ completed }) => !completed)
-                .map((task) => {
-                  return (
-                    <TaskItem
-                      task={task}
-                      key={`${task.id} ${task.title}`}
-                      markAsDone={markAsDone}
-                      onTaskSelect={selectTask}
-                    />
-                  );
-                })}
-            </TaskWrapper>
+            <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
+              <TaskWrapper
+                projectOptions={{
+                  show: true,
+                  onClick: () => {},
+                }}
+                title={selectedProject.name}
+                upperHeaderTitle={'Projects'}
+                settingsOptions={{ onClick: toggleProjectDialog }}
+              >
+                {SortUtils.sortByDate(tasks)
+                  .filter(
+                    ({ completed, sectionId }) => !completed && !sectionId
+                  )
+                  .map((task, idx) => {
+                    return (
+                      <TaskItem
+                        task={task}
+                        key={`${task.id} ${task.title}`}
+                        markAsDone={markAsDone}
+                        onTaskSelect={selectTask}
+                        dndIndex={idx}
+                      />
+                    );
+                  })}
+              </TaskWrapper>
+            </DndTaskWrapper>
             <TaskAddButton onTaskAdd={addTaskHandler} />
+            <AddSectionRow onSectionSave={createNewSection} />
+
+            <If condition={!!sections}>
+              {sections.map((section) => (
+                <SectionWrapper
+                  key={section.id}
+                  sectionId={section.id}
+                  title={section.title}
+                  tasks={getTasksBySection(section.id)}
+                  onTaskAdd={addSectionTaskHandler()}
+                  markAsDone={markAsDone}
+                  onTaskSelect={selectTask}
+                  onSectionUpdate={handleSectionUpdate}
+                />
+              ))}
+            </If>
           </ContentBox>
           <SelectedTaskSection
             markAsDone={markAsDone}
