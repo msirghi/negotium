@@ -44,7 +44,7 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions, className }) 
             value={fieldValue}
             variant="standard"
             inputProps={{
-              style: { fontSize: 34 },
+              style: { fontSize: editableOptions.inputFontSize || 34 },
               'data-testid': 'et-title-field',
             }}
             error={!!error}

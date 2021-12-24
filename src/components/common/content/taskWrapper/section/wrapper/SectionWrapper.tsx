@@ -48,6 +48,7 @@ export const SectionWrapper: FC<Props> = ({
         editableOptions={{
           onSave: handleSectionUpdate(),
           title,
+          inputFontSize: 16,
         }}
       >
         {title}
