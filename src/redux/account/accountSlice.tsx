@@ -14,6 +14,7 @@ const initialState: AccountState = {
   },
   metadata: {
     theme: '',
+    language: ''
   },
 };
 
@@ -33,10 +34,16 @@ export const accountSlice = createSlice({
     setUserName: (state, action: PayloadAction<string>) => {
       state.info.name = action.payload;
     },
+    setLanguage: (state, action: PayloadAction<string>) => {
+      state.metadata.language = action.payload;
+    },
+    setUserEmail: (state, action: PayloadAction<string>) => {
+      state.info.email = action.payload;
+    },
   },
 });
 
-export const { setAccountInfo, setSiteTheme, setMetadata, setUserName } =
+export const { setAccountInfo, setSiteTheme, setMetadata, setUserName, setLanguage, setUserEmail } =
   accountSlice.actions;
 
 export default accountSlice.reducer;

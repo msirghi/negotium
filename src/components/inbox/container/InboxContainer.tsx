@@ -1,7 +1,7 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { FC, useEffect, useState } from 'react';
-import { ITask } from '../../../common/types/tasks.types';
+import { Task } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
@@ -16,6 +16,7 @@ import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 
 import { useTranslation } from 'next-i18next';
+import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 
 type Props = {
   useData?: boolean;
@@ -23,24 +24,25 @@ type Props = {
 
 export const InboxContainer: FC<Props> = ({ useData }) => {
   const { isLoading, data, refetch } = useFetchTasks();
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const { enqueueSnackbar } = useSnackbar();
-  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { t } = useTranslation('common');
 
   useEffect(() => {
     if (data) {
-      setTasks(data);
+      setTasks(data.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!));
     }
   }, [data]);
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {
-    const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
+    const orderNumber = TaskUtils.getMaxTaskOrderNumber(tasks) + 1;
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
-      tasks.length - 1
+      orderNumber
     );
-    setTasks((prevState) => [...prevState, newTask as ITask]);
+    setTasks((prevState) => [...prevState, newTask as Task]);
     enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
@@ -48,7 +50,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     await refetch();
   };
 
-  const markAsDone = async (taskId: ITask['id']) => {
+  const markAsDone = async (taskId: Task['id']) => {
     enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
@@ -57,7 +59,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
   };
 
   const onTaskUpdate = (
-    updatedTask: ITask,
+    updatedTask: Task,
     options?: { deselectTask: boolean }
   ) => {
     const { id } = updatedTask;
@@ -71,11 +73,11 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     }
   };
 
-  const updateSelectedTask = (tasks: ITask[]) => {
+  const updateSelectedTask = (tasks: Task[]) => {
     setSelectedTask(tasks.find((t) => t.id === selectedTask?.id)!);
   };
 
-  const onTaskSelect = (task: ITask) => {
+  const onTaskSelect = (task: Task) => {
     setSelectedTask(task);
   };
 
@@ -88,22 +90,26 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
   return (
     <Row fullWidth>
       <ContentBox>
-        <TaskWrapper
-          title={t('pageTitles.inbox')}
-          upperHeaderTitle={t('pageTitles.inbox')}
-        >
-          {SortUtils.sortByDate(useData ? data : tasks)
-            .filter((task) => !task.completed && !task.projectId)
-            .map((task) => (
-              <TaskItem
-                key={`${task.id} ${task.dueDate} ${task.title}`}
-                task={task}
-                markAsDone={markAsDone}
-                onTaskSelect={onTaskSelect}
-              />
-            ))}
-          <TaskAddButton onTaskAdd={onAddTask} />
-        </TaskWrapper>
+        <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
+          <TaskWrapper
+            title={t('pageTitles.inbox')}
+            upperHeaderTitle={t('pageTitles.inbox')}
+          >
+            {/*{SortUtils.sortByDate(useData ? data : tasks)*/}
+            {tasks
+              .filter((task) => !task.completed && !task.projectId)
+              .map((task, index) => (
+                <TaskItem
+                  dndIndex={index}
+                  key={`${task.id} ${task.dueDate} ${task.title}`}
+                  task={task}
+                  markAsDone={markAsDone}
+                  onTaskSelect={onTaskSelect}
+                />
+              ))}
+          </TaskWrapper>
+        </DndTaskWrapper>
+        <TaskAddButton onTaskAdd={onAddTask} />
       </ContentBox>
       <SelectedTaskSection
         markAsDone={markAsDone}

@@ -1,11 +1,11 @@
 import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import { HttpMethod } from '../common/requests/types';
-import { IProject } from '../common/types/projects.types';
-import { ITask } from '../common/types/tasks.types';
+import { Project } from '../common/types/projects.types';
+import {Section, Task} from '../common/types/tasks.types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
 
-const addProject = (project: Omit<IProject, 'id'>) => {
+const addProject = (project: Omit<Project, 'id'>) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects`,
     HttpMethod.POST,
@@ -16,7 +16,7 @@ const addProject = (project: Omit<IProject, 'id'>) => {
   );
 };
 
-const addProjectTask = (projectId: IProject['id'], task: Omit<ITask, 'id'>) => {
+const addProjectTask = (projectId: Project['id'], task: Omit<Task, 'id'>) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}/tasks`,
     HttpMethod.POST,
@@ -26,7 +26,7 @@ const addProjectTask = (projectId: IProject['id'], task: Omit<ITask, 'id'>) => {
     .catch(ServiceResultFactory.fromError);
 };
 
-const updateProjectTask = (projectId: IProject['id'], task: ITask) => {
+const updateProjectTask = (projectId: Project['id'], task: Task) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}/tasks/${task.id}`,
     HttpMethod.PATCH,
@@ -36,7 +36,21 @@ const updateProjectTask = (projectId: IProject['id'], task: ITask) => {
     .catch(ServiceResultFactory.fromError);
 };
 
-const getProjectById = (projectId: IProject['id']) => {
+const updateProjectTaskDescription = (
+  projectId: Project['id'],
+  taskId: Task['id'],
+  description: Task['description']
+) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/tasks/${taskId}`,
+    HttpMethod.PATCH,
+    { description }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
+const getProjectById = (projectId: Project['id']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}`,
     HttpMethod.GET
@@ -44,8 +58,8 @@ const getProjectById = (projectId: IProject['id']) => {
 };
 
 const updateProjectName = (
-  projectId: IProject['id'],
-  name: IProject['name']
+  projectId: Project['id'],
+  name: Project['name']
 ) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}`,
@@ -54,11 +68,33 @@ const updateProjectName = (
   );
 };
 
-const deleteProjectById = (projectId: IProject['id']) => {
+const deleteProjectById = (projectId: Project['id']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}`,
     HttpMethod.DELETE
   );
+};
+
+const addProjectSection = (projectId: Project['id'], title: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections`,
+    HttpMethod.POST,
+    {
+      title,
+    }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
+const getProjectSections = (projectId: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections`,
+    HttpMethod.GET
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .then((res) => ServiceResultFactory.convertMongoIdToJSId(res.data))
+    .catch(ServiceResultFactory.fromError);
 };
 
 const ProjectService = {
@@ -68,6 +104,9 @@ const ProjectService = {
   deleteProjectById,
   addProjectTask,
   updateProjectTask,
+  updateProjectTaskDescription,
+  addProjectSection,
+  getProjectSections,
 };
 
 export default ProjectService;

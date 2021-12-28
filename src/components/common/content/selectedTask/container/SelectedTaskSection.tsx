@@ -1,4 +1,4 @@
-import { ITask } from '../../../../../common/types/tasks.types';
+import { Task } from '../../../../../common/types/tasks.types';
 import { FC, useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
@@ -14,10 +14,10 @@ import dayjs from 'dayjs';
 import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
 
 type Props = {
-  task: Nullable<ITask>;
-  onTaskUpdate: (task: ITask, options?: { deselectTask: boolean }) => void;
+  task: Nullable<Task>;
+  onTaskUpdate: (task: Task, options?: { deselectTask: boolean }) => void;
   deselectTask: () => void;
-  markAsDone: (id: ITask['id']) => void;
+  markAsDone: (id: Task['id']) => void;
 };
 
 const useStyles = makeStyles({
@@ -75,7 +75,7 @@ export const SelectedTaskSection: FC<Props> = ({
     onTaskUpdate({
       ...task,
       dueDate: newDate ? dayjs(newDate).format() : null,
-    } as unknown as ITask);
+    } as unknown as Task);
   };
 
   const handleDoneChange = () => {

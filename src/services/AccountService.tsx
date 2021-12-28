@@ -22,6 +22,16 @@ const updateUserTheme = (theme: string) => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const updateUserLanguage = (language: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/metadata`,
+    HttpMethod.PATCH,
+    { language }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
 const activeAccount = (token: string) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/account-activation/${token}`,
@@ -41,11 +51,23 @@ const updateUserName = (name: string) => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const updateUserEmail = (email: string) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/users/email`,
+    HttpMethod.PATCH,
+    { email }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
 const AccountService = {
   getUserMetadata,
   updateUserTheme,
   updateUserName,
-  activeAccount
+  activeAccount,
+  updateUserLanguage,
+  updateUserEmail
 };
 
 export default AccountService;

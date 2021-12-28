@@ -4,7 +4,8 @@ import { SectionWrapper } from './SectionWrapper';
 import { mount } from 'enzyme';
 import { TaskAddButton } from '../taskAdd/TaskAddButton';
 import { act } from '@testing-library/react';
-import { AddSectionRow } from '../add/AddSectionRow';
+import { MockDndProvider } from '../../../../../../common/tests/TestUtils';
+import { TaskItem } from '../../taskItem/TaskItem';
 
 describe('SectionWrapper', () => {
   const defaultProps = {
@@ -13,15 +14,30 @@ describe('SectionWrapper', () => {
     tasks: TasksMock,
     onSectionAdd: jest.fn(),
     onTaskAdd: jest.fn(),
+    markAsDone: jest.fn(),
+    onTaskSelect: jest.fn(),
+    onSectionUpdate: jest.fn()
   };
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should match the snapshot', () => {
-    const tree = renderer.create(<SectionWrapper {...defaultProps} />);
+    const tree = renderer.create(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
     expect(tree).toMatchSnapshot();
   });
 
   it('should handle new task add', () => {
-    const wrapper = mount(<SectionWrapper {...defaultProps} />);
+    const wrapper = mount(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
     const addButton = wrapper.find(TaskAddButton);
     act(() => {
       addButton.props().onTaskAdd('title', null);
@@ -29,13 +45,29 @@ describe('SectionWrapper', () => {
     expect(defaultProps.onTaskAdd).toBeCalled();
   });
 
-  it('should handle new section add', () => {
-    const wrapper = mount(<SectionWrapper {...defaultProps} />);
-    const addSectionRow = wrapper.find(AddSectionRow);
-
+  it('should handle task select', () => {
+    const wrapper = mount(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
+    const taskItem = wrapper.find(TaskItem).at(0);
     act(() => {
-      addSectionRow.props().onSectionSave('title', 1);
+      taskItem.props().onTaskSelect(TasksMock[0]);
     });
-    expect(defaultProps.onSectionAdd).toBeCalled();
+    expect(defaultProps.onTaskSelect).toBeCalled();
+  });
+
+  it('should handle task update [mark as done]', () => {
+    const wrapper = mount(
+      <MockDndProvider>
+        <SectionWrapper {...defaultProps} />
+      </MockDndProvider>
+    );
+    const taskItem = wrapper.find(TaskItem).at(0);
+    act(() => {
+      taskItem.props().markAsDone(TasksMock[0].id);
+    });
+    expect(defaultProps.markAsDone).toBeCalled();
   });
 });

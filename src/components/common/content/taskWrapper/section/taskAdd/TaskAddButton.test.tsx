@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, cleanup } from '@testing-library/react';
 import { TaskAddButton } from './TaskAddButton';
 import { mount } from 'enzyme';
 import { EditForm } from './editForm/EditForm';
@@ -11,6 +11,7 @@ describe('TaskAddButton', () => {
 
   beforeEach(() => {
     FeatureToggles.isFeatureEnabled = jest.fn(() => true);
+    cleanup()
   });
 
   afterEach(() => {
@@ -44,14 +45,15 @@ describe('TaskAddButton', () => {
     act(() => {
       fireEvent.click(addButton);
     });
-    expect(getByTestId('tab-title-field')).toBeInTheDocument();
+    expect(getByTestId('tab-title-field-edit')).toBeInTheDocument();
   });
 
   it('should call prop method on save', () => {
     const wrapper = renderAndSelectDate();
-    const submitButton = wrapper.find('#tab-submit-button').at(0);
+    const submitButton = wrapper.find('#tab-submit-button').at(0) as any;
+
     act(() => {
-      submitButton.simulate('click');
+      submitButton.props().onClick({});
     });
     wrapper.update();
     expect(defaultProps.onTaskAdd).toBeCalled();

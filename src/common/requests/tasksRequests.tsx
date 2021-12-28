@@ -7,6 +7,8 @@ import {
 } from './types';
 import Requests from './request';
 import ServiceResultFactory from './serviceResultFactory';
+import { TasksMock } from '../tests/mockData/tasks-mock';
+import {Section} from "../types/tasks.types";
 
 async function fetchTasks() {
   const { data } = await Requests.restApiCallWithBearer(
@@ -28,11 +30,21 @@ async function fetchTasksByProject(projectId: string) {
   const { data } = await axios.get(
     `${BASE_API_URL_V1}/projects/${projectId}/tasks`
   );
-  return ServiceResultFactory.convertMongoIdToJSId(data as IGetTasksResponse['tasks']);
+  return ServiceResultFactory.convertMongoIdToJSId(
+    data as IGetTasksResponse['tasks']
+  );
+}
+
+async function fetchProjectSection(projectId: string) {
+  const { data } = await axios.get(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections`
+  );
+  return ServiceResultFactory.convertMongoIdToJSId(data as Section[]);
 }
 
 export const tasksRequests = {
   fetchTasks,
   fetchTasksGroupedBySection,
   fetchTasksByProject,
+  fetchProjectSections: fetchProjectSection,
 };

@@ -26,12 +26,11 @@ import {
   setAccountInfo,
   setMetadata,
 } from '../../../../redux/account/accountSlice';
-import { defaultLightTheme, themeMap } from '../../../../common/theme/appTheme';
+import { themeMap } from '../../../../common/theme/appTheme';
 import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
-import Routes from '../../../../common/config/routes';
 
 const drawerWidth = 240;
 
@@ -56,11 +55,12 @@ export const SiteWrapper: FC = ({ children }) => {
   const fetchUserMetadata = async () => {
     try {
       const response = await AccountService.getUserMetadata();
-      let theme = response.data.theme;
+      let { theme, language } = response.data;
       if (!ThemeUtils.isValidTheme(theme)) {
         theme = siteThemes[0].internalKey;
       }
-      dispatch(setMetadata({ theme }));
+      dispatch(setMetadata({ theme, language }));
+      await router.push(router.route, router.route, { locale: language });
     } catch (e) {}
   };
 

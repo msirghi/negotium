@@ -36,5 +36,6 @@
   "snackbarTitles": {
     "taskAdded": "Task added",
     "taskMarkedAsDone": "Task marked as done"
-  }
+  },
+  "clickToSelect": "Click on task to select it."
 }

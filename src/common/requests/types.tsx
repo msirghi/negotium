@@ -1,16 +1,16 @@
-import { IProject } from '../types/projects.types';
-import { ISection, ITask } from '../types/tasks.types';
+import { Project } from '../types/projects.types';
+import { Section, Task } from '../types/tasks.types';
 
 export interface IGetProjectResponse {
-  projects: IProject[];
+  projects: Project[];
 }
 
 export interface IGetTasksResponse {
-  tasks: ITask[];
+  tasks: Task[];
 }
 
 export interface IGetTasksWithSectionResponse {
-  data: ISection[];
+  data: Section[];
 }
 
 export enum HttpMethod {

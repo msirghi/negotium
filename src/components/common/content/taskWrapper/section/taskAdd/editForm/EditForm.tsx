@@ -33,21 +33,8 @@ export const EditForm: FC<Props> = ({
 }) => {
   const classes = useStyles();
   const [date, setDate] = useState<string>();
-  const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
-    FeatureToggles.keys.SLATE_INPUT
-  );
 
   const onChange = (val: any) => {
-    if (isSlateInputEnabled) {
-      const stringified = JSON.stringify(val);
-      setFieldValue(stringified);
-      SlateUtils.detectDateKeywords(stringified, (date) => {
-        setDate(date);
-        onDateSelect(date as unknown as Nullable<Date>);
-      });
-      return;
-    }
-
     const values = StringUtils.getTaskInputDateByKeywords(val.target.value);
     if (values.date) {
       setDate(values.date);
@@ -59,26 +46,23 @@ export const EditForm: FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <If condition={isSlateInputEnabled}>
-        <MentionInput onChange={onChange} keywords={MENTION_ARRAY_KEYWORDS} />
-      </If>
-      <If condition={!isSlateInputEnabled}>
-        <TextField
-          value={fieldValue}
-          fullWidth
-          size={'small'}
-          variant={'standard'}
-          inputProps={{
-            'data-testid': 'tab-title-field',
-          }}
-          placeholder={'New task'}
-          InputProps={{ disableUnderline: true }}
-          onChange={onChange}
-        />
-      </If>
+      <TextField
+        autoFocus
+        value={fieldValue}
+        fullWidth
+        size={'small'}
+        variant={'standard'}
+        inputProps={{
+          'data-testid': 'tab-title-field-edit',
+        }}
+        placeholder={'New task'}
+        InputProps={{ disableUnderline: true }}
+        onChange={onChange}
+      />
       <ScheduleDialog
         onDateSelect={onDateSelect}
         defaultDate={defaultDate}
+        // @ts-ignore
         value={date as string}
       />
     </div>

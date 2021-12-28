@@ -1,6 +1,9 @@
 import { Node } from 'slate';
 import { SlateNode } from '../constants/types';
-import { MENTION_ARRAY_KEYWORDS } from '../constants/constants';
+import {
+  initialRichTextValue,
+  MENTION_ARRAY_KEYWORDS,
+} from '../constants/constants';
 import dayjs from 'dayjs';
 
 const serialize = (nodes: SlateNode[]) => {
@@ -49,12 +52,24 @@ const removeDateKeyword = (value: string) => {
   }
 };
 
+const getInitialValueForSlate = (val: string | undefined) => {
+  if (!val) {
+    return initialRichTextValue;
+  }
+  try {
+    return JSON.parse(val);
+  } catch (e) {
+    return initialRichTextValue;
+  }
+};
+
 const SlateUtils = {
   serialize,
   detectDateInInput,
   detectDateKeywords,
   removeDateKeyword,
   transformKeywordToDate,
+  getInitialValueForSlate,
 };
 
 export default SlateUtils;

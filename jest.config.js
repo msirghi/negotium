@@ -6,6 +6,7 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/src/**/MentionInput.tsx',
+    '!**/src/**/RichTextField.tsx',
     '!**/src/**/withSingleLine.tsx',
   ],
   moduleNameMapper: {

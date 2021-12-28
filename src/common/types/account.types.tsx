@@ -6,4 +6,5 @@ export type AccountInfo = {
 
 export type AccountMetadata = {
   theme: string;
+  language: string;
 }

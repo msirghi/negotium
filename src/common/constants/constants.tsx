@@ -4,7 +4,8 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DoneIcon from '@mui/icons-material/Done';
 import { SnackbarOrigin } from 'notistack';
-import colors from "../styles/colors";
+import colors from '../styles/colors';
+import { Descendant } from 'slate';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -120,4 +121,13 @@ export const siteThemes: SiteTheme[] = [
   },
 ];
 
+export const initialRichTextValue: Descendant[] = [
+  {
+    // @ts-ignore
+    type: 'paragraph',
+    children: [{ text: '' }],
+  },
+];
+
 export const ACTIVATION_CODE_VAR_NAME = 'ac';
+export const REFRESH_TOKEN_URL = '/auth/refresh-token';

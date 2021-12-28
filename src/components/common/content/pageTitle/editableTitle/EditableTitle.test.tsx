@@ -22,6 +22,19 @@ describe('EditableTitle', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should match the snapshot with provided font size', () => {
+    const tree = renderer.create(
+      <EditableTitle
+        {...defaultProps}
+        editableOptions={{
+          ...defaultProps.editableOptions,
+          inputFontSize: 14,
+        }}
+      />
+    );
+    expect(tree).toMatchSnapshot();
+  });
+
   it('should show input field on title click', () => {
     const wrapper = mount(<EditableTitle {...defaultProps} />);
     const title = wrapper.find(Typography);

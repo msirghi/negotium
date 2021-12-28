@@ -1,6 +1,7 @@
 import TestUtils from '../../tests/TestUtils';
 import SlateUtils from '../slateUtils';
 import dayjs from 'dayjs';
+import { initialRichTextValue } from '../../constants/constants';
 
 describe('SlateUtils', () => {
   describe('serialize', () => {
@@ -83,6 +84,31 @@ describe('SlateUtils', () => {
     it('should remove the initial value if there was an error during parsing', () => {
       const result = SlateUtils.removeDateKeyword(JSON.stringify(1));
       expect(JSON.stringify(result)).toContain('1');
+    });
+  });
+
+  describe('getInitialValueForSlate', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should return default value if undefined is provided', () => {
+      const result = SlateUtils.getInitialValueForSlate(undefined);
+      expect(result).toEqual(initialRichTextValue);
+    });
+
+    it('should return parsed value', () => {
+      const input = { test: 1 };
+      const result = SlateUtils.getInitialValueForSlate(JSON.stringify(input));
+      expect(result).toEqual(input);
+    });
+
+    it('should return default value if error is thrown', () => {
+      JSON.parse = jest.fn(() => {
+        throw new Error();
+      });
+      const result = SlateUtils.getInitialValueForSlate(JSON.stringify('test'));
+      expect(result).toEqual(initialRichTextValue);
     });
   });
 });

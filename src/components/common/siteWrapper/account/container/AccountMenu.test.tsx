@@ -6,6 +6,7 @@ import { MockReduxProvider } from '../../../../../common/tests/TestUtils';
 import { accountInfoMock } from '../../../../../common/tests/mockData/account-mock';
 import { Menu, MenuItem } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
+import { SETTINGS_OPTIONS } from '../../../../../common/types/enums';
 
 const mockPush = jest.fn();
 
@@ -22,6 +23,7 @@ describe('AccountMenu', () => {
   const reduxStore = {
     account: {
       info: accountInfoMock,
+      metadata: { theme: 'noir' },
     },
   };
 
@@ -92,5 +94,22 @@ describe('AccountMenu', () => {
       logoutItem.props().onClick();
     });
     expect(mockPush).toBeCalled();
+  });
+
+  it('should handle themes options click', () => {
+    const wrapper = mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <SnackbarProvider>
+          <AccountMenu {...defaultProps} />
+        </SnackbarProvider>
+      </MockReduxProvider>
+    );
+    const themesItem = wrapper.find('#themes-item').at(0);
+    act(() => {
+      themesItem.simulate('click');
+    });
+    wrapper.update();
+    const settingsDialog = wrapper.find(SiteSettingsDialog);
+    expect(settingsDialog.props().defaultPage).toBe(SETTINGS_OPTIONS.THEMES);
   });
 });

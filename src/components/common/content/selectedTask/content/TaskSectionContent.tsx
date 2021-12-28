@@ -1,4 +1,4 @@
-import { ITask } from '../../../../../common/types/tasks.types';
+import { Task } from '../../../../../common/types/tasks.types';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -6,17 +6,21 @@ import { Box } from '@mui/system';
 import debounce from 'lodash.debounce';
 import TaskService from '../../../../../services/TaskService';
 import MentionInput from '../../../form/input/mention/MentionInput';
-import { MENTION_ARRAY_KEYWORDS } from '../../../../../common/constants/constants';
+import {
+  initialRichTextValue,
+  MENTION_ARRAY_KEYWORDS,
+} from '../../../../../common/constants/constants';
 import SlateUtils from '../../../../../common/utils/slateUtils';
 import { Descendant } from 'slate';
 import ProjectService from '../../../../../services/ProjectService';
 import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
 import { If } from '../../../utilities/if/If';
-import StringUtils from "../../../../../common/utils/stringUtils";
+import StringUtils from '../../../../../common/utils/stringUtils';
+import RichTextField from '../../../form/input/richText/RichTextField';
 
 type Props = {
-  task: ITask;
-  onTaskUpdate: (task: ITask) => void;
+  task: Task;
+  onTaskUpdate: (task: Task) => void;
 };
 
 const useStyles = makeStyles({
@@ -30,14 +34,14 @@ const useStyles = makeStyles({
 
 export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
   const [titleValue, setTitleValue] = useState(task.title);
-  const [descriptionValue, setDescriptionValue] = useState('No description.');
+  const [descriptionValue, setDescriptionValue] = useState(
+    SlateUtils.getInitialValueForSlate(task.description)
+  );
   const _dueDate = useRef(task.dueDate);
   const classes = useStyles();
   const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
     FeatureToggles.keys.SLATE_INPUT
   );
-
-  console.log('isSlateInputEnabled: ', isSlateInputEnabled);
 
   const updateTaskTitle = (title: string) => {
     const updatedTitle = SlateUtils.removeDateKeyword(title);
@@ -55,6 +59,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
   const updatedTitleDueDate = (dueDate: string) => {
     _dueDate.current = dueDate;
     if (task.projectId) {
+      task.dueDate = dueDate;
       ProjectService.updateProjectTask(task.projectId, task);
     } else {
       TaskService.updateTaskDueDate(task.id, dueDate);
@@ -68,32 +73,53 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
 
   const updateDueDateDebounce = useCallback(
     debounce(updatedTitleDueDate, 1000),
-    [_dueDate.current]
+    []
   );
 
-  const onTitleChange = useCallback(
-    (value: Descendant[] | string) => {
-      if (isSlateInputEnabled) {
-        const stringified = JSON.stringify(value);
-        SlateUtils.detectDateKeywords(
-          stringified,
-          (transformedToDate) =>
-            transformedToDate && updateDueDateDebounce(transformedToDate)
-        );
-        setTitleValue(stringified);
-        updateTitleDebounce(stringified);
-        return;
-      }
+  const updateDescription = async (description: Descendant[]) => {
+    const stringified = JSON.stringify(description);
+    if (task.projectId) {
+      await ProjectService.updateProjectTaskDescription(task.projectId, task.id, stringified);
+    } else {
+      await TaskService.updateTaskDescription(task.id, stringified);
+    }
+    onTaskUpdate({
+      ...task,
+      description: stringified,
+      dueDate: _dueDate.current,
+    });
+  };
 
-      const values = StringUtils.getTaskInputDateByKeywords(value as string);
-      if (values.date) {
-        updateDueDateDebounce(values.date);
-      }
-      setTitleValue(value as string);
-      updateTitleDebounce(value as string);
-    },
-    [task]
+  const updateDescriptionDebounce = useCallback(
+    debounce(updateDescription, 1000),
+    []
   );
+
+  const updateDescriptionFieldValue = (val: Descendant[]) => {
+    setDescriptionValue(val);
+    updateDescriptionDebounce(val);
+  };
+
+  const onTitleChange = useCallback((value: Descendant[] | string) => {
+    if (isSlateInputEnabled) {
+      const stringified = JSON.stringify(value);
+      SlateUtils.detectDateKeywords(
+        stringified,
+        (transformedToDate) =>
+          transformedToDate && updateDueDateDebounce(transformedToDate)
+      );
+      setTitleValue(stringified);
+      updateTitleDebounce(stringified);
+      return;
+    }
+
+    const values = StringUtils.getTaskInputDateByKeywords(value as string);
+    if (values.date) {
+      updateDueDateDebounce(values.date);
+    }
+    setTitleValue(values.value as string);
+    updateTitleDebounce(values.value as string);
+  }, []);
 
   useEffect(() => {
     setTitleValue(task.title);
@@ -116,21 +142,16 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
           value={titleValue}
           onChange={(e) => onTitleChange(e.target.value)}
           variant={'standard'}
-          inputProps={{'data-testid': 'title-input'}}
+          inputProps={{ 'data-testid': 'title-input' }}
           InputProps={{
             disableUnderline: true,
             style: { fontWeight: 'bold', fontSize: 18 },
           }}
         />
       </If>
-
-      <TextField
-        className={classes.input}
+      <RichTextField
         value={descriptionValue}
-        multiline
-        rows={4}
-        variant={'standard'}
-        InputProps={{ disableUnderline: true }}
+        setValue={updateDescriptionFieldValue}
       />
     </Box>
   );

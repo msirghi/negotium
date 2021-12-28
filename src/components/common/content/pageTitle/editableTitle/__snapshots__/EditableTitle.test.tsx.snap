@@ -11,3 +11,15 @@ exports[`EditableTitle should match the snapshot 1`] = `
   </p>
 </div>
 `;
+
+exports[`EditableTitle should match the snapshot with provided font size 1`] = `
+<div>
+  <p
+    className="MuiTypography-root MuiTypography-body1 css-mfnxei-MuiTypography-root"
+    data-testid="et-title"
+    onClick={[Function]}
+  >
+    Some title
+  </p>
+</div>
+`;

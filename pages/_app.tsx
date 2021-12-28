@@ -21,6 +21,7 @@ import { AxiosRequestInstance } from '../src/common/constants/types';
 import authorizationStore from '../src/common/requests/authorizationStore';
 import createEmotionCache from '../src/common/config/cache/createEmotionCache';
 import { FullscreenLoader } from '../src/components/common/spinners/fullscreen/FullscreenLoader';
+import {REFRESH_TOKEN_URL} from "../src/common/constants/constants";
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
@@ -42,6 +43,9 @@ function MyApp({
     failedRequest: T
   ) => {
     try {
+      if (failedRequest.response.config.url.includes(REFRESH_TOKEN_URL)) {
+        return Promise.reject();
+      }
       const response = await AuthService.getRefreshedToken();
       const token = response.data.access_token;
       authorizationStore.setAuthToken(token);

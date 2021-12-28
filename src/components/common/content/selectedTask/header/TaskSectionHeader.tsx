@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Box } from '@mui/system';
 import { Checkbox, Divider } from '@mui/material';
-import { ITask } from '../../../../../common/types/tasks.types';
+import { Task } from '../../../../../common/types/tasks.types';
 import { Row } from '../../../utilities/row/Row';
 import { makeStyles } from '@mui/styles';
 import DateUtils from '../../../../../common/utils/dateUtils';
@@ -13,7 +13,7 @@ import { Nullable } from '../../../../../common/types/common.types';
 import TaskService from '../../../../../services/TaskService';
 
 type Props = {
-  task: ITask;
+  task: Task;
   onTaskDateUpdate: (newDate: Nullable<Date>) => void;
   markTaskAsDone: () => void;
 };

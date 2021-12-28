@@ -1,11 +1,11 @@
-import { ISection } from '../../types/tasks.types';
+import { Section } from '../../types/tasks.types';
 import SortUtils from '../sortUtils';
 import { TasksMock } from '../../tests/mockData/tasks-mock';
 
 describe('Sort Utils', () => {
   describe('sortSectionsByOrder', () => {
     it('should return sorted sections array by order number', () => {
-      const input: ISection[] = [
+      const input: Section[] = [
         {
           id: '1',
           orderNumber: 2,

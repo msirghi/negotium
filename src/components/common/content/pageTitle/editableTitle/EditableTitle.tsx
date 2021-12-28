@@ -9,9 +9,10 @@ import { Row } from '../../../utilities/row/Row';
 type Props = {
   title: string;
   editableOptions: TaskWrapperTitleOptions;
+  className?: string;
 };
 
-export const EditableTitle: FC<Props> = ({ title, editableOptions }) => {
+export const EditableTitle: FC<Props> = ({ title, editableOptions, className }) => {
   const [fieldValue, setFieldValue] = useState(title);
   const [editMode, setEditMode] = useState(false);
   const [error, setError] = useState('');
@@ -43,7 +44,7 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions }) => {
             value={fieldValue}
             variant="standard"
             inputProps={{
-              style: { fontSize: 34 },
+              style: { fontSize: editableOptions.inputFontSize || 34 },
               'data-testid': 'et-title-field',
             }}
             error={!!error}
@@ -65,6 +66,7 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions }) => {
       <If condition={!editMode}>
         <Typography
           onClick={toggleEditMode}
+          className={className}
           fontSize={34}
           data-testid="et-title"
         >

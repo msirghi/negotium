@@ -5,11 +5,15 @@ import {
   SUPPORTED_LANGUAGES,
   TIME_FORMATS,
 } from '../../../../../../common/constants/constants';
-import { useState } from 'react';
-import { i18n, useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../../../redux/store';
+import AccountService from '../../../../../../services/AccountService';
+import { setLanguage } from '../../../../../../redux/account/accountSlice';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   dropdown: {
@@ -18,11 +22,22 @@ const useStyles = makeStyles({
 });
 
 export const GeneralSettings = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n?.language);
   const commonClasses = useCommonStyles();
   const classes = useStyles();
   const { t } = useTranslation('settings');
   const isMobile = useIsMobile();
+  const router = useRouter();
+  const userMetadata = useSelector(
+    (state: RootState) => state.account.metadata
+  );
+  const dispatch = useDispatch();
+
+  const updateLanguage = async (evt: { target: { value: string } }) => {
+    const language = evt.target.value;
+    dispatch(setLanguage(language));
+    await AccountService.updateUserLanguage(language);
+    await router.push(router.route, router.route, { locale: language });
+  };
 
   return (
     <div>
@@ -30,10 +45,11 @@ export const GeneralSettings = () => {
       <Box className={commonClasses.sectionBody}>
         <TextField
           select
-          value={selectedLanguage}
+          value={userMetadata.language}
           size={'small'}
           className={classes.dropdown}
           fullWidth={isMobile}
+          onChange={updateLanguage}
         >
           {SUPPORTED_LANGUAGES.map(({ code, title }) => {
             return (

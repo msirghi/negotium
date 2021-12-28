@@ -14,8 +14,6 @@ import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
-import TaskService from '../../../services/TaskService';
-import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import FeatureToggles from "../../../utilities/featureToggles/FeatureToggles";
 import ProjectService from "../../../services/ProjectService";
 

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { ProjectDialog } from '../../common/siteWrapper/lists/wrapper/projectDialog/ProjectDialog';
-import { IProject } from '../../../common/types/projects.types';
+import { Project } from '../../../common/types/projects.types';
 import ProjectService from '../../../services/ProjectService';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { setProjectsList } from '../../../redux/projects/projectsSlice';
 
 type Props = {
-  project: IProject;
+  project: Project;
   open: boolean;
   setOpen: (val: boolean) => void;
 };
