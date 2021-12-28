@@ -1,6 +1,6 @@
-import {Nullable} from "./common.types";
+import { Nullable } from './common.types';
 
-export type ITask = {
+export type Task = {
   id: string;
   _id?: string;
   title: string;
@@ -13,9 +13,9 @@ export type ITask = {
   sectionId?: string;
 };
 
-export type ISection = {
+export type Section = {
   id: string;
   _id?: string;
   title: string;
   projectId: string;
-} & Pick<ITask, 'orderNumber'>;
+} & Pick<Task, 'orderNumber'>;

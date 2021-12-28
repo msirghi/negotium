@@ -1,4 +1,4 @@
-import { ITask } from '../../../../common/types/tasks.types';
+import { Task } from '../../../../common/types/tasks.types';
 import dayjs from 'dayjs';
 import { Nullable } from '../../../../common/types/common.types';
 import TaskService from '../../../../services/TaskService';
@@ -9,7 +9,7 @@ const getNewTaskObject = (
   orderNumber: number,
   projectId?: string
 ) => {
-  const newTask: Omit<ITask, 'id'> = {
+  const newTask: Omit<Task, 'id'> = {
     title,
     orderNumber,
     createdDate: dayjs().format(),
@@ -20,7 +20,7 @@ const getNewTaskObject = (
   return newTask;
 };
 
-const getMaxTaskOrderNumber = (tasks: ITask[]) => {
+const getMaxTaskOrderNumber = (tasks: Task[]) => {
   const filtered = tasks.filter((p) => !p.completed && !p.projectId);
   if (!filtered.length) {
     return 0;

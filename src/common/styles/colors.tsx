@@ -9,8 +9,8 @@ const primaries = {
 };
 
 const blues = {
-  light: '#8497e8'
-}
+  light: '#8497e8',
+};
 
 const greys = {
   100: '#f6f6f6',
@@ -20,7 +20,7 @@ const greys = {
   500: '#b0b0b0',
   600: '#8a8a8a',
   800: '#646464',
-  900: '#272727'
+  900: '#272727',
 };
 
 const error = {
@@ -28,10 +28,10 @@ const error = {
 };
 
 const reds = {
-  100: '#ffeded'
-}
+  100: '#ffeded',
+};
 
-export default {
+const colors = {
   reds,
   white,
   black,
@@ -40,3 +40,5 @@ export default {
   blues,
   error,
 };
+
+export default colors;

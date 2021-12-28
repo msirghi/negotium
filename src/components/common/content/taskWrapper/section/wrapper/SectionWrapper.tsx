@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ISection, ITask } from '../../../../../../common/types/tasks.types';
+import { Section, Task } from '../../../../../../common/types/tasks.types';
 import styles from './SectionWrapper.module.scss';
 import { TaskItem } from '../../taskItem/TaskItem';
 import { Divider } from '@mui/material';
@@ -12,12 +12,12 @@ import SmoothList from 'react-smooth-list';
 type Props = {
   sectionId: string;
   title: string;
-  tasks: ITask[];
+  tasks: Task[];
   onTaskAdd: (title: string, date: Nullable<Date>, sectionId: string) => void;
   markAsDone: (id: string) => void;
-  onTaskSelect: (task: ITask) => void;
+  onTaskSelect: (task: Task) => void;
   onSectionUpdate: (
-    title: ISection['title'],
+    title: Section['title'],
     sectionId: Props['sectionId']
   ) => void;
 };

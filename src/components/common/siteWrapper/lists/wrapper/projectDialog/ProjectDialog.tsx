@@ -14,7 +14,7 @@ import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 import { ProjectDialogProps } from '../../../../../project/types';
-import { IProject } from '../../../../../../common/types/projects.types';
+import { Project } from '../../../../../../common/types/projects.types';
 import { ColorSelector } from '../colorSelector/ColorSelector';
 import colors from '../../../../../../common/styles/colors';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
 });
 
 type Props = {
-  selectedProject?: IProject;
+  selectedProject?: Project;
 } & ProjectDialogProps;
 
 const Transition = forwardRef(function Transition(

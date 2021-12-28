@@ -1,4 +1,4 @@
-import { ITask } from '../../../../../common/types/tasks.types';
+import { Task } from '../../../../../common/types/tasks.types';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -19,8 +19,8 @@ import StringUtils from '../../../../../common/utils/stringUtils';
 import RichTextField from '../../../form/input/richText/RichTextField';
 
 type Props = {
-  task: ITask;
-  onTaskUpdate: (task: ITask) => void;
+  task: Task;
+  onTaskUpdate: (task: Task) => void;
 };
 
 const useStyles = makeStyles({

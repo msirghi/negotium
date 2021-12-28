@@ -8,7 +8,7 @@ import { ListItemTitle } from '../listItemTitle/ListItemTitle';
 import { useFetchProjects } from '../../../../../common/hooks/projects/useFetchProjects';
 import { useEffect, useState } from 'react';
 import { ProjectDialog } from '../wrapper/projectDialog/ProjectDialog';
-import { IProject } from '../../../../../common/types/projects.types';
+import { Project } from '../../../../../common/types/projects.types';
 import ProjectService from '../../../../../services/ProjectService';
 import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
@@ -46,7 +46,7 @@ export const SiteWrapperProjectsList = () => {
   const classes = useStyles({ theme });
 
   const [showAll, setShowAll] = useState(false);
-  const [projects, setProjects] = useState<IProject[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
   const projectsFromStore = useSelector(
     (state: RootState) => state.projects.projects
@@ -68,7 +68,7 @@ export const SiteWrapperProjectsList = () => {
 
   const openDialog = () => setProjectDialogOpen(true);
 
-  const onSubmit = async (name: IProject['name']) => {
+  const onSubmit = async (name: Project['name']) => {
     await ProjectService.addProject({ name });
     await refetch();
   };

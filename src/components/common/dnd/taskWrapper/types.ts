@@ -1,4 +1,4 @@
-import {ITask} from "../../../../common/types/tasks.types";
+import {Task} from "../../../../common/types/tasks.types";
 
 export type DndTaskWrapperProps = {
   handleDragEnd: (result: any) => void;
@@ -6,7 +6,7 @@ export type DndTaskWrapperProps = {
 
 export type TaskOrderUpdateDto = {
   updatedOrderNumbers: Array<{
-    id: ITask['id'];
+    id: Task['id'];
     orderNumber: number;
   }>;
 };

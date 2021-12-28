@@ -1,6 +1,6 @@
 import TaskUtils from './TaskUtils';
 import TaskService from '../../../../services/TaskService';
-import { ITask } from '../../../../common/types/tasks.types';
+import { Task } from '../../../../common/types/tasks.types';
 
 describe('TaskUtils', () => {
   describe('getNewTaskObject', () => {
@@ -34,7 +34,7 @@ describe('TaskUtils', () => {
       const tasks = [
         { orderNumber: 1 },
         { orderNumber: 2 },
-      ] as unknown as ITask[];
+      ] as unknown as Task[];
       expect(TaskUtils.getMaxTaskOrderNumber(tasks)).toEqual(2);
     });
 
@@ -42,7 +42,7 @@ describe('TaskUtils', () => {
       const tasks = [
         { orderNumber: 0 },
         { orderNumber: 0 },
-      ] as unknown as ITask[];
+      ] as unknown as Task[];
       expect(TaskUtils.getMaxTaskOrderNumber(tasks)).toEqual(0);
     });
   });

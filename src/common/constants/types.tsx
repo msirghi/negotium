@@ -33,6 +33,7 @@ export type AxiosRequestInstance = {
   response: {
     config: {
       headers: { [key: string]: string };
+      url: string;
     };
   };
 };

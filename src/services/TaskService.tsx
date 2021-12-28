@@ -1,11 +1,11 @@
-import { ITask } from '../common/types/tasks.types';
+import { Task } from '../common/types/tasks.types';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import Requests from '../common/requests/request';
 import { HttpMethod } from '../common/requests/types';
 import dayjs from 'dayjs';
 import { TaskOrderUpdateDto } from '../components/common/dnd/taskWrapper/types';
 
-const createTask = (task: Omit<ITask, 'id'>) => {
+const createTask = (task: Omit<Task, 'id'>) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/tasks`,
     HttpMethod.POST,
@@ -13,7 +13,7 @@ const createTask = (task: Omit<ITask, 'id'>) => {
   );
 };
 
-const markTaskAsDone = (id: ITask['id']) => {
+const markTaskAsDone = (id: Task['id']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/tasks/${id}`,
     HttpMethod.PATCH,
@@ -23,7 +23,7 @@ const markTaskAsDone = (id: ITask['id']) => {
   );
 };
 
-const updateTaskName = (id: ITask['id'], title: ITask['title']) => {
+const updateTaskName = (id: Task['id'], title: Task['title']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/tasks/${id}`,
     HttpMethod.PATCH,
@@ -34,8 +34,8 @@ const updateTaskName = (id: ITask['id'], title: ITask['title']) => {
 };
 
 const updateTaskDescription = (
-  id: ITask['id'],
-  description: ITask['description']
+  id: Task['id'],
+  description: Task['description']
 ) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/tasks/${id}`,
@@ -46,7 +46,7 @@ const updateTaskDescription = (
   );
 };
 
-const updateTaskDueDate = (id: ITask['id'], dueDate: ITask['dueDate']) => {
+const updateTaskDueDate = (id: Task['id'], dueDate: Task['dueDate']) => {
   let validatedDate = null;
   if (dayjs(dueDate).isValid()) {
     validatedDate = dueDate;

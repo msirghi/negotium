@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ITask } from '../../../../../common/types/tasks.types';
+import { Task } from '../../../../../common/types/tasks.types';
 import { Checkbox, Chip } from '@mui/material';
 import styles from './TaskItem.module.scss';
 import { Row } from '../../../utilities/row/Row';
@@ -11,9 +11,9 @@ import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggl
 import { Draggable } from 'react-beautiful-dnd';
 
 type Props = {
-  task: ITask;
-  markAsDone: (id: ITask['id']) => void;
-  onTaskSelect: (task: ITask) => void;
+  task: Task;
+  markAsDone: (id: Task['id']) => void;
+  onTaskSelect: (task: Task) => void;
   index?: number;
   dndIndex?: number;
 };

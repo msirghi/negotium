@@ -1,7 +1,7 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { FC, useEffect, useState } from 'react';
-import { ITask } from '../../../common/types/tasks.types';
+import { Task } from '../../../common/types/tasks.types';
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TaskService from '../../../services/TaskService';
@@ -24,9 +24,9 @@ type Props = {
 
 export const InboxContainer: FC<Props> = ({ useData }) => {
   const { isLoading, data, refetch } = useFetchTasks();
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const { enqueueSnackbar } = useSnackbar();
-  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { t } = useTranslation('common');
 
   useEffect(() => {
@@ -37,12 +37,12 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {
     const orderNumber = TaskUtils.getMaxTaskOrderNumber(tasks) + 1;
-    const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
       orderNumber
     );
-    setTasks((prevState) => [...prevState, newTask as ITask]);
+    setTasks((prevState) => [...prevState, newTask as Task]);
     enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
@@ -50,7 +50,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     await refetch();
   };
 
-  const markAsDone = async (taskId: ITask['id']) => {
+  const markAsDone = async (taskId: Task['id']) => {
     enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
@@ -59,7 +59,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
   };
 
   const onTaskUpdate = (
-    updatedTask: ITask,
+    updatedTask: Task,
     options?: { deselectTask: boolean }
   ) => {
     const { id } = updatedTask;
@@ -73,11 +73,11 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     }
   };
 
-  const updateSelectedTask = (tasks: ITask[]) => {
+  const updateSelectedTask = (tasks: Task[]) => {
     setSelectedTask(tasks.find((t) => t.id === selectedTask?.id)!);
   };
 
-  const onTaskSelect = (task: ITask) => {
+  const onTaskSelect = (task: Task) => {
     setSelectedTask(task);
   };
 

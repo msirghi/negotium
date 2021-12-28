@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { useEffect, useRef, useState } from 'react';
-import { IProject } from '../../../common/types/projects.types';
+import { Project } from '../../../common/types/projects.types';
 import { Row } from '../../common/utilities/row/Row';
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { useFetchProjectTasks } from '../../../common/hooks/tasks/useFetchProjectTasks';
-import { ISection, ITask } from '../../../common/types/tasks.types';
+import { Section, Task } from '../../../common/types/tasks.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
@@ -28,11 +28,11 @@ export const ProjectContainer = () => {
   const projectId = useRef<string>(router.query.id as string);
   const projects = useSelector((state: RootState) => state.projects.projects);
 
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [sections, setSections] = useState<ISection[]>([]);
-  const [selectedProject, setSelectedProjects] = useState<IProject>();
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
+  const [selectedProject, setSelectedProjects] = useState<Project>();
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Nullable<ITask>>(null);
+  const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
   const {
     data: taskData,
@@ -42,7 +42,7 @@ export const ProjectContainer = () => {
 
   const fetchTaskSections = async () => {
     const response = await ProjectService.getProjectSections(projectId.current);
-    setSections(response as ISection[]);
+    setSections(response as Section[]);
   };
 
   const initTasks = async () => {
@@ -86,9 +86,9 @@ export const ProjectContainer = () => {
 
   const deselectTask = () => setSelectedTask(null);
 
-  const selectTask = (task: ITask) => setSelectedTask(task);
+  const selectTask = (task: Task) => setSelectedTask(task);
 
-  const markAsDone = async (taskId: ITask['id']) => {
+  const markAsDone = async (taskId: Task['id']) => {
     setSelectedTask(null);
     const task = tasks.find((t) => t.id === taskId)!;
     setTasks((prevState) => prevState.filter((t) => t.id !== taskId));
@@ -101,7 +101,7 @@ export const ProjectContainer = () => {
     date: Nullable<Date>,
     sectionId?: string
   ) => {
-    const newTask: Omit<ITask, 'id'> = TaskUtils.getNewTaskObject(
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(
       title,
       date,
       tasks.length - 1,
@@ -110,12 +110,12 @@ export const ProjectContainer = () => {
     if (sectionId) {
       newTask.sectionId = sectionId;
     }
-    setTasks((prevState) => [...(prevState || []), newTask as ITask]);
+    setTasks((prevState) => [...(prevState || []), newTask as Task]);
     await ProjectService.addProjectTask(projectId.current, newTask);
     await refetch();
   };
 
-  const onTaskUpdate = (updatedTask: ITask) => {
+  const onTaskUpdate = (updatedTask: Task) => {
     const { id } = updatedTask;
     const updatedTasks = tasks.map((task) =>
       task?.id === id ? updatedTask : task

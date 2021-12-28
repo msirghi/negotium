@@ -1,18 +1,18 @@
-import { ISection, ITask } from '../types/tasks.types';
+import { Section, Task } from '../types/tasks.types';
 
-const sortByOrder = (list: ISection[] | ITask[]) => {
+const sortByOrder = (list: Section[] | Task[]) => {
   return list.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!);
 };
 
-const sortSectionsByOrder = (sections: ISection[]) => {
+const sortSectionsByOrder = (sections: Section[]) => {
   return sortByOrder(sections);
 };
 
-const sortItemsByOrder = (items: ITask[]) => {
+const sortItemsByOrder = (items: Task[]) => {
   return sortByOrder(items);
 };
 
-const sortByDate = (tasks: ITask[]) => {
+const sortByDate = (tasks: Task[]) => {
   return tasks.sort((a, b) => {
     if (!b.dueDate) {
       return 1;

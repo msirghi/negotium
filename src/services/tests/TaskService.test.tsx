@@ -1,7 +1,7 @@
 import Requests from '../../common/requests/request';
 import { AxiosResponse } from 'axios';
 import TaskService from '../TaskService';
-import { ITask } from '../../common/types/tasks.types';
+import { Task } from '../../common/types/tasks.types';
 
 describe('TaskService', () => {
   afterEach(() => {
@@ -12,7 +12,7 @@ describe('TaskService', () => {
     Requests.restApiCallWithBearer = jest.fn(() =>
       Promise.resolve({} as AxiosResponse)
     );
-    await TaskService.createTask({} as ITask);
+    await TaskService.createTask({} as Task);
     expect(Requests.restApiCallWithBearer).toBeCalled();
   });
 

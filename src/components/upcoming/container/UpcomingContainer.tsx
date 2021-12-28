@@ -1,6 +1,6 @@
 import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { useEffect, useState } from 'react';
-import { ITask } from '../../../common/types/tasks.types';
+import { Task } from '../../../common/types/tasks.types';
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import DateUtils from '../../../common/utils/dateUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
@@ -17,7 +17,7 @@ import {ContentBox} from "../../common/boxes/content/ContentBox";
 export const UpcomingContainer = () => {
   const { isLoading, data, refetch } = useFetchTasks();
   const { enqueueSnackbar } = useSnackbar();
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -31,7 +31,7 @@ export const UpcomingContainer = () => {
     }
   }, [data]);
 
-  const markAsDone = async (taskId: ITask['id']) => {
+  const markAsDone = async (taskId: Task['id']) => {
     enqueueSnackbar('Task marked as done', {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
@@ -40,7 +40,7 @@ export const UpcomingContainer = () => {
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {
     const newTask = TaskUtils.getNewTaskObject(title, date, tasks.length - 1);
-    setTasks((prevState) => [...prevState, newTask as ITask]);
+    setTasks((prevState) => [...prevState, newTask as Task]);
     enqueueSnackbar('Task added', {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });

@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
-import { ITask } from '../../../../common/types/tasks.types';
+import { Task } from '../../../../common/types/tasks.types';
 import { TaskOrderUpdateDto } from './types';
 import TaskService from '../../../../services/TaskService';
 
 type Props = {
-  tasks: ITask[];
-  updateTasks: (updatedTasks: ITask[]) => void;
+  tasks: Task[];
+  updateTasks: (updatedTasks: Task[]) => void;
 };
 
 export const DndTaskWrapper: FC<Props> = ({ children, tasks, updateTasks }) => {
-  const reorder = (list: ITask[], startIndex: number, endIndex: number) => {
+  const reorder = (list: Task[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -17,7 +17,7 @@ export const DndTaskWrapper: FC<Props> = ({ children, tasks, updateTasks }) => {
     return result.filter(Boolean);
   };
 
-  const updateOrder = (list: ITask[]) => {
+  const updateOrder = (list: Task[]) => {
     const dto: TaskOrderUpdateDto = {
       updatedOrderNumbers: list.map(({ orderNumber, id }, idx) => ({
         orderNumber: idx,
