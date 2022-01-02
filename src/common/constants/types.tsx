@@ -15,6 +15,7 @@ export type ProjectColor = {
 
 export type StaticProps = {
   locale: string;
+  params: any;
 };
 
 export type SlateNode = {
