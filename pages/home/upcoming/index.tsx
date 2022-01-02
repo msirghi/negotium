@@ -6,7 +6,7 @@ const Upcoming = () => {
   return <UpcomingContainer />;
 };
 
-export async function getServerSideProps({ locale }: StaticProps) {
+export async function getStaticProps({ locale }: StaticProps) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'settings'])),
