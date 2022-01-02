@@ -16,6 +16,7 @@ import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import FeatureToggles from "../../../utilities/featureToggles/FeatureToggles";
 import ProjectService from "../../../services/ProjectService";
+import {SectionWrapper} from "../../common/content/taskWrapper/section/wrapper/SectionWrapper";
 
 require('setimmediate');
 

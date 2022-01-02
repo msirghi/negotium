@@ -147,6 +147,7 @@ export const ProjectContainer = () => {
     const updatedSections = sections.map((sec) =>
       sec.id === sectionId ? { ...sec, title } : sec
     );
+    ProjectService.updateProjectSectionTitle(projectId.current, sectionId, title);
     setSections(updatedSections);
   };
 

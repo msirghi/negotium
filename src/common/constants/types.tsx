@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import { OverridableComponent } from '@mui/types';
 import { SvgIconTypeMap } from '@mui/material';
 
@@ -43,3 +43,5 @@ export type SiteTheme = {
   color: string;
   internalKey: string;
 };
+
+export type TextInputChangeEvent =  ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;

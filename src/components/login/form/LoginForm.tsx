@@ -11,13 +11,16 @@ import authorizationStore from '../../../common/requests/authorizationStore';
 import { useLoginFormStyles } from './styles';
 import Routes from '../../../common/config/routes';
 import { useTranslation } from 'next-i18next';
+import { TextInputChangeEvent } from '../../../common/constants/types';
 
 export const LoginForm = () => {
   const classes = useLoginFormStyles();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('auth');
@@ -42,6 +45,14 @@ export const LoginForm = () => {
     setLoading(false);
   };
 
+  const handleInputChange = (callback: Function) => {
+    return (evt: TextInputChangeEvent) => callback(evt.target.value);
+  };
+
+  const handleEmailChange = () => handleInputChange(setEmail);
+
+  const handlePasswordChange = () => handleInputChange(setPassword);
+
   return (
     <form onSubmit={onSubmit}>
       <If condition={!!error}>
@@ -55,7 +66,7 @@ export const LoginForm = () => {
         autoComplete={'on'}
         value={email}
         inputProps={{ 'data-testid': 'email-input' }}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleEmailChange()}
         style={{ marginTop: 30 }}
         size={'small'}
         fullWidth
@@ -65,7 +76,7 @@ export const LoginForm = () => {
         value={password}
         autoComplete={'on'}
         inputProps={{ 'data-testid': 'password-input' }}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange()}
         style={{ marginTop: 30 }}
         size={'small'}
         fullWidth

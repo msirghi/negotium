@@ -6,6 +6,7 @@ import { TaskAddButton } from '../taskAdd/TaskAddButton';
 import { act } from '@testing-library/react';
 import { MockDndProvider } from '../../../../../../common/tests/TestUtils';
 import { TaskItem } from '../../taskItem/TaskItem';
+import {EditableTitle} from "../../../pageTitle/editableTitle/EditableTitle";
 
 describe('SectionWrapper', () => {
   const defaultProps = {
@@ -69,5 +70,18 @@ describe('SectionWrapper', () => {
       taskItem.props().markAsDone(TasksMock[0].id);
     });
     expect(defaultProps.markAsDone).toBeCalled();
+  });
+
+  it('should handle section title update', () => {
+    const wrapper = mount(
+        <MockDndProvider>
+          <SectionWrapper {...defaultProps} />
+        </MockDndProvider>
+    );
+    const editableTitle = wrapper.find(EditableTitle).at(0);
+    act(() => {
+      editableTitle.props().editableOptions.onSave!('new');
+    });
+    expect(defaultProps.onSectionUpdate).toBeCalled();
   });
 });

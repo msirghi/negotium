@@ -2,7 +2,7 @@ import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import { HttpMethod } from '../common/requests/types';
 import { Project } from '../common/types/projects.types';
-import {Section, Task} from '../common/types/tasks.types';
+import { Section, Task } from '../common/types/tasks.types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
 
 const addProject = (project: Omit<Project, 'id'>) => {
@@ -57,10 +57,7 @@ const getProjectById = (projectId: Project['id']) => {
   );
 };
 
-const updateProjectName = (
-  projectId: Project['id'],
-  name: Project['name']
-) => {
+const updateProjectName = (projectId: Project['id'], name: Project['name']) => {
   return Requests.restApiCallWithBearer(
     `${BASE_API_URL_V1}/projects/${projectId}`,
     HttpMethod.PATCH,
@@ -97,6 +94,20 @@ const getProjectSections = (projectId: string) => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const updateProjectSectionTitle = (
+  projectId: Project['id'],
+  sectionId: Section['id'],
+  title: Section['title']
+) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections/${sectionId}`,
+    HttpMethod.PATCH,
+    { title }
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
 const ProjectService = {
   addProject,
   getProjectById,
@@ -107,6 +118,7 @@ const ProjectService = {
   updateProjectTaskDescription,
   addProjectSection,
   getProjectSections,
+  updateProjectSectionTitle,
 };
 
 export default ProjectService;
