@@ -7,7 +7,7 @@ const Project = () => {
   return <ProjectContainer />;
 };
 
-export const getStaticProps = async ({ locale }: StaticProps) => {
+export const getServerSideProps = async ({ locale }: StaticProps) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'settings'])),
@@ -15,12 +15,12 @@ export const getStaticProps = async ({ locale }: StaticProps) => {
   };
 };
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: 'blocking', //indicates the type of fallback
-  };
-};
+// export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+//   return {
+//     paths: [], //indicates that no page needs be created at build time
+//     fallback: 'blocking', //indicates the type of fallback
+//   };
+// };
 
 // export const getStaticProps: GetStaticPaths<{ slug: string }> = async () => {
 //   return {
