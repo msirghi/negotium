@@ -1,16 +1,17 @@
 import { ProjectContainer } from '../../../src/components/project';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { StaticProps } from '../../../src/common/constants/types';
-import { GetStaticPaths } from 'next';
+import {GetServerSidePropsContext, GetStaticPaths} from 'next';
+import i18config from '../../../next-i18next.config';
 
 const Project = () => {
   return <ProjectContainer />;
 };
 
-export const getServerSideProps = async ({ locale }: StaticProps) => {
+export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'settings'])),
+      ...(await serverSideTranslations(locale || 'en', ['common', 'settings'], i18config)),
     },
   };
 };
