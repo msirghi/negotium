@@ -9,11 +9,14 @@ const Project = () => {
 
 export async function getStaticProps({ locale }: StaticProps) {
   return {
+    paths: [],
+    fallback: 'blocking',
     props: {
       ...(await serverSideTranslations(locale, ['common', 'settings'])),
     },
   };
 }
+
 //
 // export const getStaticProps: GetStaticPaths<{ slug: string }> = async () => {
 //   return {
