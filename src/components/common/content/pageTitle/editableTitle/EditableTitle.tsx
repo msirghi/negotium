@@ -4,6 +4,7 @@ import { IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { If } from '../../../utilities/if/If';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Row } from '../../../utilities/row/Row';
 
 type Props = {
@@ -35,6 +36,10 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions, className }) 
     setError('');
   };
 
+  const onRemoveClick = () => {
+    editableOptions && editableOptions.onRemove && editableOptions.onRemove();
+  }
+
   return (
     <div>
       <If condition={editMode}>
@@ -58,6 +63,12 @@ export const EditableTitle: FC<Props> = ({ title, editableOptions, className }) 
           <IconButton onClick={onCancel} data-testid={'et-cancel-button'}>
             <Tooltip title={'Cancel'}>
               <ClearIcon color={'error'} />
+            </Tooltip>
+          </IconButton>
+
+          <IconButton onClick={onRemoveClick} data-testid={'et-remove-button'}>
+            <Tooltip title={'Remove'}>
+              <DeleteIcon color={'error'} />
             </Tooltip>
           </IconButton>
         </Row>

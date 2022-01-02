@@ -40,6 +40,10 @@ export const SectionWrapper: FC<Props> = ({
     return (newTitle: string) => onSectionUpdate(newTitle, sectionId);
   };
 
+  const handleSectionRemove = () => {
+    return () => {};
+  };
+
   return (
     <div className={styles.swContainer}>
       <EditableTitle
@@ -49,6 +53,7 @@ export const SectionWrapper: FC<Props> = ({
           onSave: handleSectionUpdate(),
           title,
           inputFontSize: 16,
+          onRemove: handleSectionRemove,
         }}
       >
         {title}

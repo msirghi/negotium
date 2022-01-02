@@ -104,4 +104,26 @@ describe('EditableTitle', () => {
     });
     expect(queryByTestId('et-title-field')).not.toBeInTheDocument();
   });
+
+  it('should handle remove button click', () => {
+    const options = {...defaultProps.editableOptions, onRemove: jest.fn()};
+    const { getByTestId } = render(
+        <EditableTitle {...defaultProps} editableOptions={options} />
+    );
+    const title = getByTestId('et-title');
+    act(() => {
+      fireEvent.click(title);
+    });
+
+    const input = getByTestId('et-title-field');
+    act(() => {
+      fireEvent.change(input, { target: { value: '' } });
+    });
+
+    const removeButton = getByTestId('et-remove-button');
+    act(() => {
+      fireEvent.click(removeButton);
+    });
+    expect(options.onRemove).toBeCalled();
+  });
 });
