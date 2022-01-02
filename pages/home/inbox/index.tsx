@@ -17,12 +17,12 @@ const Inbox = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: StaticProps) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'settings'])),
-    },
-  };
-}
+// export async function getServerSideProps({ locale }: StaticProps) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ['common', 'settings'])),
+//     },
+//   };
+// }
 
 export default Inbox;
