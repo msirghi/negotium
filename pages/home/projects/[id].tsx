@@ -1,12 +1,8 @@
 import { ProjectContainer } from '../../../src/components/project';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import {useTranslation} from "next-i18next";
-import {StaticProps} from "../../../src/common/constants/types";
+import { StaticProps } from '../../../src/common/constants/types';
 
 const Project = () => {
-  const t = useTranslation();
-  console.log('t: ', t);
-
   return <ProjectContainer />;
 };
 

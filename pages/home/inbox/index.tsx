@@ -4,6 +4,7 @@ import { StaticProps } from '../../../src/common/constants/types';
 import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
 import { useTranslation } from 'next-i18next';
+import { GetStaticPaths } from 'next';
 
 const Inbox = () => {
   const { t } = useTranslation();
@@ -24,5 +25,12 @@ export async function getStaticProps({ locale }: StaticProps) {
     },
   };
 }
+
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: 'blocking', //indicates the type of fallback
+  };
+};
 
 export default Inbox;
