@@ -1,7 +1,7 @@
 import { ProjectContainer } from '../../../src/components/project';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSidePropsContext } from 'next';
 import {useTranslation} from "next-i18next";
+import {StaticProps} from "../../../src/common/constants/types";
 
 const Project = () => {
   const t = useTranslation();
@@ -10,12 +10,10 @@ const Project = () => {
   return <ProjectContainer />;
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getStaticProps({ locale }: StaticProps) {
   return {
     props: {
-      // ...(await serverSideTranslations(locale || 'en', ['common', 'settings'])),
+      ...(await serverSideTranslations(locale, ['common', 'settings'])),
     },
   };
 }
