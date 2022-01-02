@@ -4,6 +4,7 @@ import { StaticProps } from '../../../src/common/constants/types';
 import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
 import { useTranslation } from 'next-i18next';
+import { GetStaticPaths } from 'next';
 
 const Inbox = () => {
   const { t } = useTranslation();

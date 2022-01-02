@@ -14,12 +14,12 @@ export async function getStaticProps({ locale }: StaticProps) {
     },
   };
 }
-//
-// export const getStaticProps: GetStaticPaths<{ slug: string }> = async () => {
-//   return {
-//     paths: [],
-//     fallback: 'blocking',
-//   };
-// };
+
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: 'blocking', //indicates the type of fallback
+  };
+};
 
 export default Project;
