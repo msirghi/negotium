@@ -10,7 +10,8 @@
     "today": "Today",
     "upcoming": "Upcoming",
     "login": "Login",
-    "registration": "Registration"
+    "registration": "Registration",
+    "notes": "Notes"
   },
   "buttonLabels": {
     "cancel": "Cancel",

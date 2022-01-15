@@ -48,7 +48,7 @@ export const TaskWrapper: FC<Props> = ({
       />
       <Tabs value={1}>
         <Tab label={t('common.todos')} value={1} />
-        <Tab label={t('common.notes')} value={2} />
+        {/*<Tab label={t('common.notes')} value={2} />*/}
       </Tabs>
 
       <div role={'tabpanel'} style={{ marginTop: '1rem' }}>

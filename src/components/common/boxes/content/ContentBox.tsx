@@ -10,9 +10,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const ContentBox: FC = ({ children }) => {
+type Props = {
+  skipWidthChange?: boolean;
+}
+
+export const ContentBox: FC<Props> = ({ children, skipWidthChange }) => {
   const isMobile = useIsMobile();
-  const classes = useStyles(isMobile);
+  const classes = useStyles(skipWidthChange || isMobile);
 
   return <Box className={classes.root}>{children}</Box>;
 };

@@ -6,6 +6,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { SnackbarOrigin } from 'notistack';
 import colors from '../styles/colors';
 import { Descendant } from 'slate';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -22,6 +23,11 @@ export const MAIN_MENU_ITEMS: MainMenuItem[] = [
     Icon: DateRangeIcon,
     title: 'pageTitles.upcoming',
     route: '/home/upcoming',
+  },
+  {
+    Icon: DescriptionIcon,
+    title: 'pageTitles.notes',
+    route: '/home/notes',
   },
   // {
   //   Icon: DoneIcon,
