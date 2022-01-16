@@ -1,4 +1,5 @@
 import { Section, Task } from '../types/tasks.types';
+import { Note } from '../types/notes.types';
 
 const sortByOrder = (list: Section[] | Task[]) => {
   return list.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!);
@@ -21,10 +22,22 @@ const sortByDate = (tasks: Task[]) => {
   });
 };
 
+const sortNotesByCreatedDate = (notes: Note[]) => {
+  return notes.sort((a, b) => {
+    if (!b.createdDate) {
+      return 1;
+    }
+    return (
+      new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
+    );
+  });
+};
+
 const SortUtils = {
   sortSectionsByOrder,
   sortByDate,
   sortItemsByOrder,
+  sortNotesByCreatedDate
 };
 
 export default SortUtils;

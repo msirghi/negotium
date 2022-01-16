@@ -7,6 +7,7 @@ import { BorderlessInput } from '../../../common/form/input/borderlessInput/Bord
 describe('NotesAddForm', () => {
   const defaultProps = {
     onClose: jest.fn(),
+    onNoteAdd: jest.fn()
   };
 
   afterEach(() => {
@@ -27,5 +28,16 @@ describe('NotesAddForm', () => {
     });
 
     expect(defaultProps.onClose).toBeCalled();
+  });
+
+  it('should handle form submission', () => {
+    const wrapper = mount(<NotesAddForm {...defaultProps} />);
+    const form = wrapper.find('form') as any;
+
+    act(() => {
+      form.props().onSubmit({ preventDefault: jest.fn() });
+    });
+
+    expect(defaultProps.onNoteAdd).toBeCalled();
   });
 });

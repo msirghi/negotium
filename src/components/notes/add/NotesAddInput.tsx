@@ -1,12 +1,16 @@
 import { FC, useState } from 'react';
 import { Box } from '@mui/system';
-import { TextField } from '@mui/material';
 import { useNotesAddInputStyles } from './styles';
 import { NotesAddForm } from './form/NotesAddForm';
 import { If } from '../../common/utilities/if/If';
 import { BorderlessInput } from '../../common/form/input/borderlessInput/BorderlessInput';
+import { Note } from '../../../common/types/notes.types';
 
-export const NotesAddInput: FC = () => {
+type Props = {
+  onNoteAdd: (note: Omit<Note, 'id' | 'createdDate'>) => void;
+};
+
+export const NotesAddInput: FC<Props> = ({ onNoteAdd }) => {
   const classes = useNotesAddInputStyles();
 
   const [editFormOpen, setEditFormOpen] = useState(false);
@@ -28,7 +32,7 @@ export const NotesAddInput: FC = () => {
         </Box>
       </If>
       <If condition={editFormOpen}>
-        <NotesAddForm onClose={closeEditForm} />
+        <NotesAddForm onClose={closeEditForm} onNoteAdd={onNoteAdd} />
       </If>
     </Box>
   );

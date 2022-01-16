@@ -66,4 +66,16 @@ describe('Date Utils', () => {
       expect(result).toBeTruthy();
     });
   });
+
+  describe('formatDate', () => {
+    it('should format the date with default format', () => {
+      const result = DateUtils.formatDate(dayjs().format());
+      expect(result).toEqual('22 Nov, 2000');
+    });
+
+    it('should format the date with provided format', () => {
+      const result = DateUtils.formatDate(dayjs().format(), 'DD');
+      expect(result).toEqual('22');
+    });
+  });
 });

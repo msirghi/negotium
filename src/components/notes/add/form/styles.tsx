@@ -9,6 +9,14 @@ export const useNotesAddFormStyles = makeStyles({
     border: '1px solid lightgrey',
     borderRadius: 5,
     boxShadow: '1px 3px 5px 1px rgba(34, 60, 80, 0.13);',
+    ['@media (max-width:1024px)']: {
+      marginTop: '1rem',
+      width: '50%',
+    },
+    ['@media (max-width:768px)']: {
+      marginTop: '1rem',
+      width: '100%',
+    },
   },
   input: {},
   descriptionInput: {

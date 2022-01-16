@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useNotesAddInputStyles = makeStyles({
+export const useNotesAddInputStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     display: 'flex',
@@ -13,9 +13,17 @@ export const useNotesAddInputStyles = makeStyles({
     border: '1px solid',
     borderRadius: 5,
     padding: 5,
+    ['@media (max-width:1024px)']: {
+      marginTop: '1rem',
+      width: '50%',
+    },
+    ['@media (max-width:768px)']: {
+      marginTop: '1rem',
+      width: '100%',
+    },
   },
   input: {
     width: '100%',
-    marginLeft: 10
+    marginLeft: 10,
   },
-});
+}));

@@ -46,12 +46,17 @@ const isDateInThePast = (date: string | null | undefined) => {
   return getDateDifference(date) > 0;
 };
 
+const formatDate = (date: string, format?: string) => {
+  return dayjs(date).format(format || 'DD MMM, YYYY')
+}
+
 const DateUtils = {
   isTodayDate,
   getDateDifference,
   getWeekDay,
   getDateLabel,
   isDateInThePast,
+  formatDate
 };
 
 export default DateUtils;

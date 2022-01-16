@@ -5,4 +5,7 @@ export const useNotesContainer = makeStyles({
     minWidth: 250,
     height: 150,
   },
+  itemList: {
+    marginTop: '2rem'
+  }
 });

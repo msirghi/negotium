@@ -1,18 +1,20 @@
 import { Button } from '@mui/material';
 import { useNotesAddFormStyles } from './styles';
 import { Box } from '@mui/system';
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { BorderlessInput } from '../../../common/form/input/borderlessInput/BorderlessInput';
 import { TextInputChangeEvent } from '../../../../common/constants/types';
 import SlateUtils from '../../../../common/utils/slateUtils';
 import RichTextField from '../../../common/form/input/richText/RichTextField';
 import { Descendant } from 'slate';
+import { Note } from '../../../../common/types/notes.types';
 
 type Props = {
   onClose: () => void;
+  onNoteAdd: (note: Omit<Note, 'id' | 'createdDate'>) => void;
 };
 
-export const NotesAddForm: FC<Props> = ({ onClose }) => {
+export const NotesAddForm: FC<Props> = ({ onClose, onNoteAdd }) => {
   const classes = useNotesAddFormStyles();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState(
@@ -27,8 +29,16 @@ export const NotesAddForm: FC<Props> = ({ onClose }) => {
     return (e: Descendant[]) => setDescription(e);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onNoteAdd({ title, description: JSON.stringify(description) });
+    onClose();
+    setTitle('');
+    setDescription(SlateUtils.getInitialValueForSlate(undefined));
+  };
+
   return (
-    <Box className={classes.container}>
+    <form onSubmit={handleSubmit} className={classes.container}>
       <BorderlessInput
         autoFocus
         value={title}
@@ -47,6 +57,6 @@ export const NotesAddForm: FC<Props> = ({ onClose }) => {
           Close
         </Button>
       </Box>
-    </Box>
+    </form>
   );
 };

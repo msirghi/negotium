@@ -137,3 +137,4 @@ export const initialRichTextValue: Descendant[] = [
 
 export const ACTIVATION_CODE_VAR_NAME = 'ac';
 export const REFRESH_TOKEN_URL = '/auth/refresh-token';
+export const NOTE_DATE_FORMAT =  'DD MMM, YYYY, HH:mm'

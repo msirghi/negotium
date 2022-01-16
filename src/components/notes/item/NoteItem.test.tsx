@@ -8,6 +8,8 @@ import { NoteDialog } from './dialog/NoteDialog';
 describe('NoteItem', () => {
   const defaultProps = {
     note: NotesMock[0],
+    onNoteRemove: jest.fn(),
+    onNoteUpdate: jest.fn()
   };
 
   afterEach(() => {

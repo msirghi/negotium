@@ -6,10 +6,7 @@ import { Box } from '@mui/system';
 import debounce from 'lodash.debounce';
 import TaskService from '../../../../../services/TaskService';
 import MentionInput from '../../../form/input/mention/MentionInput';
-import {
-  initialRichTextValue,
-  MENTION_ARRAY_KEYWORDS,
-} from '../../../../../common/constants/constants';
+import { MENTION_ARRAY_KEYWORDS } from '../../../../../common/constants/constants';
 import SlateUtils from '../../../../../common/utils/slateUtils';
 import { Descendant } from 'slate';
 import ProjectService from '../../../../../services/ProjectService';

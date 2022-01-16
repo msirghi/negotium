@@ -1,5 +1,5 @@
 import { Note } from '../../../../common/types/notes.types';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -16,14 +16,21 @@ import { InputChangeEvent } from '../../../../common/types/common.types';
 import { Descendant } from 'slate';
 import SlateUtils from '../../../../common/utils/slateUtils';
 import CloseIcon from '@mui/icons-material/Close';
+import debounce from 'lodash.debounce';
 
 type Props = {
   open: boolean;
   note: Note;
   closeDialog: () => void;
+  onNoteUpdate: (note: Note) => void;
 };
 
-export const NoteDialog: FC<Props> = ({ note, open, closeDialog }) => {
+export const NoteDialog: FC<Props> = ({
+  note,
+  open,
+  closeDialog,
+  onNoteUpdate,
+}) => {
   const { title, description } = note;
   const [titleValue, setTitleValue] = useState(title);
   const [descriptionValue, setDescriptionValue] = useState(
@@ -32,12 +39,35 @@ export const NoteDialog: FC<Props> = ({ note, open, closeDialog }) => {
   const classes = useNoteDialogStyles();
 
   const onTitleChange = () => {
-    return (e: InputChangeEvent) => setTitleValue(e.target.value);
+    return (e: InputChangeEvent) => {
+      setTitleValue(e.target.value);
+      updateTitleDebounce(e.target.value);
+    };
   };
 
   const onDescriptionChange = () => {
-    return (e: Descendant[]) => setDescriptionValue(e);
+    return (e: Descendant[]) => {
+      setDescriptionValue(e);
+      updateDescriptionDebounce(JSON.stringify(e));
+    };
   };
+
+  const updateNoteTitle = (title: string) => {
+    if (title) {
+      onNoteUpdate({ ...note, title });
+    }
+  };
+
+  const updateNoteDescription = (description: string) => {
+    onNoteUpdate({ ...note, description });
+  };
+
+  const updateTitleDebounce = useCallback(debounce(updateNoteTitle, 1000), []);
+
+  const updateDescriptionDebounce = useCallback(
+    debounce(updateNoteDescription, 1000),
+    []
+  );
 
   return (
     <Dialog open={open} onClose={closeDialog} fullWidth>
@@ -63,7 +93,7 @@ export const NoteDialog: FC<Props> = ({ note, open, closeDialog }) => {
       </DialogContent>
       <DialogActions>
         <Button color={'primary'} onClick={closeDialog}>
-          Save
+          Close
         </Button>
       </DialogActions>
     </Dialog>

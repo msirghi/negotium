@@ -1,28 +1,66 @@
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { PageTitle } from '../../common/content/pageTitle/PageTitle';
 import { NoteItem } from '../item/NoteItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import { useNotesContainer } from './styles';
 import SmoothList from 'react-smooth-list';
-import { NotesMock } from '../../../common/tests/mockData/notes-mock';
 import { NotesAddInput } from '../add/NotesAddInput';
+import NoteService from '../../../services/NoteService';
+import { Note, NoteUpdate } from '../../../common/types/notes.types';
+import SortUtils from '../../../common/utils/sortUtils';
+import { useSnackbar } from 'notistack';
 
 export const NotesContainer = () => {
-  const [notes, setNotes] = useState(NotesMock);
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [loading, setLoading] = useState(true);
   const classes = useNotesContainer();
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  const fetchNotes = async () => {
+    const notes = await NoteService.getNotes();
+    setNotes(notes as Note[]);
+    setLoading(false);
+  };
+
+  const onNoteAdd = async (note: NoteUpdate) => {
+    await NoteService.createNote(note);
+    await fetchNotes();
+    enqueueSnackbar('Note added.');
+  };
+
+  const onNoteDelete = async (noteId: Note['id']) => {
+    setNotes((prevState) => [...prevState.filter(({ id }) => id !== noteId)]);
+    await NoteService.removeNoteById(noteId);
+    enqueueSnackbar('Note removed.');
+  };
+
+  const onNoteUpdate = async (note: Note) => {
+    setNotes((prevState) => [
+      ...prevState.map((n) => (n.id === note.id ? note : n)),
+    ]);
+    await NoteService.updateNoteById(note);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <ContentBox skipWidthChange>
         <PageTitle title={'Notes'} showUpperHeader upperHeaderTitle={'Notes'} />
-        <div>Notes</div>
-        <NotesAddInput />
-        <div style={{ marginTop: '2rem' }}>
+        <NotesAddInput onNoteAdd={onNoteAdd} />
+        <div className={classes.itemList}>
           <SmoothList>
             <Grid container spacing={2}>
-              {notes.map((note) => {
-                return (
+              {SortUtils.sortNotesByCreatedDate(notes)
+                .reverse()
+                .map((note) => (
                   <Grid
                     className={classes.noteItem}
                     item
@@ -32,10 +70,13 @@ export const NotesContainer = () => {
                     lg={4}
                     key={note.id}
                   >
-                    <NoteItem note={note} />
+                    <NoteItem
+                      note={note}
+                      onNoteRemove={onNoteDelete}
+                      onNoteUpdate={onNoteUpdate}
+                    />
                   </Grid>
-                );
-              })}
+                ))}
             </Grid>
           </SmoothList>
         </div>

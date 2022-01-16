@@ -9,14 +9,14 @@ describe('Sort Utils', () => {
         {
           id: '1',
           orderNumber: 2,
-          sectionTasks: [],
-          sectionTitle: 'Title',
+          title: 'Title',
+          projectId: '1',
         },
         {
           id: '2',
           orderNumber: 1,
-          sectionTasks: [],
-          sectionTitle: 'Title',
+          title: 'Title',
+          projectId: '2',
         },
       ];
       const result = SortUtils.sortSectionsByOrder(input);
