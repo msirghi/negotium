@@ -53,9 +53,7 @@ export const NoteDialog: FC<Props> = ({
   };
 
   const updateNoteTitle = (title: string) => {
-    if (title) {
-      onNoteUpdate({ ...note, title });
-    }
+    onNoteUpdate({ ...note, title: title || 'No title' });
   };
 
   const updateNoteDescription = (description: string) => {
@@ -81,6 +79,7 @@ export const NoteDialog: FC<Props> = ({
         <BorderlessInput
           variant="standard"
           value={titleValue}
+          className={classes.titleInput}
           onChange={onTitleChange()}
           InputProps={{ style: { fontWeight: 'bold', fontSize: 18 } }}
         />

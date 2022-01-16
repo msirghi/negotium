@@ -10,6 +10,7 @@ import NoteService from '../../../services/NoteService';
 import { Note, NoteUpdate } from '../../../common/types/notes.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { useSnackbar } from 'notistack';
+import {NoteSkeleton} from "../../common/skeletons/noteSkeleton/NoteSkeleton";
 
 export const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -44,10 +45,11 @@ export const NotesContainer = () => {
       ...prevState.map((n) => (n.id === note.id ? note : n)),
     ]);
     await NoteService.updateNoteById(note);
+    await fetchNotes();
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <NoteSkeleton />;
   }
 
   return (

@@ -9,7 +9,7 @@ exports[`NoteItem should match snapshot 1`] = `
     className="MuiCardContent-root css-46bh2p-MuiCardContent-root"
   >
     <div
-      className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-h5 makeStyles-title-3 css-ag7rrr-MuiTypography-root"
     >
       Note 1
     </div>
@@ -20,15 +20,15 @@ exports[`NoteItem should match snapshot 1`] = `
     </p>
   </div>
   <div
-    className="MuiCardActions-root MuiCardActions-spacing makeStyles-cardActions-3 css-1t6e9jv-MuiCardActions-root"
+    className="MuiCardActions-root MuiCardActions-spacing makeStyles-cardActions-4 css-1t6e9jv-MuiCardActions-root"
   >
     <div
-      className="makeStyles-date-5"
+      className="makeStyles-date-6"
     >
       02 Oct, 2020, 00:00
     </div>
     <button
-      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-deleteButton-4 css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-deleteButton-5 css-78trlr-MuiButtonBase-root-MuiIconButton-root"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}

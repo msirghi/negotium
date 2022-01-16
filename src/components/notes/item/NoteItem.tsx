@@ -50,7 +50,7 @@ export const NoteItem: FC<Props> = ({ note, onNoteRemove, onNoteUpdate }) => {
 
       <Card className={classes.container} onClick={openDialog}>
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" className={classes.title}>
             {title}
           </Typography>
 

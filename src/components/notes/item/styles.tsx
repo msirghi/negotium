@@ -14,7 +14,13 @@ export const useNoteItemStyles = makeStyles({
     '-webkit-line-clamp': 2,
     '-webkit-box-orient': 'vertical',
     overflow: 'hidden',
-    height: 40
+    height: 40,
+  },
+  title: {
+    display: '-webkit-box',
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+    overflow: 'hidden',
   },
   cardActions: {},
   deleteButton: {
@@ -32,5 +38,5 @@ export const useNoteItemStyles = makeStyles({
     marginLeft: 7,
     marginTop: -10,
     color: colors.greys['500'],
-  },
+  }
 });

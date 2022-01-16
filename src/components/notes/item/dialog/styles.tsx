@@ -8,9 +8,12 @@ export const useNoteDialogStyles = makeStyles({
   closeIcon: {
     position: 'absolute',
     right: 25,
-    top: 25
+    top: 25,
   },
   titleContainer: {
     position: 'relative',
+  },
+  titleInput: {
+    width: '90%',
   },
 });
