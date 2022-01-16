@@ -5,6 +5,7 @@ import { NotesAddForm } from './form/NotesAddForm';
 import { If } from '../../common/utilities/if/If';
 import { BorderlessInput } from '../../common/form/input/borderlessInput/BorderlessInput';
 import { Note } from '../../../common/types/notes.types';
+import {useTranslation} from "next-i18next";
 
 type Props = {
   onNoteAdd: (note: Omit<Note, 'id' | 'createdDate'>) => void;
@@ -12,6 +13,7 @@ type Props = {
 
 export const NotesAddInput: FC<Props> = ({ onNoteAdd }) => {
   const classes = useNotesAddInputStyles();
+  const { t } = useTranslation('notes');
 
   const [editFormOpen, setEditFormOpen] = useState(false);
 
@@ -27,7 +29,7 @@ export const NotesAddInput: FC<Props> = ({ onNoteAdd }) => {
             variant={'standard'}
             onFocus={openEditForm}
             className={classes.input}
-            placeholder={'Add a note...'}
+            placeholder={t('addNote')}
           />
         </Box>
       </If>

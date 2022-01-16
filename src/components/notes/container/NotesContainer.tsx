@@ -10,13 +10,15 @@ import NoteService from '../../../services/NoteService';
 import { Note, NoteUpdate } from '../../../common/types/notes.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { useSnackbar } from 'notistack';
-import {NoteSkeleton} from "../../common/skeletons/noteSkeleton/NoteSkeleton";
+import { NoteSkeleton } from '../../common/skeletons/noteSkeleton/NoteSkeleton';
+import { useTranslation } from 'next-i18next';
 
 export const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const classes = useNotesContainer();
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation('notes');
 
   useEffect(() => {
     fetchNotes();
@@ -55,7 +57,11 @@ export const NotesContainer = () => {
   return (
     <div>
       <ContentBox skipWidthChange>
-        <PageTitle title={'Notes'} showUpperHeader upperHeaderTitle={'Notes'} />
+        <PageTitle
+          title={t('title')}
+          showUpperHeader
+          upperHeaderTitle={t('title')}
+        />
         <NotesAddInput onNoteAdd={onNoteAdd} />
         <div className={classes.itemList}>
           <SmoothList>

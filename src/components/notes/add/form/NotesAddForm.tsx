@@ -8,6 +8,7 @@ import SlateUtils from '../../../../common/utils/slateUtils';
 import RichTextField from '../../../common/form/input/richText/RichTextField';
 import { Descendant } from 'slate';
 import { Note } from '../../../../common/types/notes.types';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   onClose: () => void;
@@ -20,6 +21,7 @@ export const NotesAddForm: FC<Props> = ({ onClose, onNoteAdd }) => {
   const [description, setDescription] = useState(
     SlateUtils.getInitialValueForSlate(undefined)
   );
+  const { t } = useTranslation('notes');
 
   const onTitleChange = () => {
     return (e: TextInputChangeEvent) => setTitle(e.target.value);
@@ -44,7 +46,7 @@ export const NotesAddForm: FC<Props> = ({ onClose, onNoteAdd }) => {
         value={title}
         className={classes.input}
         size={'small'}
-        placeholder={'Title'}
+        placeholder={t('noteTitleFieldPlaceholder')}
         variant={'standard'}
         InputProps={{ style: { fontWeight: 'bold' } }}
         onChange={onTitleChange()}
@@ -54,7 +56,7 @@ export const NotesAddForm: FC<Props> = ({ onClose, onNoteAdd }) => {
 
       <Box className={classes.actions}>
         <Button onClick={onClose} className={classes.closeButton}>
-          Close
+          {t('close')}
         </Button>
       </Box>
     </form>

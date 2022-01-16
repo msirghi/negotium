@@ -17,6 +17,7 @@ import { Descendant } from 'slate';
 import SlateUtils from '../../../../common/utils/slateUtils';
 import CloseIcon from '@mui/icons-material/Close';
 import debounce from 'lodash.debounce';
+import {useTranslation} from "next-i18next";
 
 type Props = {
   open: boolean;
@@ -37,6 +38,7 @@ export const NoteDialog: FC<Props> = ({
     SlateUtils.getInitialValueForSlate(description)
   );
   const classes = useNoteDialogStyles();
+  const { t } = useTranslation('notes');
 
   const onTitleChange = () => {
     return (e: InputChangeEvent) => {
@@ -53,7 +55,7 @@ export const NoteDialog: FC<Props> = ({
   };
 
   const updateNoteTitle = (title: string) => {
-    onNoteUpdate({ ...note, title: title || 'No title' });
+    onNoteUpdate({ ...note, title: title || t('noTitle') });
   };
 
   const updateNoteDescription = (description: string) => {
@@ -92,7 +94,7 @@ export const NoteDialog: FC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button color={'primary'} onClick={closeDialog}>
-          Close
+          {t('close')}
         </Button>
       </DialogActions>
     </Dialog>
