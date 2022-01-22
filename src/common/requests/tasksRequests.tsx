@@ -1,14 +1,10 @@
 import axios from 'axios';
 import { BASE_API_URL, BASE_API_URL_V1 } from '../constants/constants';
-import {
-  HttpMethod,
-  IGetTasksResponse,
-  IGetTasksWithSectionResponse,
-} from './types';
+import { GetTasksResponse, GetTasksWithSectionResponse } from './types';
 import Requests from './request';
 import ServiceResultFactory from './serviceResultFactory';
-import { TasksMock } from '../tests/mockData/tasks-mock';
-import {Section} from "../types/tasks.types";
+import { Section } from '../types/tasks.types';
+import { HttpMethod } from '../constants/enums';
 
 async function fetchTasks() {
   const { data } = await Requests.restApiCallWithBearer(
@@ -16,14 +12,14 @@ async function fetchTasks() {
     HttpMethod.GET
   );
   return ServiceResultFactory.convertMongoIdToJSId(
-    data as IGetTasksResponse['tasks']
+    data as GetTasksResponse['tasks']
   );
 }
 
 async function fetchTasksGroupedBySection() {
   // const { data } = await axios.get(`${BASE_API_URL}/tasks?groupBy=section`);
   const { data } = await axios.get(`${BASE_API_URL}/tasksWithSections`);
-  return data as IGetTasksWithSectionResponse['data'];
+  return data as GetTasksWithSectionResponse['data'];
 }
 
 async function fetchTasksByProject(projectId: string) {
@@ -31,7 +27,7 @@ async function fetchTasksByProject(projectId: string) {
     `${BASE_API_URL_V1}/projects/${projectId}/tasks`
   );
   return ServiceResultFactory.convertMongoIdToJSId(
-    data as IGetTasksResponse['tasks']
+    data as GetTasksResponse['tasks']
   );
 }
 

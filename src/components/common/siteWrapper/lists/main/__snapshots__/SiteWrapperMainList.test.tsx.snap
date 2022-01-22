@@ -157,5 +157,56 @@ exports[`SiteWrapperMainList should match snapshot 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="MuiBox-root css-arly7"
+  >
+    <div
+      className="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-1n224z5-MuiButtonBase-root-MuiListItem-root"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <div
+        className="MuiListItemIcon-root css-cveggr-MuiListItemIcon-root"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+          data-testid="DescriptionIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+          />
+        </svg>
+      </div>
+      <div
+        className="MuiListItemText-root css-tlelie-MuiListItemText-root"
+      >
+        <span
+          className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-i70aka-MuiTypography-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1 css-fp2mu1-MuiTypography-root"
+          >
+            pageTitles.notes
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
 </ul>
 `;

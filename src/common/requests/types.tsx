@@ -1,24 +1,14 @@
 import { Project } from '../types/projects.types';
 import { Section, Task } from '../types/tasks.types';
 
-export interface IGetProjectResponse {
+export interface GetProjectResponse {
   projects: Project[];
 }
 
-export interface IGetTasksResponse {
+export interface GetTasksResponse {
   tasks: Task[];
 }
 
-export interface IGetTasksWithSectionResponse {
+export interface GetTasksWithSectionResponse {
   data: Section[];
-}
-
-export enum HttpMethod {
-  DELETE = 'DELETE',
-  GET = 'GET',
-  HEAD = 'HEAD',
-  OPTIONS = 'OPTIONS',
-  PATCH = 'PATCH',
-  POST = 'POST',
-  PUT = 'PUT',
 }

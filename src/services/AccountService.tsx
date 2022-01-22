@@ -1,7 +1,7 @@
 import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
-import { HttpMethod } from '../common/requests/types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
+import { HttpMethod } from '../common/constants/enums';
 
 const getUserMetadata = () => {
   return Requests.restApiCallWithBearer(
@@ -67,7 +67,7 @@ const AccountService = {
   updateUserName,
   activeAccount,
   updateUserLanguage,
-  updateUserEmail
+  updateUserEmail,
 };
 
 export default AccountService;

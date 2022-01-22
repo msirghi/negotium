@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteSkeleton should match snapshot 1`] = `
+<div
+  className="makeStyles-root-5 makeStyles-root-6 MuiBox-root css-0"
+>
+  <div
+    className="makeStyles-inputContainer-4"
+  >
+    <span
+      className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-inputSkeleton-3 css-1n7gpw1-MuiSkeleton-root"
+      style={
+        Object {
+          "height": 50,
+          "width": "33%",
+        }
+      }
+    />
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined css-11lq3yg-MuiGrid-root"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4 css-157tyuy-MuiGrid-root"
+    >
+      <span
+        className="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse makeStyles-noteSkeleton-2 css-1n7gpw1-MuiSkeleton-root"
+        style={
+          Object {
+            "height": 240,
+            "width": undefined,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

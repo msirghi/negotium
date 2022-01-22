@@ -2,6 +2,7 @@ import { Box } from '@mui/system';
 import { Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Row } from '../../utilities/row/Row';
+import { ContentBox } from '../../boxes/content/ContentBox';
 
 const useStyles = makeStyles({
   root: {
@@ -16,7 +17,7 @@ export const TaskSkeleton = () => {
   const classes = useStyles();
 
   return (
-    <Box>
+    <ContentBox skipWidthChange>
       <Skeleton variant="text" width={100} height={40} />
       {[1, 2, 3, 4, 5].map((item) => {
         return (
@@ -32,6 +33,6 @@ export const TaskSkeleton = () => {
           </Row>
         );
       })}
-    </Box>
+    </ContentBox>
   );
 };

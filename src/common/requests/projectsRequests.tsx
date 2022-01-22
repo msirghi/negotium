@@ -1,7 +1,8 @@
 import { BASE_API_URL_V1 } from '../constants/constants';
-import { HttpMethod, IGetProjectResponse } from './types';
+import { GetProjectResponse } from './types';
 import ServiceResultFactory from './serviceResultFactory';
 import Requests from './request';
+import { HttpMethod } from '../constants/enums';
 
 async function fetchProjects() {
   const { data } = await Requests.restApiCallWithBearer(
@@ -9,7 +10,7 @@ async function fetchProjects() {
     HttpMethod.GET
   );
   return ServiceResultFactory.convertMongoIdToJSId(
-    data as IGetProjectResponse['projects']
+    data as GetProjectResponse['projects']
   );
 }
 

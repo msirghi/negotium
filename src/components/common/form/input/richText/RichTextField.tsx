@@ -25,9 +25,10 @@ const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 type Props = {
   value: Descendant[];
   setValue: (val: Descendant[]) => void;
+  autoFocus?: boolean;
 };
 
-const RichTextField: FC<Props> = ({ value, setValue }) => {
+const RichTextField: FC<Props> = ({ value, setValue, autoFocus }) => {
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(
@@ -46,7 +47,7 @@ const RichTextField: FC<Props> = ({ value, setValue }) => {
         renderLeaf={renderLeaf}
         placeholder="Start typing your description there..."
         spellCheck
-        autoFocus
+        autoFocus={autoFocus}
         onKeyDown={(event) => {
           for (const hotkey in HOTKEYS) {
             if (isHotkey(hotkey, event as any)) {
