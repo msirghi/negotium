@@ -1,8 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { projectsMock } from '../../tests/mockData/projects-mock';
-import { projectsRequests } from '../projectsRequests';
-import { IGetProjectResponse, IGetTasksResponse } from '../types';
+import { GetTasksResponse } from '../types';
 import { tasksRequests } from '../tasksRequests';
 
 describe('tasksRequests', () => {
@@ -14,7 +12,7 @@ describe('tasksRequests', () => {
 
   it('should make a call via axios on fetching the tasks', async () => {
     const data = (await tasksRequests.fetchTasks()) as unknown as {
-      data: IGetTasksResponse;
+      data: GetTasksResponse;
     };
     expect(data.data.tasks).toEqual([]);
   });
@@ -22,7 +20,7 @@ describe('tasksRequests', () => {
   it('should make a call via axios on fetching the task with filter query', async () => {
     const data =
       (await tasksRequests.fetchTasksGroupedBySection()) as unknown as {
-        data: IGetTasksResponse;
+        data: GetTasksResponse;
       };
     expect(data.data.tasks).toEqual([]);
   });
@@ -31,7 +29,7 @@ describe('tasksRequests', () => {
     const data = (await tasksRequests.fetchTasksByProject(
       'project'
     )) as unknown as {
-      data: IGetTasksResponse;
+      data: GetTasksResponse;
     };
     expect(data.data.tasks).toEqual([]);
   });

@@ -1,6 +1,10 @@
-import { CreatedDate, Id, Title } from './common.types';
+import { CreatedDate, Id, Title, UpdatedDate } from './common.types';
 
-export interface Note extends Id<string>, CreatedDate, Title {
+export interface Note
+  extends Id<string>,
+    CreatedDate,
+    Title,
+    Partial<UpdatedDate> {
   _id?: string;
   description?: string;
 }

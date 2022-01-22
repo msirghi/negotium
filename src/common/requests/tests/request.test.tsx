@@ -1,8 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Requests from '../request';
-import { HttpMethod } from '../types';
 import authorizationStore from '../authorizationStore';
+import { HttpMethod } from '../../constants/enums';
 
 describe('Requests', () => {
   const mock = new MockAdapter(axios);

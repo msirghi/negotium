@@ -1,9 +1,9 @@
 import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
-import { HttpMethod } from '../common/requests/types';
 import { Project } from '../common/types/projects.types';
 import { Section, Task } from '../common/types/tasks.types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
+import { HttpMethod } from '../common/constants/enums';
 
 const addProject = (project: Omit<Project, 'id'>) => {
   return Requests.restApiCallWithBearer(

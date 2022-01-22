@@ -6,5 +6,6 @@
   "addNote": "Add a note...",
   "noteTitleFieldPlaceholder": "Title",
   "close": "Close",
-  "noTitle": "No title"
+  "noTitle": "No title",
+  "deleteNote": "Delete note"
 }

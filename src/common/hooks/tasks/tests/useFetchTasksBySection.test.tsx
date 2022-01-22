@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { FC } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { IGetTasksWithSectionResponse } from '../../../requests/types';
+import { GetTasksWithSectionResponse } from '../../../requests/types';
 import { tasksRequests } from '../../../requests/tasksRequests';
 import { useFetchTasksBySection } from '../useFetchTasksBySection';
 
@@ -16,7 +16,7 @@ describe('useFetchTasksBySection', () => {
     tasksRequests.fetchTasksGroupedBySection = jest.fn(() =>
       Promise.resolve({
         data: [],
-      } as IGetTasksWithSectionResponse)
+      } as GetTasksWithSectionResponse)
     );
   });
 

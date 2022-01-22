@@ -5,6 +5,7 @@ import {
   CardActions,
   CardContent,
   IconButton,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { useNoteItemStyles } from './styles';
@@ -13,6 +14,7 @@ import SlateUtils from '../../../common/utils/slateUtils';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DateUtils from '../../../common/utils/dateUtils';
 import { NOTE_DATE_FORMAT } from '../../../common/constants/constants';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   note: Note;
@@ -23,6 +25,7 @@ type Props = {
 export const NoteItem: FC<Props> = ({ note, onNoteRemove, onNoteUpdate }) => {
   const { title, description, id, createdDate } = note;
   const classes = useNoteItemStyles();
+  const { t } = useTranslation('notes');
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -64,13 +67,15 @@ export const NoteItem: FC<Props> = ({ note, onNoteRemove, onNoteUpdate }) => {
             )}
           </Typography>
         </CardContent>
-        <CardActions className={classes.cardActions}>
+        <CardActions>
           <div className={classes.date}>
             {DateUtils.formatDate(createdDate, NOTE_DATE_FORMAT)}
           </div>
           {/*// @ts-ignore*!/*/}
           <IconButton className={classes.deleteButton} onClick={onDeleteClick}>
-            <DeleteOutlineIcon />
+            <Tooltip title={t('deleteNote')!}>
+              <DeleteOutlineIcon />
+            </Tooltip>
           </IconButton>
         </CardActions>
       </Card>

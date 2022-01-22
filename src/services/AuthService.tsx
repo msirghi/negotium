@@ -1,8 +1,8 @@
 import Requests from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
-import { HttpMethod } from '../common/requests/types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
-import {LoginResponse} from "../common/constants/types";
+import { LoginResponse } from '../common/constants/types';
+import { HttpMethod } from '../common/constants/enums';
 
 const login = (email: string, password: string) => {
   return Requests.restApiCall(

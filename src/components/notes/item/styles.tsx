@@ -22,7 +22,6 @@ export const useNoteItemStyles = makeStyles({
     '-webkit-box-orient': 'vertical',
     overflow: 'hidden',
   },
-  cardActions: {},
   deleteButton: {
     position: 'absolute',
     right: 2,

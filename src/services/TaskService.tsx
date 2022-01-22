@@ -1,9 +1,9 @@
 import { Task } from '../common/types/tasks.types';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
 import Requests from '../common/requests/request';
-import { HttpMethod } from '../common/requests/types';
 import dayjs from 'dayjs';
 import { TaskOrderUpdateDto } from '../components/common/dnd/taskWrapper/types';
+import { HttpMethod } from '../common/constants/enums';
 
 const createTask = (task: Omit<Task, 'id'>) => {
   return Requests.restApiCallWithBearer(
@@ -74,7 +74,7 @@ const TaskService = {
   updateTaskName,
   updateTaskDueDate,
   updateTaskDescription,
-  updateOrderNumbers
+  updateOrderNumbers,
 };
 
 export default TaskService;

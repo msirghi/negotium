@@ -43,6 +43,7 @@ export const NotesContainer = () => {
   };
 
   const onNoteUpdate = async (note: Note) => {
+    note.updatedDate = new Date().toString();
     setNotes((prevState) => [
       ...prevState.map((n) => (n.id === note.id ? note : n)),
     ]);
@@ -66,7 +67,7 @@ export const NotesContainer = () => {
         <div className={classes.itemList}>
           <SmoothList>
             <Grid container spacing={2}>
-              {SortUtils.sortNotesByCreatedDate(notes)
+              {SortUtils.sortNotesByUpdatedDate(notes)
                 .reverse()
                 .map((note) => (
                   <Grid

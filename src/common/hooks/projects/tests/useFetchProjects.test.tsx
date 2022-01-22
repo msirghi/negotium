@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useFetchProjects } from '../useFetchProjects';
 import { projectsRequests } from '../../../requests/projectsRequests';
 import { projectsMock } from '../../../tests/mockData/projects-mock';
-import { IGetProjectResponse } from '../../../requests/types';
+import { GetProjectResponse } from '../../../requests/types';
 
 describe('useFetchProjects', () => {
   const queryClient = new QueryClient();
@@ -17,7 +17,7 @@ describe('useFetchProjects', () => {
     projectsRequests.fetchProjects = jest.fn(() =>
       Promise.resolve({
         projects: [...projectsMock],
-      } as IGetProjectResponse)
+      } as GetProjectResponse)
     );
   });
 

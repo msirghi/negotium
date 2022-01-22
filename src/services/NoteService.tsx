@@ -1,8 +1,8 @@
 import { Note, NoteUpdate } from '../common/types/notes.types';
 import request from '../common/requests/request';
 import { BASE_API_URL_V1 } from '../common/constants/constants';
-import { HttpMethod } from '../common/requests/types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
+import { HttpMethod } from '../common/constants/enums';
 
 const createNote = (note: NoteUpdate) => {
   return request

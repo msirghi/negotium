@@ -22,13 +22,13 @@ const sortByDate = (tasks: Task[]) => {
   });
 };
 
-const sortNotesByCreatedDate = (notes: Note[]) => {
+const sortNotesByUpdatedDate = (notes: Note[]) => {
   return notes.sort((a, b) => {
-    if (!b.createdDate) {
+    if (!b.updatedDate) {
       return 1;
     }
     return (
-      new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
+      new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime()
     );
   });
 };
@@ -37,7 +37,7 @@ const SortUtils = {
   sortSectionsByOrder,
   sortByDate,
   sortItemsByOrder,
-  sortNotesByCreatedDate
+  sortNotesByUpdatedDate
 };
 
 export default SortUtils;
