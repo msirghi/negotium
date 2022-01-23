@@ -147,8 +147,18 @@ export const ProjectContainer = () => {
     const updatedSections = sections.map((sec) =>
       sec.id === sectionId ? { ...sec, title } : sec
     );
-    ProjectService.updateProjectSectionTitle(projectId.current, sectionId, title);
+    ProjectService.updateProjectSectionTitle(
+      projectId.current,
+      sectionId,
+      title
+    );
     setSections(updatedSections);
+  };
+
+  const handleSectionRemove = async (sectionId: Section['id']) => {
+    const updatedSections = sections.filter((s) => s.id !== sectionId);
+    setSections(updatedSections);
+    await ProjectService.deleteProjectSection(projectId.current, sectionId);
   };
 
   return (
@@ -205,6 +215,7 @@ export const ProjectContainer = () => {
                   markAsDone={markAsDone}
                   onTaskSelect={selectTask}
                   onSectionUpdate={handleSectionUpdate}
+                  onSectionRemove={handleSectionRemove}
                 />
               ))}
             </If>

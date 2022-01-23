@@ -108,6 +108,18 @@ const updateProjectSectionTitle = (
     .catch(ServiceResultFactory.fromError);
 };
 
+const deleteProjectSection = (
+  projectId: Project['id'],
+  sectionId: Section['id']
+) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}/sections/${sectionId}`,
+    HttpMethod.DELETE
+  )
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
 const ProjectService = {
   addProject,
   getProjectById,
@@ -119,6 +131,7 @@ const ProjectService = {
   addProjectSection,
   getProjectSections,
   updateProjectSectionTitle,
+  deleteProjectSection,
 };
 
 export default ProjectService;

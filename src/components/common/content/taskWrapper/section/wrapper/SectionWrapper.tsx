@@ -20,6 +20,7 @@ type Props = {
     title: Section['title'],
     sectionId: Props['sectionId']
   ) => void;
+  onSectionRemove: (sectionId: Section['id']) => void;
 };
 
 export const SectionWrapper: FC<Props> = ({
@@ -30,6 +31,7 @@ export const SectionWrapper: FC<Props> = ({
   markAsDone,
   onTaskSelect,
   onSectionUpdate,
+  onSectionRemove,
 }) => {
   const handleTaskAdd = () => {
     return (title: string, date: Nullable<Date>) =>
@@ -41,7 +43,7 @@ export const SectionWrapper: FC<Props> = ({
   };
 
   const handleSectionRemove = () => {
-    return () => {};
+    return onSectionRemove(sectionId);
   };
 
   return (

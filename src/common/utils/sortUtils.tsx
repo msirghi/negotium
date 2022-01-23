@@ -28,6 +28,7 @@ const sortNotesByUpdatedDate = (notes: Note[]) => {
       return 1;
     }
     return (
+      // @ts-ignore
       new Date(a.updatedDate).getTime() - new Date(b.updatedDate).getTime()
     );
   });
@@ -37,7 +38,7 @@ const SortUtils = {
   sortSectionsByOrder,
   sortByDate,
   sortItemsByOrder,
-  sortNotesByUpdatedDate
+  sortNotesByUpdatedDate,
 };
 
 export default SortUtils;

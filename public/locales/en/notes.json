@@ -7,5 +7,6 @@
   "noteTitleFieldPlaceholder": "Title",
   "close": "Close",
   "noTitle": "No title",
-  "deleteNote": "Delete note"
+  "deleteNote": "Delete note",
+  "noNotesMessage": "There are no notes right now. Maybe it's time to add your first one?"
 }

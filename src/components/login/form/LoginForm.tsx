@@ -31,7 +31,7 @@ export const LoginForm = () => {
     setLoading(true);
 
     try {
-      const loginResponse = await AuthService.login(email, password);
+      const loginResponse = await AuthService.login(email.trim(), password.trim());
       const { data } = loginResponse;
       localStorage.setItem('rt', data.refresh_token);
       authorizationStore.setAuthToken(data.access_token);

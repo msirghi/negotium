@@ -38,5 +38,6 @@
     "taskAdded": "Task added",
     "taskMarkedAsDone": "Task marked as done"
   },
-  "clickToSelect": "Click on task to select it."
+  "clickToSelect": "Click on task to select it.",
+  "noTasksMessage": "There are no tasks. A good day to relax?"
 }

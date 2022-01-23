@@ -12,6 +12,10 @@ import SortUtils from '../../../common/utils/sortUtils';
 import { useSnackbar } from 'notistack';
 import { NoteSkeleton } from '../../common/skeletons/noteSkeleton/NoteSkeleton';
 import { useTranslation } from 'next-i18next';
+import { EmptyListMessage } from '../../common/emptyListMessage/EmptyListMessage';
+import { Row } from '../../common/utilities/row/Row';
+import { ROW_DIRECTION } from '../../../common/constants/enums';
+import { If } from '../../common/utilities/if/If';
 
 export const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -65,6 +69,14 @@ export const NotesContainer = () => {
         />
         <NotesAddInput onNoteAdd={onNoteAdd} />
         <div className={classes.itemList}>
+          <If condition={!notes.length}>
+            <Row fullWidth alignVerticalCenter direction={ROW_DIRECTION.COLUMN}>
+              <EmptyListMessage
+                imageSrc={'/static/clouds.png'}
+                message={t('noNotesMessage')}
+              />
+            </Row>
+          </If>
           <SmoothList>
             <Grid container spacing={2}>
               {SortUtils.sortNotesByUpdatedDate(notes)
