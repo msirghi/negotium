@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { Nullable } from '../types/common.types';
+import { TaskDateType } from '../constants/enums';
 
 const isTodayDate = (date?: string | null) => {
   if (!date) {
@@ -39,16 +40,36 @@ const getDateLabel = (date: Nullable<Date>) => {
   return newDate.format('D MMM');
 };
 
-const isDateInThePast = (date: string | null | undefined) => {
+const isDateInThePast = (date?: Nullable<string>) => {
   if (!date) {
     return false;
   }
-  return getDateDifference(date) > 0;
+  return dayjs(date).isBefore(dayjs(), 'day');
 };
 
 const formatDate = (date: string, format?: string) => {
-  return dayjs(date).format(format || 'DD MMM, YYYY')
-}
+  const formattedDate = dayjs(date).format(format || 'DD MMM, YYYY');
+  if (isNaN(new Date(formattedDate).getTime())) {
+    return '';
+  }
+  return formattedDate;
+};
+
+const formatDateForTask = (date?: Nullable<string>, format?: string) => {
+  if (!date) {
+    return { value: '', type: TaskDateType.NONE };
+  }
+  if (isDateInThePast(date)) {
+    return { value: formatDate(date, 'DD MMM'), type: TaskDateType.PAST };
+  }
+  if (isTodayDate(date)) {
+    return { value: 'Today', type: TaskDateType.Today };
+  }
+  if (dayjs(date).get('year') === dayjs().get('year')) {
+    return { value: formatDate(date, 'DD MMM') };
+  }
+  return { value: formatDate(date, format), type: TaskDateType.NONE };
+};
 
 const DateUtils = {
   isTodayDate,
@@ -56,7 +77,8 @@ const DateUtils = {
   getWeekDay,
   getDateLabel,
   isDateInThePast,
-  formatDate
+  formatDate,
+  formatDateForTask,
 };
 
 export default DateUtils;

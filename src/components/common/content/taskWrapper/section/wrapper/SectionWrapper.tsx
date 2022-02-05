@@ -8,6 +8,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Nullable } from '../../../../../../common/types/common.types';
 import { EditableTitle } from '../../../pageTitle/editableTitle/EditableTitle';
 import SmoothList from 'react-smooth-list';
+import SortUtils from '../../../../../../common/utils/sortUtils';
 
 type Props = {
   sectionId: string;
@@ -67,17 +68,18 @@ export const SectionWrapper: FC<Props> = ({
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <SmoothList>
-                  {tasks.map((task, idx) => {
-                    return (
-                      <TaskItem
-                        task={task}
-                        key={task.id}
-                        onTaskSelect={onTaskSelect}
-                        markAsDone={markAsDone}
-                        index={idx}
-                      />
-                    );
-                  })}
+                  {SortUtils.sortByDate(tasks)
+                    .map((task, idx) => {
+                      return (
+                        <TaskItem
+                          task={task}
+                          key={task.id}
+                          onTaskSelect={onTaskSelect}
+                          markAsDone={markAsDone}
+                          index={idx}
+                        />
+                      );
+                    })}
                 </SmoothList>
                 {provided.placeholder}
               </div>

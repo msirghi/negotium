@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { PROJECT_COLORS } from '../../../../../../common/constants/constants';
 import { Row } from '../../../../utilities/row/Row';
 import { TextField } from '@mui/material';
+import { Project } from '../../../../../../common/types/projects.types';
 
 const useStyles = makeStyles({
   root: {
@@ -21,12 +22,16 @@ const useStyles = makeStyles({
   },
 });
 
-export const ColorSelector = () => {
-  const [selectedColor, setSelectedColor] = useState(PROJECT_COLORS[0].color);
+type Props = {
+  color: Project['color'];
+  setColor: (color: string) => void;
+};
+
+export const ColorSelector: FC<Props> = ({ setColor, color }) => {
   const classes = useStyles();
 
   const handleChange = (event: { target: { value: string } }) => {
-    setSelectedColor(event.target.value);
+    setColor(event.target.value);
   };
 
   return (
@@ -35,7 +40,7 @@ export const ColorSelector = () => {
         <TextField
           select
           size={'small'}
-          value={selectedColor}
+          value={color}
           label="Color"
           onChange={handleChange}
         >

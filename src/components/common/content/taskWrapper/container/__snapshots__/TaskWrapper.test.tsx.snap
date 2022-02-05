@@ -62,7 +62,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
           tabIndex={0}
           type="button"
         >
-          common.todos
+           common.todos
           <span
             className="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
             style={Object {}}

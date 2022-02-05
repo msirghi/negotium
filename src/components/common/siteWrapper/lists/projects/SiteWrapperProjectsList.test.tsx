@@ -72,7 +72,7 @@ describe('SiteWrapperProjectsList', () => {
 
     const dialog = wrapper.find(ProjectDialog);
     act(() => {
-      dialog.props().onSubmit('new');
+      dialog.props().onSubmit('new', '#ffffff');
     });
     expect(ProjectService.addProject).toBeCalled();
   });

@@ -1,4 +1,12 @@
-import { FC, forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  forwardRef,
+  ReactElement,
+  Ref,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Button,
   Dialog,
@@ -19,6 +27,7 @@ import { ColorSelector } from '../colorSelector/ColorSelector';
 import colors from '../../../../../../common/styles/colors';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { TransitionProps } from '@mui/material/transitions';
+import { PROJECT_COLORS } from '../../../../../../common/constants/constants';
 
 const useStyles = makeStyles({
   content: {
@@ -75,11 +84,13 @@ export const ProjectDialog: FC<Props> = ({
 }) => {
   const isMobile = useIsMobile();
   const classes = useStyles(isMobile);
+  const [selectedColor, setSelectedColor] = useState(PROJECT_COLORS[0].color);
   const [name, setName] = useState('');
 
   useEffect(() => {
     if (selectedProject && selectedProject.name) {
       setName(selectedProject.name);
+      setSelectedColor(selectedProject.color!);
     }
   }, [selectedProject]);
 
@@ -90,11 +101,16 @@ export const ProjectDialog: FC<Props> = ({
   }, [open]);
 
   const onSave = () => {
-    onSubmit(name);
+    onSubmit(name, selectedColor);
     handleClose();
   };
 
   const handleClose = () => setOpen(false);
+
+  const handleNameChange = () => {
+    return (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+      setName(e.target.value);
+  };
 
   return (
     <Dialog
@@ -102,8 +118,8 @@ export const ProjectDialog: FC<Props> = ({
       onClose={handleClose}
       fullWidth={isMobile}
       classes={{ scrollPaper: classes.scrollPaper }}
-      hideBackdrop
-      TransitionComponent={Transition}
+      // hideBackdrop
+      // TransitionComponent={Transition}
     >
       <DialogTitle className={classes.titleContainer}>
         <div>{dialogTitle}</div>
@@ -119,10 +135,10 @@ export const ProjectDialog: FC<Props> = ({
             size={'small'}
             label={'Name'}
             inputProps={{ 'data-testid': 'name-field' }}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange()}
             value={name}
           />
-          <ColorSelector />
+          <ColorSelector color={selectedColor} setColor={setSelectedColor} />
         </Box>
         <DialogActions className={classes.buttons}>
           <Button

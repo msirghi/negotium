@@ -62,6 +62,10 @@ export const PROJECT_COLORS: ProjectColor[] = [
     color: 'rgb(250, 208, 0)',
     name: 'Yellow',
   },
+  {
+    color: 'rgb(21, 143, 173)',
+    name: 'Teal',
+  },
 ];
 
 export const MENTION_ARRAY_KEYWORDS = ['Today', 'Tomorrow'];
@@ -137,4 +141,4 @@ export const initialRichTextValue: Descendant[] = [
 
 export const ACTIVATION_CODE_VAR_NAME = 'ac';
 export const REFRESH_TOKEN_URL = '/auth/refresh-token';
-export const NOTE_DATE_FORMAT =  'DD MMM, YYYY, HH:mm'
+export const NOTE_DATE_FORMAT = 'DD MMM, YYYY, HH:mm';

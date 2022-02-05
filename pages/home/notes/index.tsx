@@ -18,7 +18,7 @@ const Notes = () => {
   );
 };
 
-export async function getStaticProps({ locale, params }: StaticProps) {
+export async function getServerSideProps({ locale, params }: StaticProps) {
   return {
     props: {
       ...params,

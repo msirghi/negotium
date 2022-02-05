@@ -22,11 +22,16 @@ import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 import { AddSectionRow } from '../../common/content/taskWrapper/section/add/AddSectionRow';
 import { SectionWrapper } from '../../common/content/taskWrapper/section/wrapper/SectionWrapper';
 import { If } from '../../common/utilities/if/If';
+import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
+import { useTranslation } from 'next-i18next';
+import { useSnackbar } from 'notistack';
 
 export const ProjectContainer = () => {
   const router = useRouter();
   const projectId = useRef<string>(router.query.id as string);
   const projects = useSelector((state: RootState) => state.projects.projects);
+  const { t } = useTranslation('common');
+  const { enqueueSnackbar } = useSnackbar();
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
@@ -53,6 +58,7 @@ export const ProjectContainer = () => {
   };
 
   useEffect(() => {
+    setTasks([]);
     initTasks();
     if (projectId.current) {
       fetchTaskSections();
@@ -93,6 +99,9 @@ export const ProjectContainer = () => {
     const task = tasks.find((t) => t.id === taskId)!;
     setTasks((prevState) => prevState.filter((t) => t.id !== taskId));
     task.completed = true;
+    enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
     await ProjectService.updateProjectTask(projectId.current, task);
   };
 
@@ -111,6 +120,10 @@ export const ProjectContainer = () => {
       newTask.sectionId = sectionId;
     }
     setTasks((prevState) => [...(prevState || []), newTask as Task]);
+    enqueueSnackbar(t('snackbarTitles.taskAdded'), {
+      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
+    });
+
     await ProjectService.addProjectTask(projectId.current, newTask);
     await refetch();
   };
@@ -120,6 +133,8 @@ export const ProjectContainer = () => {
     const updatedTasks = tasks.map((task) =>
       task?.id === id ? updatedTask : task
     );
+
+    ProjectService.updateProjectTask(id, updatedTask);
 
     setTasks([...updatedTasks]);
   };
@@ -161,6 +176,10 @@ export const ProjectContainer = () => {
     await ProjectService.deleteProjectSection(projectId.current, sectionId);
   };
 
+  const displayTasks = SortUtils.sortByDate(tasks).filter(
+    ({ completed }) => !completed
+  );
+
   return (
     <>
       <Head>
@@ -180,14 +199,13 @@ export const ProjectContainer = () => {
                   show: true,
                   onClick: () => {},
                 }}
+                taskCount={displayTasks.length}
                 title={selectedProject.name}
                 upperHeaderTitle={'Projects'}
                 settingsOptions={{ onClick: toggleProjectDialog }}
               >
-                {SortUtils.sortByDate(tasks)
-                  .filter(
-                    ({ completed, sectionId }) => !completed && !sectionId
-                  )
+                {displayTasks
+                  .filter(({ sectionId }) => !sectionId)
                   .map((task, idx) => {
                     return (
                       <TaskItem

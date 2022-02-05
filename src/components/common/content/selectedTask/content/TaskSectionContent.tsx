@@ -53,7 +53,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
     onTaskUpdate({ ...task, title: updatedTitle, dueDate: _dueDate.current });
   };
 
-  const updatedTitleDueDate = (dueDate: string) => {
+  const updateDueDate = (dueDate: string) => {
     _dueDate.current = dueDate;
     if (task.projectId) {
       task.dueDate = dueDate;
@@ -68,15 +68,16 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
     task,
   ]);
 
-  const updateDueDateDebounce = useCallback(
-    debounce(updatedTitleDueDate, 1000),
-    []
-  );
+  const updateDueDateDebounce = useCallback(debounce(updateDueDate, 1000), []);
 
   const updateDescription = async (description: Descendant[]) => {
     const stringified = JSON.stringify(description);
     if (task.projectId) {
-      await ProjectService.updateProjectTaskDescription(task.projectId, task.id, stringified);
+      await ProjectService.updateProjectTaskDescription(
+        task.projectId,
+        task.id,
+        stringified
+      );
     } else {
       await TaskService.updateTaskDescription(task.id, stringified);
     }

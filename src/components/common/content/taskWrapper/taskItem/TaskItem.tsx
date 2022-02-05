@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import { Task } from '../../../../../common/types/tasks.types';
-import { Checkbox, Chip } from '@mui/material';
-import styles from './TaskItem.module.scss';
 import { Row } from '../../../utilities/row/Row';
-import { If } from '../../../utilities/if/If';
-import TaskItemUtils from './utils/utils';
-import { makeStyles } from '@mui/styles';
 import SlateUtils from '../../../../../common/utils/slateUtils';
 import FeatureToggles from '../../../../../utilities/featureToggles/FeatureToggles';
 import { Draggable } from 'react-beautiful-dnd';
+import RoundCheckbox from '../../../form/checkbox/round/RoundCheckbox';
+import DateUtils from '../../../../../common/utils/dateUtils';
+import { useTaskItemStyles } from './styles';
+import utils from './utils/utils';
 
 type Props = {
   task: Task;
@@ -18,24 +17,26 @@ type Props = {
   dndIndex?: number;
 };
 
-const useStyles = makeStyles({
-  chip: {
-    marginLeft: 10,
-  },
-});
-
 export const TaskItem: FC<Props> = ({
   task,
   markAsDone,
   onTaskSelect,
   index,
 }) => {
+  const classes = useTaskItemStyles();
   const { title, dueDate } = task;
-  const classes = useStyles();
-  const chipOptions = TaskItemUtils.getDateBadgeLabel(dueDate!);
   const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
     FeatureToggles.keys.SLATE_INPUT
   );
+  const formattedDate = DateUtils.formatDateForTask(dueDate);
+
+  const handleMarkAsDone = (id: Task['id']) => {
+    return () => markAsDone(id);
+  };
+
+  const handleTaskSelect = () => {
+    return () => onTaskSelect(task);
+  };
 
   return (
     <Draggable draggableId={task.id} index={index!}>
@@ -45,17 +46,14 @@ export const TaskItem: FC<Props> = ({
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
+            className={classes.container}
           >
             <div>
-              <Row
-                className={styles.tiItem}
-                alignVerticalCenter
-                onClick={() => onTaskSelect(task)}
-              >
+              <Row alignVerticalCenter onClick={handleTaskSelect()}>
                 <Row alignVerticalCenter>
-                  <Checkbox
+                  <RoundCheckbox
                     size={'small'}
-                    onChange={() => markAsDone(task.id)}
+                    onChange={handleMarkAsDone(task.id)}
                   />
                   <div>
                     {isSlateInputEnabled
@@ -63,20 +61,15 @@ export const TaskItem: FC<Props> = ({
                       : title}
                   </div>
                 </Row>
-                <div>
-                  <If condition={!!chipOptions}>
-                    <Chip
-                      label={chipOptions?.title}
-                      className={classes.chip}
-                      style={{
-                        backgroundColor: chipOptions?.backgroundColor,
-                        color: chipOptions?.textColor,
-                      }}
-                      size={'small'}
-                    />
-                  </If>
-                </div>
               </Row>
+              <div
+                className={classes.date}
+                style={{
+                  color: utils.getColorByDateType(formattedDate.type),
+                }}
+              >
+                {formattedDate.value}
+              </div>
             </div>
           </div>
         );

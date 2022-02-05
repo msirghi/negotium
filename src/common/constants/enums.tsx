@@ -24,3 +24,9 @@ export enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
 }
+
+export enum TaskDateType {
+  Today = 'Today',
+  PAST = 'PAST',
+  NONE = 'NONE',
+}

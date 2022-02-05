@@ -11,10 +11,11 @@ describe('TaskSectionHeader', () => {
   const defaultProps = {
     onTaskDateUpdate: jest.fn(),
     task: TasksMock[0],
+    markTaskAsDone: jest.fn()
   };
 
   beforeAll(() => {
-    TaskService.updateTaskDueDate = jest.fn();
+    jest.spyOn(TaskService, 'updateTaskDueDate').mockImplementation();
   });
 
   afterEach(() => {

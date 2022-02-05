@@ -11,7 +11,6 @@ const addProject = (project: Omit<Project, 'id'>) => {
     HttpMethod.POST,
     {
       ...project,
-      color: '#ffffff',
     }
   );
 };
@@ -62,6 +61,17 @@ const updateProjectName = (projectId: Project['id'], name: Project['name']) => {
     `${BASE_API_URL_V1}/projects/${projectId}`,
     HttpMethod.PATCH,
     { name }
+  );
+};
+
+const updateProjectColor = (
+  projectId: Project['id'],
+  color: Project['color']
+) => {
+  return Requests.restApiCallWithBearer(
+    `${BASE_API_URL_V1}/projects/${projectId}`,
+    HttpMethod.PATCH,
+    { color }
   );
 };
 
@@ -132,6 +142,6 @@ const ProjectService = {
   getProjectSections,
   updateProjectSectionTitle,
   deleteProjectSection,
+  updateProjectColor,
 };
-
 export default ProjectService;

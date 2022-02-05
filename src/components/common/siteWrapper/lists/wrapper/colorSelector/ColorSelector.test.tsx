@@ -6,7 +6,10 @@ import { act } from '@testing-library/react';
 import { PROJECT_COLORS } from '../../../../../../common/constants/constants';
 
 describe('ColorSelector', () => {
-  const defaultProps = {};
+  const defaultProps = {
+    setColor: jest.fn(),
+    color: PROJECT_COLORS[0].color,
+  };
 
   it('should match the snapshot', () => {
     const tree = renderer.create(<ColorSelector {...defaultProps} />);
@@ -19,7 +22,6 @@ describe('ColorSelector', () => {
     act(() => {
       selector.props().onChange({ target: { value: PROJECT_COLORS[0].name } });
     });
-    wrapper.update();
-    expect(selector.props().value).toEqual(PROJECT_COLORS[0].color);
+    expect(defaultProps.setColor).toBeCalled();
   });
 });

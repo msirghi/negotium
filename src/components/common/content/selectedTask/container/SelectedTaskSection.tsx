@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     paddingTop: 20,
     width: '50%',
     borderLeft: `1px solid ${colors.greys['300']}`,
-    height: '100vh',
+    height: '95vh',
     padding: 10,
   },
   divider: {

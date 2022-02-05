@@ -21,11 +21,13 @@ import { ProjectListMoreItem } from './more/ProjectListMoreItem';
 import { MAX_PROJECT_LIST_COUNT } from '../../../../../common/constants/constants';
 import { useTranslation } from 'next-i18next';
 import { Theme, useTheme } from '@mui/system';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const useStyles = makeStyles({
   activeItem: {
     backgroundColor: (props: { theme: Theme }) =>
       props.theme.palette.custom.menuIconBackground,
+    // colors.greys['300'],
     color: colors.white,
     borderRadius: 10,
     transition: 'all .1s ease-in-out',
@@ -63,13 +65,19 @@ export const SiteWrapperProjectsList = () => {
   }, [data]);
 
   useEffect(() => {
+    if (projectsFromStore) {
+      setProjects(projectsFromStore);
+    }
+  }, [projectsFromStore]);
+
+  useEffect(() => {
     refetch();
   }, [projectsFromStore]);
 
   const openDialog = () => setProjectDialogOpen(true);
 
-  const onSubmit = async (name: Project['name']) => {
-    await ProjectService.addProject({ name });
+  const onSubmit = async (name: Project['name'], color: Project['color']) => {
+    await ProjectService.addProject({ name, color });
     await refetch();
   };
 
@@ -87,6 +95,10 @@ export const SiteWrapperProjectsList = () => {
   if (isLoading || !data) {
     return <MenuSkeleton />;
   }
+
+  const handleProjectClick = (projectId: Project['id']) => {
+    return () => onProjectClick(projectId);
+  };
 
   return (
     <>
@@ -109,14 +121,14 @@ export const SiteWrapperProjectsList = () => {
                 return (
                   <ListItem
                     button
-                    sx={{ borderRadius: 10 }}
+                    sx={{ borderRadius: 3 }}
                     className={isActive ? classes.activeItem : ''}
                     key={project.id}
-                    onClick={() => onProjectClick(project.id)}
+                    onClick={handleProjectClick(project.id)}
                   >
                     <ListItemIcon>
-                      <ReorderIcon
-                        fontSize={'small'}
+                      <CircleIcon
+                        style={{ color: project.color, fontSize: 13 }}
                         className={isActive ? classes.activeIcon : ''}
                       />
                     </ListItemIcon>

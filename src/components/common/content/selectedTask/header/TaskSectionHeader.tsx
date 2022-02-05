@@ -62,10 +62,12 @@ export const TaskSectionHeader: FC<Props> = ({
   const onDateSelect = async (dueDate: Nullable<Date>) => {
     setSelectedDate(dueDate);
     onTaskDateUpdate(dueDate);
-    await TaskService.updateTaskDueDate(
-      id,
-      dayjs(dueDate as unknown as Date).format()
-    );
+    if (!task.projectId) {
+      await TaskService.updateTaskDueDate(
+        id,
+        dayjs(dueDate as unknown as Date).format()
+      );
+    }
   };
 
   return (

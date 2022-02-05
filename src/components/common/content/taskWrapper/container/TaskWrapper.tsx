@@ -15,6 +15,7 @@ type Props = {
   editableOptions?: TaskWrapperTitleOptions;
   onSectionAdd?: (title: string, orderNumber: number) => void;
   showSections?: boolean;
+  taskCount?: number;
 } & SettingsOptions &
   Partial<DndTaskWrapperProps>;
 
@@ -28,6 +29,7 @@ export const TaskWrapper: FC<Props> = ({
   settingsOptions,
   projectOptions,
   handleDragEnd,
+  taskCount,
 }) => {
   const { t } = useTranslation('common');
 
@@ -47,7 +49,7 @@ export const TaskWrapper: FC<Props> = ({
         projectOptions={projectOptions}
       />
       <Tabs value={1}>
-        <Tab label={t('common.todos')} value={1} />
+        <Tab label={`${taskCount || ''} ${t('common.todos')}`} value={1} />
         {/*<Tab label={t('common.notes')} value={2} />*/}
       </Tabs>
 

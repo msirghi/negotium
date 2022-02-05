@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
   width: '100%',
+  marginTop: 10
 }));
 
 const useStyles = makeStyles({
@@ -62,7 +63,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
           disableRipple
           onClick={toggleEditMode}
         >
-          {t('buttonLabels.add')}
+          <span>{t('buttonLabels.add')}</span>
         </CustomButton>
       </If>
       <If condition={editMode}>
