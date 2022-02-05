@@ -1,4 +1,4 @@
-import { FC, useState, MouseEvent } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Row } from '../../../utilities/row/Row';
@@ -12,8 +12,14 @@ import { removeProjectFromList } from '../../../../../redux/projects/projectsSli
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../../../common/constants/constants';
 import DoneIcon from '@mui/icons-material/Done';
+import { ProjectSettingsOption } from '../../../../../common/constants/enums';
+import { useAtom } from 'jotai';
+import { showCompletedAtom } from '../../../../../atoms/showCompleted/showCompleted.atom';
+import { useTranslation } from 'next-i18next';
 
-type Props = {};
+type Props = {
+  onClick: (option: ProjectSettingsOption) => void;
+};
 
 const useStyles = makeStyles({
   menu: {
@@ -28,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProjectOptions: FC<Props> = () => {
+export const ProjectOptions: FC<Props> = ({ onClick }) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -36,6 +42,8 @@ export const ProjectOptions: FC<Props> = () => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [isCompletedShown] = useAtom(showCompletedAtom);
+  const { t } = useTranslation('common');
 
   const onDeleteClick = () => {
     handleClose();
@@ -46,7 +54,7 @@ export const ProjectOptions: FC<Props> = () => {
     const projectId = router.query.id as string;
     ProjectService.deleteProjectById(projectId);
     dispatch(removeProjectFromList(projectId));
-    enqueueSnackbar('Project deleted', {
+    enqueueSnackbar(t('snackbarTitles.projectDeleted'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     await router.push('/home/inbox');
@@ -60,13 +68,13 @@ export const ProjectOptions: FC<Props> = () => {
     setAnchorEl(null);
   };
 
+  const handleOptionClick = (option: ProjectSettingsOption) => {
+    return () => onClick(option);
+  };
+
   return (
     <div>
-      <DeleteProjectDialog
-        open={isDeleteDialogOpen}
-        setOpen={setDeleteDialogOpen}
-        onSubmit={onProjectDelete}
-      />
+      <DeleteProjectDialog open={isDeleteDialogOpen} setOpen={setDeleteDialogOpen} onSubmit={onProjectDelete} />
       <IconButton onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
@@ -88,17 +96,17 @@ export const ProjectOptions: FC<Props> = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={onDeleteClick} className={classes.menuItem}>
+        <MenuItem onClick={handleOptionClick(ProjectSettingsOption.SHOW_COMPLETED)} className={classes.menuItem}>
           <Row alignVerticalCenter>
-            <DoneIcon fontSize={'small'} />
-            <span className={classes.menuItemTitle}>Show completed</span>
+            <DoneIcon fontSize={'small'} color={isCompletedShown ? 'info' : 'inherit'} />
+            <span className={classes.menuItemTitle}>{`${isCompletedShown ? t('common.hide') : t('common.show')} ${t('completed')}`}</span>
           </Row>
         </MenuItem>
 
         <MenuItem data-testid={'delete-item'} onClick={onDeleteClick} className={classes.menuItem}>
           <Row alignVerticalCenter>
             <DeleteOutlineOutlinedIcon color={'error'} fontSize={'small'} />
-            <span className={classes.menuItemTitle}>Delete</span>
+            <span className={classes.menuItemTitle}>{t('common.delete')}</span>
           </Row>
         </MenuItem>
       </Menu>

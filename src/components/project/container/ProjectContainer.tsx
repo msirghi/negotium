@@ -25,17 +25,21 @@ import { If } from '../../common/utilities/if/If';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
 import { useTranslation } from 'next-i18next';
 import { useSnackbar } from 'notistack';
+import { ProjectSettingsOption } from '../../../common/constants/enums';
+import { useAtom } from 'jotai';
+import { showCompletedAtom } from '../../../atoms/showCompleted/showCompleted.atom';
 
 export const ProjectContainer = () => {
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation('common');
   const projectId = useRef<string>(router.query.id as string);
   const projects = useSelector((state: RootState) => state.projects.projects);
-  const { t } = useTranslation('common');
-  const { enqueueSnackbar } = useSnackbar();
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
   const [selectedProject, setSelectedProjects] = useState<Project>();
+  const [showCompleted, setShowCompleted] = useAtom(showCompletedAtom);
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
@@ -123,7 +127,9 @@ export const ProjectContainer = () => {
   };
 
   const getTasksBySection = (sectionId: string) => {
-    return tasks.filter((t) => t.projectId === projectId.current && !t.completed && t.sectionId === sectionId);
+    return tasks
+      .filter((t) => t.projectId === projectId.current && t.sectionId === sectionId)
+      .filter((t) => (showCompleted ? true : !t.completed));
   };
 
   const createNewSection = async (title: string) => {
@@ -147,7 +153,13 @@ export const ProjectContainer = () => {
     await ProjectService.deleteProjectSection(projectId.current, sectionId);
   };
 
-  const displayTasks = SortUtils.sortByDate(tasks).filter(({ completed }) => !completed);
+  const displayTasks = SortUtils.sortByDate(tasks).filter(({ completed }) => (showCompleted ? true : !completed));
+
+  const onSettingsChange = (option: ProjectSettingsOption) => {
+    if (option === ProjectSettingsOption.SHOW_COMPLETED) {
+      setShowCompleted(!showCompleted);
+    }
+  };
 
   return (
     <div key={selectedProject.id}>
@@ -160,13 +172,13 @@ export const ProjectContainer = () => {
           <ContentBox>
             <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
               <TaskWrapper
-                projectOptions={{ show: true }}
+                projectOptions={{ show: true, onClick: onSettingsChange }}
                 taskCount={displayTasks.length}
                 title={selectedProject.name}
-                upperHeaderTitle={'Projects'}
+                upperHeaderTitle={t('mainMenuList.projects')}
                 settingsOptions={{ onClick: toggleProjectDialog }}
               >
-                {displayTasks
+                {SortUtils.sortByCompletedFlag(displayTasks)
                   .filter(({ sectionId }) => !sectionId)
                   .map((task, idx) => {
                     return (

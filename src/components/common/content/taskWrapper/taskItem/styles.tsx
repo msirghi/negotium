@@ -16,4 +16,8 @@ export const useTaskItemStyles = makeStyles({
     fontSize: 12,
     marginTop: -5,
   },
+  completedTask: {
+    opacity: 0.5,
+    textDecoration: 'line-through'
+  },
 });

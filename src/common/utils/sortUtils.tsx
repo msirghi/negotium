@@ -34,11 +34,16 @@ const sortNotesByUpdatedDate = (notes: Note[]) => {
   });
 };
 
+const sortByCompletedFlag = (tasks: Task[]) => {
+  return [...tasks.filter(({ completed }) => !completed), ...tasks.filter(({ completed }) => completed)];
+};
+
 const SortUtils = {
   sortSectionsByOrder,
   sortByDate,
   sortItemsByOrder,
   sortNotesByUpdatedDate,
+  sortByCompletedFlag,
 };
 
 export default SortUtils;

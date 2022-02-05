@@ -30,3 +30,7 @@ export enum TaskDateType {
   PAST = 'PAST',
   NONE = 'NONE',
 }
+
+export enum ProjectSettingsOption {
+  SHOW_COMPLETED = 'SHOW_COMPLETED',
+}

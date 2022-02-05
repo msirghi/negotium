@@ -159,4 +159,12 @@ describe('ProjectService', () => {
       expect(ServiceResultFactory.fromError).toBeCalled();
     });
   });
+
+  describe('updateProjectColor', () => {
+    it('should handle api request', async () => {
+      Requests.restApiCallWithBearer = jest.fn();
+      await ProjectService.updateProjectColor('projectId', 'color');
+      expect(Requests.restApiCallWithBearer).toBeCalled();
+    });
+  });
 });

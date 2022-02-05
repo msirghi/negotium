@@ -3,7 +3,8 @@
     "inbox": "Inbox",
     "today": "Today",
     "upcoming": "Upcoming",
-    "addProject": "Add project"
+    "addProject": "Add project",
+    "projects": "Projects"
   },
   "pageTitles": {
     "inbox": "Inbox",
@@ -32,12 +33,17 @@
     "more": "More",
     "less": "Less",
     "todos": "Todos",
-    "notes": "Notes"
+    "notes": "Notes",
+    "show": "Show",
+    "hide": "Hide",
+    "delete": "Delete"
   },
   "snackbarTitles": {
     "taskAdded": "Task added",
-    "taskMarkedAsDone": "Task marked as done"
+    "taskMarkedAsDone": "Task marked as done",
+    "projectDeleted": "Project deleted"
   },
   "clickToSelect": "Click on task to select it.",
-  "noTasksMessage": "There are no tasks. A good day to relax?"
+  "noTasksMessage": "There are no tasks. A good day to relax?",
+  "completed": "completed"
 }

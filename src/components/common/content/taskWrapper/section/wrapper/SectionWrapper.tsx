@@ -17,10 +17,7 @@ type Props = {
   onTaskAdd: (title: string, date: Nullable<Date>, sectionId: string) => void;
   markAsDone: (id: string) => void;
   onTaskSelect: (task: Task) => void;
-  onSectionUpdate: (
-    title: Section['title'],
-    sectionId: Props['sectionId']
-  ) => void;
+  onSectionUpdate: (title: Section['title'], sectionId: Props['sectionId']) => void;
   onSectionRemove: (sectionId: Section['id']) => void;
 };
 
@@ -35,8 +32,7 @@ export const SectionWrapper: FC<Props> = ({
   onSectionRemove,
 }) => {
   const handleTaskAdd = () => {
-    return (title: string, date: Nullable<Date>) =>
-      onTaskAdd(title, date, sectionId);
+    return (title: string, date: Nullable<Date>) => onTaskAdd(title, date, sectionId);
   };
 
   const handleSectionUpdate = () => {
@@ -46,6 +42,8 @@ export const SectionWrapper: FC<Props> = ({
   const handleSectionRemove = () => {
     return onSectionRemove(sectionId);
   };
+
+  const displayTasks = SortUtils.sortByDate(tasks);
 
   return (
     <div className={styles.swContainer}>
@@ -68,18 +66,9 @@ export const SectionWrapper: FC<Props> = ({
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <SmoothList>
-                  {SortUtils.sortByDate(tasks)
-                    .map((task, idx) => {
-                      return (
-                        <TaskItem
-                          task={task}
-                          key={task.id}
-                          onTaskSelect={onTaskSelect}
-                          markAsDone={markAsDone}
-                          index={idx}
-                        />
-                      );
-                    })}
+                  {SortUtils.sortByCompletedFlag(displayTasks).map((task, idx) => {
+                    return <TaskItem task={task} key={task.id} onTaskSelect={onTaskSelect} markAsDone={markAsDone} index={idx} />;
+                  })}
                 </SmoothList>
                 {provided.placeholder}
               </div>

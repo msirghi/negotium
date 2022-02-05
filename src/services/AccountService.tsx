@@ -4,61 +4,43 @@ import ServiceResultFactory from '../common/requests/serviceResultFactory';
 import { HttpMethod } from '../common/constants/enums';
 
 const getUserMetadata = () => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/metadata`,
-    HttpMethod.GET
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/metadata`, HttpMethod.GET)
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
 };
 
 const updateUserTheme = (theme: string) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/metadata`,
-    HttpMethod.PATCH,
-    { theme }
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/metadata`, HttpMethod.PATCH, { theme })
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
 };
 
 const updateUserLanguage = (language: string) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/metadata`,
-    HttpMethod.PATCH,
-    { language }
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/metadata`, HttpMethod.PATCH, { language })
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
 };
 
 const activeAccount = (token: string) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/account-activation/${token}`,
-    HttpMethod.POST
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/account-activation/${token}`, HttpMethod.POST)
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
 };
 
 const updateUserName = (name: string) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/users/name`,
-    HttpMethod.PATCH,
-    { name }
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/users/name`, HttpMethod.PATCH, { name })
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
 };
 
 const updateUserEmail = (email: string) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/users/email`,
-    HttpMethod.PATCH,
-    { email }
-  )
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/users/email`, HttpMethod.PATCH, { email })
     .then(ServiceResultFactory.fromResponse)
     .catch(ServiceResultFactory.fromError);
+};
+
+const updateUserPassword = (password: string) => {
+  return Requests.restApiCallWithBearer(`$${BASE_API_URL_V1}/users/password`, HttpMethod.PATCH, { password });
 };
 
 const AccountService = {
@@ -68,6 +50,7 @@ const AccountService = {
   activeAccount,
   updateUserLanguage,
   updateUserEmail,
+  updateUserPassword,
 };
 
 export default AccountService;

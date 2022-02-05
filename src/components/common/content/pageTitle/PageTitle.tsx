@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { makeStyles } from '@mui/styles';
 import { SettingsOptions } from './types';
 import { ProjectOptions } from './projectOptions/ProjectOptions';
+import { ProjectSettingsOption } from '../../../../common/constants/enums';
 
 type Props = {
   title: string;
@@ -23,15 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-export const PageTitle: FC<Props> = ({
-  title,
-  showUpperHeader,
-  upperHeaderTitle,
-  editableOptions,
-  settingsOptions,
-  projectOptions,
-}) => {
+export const PageTitle: FC<Props> = ({ title, showUpperHeader, upperHeaderTitle, editableOptions, settingsOptions, projectOptions }) => {
   const classes = useStyles();
+
+  const onOptionChange = (option: ProjectSettingsOption) => {
+    if (projectOptions && projectOptions.onClick) {
+      projectOptions.onClick(option);
+    }
+  };
 
   return (
     <div>
@@ -45,16 +45,13 @@ export const PageTitle: FC<Props> = ({
         <Row alignVerticalCenter>
           <Typography fontSize={28}>{title}</Typography>
           {settingsOptions && (
-            <IconButton
-              className={classes.settingsIcon}
-              onClick={settingsOptions!.onClick}
-            >
+            <IconButton className={classes.settingsIcon} onClick={settingsOptions!.onClick}>
               <SettingsIcon />
             </IconButton>
           )}
 
           <If condition={!!projectOptions}>
-            <ProjectOptions />
+            <ProjectOptions onClick={onOptionChange} />
           </If>
         </Row>
       </If>
