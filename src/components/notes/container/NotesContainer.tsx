@@ -3,7 +3,7 @@ import { PageTitle } from '../../common/content/pageTitle/PageTitle';
 import { NoteItem } from '../item/NoteItem';
 import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import { useNotesContainer } from './styles';
+import { useNotesContainerStyles } from './styles';
 import SmoothList from 'react-smooth-list';
 import { NotesAddInput } from '../add/NotesAddInput';
 import NoteService from '../../../services/NoteService';
@@ -20,7 +20,7 @@ import { If } from '../../common/utilities/if/If';
 export const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
-  const classes = useNotesContainer();
+  const classes = useNotesContainerStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('notes');
 
@@ -60,7 +60,7 @@ export const NotesContainer = () => {
   }
 
   return (
-    <div>
+    <div data-testid={'content'}>
       <ContentBox skipWidthChange>
         <PageTitle
           title={t('title')}

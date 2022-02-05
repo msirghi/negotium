@@ -18,6 +18,15 @@ describe('ProjectDialogWrapper', () => {
     },
   };
 
+  beforeEach(() => {
+    jest.spyOn(ProjectService, 'updateProjectName').mockImplementation();
+    jest.spyOn(ProjectService, 'updateProjectColor').mockImplementation();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render dialog', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
@@ -27,8 +36,7 @@ describe('ProjectDialogWrapper', () => {
     expect(wrapper.find(ProjectDialog)).toHaveLength(1);
   });
 
-  it('should handle project update', () => {
-    ProjectService.updateProjectName = jest.fn();
+  it('should handle project update', async () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
         <ProjectDialogWrapper {...defaultProps} />
@@ -36,7 +44,19 @@ describe('ProjectDialogWrapper', () => {
     );
 
     const dialog = wrapper.find(ProjectDialog);
-    dialog.props().onSubmit('title');
+    await dialog.props().onSubmit('title', 'color');
     expect(ProjectService.updateProjectName).toBeCalled();
+  });
+
+  it('should handle project color update', async () => {
+    const wrapper = mount(
+      <MockReduxProvider reduxStore={reduxStore}>
+        <ProjectDialogWrapper {...defaultProps} />
+      </MockReduxProvider>
+    );
+
+    const dialog = wrapper.find(ProjectDialog);
+    await dialog.props().onSubmit('title', 'color');
+    expect(ProjectService.updateProjectColor).toBeCalled();
   });
 });

@@ -39,11 +39,7 @@ export const ProjectContainer = () => {
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
-  const {
-    data: taskData,
-    isLoading: loadingTasks,
-    refetch,
-  } = useFetchProjectTasks(projectId.current);
+  const { data: taskData, isLoading: loadingTasks, refetch } = useFetchProjectTasks(projectId.current);
 
   const fetchTaskSections = async () => {
     const response = await ProjectService.getProjectSections(projectId.current);
@@ -59,6 +55,7 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     setTasks([]);
+    setSections([]);
     initTasks();
     if (projectId.current) {
       fetchTaskSections();
@@ -77,14 +74,11 @@ export const ProjectContainer = () => {
 
   useEffect(() => {
     if (projects) {
-      setSelectedProjects(
-        projects.find((p) => String(p.id) === String(router.query.id))
-      );
+      setSelectedProjects(projects.find((p) => String(p.id) === String(router.query.id)));
     }
   }, [projects, router.query.id]);
 
-  const toggleProjectDialog = () =>
-    setProjectDialogOpened(!isProjectDialogOpened);
+  const toggleProjectDialog = () => setProjectDialogOpened(!isProjectDialogOpened);
 
   if (!selectedProject || loadingTasks) {
     return <div />;
@@ -105,17 +99,8 @@ export const ProjectContainer = () => {
     await ProjectService.updateProjectTask(projectId.current, task);
   };
 
-  const addTaskHandler = async (
-    title: string,
-    date: Nullable<Date>,
-    sectionId?: string
-  ) => {
-    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(
-      title,
-      date,
-      tasks.length - 1,
-      projectId.current
-    );
+  const addTaskHandler = async (title: string, date: Nullable<Date>, sectionId?: string) => {
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, tasks.length - 1, projectId.current);
     if (sectionId) {
       newTask.sectionId = sectionId;
     }
@@ -130,9 +115,7 @@ export const ProjectContainer = () => {
 
   const onTaskUpdate = (updatedTask: Task) => {
     const { id } = updatedTask;
-    const updatedTasks = tasks.map((task) =>
-      task?.id === id ? updatedTask : task
-    );
+    const updatedTasks = tasks.map((task) => (task?.id === id ? updatedTask : task));
 
     ProjectService.updateProjectTask(id, updatedTask);
 
@@ -140,12 +123,7 @@ export const ProjectContainer = () => {
   };
 
   const getTasksBySection = (sectionId: string) => {
-    return tasks.filter(
-      (t) =>
-        t.projectId === projectId.current &&
-        !t.completed &&
-        t.sectionId === sectionId
-    );
+    return tasks.filter((t) => t.projectId === projectId.current && !t.completed && t.sectionId === sectionId);
   };
 
   const createNewSection = async (title: string) => {
@@ -154,19 +132,12 @@ export const ProjectContainer = () => {
   };
 
   const addSectionTaskHandler = () => {
-    return (title: string, date: Nullable<Date>, sectionId: string) =>
-      addTaskHandler(title, date, sectionId);
+    return (title: string, date: Nullable<Date>, sectionId: string) => addTaskHandler(title, date, sectionId);
   };
 
   const handleSectionUpdate = (title: string, sectionId: string) => {
-    const updatedSections = sections.map((sec) =>
-      sec.id === sectionId ? { ...sec, title } : sec
-    );
-    ProjectService.updateProjectSectionTitle(
-      projectId.current,
-      sectionId,
-      title
-    );
+    const updatedSections = sections.map((sec) => (sec.id === sectionId ? { ...sec, title } : sec));
+    ProjectService.updateProjectSectionTitle(projectId.current, sectionId, title);
     setSections(updatedSections);
   };
 
@@ -176,29 +147,20 @@ export const ProjectContainer = () => {
     await ProjectService.deleteProjectSection(projectId.current, sectionId);
   };
 
-  const displayTasks = SortUtils.sortByDate(tasks).filter(
-    ({ completed }) => !completed
-  );
+  const displayTasks = SortUtils.sortByDate(tasks).filter(({ completed }) => !completed);
 
   return (
-    <>
+    <div key={selectedProject.id}>
       <Head>
         <title>{StringUtils.getPageTitle(selectedProject.name)}</title>
       </Head>
       <div key={selectedProject.id} data-testid={'content'}>
-        <ProjectDialogWrapper
-          project={selectedProject}
-          open={isProjectDialogOpened}
-          setOpen={setProjectDialogOpened}
-        />
+        <ProjectDialogWrapper project={selectedProject} open={isProjectDialogOpened} setOpen={setProjectDialogOpened} />
         <Row fullWidth>
           <ContentBox>
             <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
               <TaskWrapper
-                projectOptions={{
-                  show: true,
-                  onClick: () => {},
-                }}
+                projectOptions={{ show: true }}
                 taskCount={displayTasks.length}
                 title={selectedProject.name}
                 upperHeaderTitle={'Projects'}
@@ -247,6 +209,6 @@ export const ProjectContainer = () => {
           />
         </Row>
       </div>
-    </>
+    </div>
   );
 };

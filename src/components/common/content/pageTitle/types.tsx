@@ -4,6 +4,6 @@ export type SettingsOptions = {
   };
   projectOptions?: {
     show: boolean;
-    onClick: () => void;
+    onClick?: () => void;
   }
 };

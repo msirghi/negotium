@@ -69,6 +69,7 @@ export const HeaderSearch = () => {
   };
 
   useEffect(() => {
+    setOptions([]);
     if (projects) {
       configureProjects();
     }

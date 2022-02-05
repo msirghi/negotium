@@ -1,65 +1,15 @@
-import {
-  ChangeEvent,
-  FC,
-  forwardRef,
-  ReactElement,
-  Ref,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Slide,
-  TextField,
-  Tooltip,
-} from '@mui/material';
+import { FC, forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Slide, TextField, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import { makeStyles } from '@mui/styles';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 import { ProjectDialogProps } from '../../../../../project/types';
 import { Project } from '../../../../../../common/types/projects.types';
 import { ColorSelector } from '../colorSelector/ColorSelector';
-import colors from '../../../../../../common/styles/colors';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { TransitionProps } from '@mui/material/transitions';
 import { PROJECT_COLORS } from '../../../../../../common/constants/constants';
-
-const useStyles = makeStyles({
-  content: {
-    padding: '35px 0 20px 0',
-  },
-  input: {
-    minWidth: (isMobile) => (isMobile ? '100%' : 400),
-  },
-  buttons: {
-    marginTop: 10,
-  },
-  titleContainer: {
-    position: 'relative',
-    backgroundColor: colors.greys['100'],
-  },
-  divider: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-    marginTop: 15,
-  },
-  info: {
-    position: 'absolute',
-    cursor: 'pointer',
-    right: '5%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  scrollPaper: {
-    alignItems: 'baseline',
-  },
-});
+import { InputChangeEvent } from '../../../../../../common/types/common.types';
+import { useProjectDialogStyles } from './styles';
 
 type Props = {
   selectedProject?: Project;
@@ -74,16 +24,9 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const ProjectDialog: FC<Props> = ({
-  open,
-  setOpen,
-  dialogTitle,
-  onSubmit,
-  selectedProject,
-  submitButtonTitle,
-}) => {
+export const ProjectDialog: FC<Props> = ({ open, setOpen, dialogTitle, onSubmit, selectedProject, submitButtonTitle }) => {
   const isMobile = useIsMobile();
-  const classes = useStyles(isMobile);
+  const classes = useProjectDialogStyles(isMobile);
   const [selectedColor, setSelectedColor] = useState(PROJECT_COLORS[0].color);
   const [name, setName] = useState('');
 
@@ -108,8 +51,7 @@ export const ProjectDialog: FC<Props> = ({
   const handleClose = () => setOpen(false);
 
   const handleNameChange = () => {
-    return (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-      setName(e.target.value);
+    return (e: InputChangeEvent) => setName(e.target.value);
   };
 
   return (
@@ -141,22 +83,10 @@ export const ProjectDialog: FC<Props> = ({
           <ColorSelector color={selectedColor} setColor={setSelectedColor} />
         </Box>
         <DialogActions className={classes.buttons}>
-          <Button
-            fullWidth={isMobile}
-            onClick={handleClose}
-            data-testid={'cancel-button'}
-            size={'small'}
-          >
+          <Button fullWidth={isMobile} onClick={handleClose} data-testid={'cancel-button'} size={'small'}>
             Cancel
           </Button>
-          <Button
-            size={'small'}
-            variant={'contained'}
-            data-testid={'save-button'}
-            fullWidth={isMobile}
-            disabled={!name}
-            onClick={onSave}
-          >
+          <Button size={'small'} variant={'contained'} data-testid={'save-button'} fullWidth={isMobile} disabled={!name} onClick={onSave}>
             {submitButtonTitle || 'Add'}
           </Button>
         </DialogActions>

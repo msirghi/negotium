@@ -29,6 +29,7 @@ exports[`NoteItem should match snapshot 1`] = `
     </div>
     <button
       className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-deleteButton-4 css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+      data-testid="delete-note-btn"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}

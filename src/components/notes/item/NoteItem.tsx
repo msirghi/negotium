@@ -72,7 +72,7 @@ export const NoteItem: FC<Props> = ({ note, onNoteRemove, onNoteUpdate }) => {
             {DateUtils.formatDate(createdDate, NOTE_DATE_FORMAT)}
           </div>
           {/*// @ts-ignore*!/*/}
-          <IconButton className={classes.deleteButton} onClick={onDeleteClick}>
+          <IconButton className={classes.deleteButton} onClick={onDeleteClick} data-testid={'delete-note-btn'}>
             <Tooltip title={t('deleteNote')!}>
               <DeleteOutlineIcon />
             </Tooltip>

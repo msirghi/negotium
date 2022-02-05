@@ -37,7 +37,7 @@ const getDateLabel = (date: Nullable<Date>) => {
   if (getDateDifference(newDate.add(1, 'day').format()) === -1) {
     return 'Tomorrow';
   }
-  return newDate.format('D MMM');
+  return newDate.format('D MMMM');
 };
 
 const isDateInThePast = (date?: Nullable<string>) => {

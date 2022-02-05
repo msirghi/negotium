@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useNotesContainer = makeStyles({
+export const useNotesContainerStyles = makeStyles({
   noteItem: {
     minWidth: 250,
     height: 150,

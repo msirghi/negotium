@@ -17,17 +17,10 @@ type Props = {
   dndIndex?: number;
 };
 
-export const TaskItem: FC<Props> = ({
-  task,
-  markAsDone,
-  onTaskSelect,
-  index,
-}) => {
+export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect, index }) => {
   const classes = useTaskItemStyles();
   const { title, dueDate } = task;
-  const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(
-    FeatureToggles.keys.SLATE_INPUT
-  );
+  const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(FeatureToggles.keys.SLATE_INPUT);
   const formattedDate = DateUtils.formatDateForTask(dueDate);
 
   const handleMarkAsDone = (id: Task['id']) => {
@@ -39,27 +32,15 @@ export const TaskItem: FC<Props> = ({
   };
 
   return (
-    <Draggable draggableId={task.id} index={index!}>
+    <Draggable draggableId={task.id} index={index!} isDragDisabled={!!task.projectId}>
       {(provided) => {
         return (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            className={classes.container}
-          >
+          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={classes.container}>
             <div>
               <Row alignVerticalCenter onClick={handleTaskSelect()}>
                 <Row alignVerticalCenter>
-                  <RoundCheckbox
-                    size={'small'}
-                    onChange={handleMarkAsDone(task.id)}
-                  />
-                  <div>
-                    {isSlateInputEnabled
-                      ? SlateUtils.serialize(JSON.parse(title))
-                      : title}
-                  </div>
+                  <RoundCheckbox size={'small'} onChange={handleMarkAsDone(task.id)} />
+                  <div>{isSlateInputEnabled ? SlateUtils.serialize(JSON.parse(title)) : title}</div>
                 </Row>
               </Row>
               <div
