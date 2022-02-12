@@ -18,6 +18,7 @@ import { setUserName } from '../../../../../../redux/account/accountSlice';
 import { useSnackbar } from 'notistack';
 import { ACCOUNT_SETTINGS_CHANGE_MODE } from '../../../../../../common/constants/enums';
 import { EmailChange } from './email/EmailChange';
+import { PasswordChange } from './password/PasswordChange';
 
 const useStyles = makeStyles({
   photoContent: {
@@ -31,9 +32,7 @@ const useStyles = makeStyles({
 });
 
 export const AccountSettings = () => {
-  const accountInfo: AccountInfo = useSelector(
-    (state: RootState) => state.account.info
-  );
+  const accountInfo: AccountInfo = useSelector((state: RootState) => state.account.info);
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const classes = useStyles();
@@ -41,8 +40,7 @@ export const AccountSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('settings');
   const [isSubmitting, setSubmitting] = useState(false);
-  const [changeMode, setChangeMode] =
-    useState<ACCOUNT_SETTINGS_CHANGE_MODE | null>(null);
+  const [changeMode, setChangeMode] = useState<ACCOUNT_SETTINGS_CHANGE_MODE | null>(null);
 
   const [name, setName] = useState(accountInfo.name);
 
@@ -52,6 +50,10 @@ export const AccountSettings = () => {
 
   const onEmailChangeButtonClick = () => {
     setChangeMode(ACCOUNT_SETTINGS_CHANGE_MODE.EMAIL);
+  };
+
+  const onPasswordChangeButtonClick = () => {
+    setChangeMode(ACCOUNT_SETTINGS_CHANGE_MODE.PASSWORD);
   };
 
   const updateName = async () => {
@@ -75,20 +77,19 @@ export const AccountSettings = () => {
           <EmailChange onBackClick={onChangeModeBackClick} />
         </div>
       </If>
+      <If condition={changeMode === ACCOUNT_SETTINGS_CHANGE_MODE.PASSWORD}>
+        <PasswordChange onBackClick={onChangeModeBackClick} />
+      </If>
       <If condition={!changeMode}>
         <Box className={commonClasses.sectionTitle}>{t('photo.title')}</Box>
         <Box className={commonClasses.sectionBody}>
           <Row alignVerticalCenter>
-            <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56 }}>
-              {accountInfo.name[0]}
-            </Avatar>
+            <Avatar sx={{ bgcolor: deepOrange[500], width: 56, height: 56 }}>{accountInfo.name[0]}</Avatar>
             <Box className={classes.photoContent}>
               <Button size={'small'} variant={'outlined'}>
                 {t('photo.upload')}
               </Button>
-              <Box className={classes.photoHelperText}>
-                {t('photo.helperText')}
-              </Box>
+              <Box className={classes.photoHelperText}>{t('photo.helperText')}</Box>
             </Box>
           </Row>
         </Box>
@@ -105,19 +106,10 @@ export const AccountSettings = () => {
             fullWidth={isMobile}
           />
           <If condition={accountInfo.name.trim() !== name.trim()}>
-            <LoadingButton
-              data-testid={'name-save-button'}
-              color={'primary'}
-              loading={isSubmitting}
-              onClick={updateName}
-            >
+            <LoadingButton data-testid={'name-save-button'} color={'primary'} loading={isSubmitting} onClick={updateName}>
               {t('save')}
             </LoadingButton>
-            <Button
-              data-testid={'name-cancel-button'}
-              disabled={isSubmitting}
-              onClick={onCancelNameClick}
-            >
+            <Button data-testid={'name-cancel-button'} disabled={isSubmitting} onClick={onCancelNameClick}>
               {t('cancel')}
             </Button>
           </If>
@@ -142,12 +134,7 @@ export const AccountSettings = () => {
 
         <Box className={commonClasses.sectionTitle}>{t('password')}</Box>
         <Box className={commonClasses.sectionBody}>
-          <Button
-            size={'small'}
-            variant={'outlined'}
-            sx={{ marginTop: 1 }}
-            fullWidth={isMobile}
-          >
+          <Button size={'small'} variant={'outlined'} sx={{ marginTop: 1 }} fullWidth={isMobile} onClick={onPasswordChangeButtonClick}>
             {t('changePassword')}
           </Button>
         </Box>

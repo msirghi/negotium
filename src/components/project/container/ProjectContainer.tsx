@@ -95,8 +95,8 @@ export const ProjectContainer = () => {
   const markAsDone = async (taskId: Task['id']) => {
     setSelectedTask(null);
     const task = tasks.find((t) => t.id === taskId)!;
-    setTasks((prevState) => prevState.filter((t) => t.id !== taskId));
-    task.completed = true;
+    setTasks((prevState) => prevState.filter((t) => showCompleted ? true : t.id !== taskId));
+    task.completed = !task.completed;
     enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });

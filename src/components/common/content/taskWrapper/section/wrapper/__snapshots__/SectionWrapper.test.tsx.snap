@@ -114,7 +114,9 @@ Array [
                         />
                       </svg>
                     </span>
-                    <div>
+                    <div
+                      className="makeStyles-title-4"
+                    >
                       [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
                     </div>
                   </div>
@@ -221,7 +223,9 @@ Array [
                         />
                       </svg>
                     </span>
-                    <div>
+                    <div
+                      className="makeStyles-title-4"
+                    >
                       [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
                     </div>
                   </div>

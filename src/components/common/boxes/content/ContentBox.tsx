@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 5,
+      borderRadius: 10,
     }
   },
 });

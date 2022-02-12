@@ -150,7 +150,7 @@ const Leaf = ({ attributes, children, leaf }) => {
     children = <u>{children}</u>;
   }
 
-  return <span {...attributes}>{children}</span>;
+  return <span style={{ fontSize: 14 }} {...attributes}>{children}</span>;
 };
 
 export default RichTextField;

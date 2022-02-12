@@ -26,6 +26,7 @@
   "successNameChange": "Name changed successfully.",
   "change": {
     "emailChangeTitle": "Update your current Negotium email.",
+    "passwordChangeTitle": "Update your Negotium password.",
     "currentEmail": "Current email: ",
     "newEmail": "New email",
     "confirmNewEmail": "Confirm new email",
@@ -34,6 +35,11 @@
     "invalidEmail": "Email should be valid.",
     "emailMismatch": "Emails do not match.",
     "emailUpdated": "Email updated.",
-    "somethingWentWrong": "Something went wrong. Please retry."
+    "somethingWentWrong": "Something went wrong. Please retry.",
+    "oldPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordTooWeak": "Password is too weak."
   }
 }

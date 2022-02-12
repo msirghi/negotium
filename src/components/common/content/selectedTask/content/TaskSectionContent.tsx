@@ -143,7 +143,7 @@ export const TaskSectionContent: FC<Props> = ({ task, onTaskUpdate }) => {
           inputProps={{ 'data-testid': 'title-input' }}
           InputProps={{
             disableUnderline: true,
-            style: { fontWeight: 'bold', fontSize: 18 },
+            style: { fontWeight: 'bold', fontSize: 16 },
           }}
         />
       </If>

@@ -39,8 +39,11 @@ const updateUserEmail = (email: string) => {
     .catch(ServiceResultFactory.fromError);
 };
 
-const updateUserPassword = (password: string) => {
-  return Requests.restApiCallWithBearer(`$${BASE_API_URL_V1}/users/password`, HttpMethod.PATCH, { password });
+const updateUserPassword = (oldPassword: string, newPassword: string) => {
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/users/password`, HttpMethod.PATCH, {
+    newPassword,
+    oldPassword,
+  });
 };
 
 const AccountService = {

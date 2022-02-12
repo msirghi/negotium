@@ -20,4 +20,8 @@ export const useTaskItemStyles = makeStyles({
     opacity: 0.5,
     textDecoration: 'line-through'
   },
+  title: {
+    fontSize: 15,
+    marginBottom: 2
+  }
 });
