@@ -12,7 +12,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
-import nextI18nextConfig from '../next-i18next.config'
+import nextI18nextConfig from '../next-i18next.config';
 
 import { store } from '../src/redux/store';
 import Routes from '../src/common/config/routes';
@@ -22,7 +22,7 @@ import { AxiosRequestInstance } from '../src/common/constants/types';
 import authorizationStore from '../src/common/requests/authorizationStore';
 import createEmotionCache from '../src/common/config/cache/createEmotionCache';
 import { FullscreenLoader } from '../src/components/common/spinners/fullscreen/FullscreenLoader';
-import {REFRESH_TOKEN_URL} from "../src/common/constants/constants";
+import { REFRESH_TOKEN_URL } from '../src/common/constants/constants';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
@@ -32,17 +32,11 @@ const queryClient = new QueryClient();
 
 const clientSideEmotionCache = createEmotionCache();
 
-function MyApp({
-  Component,
-  pageProps,
-  emotionCache = clientSideEmotionCache,
-}: AppProps & { emotionCache: EmotionCache }) {
+function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: AppProps & { emotionCache: EmotionCache }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-  const refreshAuthLogic = async <T extends AxiosRequestInstance>(
-    failedRequest: T
-  ) => {
+  const refreshAuthLogic = async <T extends AxiosRequestInstance>(failedRequest: T) => {
     try {
       if (failedRequest.response.config.url.includes(REFRESH_TOKEN_URL)) {
         return Promise.reject();
@@ -51,17 +45,14 @@ function MyApp({
       const token = response.data.access_token;
       authorizationStore.setAuthToken(token);
       localStorage.setItem('rt', token);
-      failedRequest.response.config.headers[
-        'Authorization'
-      ] = `Bearer ${token}`;
+      failedRequest.response.config.headers['Authorization'] = `Bearer ${token}`;
       return Promise.resolve();
     } catch (e) {
       await router.push(Routes.login);
     }
   };
 
-  const setupAxiosInterceptor = () =>
-    createAuthRefreshInterceptor(axios, refreshAuthLogic);
+  const setupAxiosInterceptor = () => createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
   useEffect(() => {
     setupAxiosInterceptor();
@@ -80,10 +71,7 @@ function MyApp({
     try {
       const res = await AuthService.getRefreshedToken();
       authorizationStore.setAuthToken(res.data.access_token);
-      if (
-        router.route === Routes.login ||
-        router.route === Routes.registration
-      ) {
+      if (router.route === Routes.login || router.route === Routes.registration) {
         await router.push(Routes.inbox);
       }
     } catch (e) {
