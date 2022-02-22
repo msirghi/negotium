@@ -12,8 +12,7 @@ import { useTranslation } from 'next-i18next';
 
 const useStyles = makeStyles(() => ({
   activeItem: {
-    backgroundColor: (props: { theme: Theme }) =>
-      props.theme.palette.custom.menuIconBackground,
+    backgroundColor: (props: { theme: Theme }) => props.theme.palette.custom.menuIconBackground,
     color: colors.white,
     borderRadius: 10,
     transition: 'all .1s ease-in-out',
@@ -39,32 +38,19 @@ export const SiteWrapperMainList = () => {
 
   return (
     <List sx={{ padding: 1 }}>
-      {MAIN_MENU_ITEMS.map((item) => ({ ...item, title: t(item.title) })).map(
-        ({ Icon, title, route }) => {
-          const isItemActive = isActive(route);
-          return (
-            <Box
-              key={title}
-              className={isItemActive ? classes.activeItem : ''}
-              sx={{ borderRadius: 15 }}
-            >
-              <ListItem
-                button
-                onClick={() => onItemClick(route)}
-                sx={{ borderRadius: 5 }}
-              >
-                <ListItemIcon>
-                  <Icon
-                    fontSize={'small'}
-                    className={isItemActive ? classes.activeIcon : ''}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={<ListItemTitle title={title} />} />
-              </ListItem>
-            </Box>
-          );
-        }
-      )}
+      {MAIN_MENU_ITEMS.map((item) => ({ ...item, title: t(item.title) })).map(({ Icon, title, route }) => {
+        const isItemActive = isActive(route);
+        return (
+          <Box key={title} className={isItemActive ? classes.activeItem : ''} sx={{ borderRadius: 15 }}>
+            <ListItem button onClick={() => onItemClick(route)} sx={{ borderRadius: 5 }}>
+              <ListItemIcon>
+                <Icon fontSize={'small'} className={isItemActive ? classes.activeIcon : ''} />
+              </ListItemIcon>
+              <ListItemText primary={<ListItemTitle title={title} />} />
+            </ListItem>
+          </Box>
+        );
+      })}
     </List>
   );
 };

@@ -25,15 +25,13 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 const useStyles = makeStyles({
   activeItem: {
-    backgroundColor: (props: { theme: Theme }) =>
-      props.theme.palette.custom.menuIconBackground,
+    backgroundColor: (props: { theme: Theme }) => props.theme.palette.custom.menuIconBackground,
     // colors.greys['300'],
     color: colors.white,
     borderRadius: 10,
     transition: 'all .1s ease-in-out',
     '&:hover': {
-      backgroundColor: (props: { theme: Theme }) =>
-        props.theme.palette.custom.menuIconBackground,
+      backgroundColor: (props: { theme: Theme }) => props.theme.palette.custom.menuIconBackground,
     },
   },
   activeIcon: {
@@ -50,9 +48,7 @@ export const SiteWrapperProjectsList = () => {
   const [showAll, setShowAll] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
-  const projectsFromStore = useSelector(
-    (state: RootState) => state.projects.projects
-  );
+  const projectsFromStore = useSelector((state: RootState) => state.projects.projects);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -108,43 +104,28 @@ export const SiteWrapperProjectsList = () => {
         open={isProjectDialogOpen}
         setOpen={setProjectDialogOpen}
       />
-      <SiteWrapperList
-        title={'Projects'}
-        options={{ addOptions: { onClick: openDialog } }}
-      >
+      <SiteWrapperList title={'Projects'} options={{ addOptions: { onClick: openDialog } }}>
         <SmoothList>
           <List sx={{ padding: 1 }} data-testid={'projects-list'}>
-            {projects
-              .slice(0, showAll ? projects.length : MAX_PROJECT_LIST_COUNT)
-              .map((project) => {
-                const isActive = isProjectActive(project.id);
-                return (
-                  <ListItem
-                    button
-                    sx={{ borderRadius: 3 }}
-                    className={isActive ? classes.activeItem : ''}
-                    key={project.id}
-                    onClick={handleProjectClick(project.id)}
-                  >
-                    <ListItemIcon>
-                      <CircleIcon
-                        style={{ color: project.color, fontSize: 13 }}
-                        className={isActive ? classes.activeIcon : ''}
-                      />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={<ListItemTitle title={project.name} />}
-                    />
-                  </ListItem>
-                );
-              })}
+            {projects.slice(0, showAll ? projects.length : MAX_PROJECT_LIST_COUNT).map((project) => {
+              const isActive = isProjectActive(project.id);
+              return (
+                <ListItem
+                  button
+                  sx={{ borderRadius: 3 }}
+                  className={isActive ? classes.activeItem : ''}
+                  key={project.id}
+                  onClick={handleProjectClick(project.id)}
+                >
+                  <ListItemIcon>
+                    <CircleIcon style={{ color: project.color, fontSize: 13 }} className={isActive ? classes.activeIcon : ''} />
+                  </ListItemIcon>
+                  <ListItemText primary={<ListItemTitle title={project.name} />} />
+                </ListItem>
+              );
+            })}
           </List>
-          {projects.length > MAX_PROJECT_LIST_COUNT && (
-            <ProjectListMoreItem
-              toggleShowAll={toggleShowAll}
-              showAll={showAll}
-            />
-          )}
+          {projects.length > MAX_PROJECT_LIST_COUNT && <ProjectListMoreItem toggleShowAll={toggleShowAll} showAll={showAll} />}
         </SmoothList>
       </SiteWrapperList>
     </>
