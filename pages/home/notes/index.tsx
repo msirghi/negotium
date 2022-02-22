@@ -18,7 +18,7 @@ export default function Notes() {
   );
 };
 
-export async function getServerSideProps({ locale, params }: StaticProps) {
+export async function getStaticProps({ locale, params }: StaticProps) {
   return {
     props: {
       ...params,

@@ -6,7 +6,7 @@ export default function Project() {
   return <ProjectContainer />;
 };
 
-export const getServerSideProps = async ({ locale }: StaticProps) => {
+export const getStaticProps = async ({ locale }: StaticProps) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'settings'])),
