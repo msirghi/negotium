@@ -39,16 +39,11 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect, index }) =
             <div>
               <Row alignVerticalCenter onClick={handleTaskSelect()} className={task.completed ? classes.completedTask : ''}>
                 <Row alignVerticalCenter>
-                  <RoundCheckbox size={'small'} onChange={handleMarkAsDone(task.id)} defaultChecked={task.completed}/>
+                  <RoundCheckbox size={'small'} onChange={handleMarkAsDone(task.id)} defaultChecked={task.completed} />
                   <div className={classes.title}>{isSlateInputEnabled ? SlateUtils.serialize(JSON.parse(title)) : title}</div>
                 </Row>
               </Row>
-              <div
-                className={classes.date}
-                style={{
-                  color: utils.getColorByDateType(formattedDate.type),
-                }}
-              >
+              <div className={classes.date} style={{ color: utils.getColorByDateType(formattedDate.type) }}>
                 {formattedDate.value}
               </div>
             </div>

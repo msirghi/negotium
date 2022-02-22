@@ -23,6 +23,7 @@ Array [
   >
     <div>
       <div
+        className="makeStyles-completedTask-3"
         onClick={[Function]}
         style={
           Object {
@@ -47,7 +48,7 @@ Array [
           }
         >
           <span
-            className="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+            className="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root Mui-checked css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
             onBlur={[Function]}
             onContextMenu={[Function]}
             onDragLeave={[Function]}
@@ -65,22 +66,25 @@ Array [
             <input
               className="PrivateSwitchBase-input css-1m9pwf3"
               data-indeterminate={false}
+              defaultChecked={true}
               onChange={[Function]}
               type="checkbox"
             />
             <svg
               aria-hidden={true}
               className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
-              data-testid="RadioButtonUncheckedIcon"
+              data-testid="CheckCircleOutlineIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                d="M16.59 7.58 10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
               />
             </svg>
           </span>
-          <div>
+          <div
+            className="makeStyles-title-4"
+          >
             [{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]
           </div>
         </div>
