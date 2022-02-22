@@ -40,10 +40,10 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         return Promise.reject();
       }
       const response = await AuthService.getRefreshedToken();
-      const token = response.data.access_token;
-      authorizationStore.setAuthToken(token);
-      localStorage.setItem('rt', token);
-      failedRequest.response.config.headers['Authorization'] = `Bearer ${token}`;
+      const { refresh_token, access_token } = response.data;
+      authorizationStore.setAuthToken(access_token);
+      localStorage.setItem('rt', refresh_token);
+      failedRequest.response.config.headers['Authorization'] = `Bearer ${access_token}`;
       return Promise.resolve();
     } catch (e) {
       await router.push(Routes.login);
