@@ -12,6 +12,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
+import nextI18nextConfig from '../next-i18next.config'
 
 import { store } from '../src/redux/store';
 import Routes from '../src/common/config/routes';
@@ -114,4 +115,4 @@ function MyApp({
   );
 }
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, nextI18nextConfig);

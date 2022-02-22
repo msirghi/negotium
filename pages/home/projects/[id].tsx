@@ -2,7 +2,7 @@ import { ProjectContainer } from '../../../src/components/project';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { StaticProps } from '../../../src/common/constants/types';
 
-const Project = () => {
+export default function Project() {
   return <ProjectContainer />;
 };
 
@@ -20,5 +20,3 @@ export const getServerSideProps = async ({ locale }: StaticProps) => {
 //     fallback: true,
 //   };
 // };
-
-export default Project;

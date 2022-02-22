@@ -5,7 +5,7 @@ import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
 import { useTranslation } from 'next-i18next';
 
-const Notes = () => {
+export default function Notes() {
   const { t } = useTranslation('common');
 
   return (
@@ -22,13 +22,7 @@ export async function getServerSideProps({ locale, params }: StaticProps) {
   return {
     props: {
       ...params,
-      ...(await serverSideTranslations(locale, [
-        'common',
-        'notes',
-        'settings',
-      ])),
+      ...(await serverSideTranslations(locale, ['common', 'notes', 'settings'])),
     },
   };
 }
-
-export default Notes;
