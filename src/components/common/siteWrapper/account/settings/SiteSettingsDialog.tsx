@@ -8,7 +8,7 @@ import { AccountSettings } from './account/AccountSettings';
 import { Box } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import { GeneralSettings } from './general/GeneralSettings';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { ThemeSettings } from './theme/ThemeSettings';
 import { useSiteSettingsDialogStyles } from './styles';
 import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
@@ -20,14 +20,8 @@ type Props = {
   defaultPage?: SETTINGS_OPTIONS;
 };
 
-export const SiteSettingsDialog: FC<Props> = ({
-  open,
-  setOpen,
-  defaultPage,
-}) => {
-  const [selectedItem, setSelectedItem] = useState<SETTINGS_OPTIONS>(
-    SETTINGS_OPTIONS.ACCOUNT
-  );
+export const SiteSettingsDialog: FC<Props> = ({ open, setOpen, defaultPage }) => {
+  const [selectedItem, setSelectedItem] = useState<SETTINGS_OPTIONS>(SETTINGS_OPTIONS.ACCOUNT);
   const { t } = useTranslation('settings');
   const isMobile = useIsMobile();
   const classes = useSiteSettingsDialogStyles({ isMobile });
@@ -65,14 +59,8 @@ export const SiteSettingsDialog: FC<Props> = ({
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
       <DialogContent style={{ minHeight: 500 }}>
-        <Row
-          className={classes.container}
-          direction={isMobile ? ROW_DIRECTION.COLUMN : ROW_DIRECTION.ROW}
-        >
-          <SettingsDialogMenu
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-          />
+        <Row className={classes.container} direction={isMobile ? ROW_DIRECTION.COLUMN : ROW_DIRECTION.ROW}>
+          <SettingsDialogMenu selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
           <Box className={classes.rightContainer}>
             <Box className={classes.title}>{getTitle()}</Box>
             <Divider />

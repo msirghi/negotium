@@ -7,12 +7,10 @@ import { useEffect, useState } from 'react';
 import { SnackbarProvider } from 'notistack';
 import { LocalizationProvider } from '@mui/lab';
 import DateAdapter from '@mui/lab/AdapterDayjs';
-import { appWithTranslation } from 'next-i18next';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
-import nextI18nextConfig from '../next-i18next.config';
 
 import { store } from '../src/redux/store';
 import Routes from '../src/common/config/routes';
@@ -103,4 +101,4 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
   );
 }
 
-export default appWithTranslation(MyApp, nextI18nextConfig);
+export default MyApp;

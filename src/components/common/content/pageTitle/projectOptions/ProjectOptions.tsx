@@ -15,7 +15,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { ProjectSettingsOption } from '../../../../../common/constants/enums';
 import { useAtom } from 'jotai';
 import { showCompletedAtom } from '../../../../../atoms/showCompleted/showCompleted.atom';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   onClick: (option: ProjectSettingsOption) => void;

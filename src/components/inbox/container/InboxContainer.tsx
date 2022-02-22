@@ -8,15 +8,14 @@ import TaskService from '../../../services/TaskService';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
-import SortUtils from '../../../common/utils/sortUtils';
 import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 
-import { useTranslation } from 'next-i18next';
 import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   useData?: boolean;
@@ -37,11 +36,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {
     const orderNumber = TaskUtils.getMaxTaskOrderNumber(tasks) + 1;
-    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(
-      title,
-      date,
-      orderNumber
-    );
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, orderNumber);
     setTasks((prevState) => [...prevState, newTask as Task]);
     enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
@@ -58,14 +53,9 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     await TaskUtils.markAsDone(taskId, refetch);
   };
 
-  const onTaskUpdate = (
-    updatedTask: Task,
-    options?: { deselectTask: boolean }
-  ) => {
+  const onTaskUpdate = (updatedTask: Task, options?: { deselectTask: boolean }) => {
     const { id } = updatedTask;
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? updatedTask : task
-    );
+    const updatedTasks = tasks.map((task) => (task.id === id ? updatedTask : task));
     setTasks([...updatedTasks]);
     updateSelectedTask(updatedTasks);
     if (options && options.deselectTask) {
@@ -91,10 +81,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     <Row fullWidth>
       <ContentBox>
         <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
-          <TaskWrapper
-            title={t('pageTitles.inbox')}
-            upperHeaderTitle={t('pageTitles.inbox')}
-          >
+          <TaskWrapper title={t('pageTitles.inbox')} upperHeaderTitle={t('pageTitles.inbox')}>
             {/*{SortUtils.sortByDate(useData ? data : tasks)*/}
             {tasks
               .filter((task) => !task.completed && !task.projectId)

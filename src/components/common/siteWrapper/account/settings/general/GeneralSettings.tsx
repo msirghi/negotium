@@ -5,7 +5,7 @@ import {
   SUPPORTED_LANGUAGES,
   TIME_FORMATS,
 } from '../../../../../../common/constants/constants';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';

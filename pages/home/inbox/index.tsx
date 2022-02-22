@@ -1,12 +1,11 @@
 import { InboxContainer } from '../../../src/components/inbox';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { StaticProps } from '../../../src/common/constants/types';
 import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 const Inbox = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
+
   return (
     <div>
       <Head>
@@ -16,13 +15,5 @@ const Inbox = () => {
     </div>
   );
 };
-
-export async function getStaticProps({ locale }: StaticProps) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'settings'])),
-    },
-  };
-}
 
 export default Inbox;

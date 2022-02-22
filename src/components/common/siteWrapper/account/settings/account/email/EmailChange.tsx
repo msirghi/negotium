@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { Button, TextField } from '@mui/material';
 import { FC, useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Row } from '../../../../../utilities/row/Row';
 import { ROW_DIRECTION } from '../../../../../../../common/constants/enums';

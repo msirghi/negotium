@@ -3,7 +3,7 @@ import { Row } from '../../../utilities/row/Row';
 import { FC } from 'react';
 import { useCommonStyles } from '../styles';
 import PublishedWithChangesOutlinedIcon from '@mui/icons-material/PublishedWithChangesOutlined';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   closeMenu: () => void;

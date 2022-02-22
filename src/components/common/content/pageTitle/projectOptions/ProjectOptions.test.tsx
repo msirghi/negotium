@@ -22,7 +22,9 @@ jest.mock('next/router', () => ({
 }));
 
 describe('ProjectOptions', () => {
-  const defaultProps = {};
+  const defaultProps = {
+    onClick: jest.fn(),
+  };
   const reduxStore = {};
 
   afterEach(() => {

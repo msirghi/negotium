@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = makeStyles({
   container: {

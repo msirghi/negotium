@@ -12,19 +12,9 @@ import { mount } from 'enzyme';
 import { ProjectDialog } from '../wrapper/projectDialog/ProjectDialog';
 import { SiteWrapperList } from '../wrapper/SiteWrapperList';
 import { ListItem } from '@mui/material';
+import mockRouter from 'next-router-mock';
 
-const mockProjects = [...projectsMock];
-const mockPush = jest.fn();
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    route: 'inbox',
-    query: {
-      id: mockProjects[0].id,
-    },
-    push: mockPush,
-  }),
-}));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapperProjectsList', () => {
   const queryClient = new QueryClient();
@@ -35,6 +25,7 @@ describe('SiteWrapperProjectsList', () => {
   };
 
   beforeEach(() => {
+    jest.spyOn(mockRouter, 'push');
     jest.clearAllMocks();
   });
 
@@ -88,7 +79,7 @@ describe('SiteWrapperProjectsList', () => {
     act(() => {
       item.simulate('click');
     });
-    expect(mockPush).toBeCalled();
+    expect(mockRouter.push).toBeCalled();
   });
 
   it('should handle dialog open', async () => {

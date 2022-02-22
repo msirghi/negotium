@@ -11,7 +11,7 @@ import { Note, NoteUpdate } from '../../../common/types/notes.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { useSnackbar } from 'notistack';
 import { NoteSkeleton } from '../../common/skeletons/noteSkeleton/NoteSkeleton';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { EmptyListMessage } from '../../common/emptyListMessage/EmptyListMessage';
 import { Row } from '../../common/utilities/row/Row';
 import { ROW_DIRECTION } from '../../../common/constants/enums';

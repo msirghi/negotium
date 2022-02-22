@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 import AuthService from '../../../services/AuthService';
 import { useRouter } from 'next/router';
 import RegistrationFormUtils from './utils';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useRegistrationFormStyles } from './styles';
-import Routes from "../../../common/config/routes";
+import Routes from '../../../common/config/routes';
 
 type FormValues = {
   name: string;
@@ -69,9 +69,7 @@ export const RegistrationForm = () => {
     return errors;
   };
 
-  const passConfig = RegistrationFormUtils.getPasswordConfig(
-    formik.values.password
-  );
+  const passConfig = RegistrationFormUtils.getPasswordConfig(formik.values.password);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -119,11 +117,7 @@ export const RegistrationForm = () => {
           fullWidth
           label={t('common.password')}
           error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={
-            passConfig && (
-              <div style={{ color: passConfig.color }}>{passConfig.title}</div>
-            )
-          }
+          helperText={passConfig && <div style={{ color: passConfig.color }}>{passConfig.title}</div>}
         />
 
         <TextField
@@ -132,13 +126,8 @@ export const RegistrationForm = () => {
           name={'repeatPassword'}
           onChange={formik.handleChange}
           value={formik.values.repeatPassword}
-          error={
-            formik.touched.repeatPassword &&
-            Boolean(formik.errors.repeatPassword)
-          }
-          helperText={
-            formik.touched.repeatPassword && formik.errors.repeatPassword
-          }
+          error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+          helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
           type={'password'}
           style={{ marginTop: 30 }}
           size={'small'}

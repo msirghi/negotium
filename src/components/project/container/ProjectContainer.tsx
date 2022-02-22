@@ -23,7 +23,7 @@ import { AddSectionRow } from '../../common/content/taskWrapper/section/add/AddS
 import { SectionWrapper } from '../../common/content/taskWrapper/section/wrapper/SectionWrapper';
 import { If } from '../../common/utilities/if/If';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useSnackbar } from 'notistack';
 import { ProjectSettingsOption } from '../../../common/constants/enums';
 import { useAtom } from 'jotai';

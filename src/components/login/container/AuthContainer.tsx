@@ -4,7 +4,7 @@ import { Row } from '../../common/utilities/row/Row';
 import { LoginFooter } from '../footer/LoginFooter';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { useAuthContainerStyles } from './styles';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import AccountService from '../../../services/AccountService';
 import { ACTIVATION_CODE_VAR_NAME } from '../../../common/constants/constants';

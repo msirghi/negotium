@@ -14,7 +14,7 @@ import SlateUtils from '../../../common/utils/slateUtils';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DateUtils from '../../../common/utils/dateUtils';
 import { NOTE_DATE_FORMAT } from '../../../common/constants/constants';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   note: Note;

@@ -1,0 +1,12 @@
+{
+  "title": "Notes",
+  "noteAdded": "Note added",
+  "noteRemoved": "Note removed.",
+  "noteUpdated": "Note updated.",
+  "addNote": "Add a note...",
+  "noteTitleFieldPlaceholder": "Title",
+  "close": "Close",
+  "noTitle": "No title",
+  "deleteNote": "Delete note",
+  "noNotesMessage": "There are no notes right now. Maybe it's time to add your first one?"
+}

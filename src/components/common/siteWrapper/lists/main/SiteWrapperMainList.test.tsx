@@ -5,15 +5,11 @@ import { mount } from 'enzyme';
 import { ListItem } from '@mui/material';
 import { act } from '@testing-library/react';
 import { MockThemeProvider } from '../../../../../common/tests/TestUtils';
+import mockRouter from 'next-router-mock';
 
-const mockPush = jest.fn();
+mockRouter.push = jest.fn();
 
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    route: 'inbox',
-    push: mockPush,
-  }),
-}));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapperMainList', () => {
   afterAll(() => {
@@ -44,6 +40,6 @@ describe('SiteWrapperMainList', () => {
     act(() => {
       item.simulate('click');
     });
-    expect(mockPush).toBeCalled();
+    expect(mockRouter.push).toBeCalled();
   });
 });

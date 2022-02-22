@@ -5,7 +5,7 @@ import { If } from '../../../../utilities/if/If';
 import { EditForm } from './editForm/EditForm';
 import { makeStyles } from '@mui/styles';
 import { Nullable } from '../../../../../../common/types/common.types';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',

@@ -7,7 +7,7 @@ import {
 } from '@mui/icons-material';
 import { FC } from 'react';
 import { SETTINGS_OPTIONS } from '../../../../../../common/types/enums';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 import { Row } from '../../../../utilities/row/Row';
 import { ROW_DIRECTION } from '../../../../../../common/constants/enums';

@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { If } from '../../../../utilities/if/If';
 import { Row } from '../../../../utilities/row/Row';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   onSectionSave: (title: string, orderNumber: number) => void;

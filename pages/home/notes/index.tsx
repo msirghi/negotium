@@ -1,9 +1,7 @@
 import { NotesContainer } from '../../../src/components/notes';
-import { StaticProps } from '../../../src/common/constants/types';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 export default function Notes() {
   const { t } = useTranslation('common');
@@ -17,12 +15,3 @@ export default function Notes() {
     </>
   );
 };
-
-export async function getStaticProps({ locale, params }: StaticProps) {
-  return {
-    props: {
-      ...params,
-      ...(await serverSideTranslations(locale, ['common', 'notes', 'settings'])),
-    },
-  };
-}

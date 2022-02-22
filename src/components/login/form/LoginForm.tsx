@@ -10,7 +10,7 @@ import { setAccountInfo } from '../../../redux/account/accountSlice';
 import authorizationStore from '../../../common/requests/authorizationStore';
 import { useLoginFormStyles } from './styles';
 import Routes from '../../../common/config/routes';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { TextInputChangeEvent } from '../../../common/constants/types';
 
 export const LoginForm = () => {

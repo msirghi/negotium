@@ -3,25 +3,13 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
 import { mount } from 'enzyme';
-import TestUtils, {
-  MockReduxProvider,
-} from '../../../../common/tests/TestUtils';
-import { accountInfoMock } from '../../../../common/tests/mockData/account-mock';
+import TestUtils, { MockReduxProvider } from '../../../../common/tests/TestUtils';
 import AuthService from '../../../../services/AuthService';
 import { reduxStoreMock } from '../../../../common/tests/mockData/redux-store-mock';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 
-const mockProjects = [...projectsMock];
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    route: 'inbox',
-    query: {
-      id: mockProjects[0].id,
-    },
-  }),
-}));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapper', () => {
   const queryClient = new QueryClient();
@@ -31,12 +19,8 @@ describe('SiteWrapper', () => {
   });
 
   beforeAll(() => {
-    AccountService.getUserMetadata = jest.fn(() =>
-      Promise.resolve({ data: { theme: 'noir' } })
-    ) as any;
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    AccountService.getUserMetadata = jest.fn(() => Promise.resolve({ data: { theme: 'noir' } })) as any;
+    projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
     AuthService.getUserInfo = jest.fn(() => Promise.resolve() as any);
   });
 

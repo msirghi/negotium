@@ -11,7 +11,7 @@ import DateUtils from '../../../../../../../../../common/utils/dateUtils';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { CommonDateProps } from '../types';
 import dayjs from 'dayjs';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 const iconItems: IPredefinedOption[] = [
   {

@@ -15,7 +15,7 @@ import { ChangeLog } from '../changelog/ChangeLog';
 import { useCommonStyles } from '../styles';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { SiteSettingsDialog } from '../settings/SiteSettingsDialog';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { SETTINGS_OPTIONS } from '../../../../../common/types/enums';
 import { useAccountMenuStyles } from './styles';

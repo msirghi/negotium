@@ -1,13 +1,6 @@
 import { Note } from '../../../../common/types/notes.types';
 import { FC, useCallback, useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { BorderlessInput } from '../../../common/form/input/borderlessInput/BorderlessInput';
 import { Box } from '@mui/system';
 import { useNoteDialogStyles } from './styles';
@@ -17,7 +10,7 @@ import { Descendant } from 'slate';
 import SlateUtils from '../../../../common/utils/slateUtils';
 import CloseIcon from '@mui/icons-material/Close';
 import debounce from 'lodash.debounce';
-import {useTranslation} from "next-i18next";
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   open: boolean;
@@ -26,17 +19,10 @@ type Props = {
   onNoteUpdate: (note: Note) => void;
 };
 
-export const NoteDialog: FC<Props> = ({
-  note,
-  open,
-  closeDialog,
-  onNoteUpdate,
-}) => {
+export const NoteDialog: FC<Props> = ({ note, open, closeDialog, onNoteUpdate }) => {
   const { title, description } = note;
   const [titleValue, setTitleValue] = useState(title);
-  const [descriptionValue, setDescriptionValue] = useState(
-    SlateUtils.getInitialValueForSlate(description)
-  );
+  const [descriptionValue, setDescriptionValue] = useState(SlateUtils.getInitialValueForSlate(description));
   const classes = useNoteDialogStyles();
   const { t } = useTranslation('notes');
 
@@ -64,10 +50,7 @@ export const NoteDialog: FC<Props> = ({
 
   const updateTitleDebounce = useCallback(debounce(updateNoteTitle, 1000), []);
 
-  const updateDescriptionDebounce = useCallback(
-    debounce(updateNoteDescription, 1000),
-    []
-  );
+  const updateDescriptionDebounce = useCallback(debounce(updateNoteDescription, 1000), []);
 
   return (
     <Dialog open={open} onClose={closeDialog} fullWidth>
@@ -86,10 +69,7 @@ export const NoteDialog: FC<Props> = ({
           InputProps={{ style: { fontWeight: 'bold', fontSize: 18 } }}
         />
         <Box className={classes.descriptionContainer}>
-          <RichTextField
-            value={descriptionValue}
-            setValue={onDescriptionChange()}
-          />
+          <RichTextField value={descriptionValue} setValue={onDescriptionChange()} />
         </Box>
       </DialogContent>
       <DialogActions>

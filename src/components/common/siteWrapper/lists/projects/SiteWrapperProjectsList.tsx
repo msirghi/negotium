@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { ProjectDialog } from '../wrapper/projectDialog/ProjectDialog';
 import { Project } from '../../../../../common/types/projects.types';
 import ProjectService from '../../../../../services/ProjectService';
-import { useRouter } from 'next/router';
+import router from 'next/router'
 import { makeStyles } from '@mui/styles';
 import colors from '../../../../../common/styles/colors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ import { RootState } from '../../../../../redux/store';
 import SmoothList from 'react-smooth-list';
 import { ProjectListMoreItem } from './more/ProjectListMoreItem';
 import { MAX_PROJECT_LIST_COUNT } from '../../../../../common/constants/constants';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { Theme, useTheme } from '@mui/system';
 import CircleIcon from '@mui/icons-material/Circle';
 
@@ -50,7 +50,6 @@ export const SiteWrapperProjectsList = () => {
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
   const projectsFromStore = useSelector((state: RootState) => state.projects.projects);
 
-  const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {

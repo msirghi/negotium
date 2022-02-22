@@ -8,7 +8,7 @@ import SlateUtils from '../../../../common/utils/slateUtils';
 import RichTextField from '../../../common/form/input/richText/RichTextField';
 import { Descendant } from 'slate';
 import { Note } from '../../../../common/types/notes.types';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   onClose: () => void;

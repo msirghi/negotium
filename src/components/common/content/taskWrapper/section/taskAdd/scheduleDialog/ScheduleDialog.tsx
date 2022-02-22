@@ -6,7 +6,7 @@ import colors from '../../../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
 import { Nullable } from '../../../../../../../common/types/common.types';
 import { If } from '../../../../../utilities/if/If';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   onDateSelect: (date: Nullable<Date>) => void;

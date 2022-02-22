@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useFooterStyles } from './styles';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import Routes from '../../../common/config/routes';
 
 export const LoginFooter = () => {

@@ -1,12 +1,10 @@
 import { TodayContainer } from '../../../src/components/today';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { StaticProps } from '../../../src/common/constants/types';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 import StringUtils from '../../../src/common/utils/stringUtils';
 
 const Today = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <>
       <Head>
@@ -16,13 +14,5 @@ const Today = () => {
     </>
   );
 };
-
-export async function getStaticProps({ locale }: StaticProps) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'settings'])),
-    },
-  };
-}
 
 export default Today;

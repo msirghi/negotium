@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useFormik } from 'formik';
 import { useEmailChangeStyles } from '../email/styles';
 import { LoadingButton } from '@mui/lab';

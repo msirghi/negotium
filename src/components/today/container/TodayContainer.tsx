@@ -15,7 +15,7 @@ import { Nullable } from '../../../common/types/common.types';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 
 type Props = {

@@ -5,7 +5,7 @@ import { Tab, Tabs } from '@mui/material';
 import { AddSectionRow } from '../section/add/AddSectionRow';
 import { SettingsOptions } from '../../pageTitle/types';
 import SmoothList from 'react-smooth-list';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { DndTaskWrapperProps } from '../../../dnd/taskWrapper/types';
 

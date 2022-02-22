@@ -1,9 +1,8 @@
 import { AuthContainer } from '../../src/components/login';
 import Head from 'next/head';
 import StringUtils from '../../src/common/utils/stringUtils';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { StaticProps } from '../../src/common/constants/types';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -18,12 +17,12 @@ const Login = () => {
   );
 };
 
-export async function getStaticProps({ locale }: StaticProps) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'auth'])),
-    },
-  };
-}
+// export async function getStaticProps({ locale }: StaticProps) {
+//   return {
+//     // props: {
+//     //   ...(await serverSideTranslations(locale, ['common', 'auth'])),
+//     // },
+//   };
+// }
 
 export default Login;

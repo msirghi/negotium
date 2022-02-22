@@ -10,16 +10,7 @@ import {
   MockThemeProvider,
 } from '../../../../common/tests/TestUtils';
 
-const mockProjects = [...projectsMock];
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    route: 'inbox',
-    query: {
-      id: mockProjects[0].id,
-    },
-  }),
-}));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapperDrawer', () => {
   const queryClient = new QueryClient();

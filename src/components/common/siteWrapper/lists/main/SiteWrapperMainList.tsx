@@ -4,11 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { MAIN_MENU_ITEMS } from '../../../../../common/constants/constants';
 import { ListItemTitle } from '../listItemTitle/ListItemTitle';
-import { useRouter } from 'next/router';
+import Router from 'next/router'
 import { Box, Theme, useTheme } from '@mui/system';
 import colors from '../../../../../common/styles/colors';
 import { makeStyles } from '@mui/styles';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = makeStyles(() => ({
   activeItem: {
@@ -24,16 +24,15 @@ const useStyles = makeStyles(() => ({
 
 export const SiteWrapperMainList = () => {
   const { t } = useTranslation('common');
-  const router = useRouter();
   const theme = useTheme();
   const classes = useStyles({ theme });
 
   const isActive = (route: string) => {
-    return router.route.includes(route.toLowerCase());
+    return Router.route.includes(route.toLowerCase());
   };
 
   const onItemClick = (route: string) => {
-    router.push(route);
+    Router.push(route);
   };
 
   return (

@@ -8,7 +8,7 @@ import { makeStyles } from '@mui/styles';
 import { Row } from '../../../../utilities/row/Row';
 import colors from '../../../../../../common/styles/colors';
 import { useCommonStyles } from '../../styles';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 import { useState } from 'react';
 import { If } from '../../../../utilities/if/If';
