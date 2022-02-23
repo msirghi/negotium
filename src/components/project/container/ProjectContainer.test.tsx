@@ -53,7 +53,7 @@ describe('ProjectContainer', () => {
       <MockQueryClient>
         <MockReduxProvider reduxStore={reduxStore}>
           <SnackbarProvider>
-            <ProjectContainer />
+            <ProjectContainer projectId={mockProjects[0].id} />
           </SnackbarProvider>
         </MockReduxProvider>
       </MockQueryClient>

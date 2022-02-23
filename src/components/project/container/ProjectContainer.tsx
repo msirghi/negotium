@@ -1,7 +1,6 @@
-import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Project } from '../../../common/types/projects.types';
 import { Row } from '../../common/utilities/row/Row';
 import { TaskWrapper } from '../../common/content/taskWrapper';
@@ -29,24 +28,26 @@ import { ProjectSettingsOption } from '../../../common/constants/enums';
 import { useAtom } from 'jotai';
 import { showCompletedAtom } from '../../../atoms/showCompleted/showCompleted.atom';
 
-export const ProjectContainer = () => {
-  const router = useRouter();
+type Props = {
+  projectId: string;
+};
+
+export const ProjectContainer: FC<Props> = ({ projectId }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('common');
-  const projectId = useRef<string>(router.query.id as string);
   const projects = useSelector((state: RootState) => state.projects.projects);
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
-  const [selectedProject, setSelectedProjects] = useState<Project>();
+  const [selectedProject, setSelectedProject] = useState<Project>();
   const [showCompleted, setShowCompleted] = useAtom(showCompletedAtom);
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
-  const { data: taskData, isLoading: loadingTasks, refetch } = useFetchProjectTasks(projectId.current);
+  const { data: taskData, isLoading: loadingTasks, refetch } = useFetchProjectTasks(projectId);
 
   const fetchTaskSections = async () => {
-    const response = await ProjectService.getProjectSections(projectId.current);
+    const response = await ProjectService.getProjectSections(projectId);
     setSections(response as Section[]);
   };
 
@@ -57,14 +58,16 @@ export const ProjectContainer = () => {
     }
   };
 
+  const fetchData = async () => {
+    await initTasks();
+    await fetchTaskSections();
+  };
+
   useEffect(() => {
     setTasks([]);
     setSections([]);
-    initTasks();
-    if (projectId.current) {
-      fetchTaskSections();
-    }
-  }, [projectId.current]);
+    fetchData();
+  }, [projectId]);
 
   useEffect(() => {
     if (taskData) {
@@ -73,14 +76,10 @@ export const ProjectContainer = () => {
   }, [taskData]);
 
   useEffect(() => {
-    projectId.current = router.query.id as string;
-  }, [router.query.id]);
-
-  useEffect(() => {
     if (projects) {
-      setSelectedProjects(projects.find((p) => String(p.id) === String(router.query.id)));
+      setSelectedProject(projects.find((p) => String(p.id) === String(projectId)));
     }
-  }, [projects, router.query.id]);
+  }, [projects, projectId]);
 
   const toggleProjectDialog = () => setProjectDialogOpened(!isProjectDialogOpened);
 
@@ -95,16 +94,16 @@ export const ProjectContainer = () => {
   const markAsDone = async (taskId: Task['id']) => {
     setSelectedTask(null);
     const task = tasks.find((t) => t.id === taskId)!;
-    setTasks((prevState) => prevState.filter((t) => showCompleted ? true : t.id !== taskId));
+    setTasks((prevState) => prevState.filter((t) => (showCompleted ? true : t.id !== taskId)));
     task.completed = !task.completed;
     enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
-    await ProjectService.updateProjectTask(projectId.current, task);
+    await ProjectService.updateProjectTask(projectId, task);
   };
 
   const addTaskHandler = async (title: string, date: Nullable<Date>, sectionId?: string) => {
-    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, tasks.length - 1, projectId.current);
+    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, tasks.length - 1, projectId);
     if (sectionId) {
       newTask.sectionId = sectionId;
     }
@@ -113,7 +112,7 @@ export const ProjectContainer = () => {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
 
-    await ProjectService.addProjectTask(projectId.current, newTask);
+    await ProjectService.addProjectTask(projectId, newTask);
     await refetch();
   };
 
@@ -127,13 +126,11 @@ export const ProjectContainer = () => {
   };
 
   const getTasksBySection = (sectionId: string) => {
-    return tasks
-      .filter((t) => t.projectId === projectId.current && t.sectionId === sectionId)
-      .filter((t) => (showCompleted ? true : !t.completed));
+    return tasks.filter((t) => t.projectId === projectId && t.sectionId === sectionId).filter((t) => (showCompleted ? true : !t.completed));
   };
 
   const createNewSection = async (title: string) => {
-    await ProjectService.addProjectSection(projectId.current, title);
+    await ProjectService.addProjectSection(projectId, title);
     await fetchTaskSections();
   };
 
@@ -143,14 +140,14 @@ export const ProjectContainer = () => {
 
   const handleSectionUpdate = (title: string, sectionId: string) => {
     const updatedSections = sections.map((sec) => (sec.id === sectionId ? { ...sec, title } : sec));
-    ProjectService.updateProjectSectionTitle(projectId.current, sectionId, title);
+    ProjectService.updateProjectSectionTitle(projectId, sectionId, title);
     setSections(updatedSections);
   };
 
   const handleSectionRemove = async (sectionId: Section['id']) => {
     const updatedSections = sections.filter((s) => s.id !== sectionId);
     setSections(updatedSections);
-    await ProjectService.deleteProjectSection(projectId.current, sectionId);
+    await ProjectService.deleteProjectSection(projectId, sectionId);
   };
 
   const displayTasks = SortUtils.sortByDate(tasks).filter(({ completed }) => (showCompleted ? true : !completed));
@@ -162,11 +159,11 @@ export const ProjectContainer = () => {
   };
 
   return (
-    <div key={selectedProject.id}>
+    <div>
       <Head>
         <title>{StringUtils.getPageTitle(selectedProject.name)}</title>
       </Head>
-      <div key={selectedProject.id} data-testid={'content'}>
+      <div data-testid={'content'}>
         <ProjectDialogWrapper project={selectedProject} open={isProjectDialogOpened} setOpen={setProjectDialogOpened} />
         <Row fullWidth>
           <ContentBox>

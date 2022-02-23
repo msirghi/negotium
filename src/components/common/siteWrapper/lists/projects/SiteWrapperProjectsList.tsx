@@ -77,7 +77,7 @@ export const SiteWrapperProjectsList = () => {
   };
 
   const onProjectClick = (id: string) => {
-    router.push(`/home/projects/${id}`);
+    router.push(`/home/projects?id=${id}`);
   };
 
   const isProjectActive = (projectId: string) => {
