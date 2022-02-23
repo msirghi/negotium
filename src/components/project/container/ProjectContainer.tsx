@@ -11,7 +11,6 @@ import SortUtils from '../../../common/utils/sortUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { Nullable } from '../../../common/types/common.types';
-import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import { ProjectDialogWrapper } from '../dialog/ProjectDialogWrapper';
 import ProjectService from '../../../services/ProjectService';
@@ -27,6 +26,7 @@ import { useSnackbar } from 'notistack';
 import { ProjectSettingsOption } from '../../../common/constants/enums';
 import { useAtom } from 'jotai';
 import { showCompletedAtom } from '../../../atoms/showCompleted/showCompleted.atom';
+import { useHandleTaskUpdate } from '../../../hooks/useHandleTaskUpdate/useHandleTaskUpdate';
 
 type Props = {
   projectId: string;
@@ -36,8 +36,8 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('common');
   const projects = useSelector((state: RootState) => state.projects.projects);
+  const { tasks, setTasks, setProjectId, markTaskAsDone, addTask, updateTask } = useHandleTaskUpdate();
 
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project>();
   const [showCompleted, setShowCompleted] = useAtom(showCompletedAtom);
@@ -64,7 +64,9 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
   };
 
   useEffect(() => {
+    setProjectId(projectId);
     setTasks([]);
+    setSelectedTask(null);
     setSections([]);
     fetchData();
   }, [projectId]);
@@ -83,46 +85,23 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
 
   const toggleProjectDialog = () => setProjectDialogOpened(!isProjectDialogOpened);
 
-  if (!selectedProject || loadingTasks) {
-    return <div />;
-  }
-
   const deselectTask = () => setSelectedTask(null);
 
   const selectTask = (task: Task) => setSelectedTask(task);
 
   const markAsDone = async (taskId: Task['id']) => {
+    markTaskAsDone(taskId);
     setSelectedTask(null);
-    const task = tasks.find((t) => t.id === taskId)!;
-    setTasks((prevState) => prevState.filter((t) => (showCompleted ? true : t.id !== taskId)));
-    task.completed = !task.completed;
     enqueueSnackbar(t('snackbarTitles.taskMarkedAsDone'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
-    await ProjectService.updateProjectTask(projectId, task);
   };
 
   const addTaskHandler = async (title: string, date: Nullable<Date>, sectionId?: string) => {
-    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, tasks.length - 1, projectId);
-    if (sectionId) {
-      newTask.sectionId = sectionId;
-    }
-    setTasks((prevState) => [...(prevState || []), newTask as Task]);
+    addTask(title, date, sectionId);
     enqueueSnackbar(t('snackbarTitles.taskAdded'), {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
-
-    await ProjectService.addProjectTask(projectId, newTask);
-    await refetch();
-  };
-
-  const onTaskUpdate = (updatedTask: Task) => {
-    const { id } = updatedTask;
-    const updatedTasks = tasks.map((task) => (task?.id === id ? updatedTask : task));
-
-    ProjectService.updateProjectTask(id, updatedTask);
-
-    setTasks([...updatedTasks]);
   };
 
   const getTasksBySection = (sectionId: string) => {
@@ -157,6 +136,10 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
       setShowCompleted(!showCompleted);
     }
   };
+
+  if (!selectedProject || loadingTasks) {
+    return <div />;
+  }
 
   return (
     <div>
@@ -214,7 +197,7 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
             task={selectedTask}
             deselectTask={deselectTask}
             key={selectedTask ? selectedTask.id : ''}
-            onTaskUpdate={onTaskUpdate}
+            onTaskUpdate={updateTask}
           />
         </Row>
       </div>
