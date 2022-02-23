@@ -36,7 +36,7 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('common');
   const projects = useSelector((state: RootState) => state.projects.projects);
-  const { tasks, setTasks, setProjectId, markTaskAsDone, addTask, updateTask } = useHandleTaskUpdate();
+  const { tasks, setTasks, setProjectId, markTaskAsDone, addTask, updateTask, fetchTasks } = useHandleTaskUpdate();
 
   const [sections, setSections] = useState<Section[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project>();
@@ -44,18 +44,13 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
   const [isProjectDialogOpened, setProjectDialogOpened] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
-  const { data: taskData, isLoading: loadingTasks, refetch } = useFetchProjectTasks(projectId);
-
   const fetchTaskSections = async () => {
     const response = await ProjectService.getProjectSections(projectId);
     setSections(response as Section[]);
   };
 
   const initTasks = async () => {
-    await refetch();
-    if (taskData) {
-      setTasks(taskData);
-    }
+    await fetchTasks();
   };
 
   const fetchData = async () => {
@@ -70,12 +65,6 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
     setSections([]);
     fetchData();
   }, [projectId]);
-
-  useEffect(() => {
-    if (taskData) {
-      setTasks(taskData);
-    }
-  }, [taskData]);
 
   useEffect(() => {
     if (projects) {
@@ -137,7 +126,7 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
     }
   };
 
-  if (!selectedProject || loadingTasks) {
+  if (!selectedProject) {
     return <div />;
   }
 

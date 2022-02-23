@@ -3,15 +3,15 @@ import { Task } from '../../common/types/tasks.types';
 import { useAtom } from 'jotai';
 import { showCompletedAtom } from '../../atoms/showCompleted/showCompleted.atom';
 import ProjectService from '../../services/ProjectService';
-import {Nullable} from "../../common/types/common.types";
-import TaskUtils from "../../components/common/utilities/taskUtils/TaskUtils";
-import {useFetchProjectTasks} from "../../common/hooks/tasks/useFetchProjectTasks";
+import { Nullable } from '../../common/types/common.types';
+import TaskUtils from '../../components/common/utilities/taskUtils/TaskUtils';
+import { useFetchProjectTasks } from '../../common/hooks/tasks/useFetchProjectTasks';
+import { tasksRequests } from '../../common/requests/tasksRequests';
 
 export const useHandleTaskUpdate = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const projectId = useRef<string>('');
   const [showCompleted] = useAtom(showCompletedAtom);
-  const { data: taskData, isLoading: loadingTasks, refetch } = useFetchProjectTasks(projectId.current);
 
   const markTaskAsDone = async (taskId: string) => {
     const task = tasks.find((t) => t.id === taskId)!;
@@ -27,19 +27,26 @@ export const useHandleTaskUpdate = () => {
     }
     setTasks((prevState) => [...(prevState || []), newTask as Task]);
     await ProjectService.addProjectTask(projectId.current, newTask);
-    refetch();
-  }
+    await fetchTasks();
+  };
 
   const updateTask = async (updatedTask: Task) => {
     const { id } = updatedTask;
     const updatedTasks = tasks.map((task) => (task?.id === id ? updatedTask : task));
-    ProjectService.updateProjectTask(id, updatedTask);
     setTasks([...updatedTasks]);
-  }
+    await ProjectService.updateProjectTask(id, updatedTask);
+  };
 
   const setProjectId = (id: string) => {
     projectId.current = id;
   };
 
-  return { tasks, setTasks, setProjectId, markTaskAsDone, addTask, updateTask };
+  const fetchTasks = async () => {
+    if (projectId.current) {
+      const tasks = await tasksRequests.fetchTasksByProject(projectId.current);
+      setTasks(tasks);
+    }
+  };
+
+  return { tasks, setTasks, setProjectId, markTaskAsDone, addTask, updateTask, fetchTasks };
 };
