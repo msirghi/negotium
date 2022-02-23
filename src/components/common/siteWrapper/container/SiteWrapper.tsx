@@ -16,21 +16,18 @@ import { HeaderSearch } from '../search/HeaderSearch';
 import { Row } from '../../utilities/row/Row';
 import { AccountMenu } from '../account';
 import { useRouter } from 'next/router';
-import {
-  pagesWithoutWrapper,
-  siteThemes,
-} from '../../../../common/constants/constants';
+import { pagesWithoutWrapper, siteThemes } from '../../../../common/constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthService from '../../../../services/AuthService';
-import {
-  setAccountInfo,
-  setMetadata,
-} from '../../../../redux/account/accountSlice';
+import { setAccountInfo, setMetadata } from '../../../../redux/account/accountSlice';
 import { themeMap } from '../../../../common/theme/appTheme';
 import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
+import NoteService from '../../../../services/NoteService';
+import { setNotes } from '../../../../redux/notes/notesSlice';
+import { loadNotes } from '../../../../redux/actions/loadNotes';
 
 const drawerWidth = 240;
 
@@ -45,9 +42,7 @@ export const SiteWrapper: FC = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
-  const siteTheme = useSelector(
-    (state: RootState) => state.account.metadata.theme
-  );
+  const siteTheme = useSelector((state: RootState) => state.account.metadata.theme);
   const isPageWithoutWrapper = pagesWithoutWrapper.includes(router.route);
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
   const dispatch = useDispatch();
@@ -81,10 +76,15 @@ export const SiteWrapper: FC = ({ children }) => {
     } catch (e) {}
   };
 
+  const fetchNotes = async () => {
+    dispatch(loadNotes());
+  };
+
   useEffect(() => {
     if (!isPageWithoutWrapper) {
       fetchUserInfo();
       fetchUserMetadata();
+      fetchNotes();
     }
   }, [isPageWithoutWrapper]);
 
@@ -106,10 +106,7 @@ export const SiteWrapper: FC = ({ children }) => {
             zIndex: (theme) => theme.zIndex.drawer + 1,
           }}
         >
-          <Toolbar
-            className={classes.appBar}
-            sx={{ backgroundColor: selectedTheme!.palette.primary.main }}
-          >
+          <Toolbar className={classes.appBar} sx={{ backgroundColor: selectedTheme!.palette.primary.main }}>
             <IconButton
               id="menu-icon"
               color="inherit"
@@ -177,9 +174,7 @@ export const SiteWrapper: FC = ({ children }) => {
           <Box
             component="main"
             sx={{
-              width: isMobile
-                ? '100%'
-                : { sm: `calc(100% - ${drawerWidth}px)` },
+              width: isMobile ? '100%' : { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
             <If condition={isMobile}>

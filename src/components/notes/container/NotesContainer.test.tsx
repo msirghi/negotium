@@ -2,10 +2,8 @@ import NoteService from '../../../services/NoteService';
 import { NotesMock } from '../../../common/tests/mockData/notes-mock';
 import { SnackbarProvider } from 'notistack';
 import { NotesContainer } from './NotesContainer';
-import { NoteSkeleton } from '../../common/skeletons/noteSkeleton/NoteSkeleton';
-import { mount } from 'enzyme';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import TestUtils from '../../../common/tests/TestUtils';
+import TestUtils, { MockReduxProvider } from '../../../common/tests/TestUtils';
 import { act } from 'react-dom/test-utils';
 
 require('setimmediate');
@@ -22,15 +20,12 @@ describe('NotesContainer', () => {
   const renderComponent = () => {
     return (
       <SnackbarProvider>
-        <NotesContainer />
+        <MockReduxProvider reduxStore={{ notes: { notes: NotesMock } }}>
+          <NotesContainer />
+        </MockReduxProvider>
       </SnackbarProvider>
     );
   };
-
-  it('should render loader on initial render', () => {
-    const wrapper = mount(renderComponent());
-    expect(wrapper.find(NoteSkeleton)).not.toHaveLength(0);
-  });
 
   it('should render note items', async () => {
     const { getByTestId } = render(renderComponent());
