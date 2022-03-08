@@ -23,7 +23,7 @@ const sortByDate = (tasks: Task[]) => {
 };
 
 const sortNotesByUpdatedDate = (notes: Note[]) => {
-  return notes.sort((a, b) => {
+  return [...notes].sort((a, b) => {
     if (!b.updatedDate) {
       return 1;
     }

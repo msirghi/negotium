@@ -1,9 +1,6 @@
 import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TasksMock } from '../../../common/tests/mockData/tasks-mock';
-import TestUtils, {
-  MockQueryClient,
-  MockReduxProvider,
-} from '../../../common/tests/TestUtils';
+import TestUtils, { MockReduxProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
 import { TodayContainer } from './TodayContainer';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
@@ -29,13 +26,11 @@ describe('TodayContainer', () => {
 
   const renderComponent = (useData = true) => {
     return (
-      <MockQueryClient>
-        <MockReduxProvider reduxStore={reduxStore}>
-          <SnackbarProvider>
-            <TodayContainer useData={useData} />
-          </SnackbarProvider>
-        </MockReduxProvider>
-      </MockQueryClient>
+      <MockReduxProvider reduxStore={reduxStore}>
+        <SnackbarProvider>
+          <TodayContainer useData={useData} />
+        </SnackbarProvider>
+      </MockReduxProvider>
     );
   };
 
@@ -105,8 +100,8 @@ describe('TodayContainer', () => {
 
     const section = wrapper.find(SelectedTaskSection);
 
-    act(()=> {
-      section.props().onTaskUpdate({...TasksMock[0]});
+    act(() => {
+      section.props().onTaskUpdate({ ...TasksMock[0] });
     });
     wrapper.update();
     expect(taskItem.at(0).props().task).toBeDefined();

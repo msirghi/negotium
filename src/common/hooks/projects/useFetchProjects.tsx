@@ -1,6 +1,22 @@
-import { useQuery } from 'react-query';
-import { projectsRequests } from '../../requests/projectsRequests';
+import { useEffect, useState } from 'react';
+import { Project } from '../../types/projects.types';
+import ProjectService from '../../../services/ProjectService';
+import { useDispatch } from 'react-redux';
+import { setProjectsList } from '../../../redux/projects/projectsSlice';
 
 export function useFetchProjects() {
-  return useQuery('projectData', projectsRequests.fetchProjects);
+  const [isLoading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  const fetchProjects = async () => {
+    const projects = await ProjectService.getProjects();
+    dispatch(setProjectsList(projects as Project[]));
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  return { fetchProjects, loading: isLoading };
 }

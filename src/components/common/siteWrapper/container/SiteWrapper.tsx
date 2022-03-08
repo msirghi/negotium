@@ -25,8 +25,6 @@ import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
-import NoteService from '../../../../services/NoteService';
-import { setNotes } from '../../../../redux/notes/notesSlice';
 import { loadNotes } from '../../../../redux/actions/loadNotes';
 
 const drawerWidth = 240;
@@ -143,9 +141,7 @@ export const SiteWrapper: FC = ({ children }) => {
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true,
-              }}
+              ModalProps={{ keepMounted: true }}
               sx={{
                 zIndex: 111111,
                 display: { xs: 'block', sm: 'none' },

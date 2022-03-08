@@ -5,7 +5,6 @@ import { showCompletedAtom } from '../../atoms/showCompleted/showCompleted.atom'
 import ProjectService from '../../services/ProjectService';
 import { Nullable } from '../../common/types/common.types';
 import TaskUtils from '../../components/common/utilities/taskUtils/TaskUtils';
-import { useFetchProjectTasks } from '../../common/hooks/tasks/useFetchProjectTasks';
 import { tasksRequests } from '../../common/requests/tasksRequests';
 
 export const useHandleTaskUpdate = () => {

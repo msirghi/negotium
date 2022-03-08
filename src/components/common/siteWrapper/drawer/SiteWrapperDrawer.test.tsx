@@ -4,16 +4,11 @@ import { SiteWrapperMainList } from '../lists/main/SiteWrapperMainList';
 import { SiteWrapperProjectsList } from '../lists/projects/SiteWrapperProjectsList';
 import { projectsRequests } from '../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import {
-  MockReduxProvider,
-  MockThemeProvider,
-} from '../../../../common/tests/TestUtils';
+import { MockReduxProvider, MockThemeProvider } from '../../../../common/tests/TestUtils';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapperDrawer', () => {
-  const queryClient = new QueryClient();
   const reduxStore = {
     projects: {
       projects: [...projectsMock],
@@ -25,19 +20,15 @@ describe('SiteWrapperDrawer', () => {
   });
 
   beforeAll(() => {
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
   });
 
   it('should render main list', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <MockThemeProvider>
-            <SiteWrapperDrawer />
-          </MockThemeProvider>
-        </QueryClientProvider>
+        <MockThemeProvider>
+          <SiteWrapperDrawer />
+        </MockThemeProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find(SiteWrapperMainList)).toHaveLength(1);
@@ -46,11 +37,9 @@ describe('SiteWrapperDrawer', () => {
   it('should render projects list', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <MockThemeProvider>
-            <SiteWrapperDrawer />
-          </MockThemeProvider>
-        </QueryClientProvider>
+        <MockThemeProvider>
+          <SiteWrapperDrawer />
+        </MockThemeProvider>
       </MockReduxProvider>
     );
     expect(wrapper.find(SiteWrapperProjectsList)).toHaveLength(1);

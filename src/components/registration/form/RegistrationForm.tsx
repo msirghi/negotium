@@ -37,9 +37,7 @@ export const RegistrationForm = () => {
       const { email, password, name } = values;
       await AuthService.register(email, password, name);
       setLoading(false);
-      enqueueSnackbar('Registration completed.', {
-        variant: 'success',
-      });
+      enqueueSnackbar('Registration completed.', { variant: 'success' });
       await router.push(Routes.login);
     } catch (e) {
       setError((e as Error).message);

@@ -1,7 +1,7 @@
 import { projectsMock, sectionsMock } from '../../../common/tests/mockData/projects-mock';
 import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TasksMock } from '../../../common/tests/mockData/tasks-mock';
-import TestUtils, { MockQueryClient, MockReduxProvider } from '../../../common/tests/TestUtils';
+import TestUtils, { MockReduxProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
 import { ProjectContainer } from './ProjectContainer';
 import { mount } from 'enzyme';
@@ -50,13 +50,11 @@ describe('ProjectContainer', () => {
 
   const renderComponent = () => {
     return (
-      <MockQueryClient>
-        <MockReduxProvider reduxStore={reduxStore}>
-          <SnackbarProvider>
-            <ProjectContainer projectId={mockProjects[0].id} />
-          </SnackbarProvider>
-        </MockReduxProvider>
-      </MockQueryClient>
+      <MockReduxProvider reduxStore={reduxStore}>
+        <SnackbarProvider>
+          <ProjectContainer projectId={mockProjects[0].id} />
+        </SnackbarProvider>
+      </MockReduxProvider>
     );
   };
 
@@ -173,7 +171,7 @@ describe('ProjectContainer', () => {
 
   it('should render loader on initial render', () => {
     const wrapper = mount(renderComponent());
-    expect(wrapper.find('div')).toHaveLength(1);
+    expect(wrapper.find('div')).not.toHaveLength(0);
   });
 
   it('should render content', async () => {

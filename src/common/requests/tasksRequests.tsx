@@ -7,13 +7,8 @@ import { Section } from '../types/tasks.types';
 import { HttpMethod } from '../constants/enums';
 
 async function fetchTasks() {
-  const { data } = await Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks`,
-    HttpMethod.GET
-  );
-  return ServiceResultFactory.convertMongoIdToJSId(
-    data as GetTasksResponse['tasks']
-  );
+  const { data } = await Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks`, HttpMethod.GET);
+  return ServiceResultFactory.convertMongoIdToJSId(data as GetTasksResponse['tasks']);
 }
 
 async function fetchTasksGroupedBySection() {
@@ -23,18 +18,12 @@ async function fetchTasksGroupedBySection() {
 }
 
 async function fetchTasksByProject(projectId: string) {
-  const { data } = await axios.get(
-    `${BASE_API_URL_V1}/projects/${projectId}/tasks`
-  );
-  return ServiceResultFactory.convertMongoIdToJSId(
-    data as GetTasksResponse['tasks']
-  );
+  const { data } = await axios.get(`${BASE_API_URL_V1}/projects/${projectId}/tasks`);
+  return ServiceResultFactory.convertMongoIdToJSId(data as GetTasksResponse['tasks']);
 }
 
 async function fetchProjectSection(projectId: string) {
-  const { data } = await axios.get(
-    `${BASE_API_URL_V1}/projects/${projectId}/sections`
-  );
+  const { data } = await axios.get(`${BASE_API_URL_V1}/projects/${projectId}/sections`);
   return ServiceResultFactory.convertMongoIdToJSId(data as Section[]);
 }
 

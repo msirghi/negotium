@@ -1,7 +1,6 @@
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { List, ListItem } from '@mui/material';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import MenuSkeleton from '../skeleton/MenuSkeleton';
 import { SiteWrapperList } from '../';
 import { ListItemTitle } from '../listItemTitle/ListItemTitle';
@@ -13,8 +12,7 @@ import ProjectService from '../../../../../services/ProjectService';
 import router from 'next/router'
 import { makeStyles } from '@mui/styles';
 import colors from '../../../../../common/styles/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { setProjectsList } from '../../../../../redux/projects/projectsSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../redux/store';
 import SmoothList from 'react-smooth-list';
 import { ProjectListMoreItem } from './more/ProjectListMoreItem';
@@ -40,40 +38,26 @@ const useStyles = makeStyles({
 });
 
 export const SiteWrapperProjectsList = () => {
-  const { isLoading, data, refetch } = useFetchProjects();
+  const { fetchProjects, loading } = useFetchProjects();
   const { t } = useTranslation('common');
   const theme = useTheme();
   const classes = useStyles({ theme });
 
   const [showAll, setShowAll] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
   const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
-  const projectsFromStore = useSelector((state: RootState) => state.projects.projects);
-
-  const dispatch = useDispatch();
+  const projects = useSelector((state: RootState) => state.projects.projects);
 
   useEffect(() => {
-    if (data) {
-      setProjects(data);
-      dispatch(setProjectsList(data));
+    if (!projects){
+      fetchProjects();
     }
-  }, [data]);
-
-  useEffect(() => {
-    if (projectsFromStore) {
-      setProjects(projectsFromStore);
-    }
-  }, [projectsFromStore]);
-
-  useEffect(() => {
-    refetch();
-  }, [projectsFromStore]);
+  }, []);
 
   const openDialog = () => setProjectDialogOpen(true);
 
   const onSubmit = async (name: Project['name'], color: Project['color']) => {
     await ProjectService.addProject({ name, color });
-    await refetch();
+    await fetchProjects();
   };
 
   const onProjectClick = (id: string) => {
@@ -87,7 +71,7 @@ export const SiteWrapperProjectsList = () => {
 
   const toggleShowAll = () => setShowAll(!showAll);
 
-  if (isLoading || !data) {
+  if (loading && !projects) {
     return <MenuSkeleton />;
   }
 

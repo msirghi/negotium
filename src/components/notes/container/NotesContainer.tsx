@@ -1,7 +1,6 @@
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { PageTitle } from '../../common/content/pageTitle/PageTitle';
 import { NoteItem } from '../item/NoteItem';
-import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import { useNotesContainerStyles } from './styles';
 import SmoothList from 'react-smooth-list';
@@ -10,7 +9,6 @@ import NoteService from '../../../services/NoteService';
 import { Note, NoteUpdate } from '../../../common/types/notes.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { useSnackbar } from 'notistack';
-import { NoteSkeleton } from '../../common/skeletons/noteSkeleton/NoteSkeleton';
 import useTranslation from 'next-translate/useTranslation';
 import { EmptyListMessage } from '../../common/emptyListMessage/EmptyListMessage';
 import { Row } from '../../common/utilities/row/Row';

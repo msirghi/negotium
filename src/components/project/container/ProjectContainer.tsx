@@ -5,7 +5,6 @@ import { Project } from '../../../common/types/projects.types';
 import { Row } from '../../common/utilities/row/Row';
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
-import { useFetchProjectTasks } from '../../../common/hooks/tasks/useFetchProjectTasks';
 import { Section, Task } from '../../../common/types/tasks.types';
 import SortUtils from '../../../common/utils/sortUtils';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';

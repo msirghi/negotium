@@ -1,49 +1,37 @@
 import { act, render, waitFor } from '@testing-library/react';
 import { SiteWrapperProjectsList } from './SiteWrapperProjectsList';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../../common/tests/mockData/projects-mock';
-import {
-  MockReduxProvider,
-  MockThemeProvider,
-} from '../../../../../common/tests/TestUtils';
+import { MockThemeProvider } from '../../../../../common/tests/TestUtils';
 import ProjectService from '../../../../../services/ProjectService';
 import { mount } from 'enzyme';
 import { ProjectDialog } from '../wrapper/projectDialog/ProjectDialog';
 import { SiteWrapperList } from '../wrapper/SiteWrapperList';
 import { ListItem } from '@mui/material';
 import mockRouter from 'next-router-mock';
+import { Provider } from 'react-redux';
+import { store } from '../../../../../redux/store';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapperProjectsList', () => {
-  const queryClient = new QueryClient();
-  const reduxStore = {
-    projects: {
-      projects: [...projectsMock],
-    },
-  };
-
   beforeEach(() => {
     jest.spyOn(mockRouter, 'push');
+    jest.spyOn(ProjectService, 'getProjects').mockImplementation(() => Promise.resolve([...projectsMock]));
     jest.clearAllMocks();
   });
 
   const renderComponent = () => (
-    <MockReduxProvider reduxStore={reduxStore}>
-      <QueryClientProvider client={queryClient}>
-        <MockThemeProvider>
-          <SiteWrapperProjectsList />
-        </MockThemeProvider>
-      </QueryClientProvider>
-    </MockReduxProvider>
+    <Provider store={store}>
+      <MockThemeProvider>
+        <SiteWrapperProjectsList />
+      </MockThemeProvider>
+    </Provider>
   );
 
   it('should render project list', async () => {
     jest.useFakeTimers();
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
 
     const { getByTestId } = render(renderComponent());
 
@@ -54,9 +42,7 @@ describe('SiteWrapperProjectsList', () => {
 
   it('should add a new project', async () => {
     jest.useFakeTimers();
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
     ProjectService.addProject = jest.fn(() => Promise.resolve()) as any;
 
     const wrapper = mount(renderComponent());
@@ -70,9 +56,7 @@ describe('SiteWrapperProjectsList', () => {
 
   it('should handle project item click', async () => {
     jest.useFakeTimers();
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
 
     const wrapper = mount(renderComponent());
     const item = wrapper.find(ListItem).at(0);
@@ -84,12 +68,11 @@ describe('SiteWrapperProjectsList', () => {
 
   it('should handle dialog open', async () => {
     jest.useFakeTimers();
-    projectsRequests.fetchProjects = jest.fn(() =>
-      Promise.resolve([...projectsMock])
-    );
+    jest.spyOn(ProjectService, 'getProjects').mockImplementation(() => Promise.resolve([...projectsMock]));
     ProjectService.addProject = jest.fn(() => Promise.resolve()) as any;
 
     const wrapper = mount(renderComponent());
+    wrapper.update();
 
     const wrapperList = wrapper.find(SiteWrapperList);
     act(() => {

@@ -2,7 +2,6 @@ import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TasksMock } from '../../../common/tests/mockData/tasks-mock';
 import { mount } from 'enzyme';
 import { InboxContainer } from './InboxContainer';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { SnackbarProvider } from 'notistack';
 import { ContentBox } from '../../common/boxes/content/ContentBox';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
@@ -15,16 +14,9 @@ import TestUtils from '../../../common/tests/TestUtils';
 
 require('setimmediate');
 
-const queryClient = new QueryClient();
-
 describe('InboxContainer', () => {
   beforeEach(() => {
-    tasksRequests.fetchTasks = jest.fn(() =>
-      Promise.resolve([
-        ...TasksMock,
-        { ...TasksMock[0], id: '1', completed: false },
-      ])
-    );
+    tasksRequests.fetchTasks = jest.fn(() => Promise.resolve([...TasksMock, { ...TasksMock[0], id: '1', completed: false }]));
     JSON.parse = jest.fn();
     SlateUtils.serialize = jest.fn();
   });
@@ -35,11 +27,9 @@ describe('InboxContainer', () => {
 
   const renderComponent = () => {
     return (
-      <QueryClientProvider client={queryClient}>
-        <SnackbarProvider>
-          <InboxContainer useData />
-        </SnackbarProvider>
-      </QueryClientProvider>
+      <SnackbarProvider>
+        <InboxContainer useData />
+      </SnackbarProvider>
     );
   };
 
@@ -108,9 +98,7 @@ describe('InboxContainer', () => {
   });
 
   it('should add the task', async () => {
-    TaskUtils.getNewTaskObject = jest.fn(() =>
-      Promise.resolve({ ...TasksMock[0] })
-    ) as any;
+    TaskUtils.getNewTaskObject = jest.fn(() => Promise.resolve({ ...TasksMock[0] })) as any;
 
     const wrapper = await mount(renderComponent());
     wrapper.update();

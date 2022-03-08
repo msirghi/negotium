@@ -1,5 +1,4 @@
 import { SiteWrapper } from './SiteWrapper';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { projectsRequests } from '../../../../common/requests/projectsRequests';
 import { projectsMock } from '../../../../common/tests/mockData/projects-mock';
 import { mount } from 'enzyme';
@@ -12,7 +11,6 @@ import ThemeUtils from '../../../../common/utils/themeUtils';
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
 describe('SiteWrapper', () => {
-  const queryClient = new QueryClient();
   const reduxStore = { ...reduxStoreMock };
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,11 +25,9 @@ describe('SiteWrapper', () => {
   it('should render children', () => {
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <SiteWrapper>
-            <div id={'content'} />
-          </SiteWrapper>
-        </QueryClientProvider>
+        <SiteWrapper>
+          <div id={'content'} />
+        </SiteWrapper>
       </MockReduxProvider>
     );
     expect(wrapper.find('#content')).toHaveLength(1);
@@ -41,11 +37,9 @@ describe('SiteWrapper', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
     const wrapper = mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <SiteWrapper>
-            <div id={'content'} />
-          </SiteWrapper>
-        </QueryClientProvider>
+        <SiteWrapper>
+          <div id={'content'} />
+        </SiteWrapper>
       </MockReduxProvider>
     );
     wrapper.update();
@@ -58,11 +52,9 @@ describe('SiteWrapper', () => {
   it('should get user info on mount', () => {
     mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <SiteWrapper>
-            <div id={'content'} />
-          </SiteWrapper>
-        </QueryClientProvider>
+        <SiteWrapper>
+          <div id={'content'} />
+        </SiteWrapper>
       </MockReduxProvider>
     );
     expect(AuthService.getUserInfo).toBeCalled();
@@ -71,11 +63,9 @@ describe('SiteWrapper', () => {
   it('should fetch user metadata on mount', () => {
     mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <SiteWrapper>
-            <div id={'content'} />
-          </SiteWrapper>
-        </QueryClientProvider>
+        <SiteWrapper>
+          <div id={'content'} />
+        </SiteWrapper>
       </MockReduxProvider>
     );
     expect(AccountService.getUserMetadata).toBeCalled();
@@ -85,11 +75,9 @@ describe('SiteWrapper', () => {
     ThemeUtils.isValidTheme = jest.fn(() => false);
     await mount(
       <MockReduxProvider reduxStore={reduxStore}>
-        <QueryClientProvider client={queryClient}>
-          <SiteWrapper>
-            <div id={'content'} />
-          </SiteWrapper>
-        </QueryClientProvider>
+        <SiteWrapper>
+          <div id={'content'} />
+        </SiteWrapper>
       </MockReduxProvider>
     );
     expect(ThemeUtils.isValidTheme).toBeCalled();

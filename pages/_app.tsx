@@ -9,7 +9,6 @@ import { LocalizationProvider } from '@mui/lab';
 import DateAdapter from '@mui/lab/AdapterDayjs';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { StylesProvider, createGenerateClassName } from '@mui/styles';
 
 import { store } from '../src/redux/store';
@@ -25,8 +24,6 @@ import { REFRESH_TOKEN_URL } from '../src/common/constants/constants';
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
 });
-
-const queryClient = new QueryClient();
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -86,15 +83,13 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
     <StylesProvider generateClassName={generateClassName}>
       <CacheProvider value={emotionCache}>
         <Provider store={store}>
-          <QueryClientProvider client={queryClient}>
-            <SnackbarProvider maxSnack={3}>
-              <LocalizationProvider dateAdapter={DateAdapter}>
-                <SiteWrapper>
-                  <Component {...pageProps} />
-                </SiteWrapper>
-              </LocalizationProvider>
-            </SnackbarProvider>
-          </QueryClientProvider>
+          <SnackbarProvider maxSnack={3}>
+            <LocalizationProvider dateAdapter={DateAdapter}>
+              <SiteWrapper>
+                <Component {...pageProps} />
+              </SiteWrapper>
+            </LocalizationProvider>
+          </SnackbarProvider>
         </Provider>
       </CacheProvider>
     </StylesProvider>
