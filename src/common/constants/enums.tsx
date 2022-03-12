@@ -34,3 +34,7 @@ export enum TaskDateType {
 export enum ProjectSettingsOption {
   SHOW_COMPLETED = 'SHOW_COMPLETED',
 }
+
+export enum Sounds {
+  NOTIFICATION,
+}

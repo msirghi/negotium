@@ -8,6 +8,8 @@ import RoundCheckbox from '../../../form/checkbox/round/RoundCheckbox';
 import DateUtils from '../../../../../common/utils/dateUtils';
 import { useTaskItemStyles } from './styles';
 import utils from './utils/utils';
+import { usePlaySound } from '../../../../../common/hooks/common/usePlaySound';
+import { Sounds } from '../../../../../common/constants/enums';
 
 type Props = {
   task: Task;
@@ -22,9 +24,13 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect, index }) =
   const { title, dueDate } = task;
   const isSlateInputEnabled = FeatureToggles.isFeatureEnabled(FeatureToggles.keys.SLATE_INPUT);
   const formattedDate = DateUtils.formatDateForTask(dueDate);
+  const { play } = usePlaySound(Sounds.NOTIFICATION);
 
   const handleMarkAsDone = (id: Task['id']) => {
-    return () => markAsDone(id);
+    return () => {
+      play();
+      markAsDone(id);
+    };
   };
 
   const handleTaskSelect = () => {

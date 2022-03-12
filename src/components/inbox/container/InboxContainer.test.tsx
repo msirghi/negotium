@@ -25,7 +25,7 @@ describe('InboxContainer', () => {
   });
 
   const renderComponent = async () => {
-    const reduxStore = { tasks: { tasks: TasksMock } };
+    const reduxStore = { tasks: { tasks: TasksMock }, account: {} };
     const wrapper = mount(
       <SnackbarProvider>
         <MockReduxProvider reduxStore={reduxStore}>

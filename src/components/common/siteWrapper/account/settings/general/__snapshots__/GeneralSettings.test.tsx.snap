@@ -219,5 +219,79 @@ exports[`GeneralSettings should match the snapshot 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="makeStyles-sectionTitle-2 MuiBox-root css-0"
+  >
+    <hr
+      className="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+    />
+  </div>
+  <div
+    className="makeStyles-sectionTitle-2 MuiBox-root css-0"
+  >
+    titles.notifications
+  </div>
+  <div
+    className="makeStyles-sectionBody-3 MuiBox-root css-0"
+  >
+    <p
+      className="makeStyles-helperText-5"
+    >
+      helperTexts.notificationsHelperText
+    </p>
+    <div
+      className="MuiToggleButtonGroup-root css-1gjgmky-MuiToggleButtonGroup-root"
+      role="group"
+    >
+      <button
+        aria-pressed={false}
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-d9c359-MuiButtonBase-root-MuiToggleButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+        value={true}
+      >
+        on
+      </button>
+      <button
+        aria-pressed={false}
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal css-d9c359-MuiButtonBase-root-MuiToggleButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+        value={false}
+      >
+        off
+      </button>
+    </div>
+  </div>
 </div>
 `;

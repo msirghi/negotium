@@ -1,10 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Divider, MenuItem, TextField } from '@mui/material';
-import {
-  HOME_VIEW_LIST,
-  SUPPORTED_LANGUAGES,
-  TIME_FORMATS,
-} from '../../../../../../common/constants/constants';
+import { HOME_VIEW_LIST, SUPPORTED_LANGUAGES, TIME_FORMATS } from '../../../../../../common/constants/constants';
 import useTranslation from 'next-translate/useTranslation';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
@@ -14,6 +10,7 @@ import { RootState } from '../../../../../../redux/store';
 import AccountService from '../../../../../../services/AccountService';
 import { setLanguage } from '../../../../../../redux/account/accountSlice';
 import { useRouter } from 'next/router';
+import { NotificationsSettings } from './notifications/NotificationsSettings';
 
 const useStyles = makeStyles({
   dropdown: {
@@ -27,9 +24,7 @@ export const GeneralSettings = () => {
   const { t } = useTranslation('settings');
   const isMobile = useIsMobile();
   const router = useRouter();
-  const userMetadata = useSelector(
-    (state: RootState) => state.account.metadata
-  );
+  const userMetadata = useSelector((state: RootState) => state.account.metadata);
   const dispatch = useDispatch();
 
   const updateLanguage = async (evt: { target: { value: string } }) => {
@@ -63,13 +58,7 @@ export const GeneralSettings = () => {
 
       <Box className={commonClasses.sectionTitle}>{t('homeView')}</Box>
       <Box className={commonClasses.sectionBody}>
-        <TextField
-          select
-          value={'Inbox'}
-          size={'small'}
-          className={classes.dropdown}
-          fullWidth={isMobile}
-        >
+        <TextField select value={'Inbox'} size={'small'} className={classes.dropdown} fullWidth={isMobile}>
           {HOME_VIEW_LIST.map(({ title }) => {
             return (
               <MenuItem key={title} value={title}>
@@ -86,13 +75,7 @@ export const GeneralSettings = () => {
 
       <Box className={commonClasses.sectionTitle}>{t('timeFormat')}</Box>
       <Box className={commonClasses.sectionBody}>
-        <TextField
-          select
-          value={'24h'}
-          size={'small'}
-          className={classes.dropdown}
-          fullWidth={isMobile}
-        >
+        <TextField select value={'24h'} size={'small'} className={classes.dropdown} fullWidth={isMobile}>
           {TIME_FORMATS.map(({ title, key }) => {
             return (
               <MenuItem key={key} value={key}>
@@ -101,6 +84,15 @@ export const GeneralSettings = () => {
             );
           })}
         </TextField>
+      </Box>
+
+      <Box className={commonClasses.sectionTitle}>
+        <Divider />
+      </Box>
+
+      <Box className={commonClasses.sectionTitle}>{t('titles.notifications')}</Box>
+      <Box className={commonClasses.sectionBody}>
+        <NotificationsSettings />
       </Box>
     </div>
   );

@@ -46,6 +46,7 @@ describe('ProjectContainer', () => {
     projects: {
       projects: [...projectsMock],
     },
+    account: {}
   };
 
   const renderComponent = () => {

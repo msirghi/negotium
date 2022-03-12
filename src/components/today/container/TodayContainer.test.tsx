@@ -16,7 +16,7 @@ describe('TodayContainer', () => {
     DateUtils.isTodayDate = jest.fn(() => true);
   });
 
-  const reduxStore = { tasks: { tasks: TasksMock } };
+  const reduxStore = { tasks: { tasks: TasksMock }, account: {} };
 
   const renderComponent = () => {
     return (

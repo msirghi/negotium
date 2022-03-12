@@ -4,7 +4,7 @@ import { TaskItem } from './TaskItem';
 import { mount } from 'enzyme';
 import { Checkbox } from '@mui/material';
 import { act } from '@testing-library/react';
-import { MockDndProvider } from '../../../../../common/tests/TestUtils';
+import { MockDndProvider, MockReduxProvider } from '../../../../../common/tests/TestUtils';
 
 describe('TaskItem', () => {
   const defaultProps = {
@@ -20,7 +20,9 @@ describe('TaskItem', () => {
   it('should match the snapshot', () => {
     const tree = renderer.create(
       <MockDndProvider>
-        <TaskItem {...defaultProps} />
+        <MockReduxProvider reduxStore={{ account: {} }}>
+          <TaskItem {...defaultProps} />
+        </MockReduxProvider>
       </MockDndProvider>
     );
     expect(tree).toMatchSnapshot();
@@ -29,7 +31,9 @@ describe('TaskItem', () => {
   it('should mark task as done', () => {
     const wrapper = mount(
       <MockDndProvider>
-        <TaskItem {...defaultProps} />
+        <MockReduxProvider reduxStore={{ account: {} }}>
+          <TaskItem {...defaultProps} />
+        </MockReduxProvider>
       </MockDndProvider>
     );
     const checkbox = wrapper.find(Checkbox);
@@ -43,7 +47,9 @@ describe('TaskItem', () => {
   it('should select a task', () => {
     const wrapper = mount(
       <MockDndProvider>
-        <TaskItem {...defaultProps} />
+        <MockReduxProvider reduxStore={{ account: {} }}>
+          <TaskItem {...defaultProps} />
+        </MockReduxProvider>
       </MockDndProvider>
     );
     const row = wrapper.find('div').at(1);

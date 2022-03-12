@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { Children, FC } from 'react';
 import { PageTitle } from '../../pageTitle/PageTitle';
 import { TaskWrapperTitleOptions } from '../../types';
 import { Tab, Tabs } from '@mui/material';
@@ -8,6 +8,8 @@ import SmoothList from 'react-smooth-list';
 import useTranslation from 'next-translate/useTranslation';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { DndTaskWrapperProps } from '../../../dnd/taskWrapper/types';
+import { If } from '../../../utilities/if/If';
+import { NoTasks } from '../noTasks/NoTasks';
 
 type Props = {
   title: string;
@@ -54,6 +56,9 @@ export const TaskWrapper: FC<Props> = ({
       </Tabs>
 
       <div role={'tabpanel'} style={{ marginTop: '1rem' }}>
+        <If condition={!Children.toArray(children).length}>
+          <NoTasks />
+        </If>
         <SmoothList>
           <DragDropContext onDragEnd={handleDragEnd!}>
             <Droppable droppableId="list">
@@ -68,13 +73,7 @@ export const TaskWrapper: FC<Props> = ({
         </SmoothList>
       </div>
 
-      {showSections && (
-        <AddSectionRow
-          onSectionSave={(title, orderNumber) =>
-            onSectionAdd && onSectionAdd(title, orderNumber)
-          }
-        />
-      )}
+      {showSections && <AddSectionRow onSectionSave={(title, orderNumber) => onSectionAdd && onSectionAdd(title, orderNumber)} />}
     </div>
   );
 };

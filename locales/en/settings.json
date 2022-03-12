@@ -5,8 +5,14 @@
     "general": "General",
     "themes": "Themes",
     "logOut": "Log out",
-    "changeLog": "Changelog"
+    "changeLog": "Changelog",
+    "notifications": "Notifications"
   },
+  "helperTexts": {
+    "notificationsHelperText": "Do you want to hear notification sounds?"
+  },
+  "on": "On",
+  "off": "Off",
   "version": "Version",
   "language": "Language",
   "homeView": "Home view",

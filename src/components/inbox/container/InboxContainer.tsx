@@ -15,6 +15,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useSelector } from 'react-redux';
 import { tasksSelector } from '../../../redux/selectors/tasks.selectors';
 import { useTasksActions } from '../../../common/hooks/tasks/useTasksActions';
+import SortUtils from "../../../common/utils/sortUtils";
 
 type Props = {
   title: string;
@@ -66,7 +67,7 @@ export const InboxContainer = ({ title, subtitle, predefinedTasks }: Partial<Pro
       <ContentBox>
         <DndTaskWrapper tasks={predefinedTasks || tasks} updateTasks={() => {}}>
           <TaskWrapper title={title || t('pageTitles.inbox')} upperHeaderTitle={subtitle || t('pageTitles.inbox')}>
-            {(predefinedTasks || tasks)
+            {(predefinedTasks || SortUtils.sortByDate(tasks))
               .filter((task) => !task.completed && !task.projectId)
               .map((task, index) => (
                 <TaskItem

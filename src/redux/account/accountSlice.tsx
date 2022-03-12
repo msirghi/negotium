@@ -4,6 +4,7 @@ import { AccountInfo, AccountMetadata } from '../../common/types/account.types';
 export interface AccountState {
   info: AccountInfo;
   metadata: AccountMetadata;
+  notificationsEnabled: boolean;
 }
 
 const initialState: AccountState = {
@@ -14,8 +15,9 @@ const initialState: AccountState = {
   },
   metadata: {
     theme: '',
-    language: ''
+    language: '',
   },
+  notificationsEnabled: Boolean(window.localStorage.getItem('notifications-enabled')),
 };
 
 export const accountSlice = createSlice({
@@ -40,10 +42,14 @@ export const accountSlice = createSlice({
     setUserEmail: (state, action: PayloadAction<string>) => {
       state.info.email = action.payload;
     },
+    setNotificationsEnabled: (state, action: PayloadAction<boolean>) => {
+      window.localStorage.setItem('notifications-enabled', `${action.payload}`);
+      state.notificationsEnabled = action.payload;
+    },
   },
 });
 
-export const { setAccountInfo, setSiteTheme, setMetadata, setUserName, setLanguage, setUserEmail } =
+export const { setAccountInfo, setSiteTheme, setMetadata, setUserName, setLanguage, setUserEmail, setNotificationsEnabled } =
   accountSlice.actions;
 
 export default accountSlice.reducer;

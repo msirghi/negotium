@@ -5,6 +5,7 @@ import reducer, {
   setUserName,
   setLanguage,
   setUserEmail,
+  setNotificationsEnabled,
 } from './accountSlice';
 import { tempAccountInfo } from '../../common/constants/constants';
 
@@ -16,6 +17,7 @@ describe('Account slice', () => {
       email: 'mail',
     },
     metadata: { theme: 'Noir', language: 'ru' },
+    notificationsEnabled: false,
   };
 
   it('should return the initial state', () => {
@@ -29,6 +31,7 @@ describe('Account slice', () => {
         theme: '',
         language: '',
       },
+      notificationsEnabled: false
     });
   });
 
@@ -36,13 +39,12 @@ describe('Account slice', () => {
     expect(reducer(testState, setAccountInfo(tempAccountInfo))).toEqual({
       info: tempAccountInfo,
       metadata: { theme: 'Noir', language: 'ru' },
+      notificationsEnabled: false
     });
   });
 
   it('should set the site theme', () => {
-    expect(reducer(testState, setSiteTheme('theme')).metadata.theme).toEqual(
-      'theme'
-    );
+    expect(reducer(testState, setSiteTheme('theme')).metadata.theme).toEqual('theme');
   });
 
   it('should set the user name', () => {
@@ -62,14 +64,14 @@ describe('Account slice', () => {
   });
 
   it('should set user language', () => {
-    expect(reducer(testState, setLanguage('ru')).metadata.language).toEqual(
-      'ru'
-    );
+    expect(reducer(testState, setLanguage('ru')).metadata.language).toEqual('ru');
   });
 
   it('should set user email', () => {
-    expect(reducer(testState, setUserEmail('email')).info.email).toEqual(
-      'email'
-    );
+    expect(reducer(testState, setUserEmail('email')).info.email).toEqual('email');
+  });
+
+  it('should set notificationsEnabled flag', () => {
+    expect(reducer(testState, setNotificationsEnabled(true)).notificationsEnabled).toBeTruthy();
   });
 });

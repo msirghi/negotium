@@ -4,7 +4,7 @@ import { GeneralSettings } from './GeneralSettings';
 import { mount } from 'enzyme';
 import { TextField } from '@mui/material';
 import { act } from '@testing-library/react';
-import AccountService from "../../../../../../services/AccountService";
+import AccountService from '../../../../../../services/AccountService';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
