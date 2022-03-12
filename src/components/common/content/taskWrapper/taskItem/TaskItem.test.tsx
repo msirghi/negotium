@@ -4,7 +4,6 @@ import { TaskItem } from './TaskItem';
 import { mount } from 'enzyme';
 import { Checkbox } from '@mui/material';
 import { act } from '@testing-library/react';
-import { Row } from '../../../utilities/row/Row';
 import { MockDndProvider } from '../../../../../common/tests/TestUtils';
 
 describe('TaskItem', () => {
@@ -47,7 +46,7 @@ describe('TaskItem', () => {
         <TaskItem {...defaultProps} />
       </MockDndProvider>
     );
-    const row = wrapper.find(Row).at(0);
+    const row = wrapper.find('div').at(1);
     act(() => {
       row.simulate('click');
     });

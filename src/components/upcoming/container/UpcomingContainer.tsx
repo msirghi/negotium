@@ -35,7 +35,7 @@ export const UpcomingContainer = () => {
     enqueueSnackbar('Task marked as done', {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
-    await TaskUtils.markAsDone(taskId, refetch);
+    await TaskUtils.markAsDone(taskId);
   };
 
   const onAddTask = async (title: string, date: Nullable<Date>) => {

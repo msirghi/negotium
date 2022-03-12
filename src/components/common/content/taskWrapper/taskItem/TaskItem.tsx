@@ -36,8 +36,8 @@ export const TaskItem: FC<Props> = ({ task, markAsDone, onTaskSelect, index }) =
       {(provided) => {
         return (
           <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={classes.container}>
-            <div>
-              <Row alignVerticalCenter onClick={handleTaskSelect()} className={task.completed ? classes.completedTask : ''}>
+            <div onClick={handleTaskSelect()}>
+              <Row alignVerticalCenter className={task.completed ? classes.completedTask : ''}>
                 <Row alignVerticalCenter>
                   <RoundCheckbox size={'small'} onChange={handleMarkAsDone(task.id)} defaultChecked={task.completed} />
                   <div className={classes.title}>{isSlateInputEnabled ? SlateUtils.serialize(JSON.parse(title)) : title}</div>

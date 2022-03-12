@@ -55,7 +55,7 @@ export const HeaderSearch = () => {
         label: project.name,
         onClick: async () => {
           closePopper();
-          await router.push(`/home/projects/${project.id}`, undefined, {
+          await router.push(`/home/projects?id=${project.id}`, undefined, {
             shallow: true,
           });
           setSelectedOption(project.id);
