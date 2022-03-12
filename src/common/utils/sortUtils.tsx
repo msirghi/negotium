@@ -15,7 +15,7 @@ const sortItemsByOrder = (items: Task[]) => {
 
 const sortByDate = (tasks: Task[]) => {
   const distantFuture = new Date(8640000000000000);
-  return tasks.sort((a, b) => {
+  return [...tasks].sort((a, b) => {
     const dateA = a.dueDate ? new Date(a.dueDate) : distantFuture;
     const dateB = b.dueDate ? new Date(b.dueDate) : distantFuture;
     return dateA.getTime() - dateB.getTime();
