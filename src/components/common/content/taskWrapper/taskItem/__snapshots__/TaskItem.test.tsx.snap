@@ -21,7 +21,9 @@ Array [
     }
     tabIndex={0}
   >
-    <div>
+    <div
+      onClick={[Function]}
+    >
       <div
         className="makeStyles-completedTask-3"
         onClick={[Function]}

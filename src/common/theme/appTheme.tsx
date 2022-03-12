@@ -12,12 +12,12 @@ export const defaultLightTheme = createTheme({
   },
   palette: {
     primary: {
-      main: colors.primaries.lightBlue_1,
-      light: colors.primaries.lightBlue_1,
-      dark: colors.primaries.lightBlue_1,
+      main: colors.primaries.lightBlue,
+      light: colors.primaries.lightBlue,
+      dark: colors.primaries.lightBlue,
     },
     custom: {
-      menuIconBackground: colors.primaries.lightBlue_1,
+      menuIconBackground: colors.primaries.lightBlue,
       headerSearchBackground: colors.blues.light,
     },
   },

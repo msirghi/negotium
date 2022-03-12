@@ -120,7 +120,7 @@ export const passwordStatusColors = {
 
 export const siteThemes: SiteTheme[] = [
   {
-    color: colors.primaries.lightBlue_1,
+    color: colors.primaries.lightBlue,
     label: 'Default',
     internalKey: 'default',
   },
