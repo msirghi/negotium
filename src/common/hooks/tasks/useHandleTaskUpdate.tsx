@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
-import { Task } from '../../common/types/tasks.types';
+import { Task } from '../../types/tasks.types';
 import { useAtom } from 'jotai';
-import { showCompletedAtom } from '../../atoms/showCompleted/showCompleted.atom';
-import ProjectService from '../../services/ProjectService';
-import { Nullable } from '../../common/types/common.types';
-import TaskUtils from '../../components/common/utilities/taskUtils/TaskUtils';
-import { tasksRequests } from '../../common/requests/tasksRequests';
+import { showCompletedAtom } from '../../../atoms/showCompleted/showCompleted.atom';
+import ProjectService from '../../../services/ProjectService';
+import { Nullable } from '../../types/common.types';
+import TaskUtils from '../../../components/common/utilities/taskUtils/TaskUtils';
+import { tasksRequests } from '../../requests/tasksRequests';
 
 export const useHandleTaskUpdate = () => {
   const [tasks, setTasks] = useState<Task[]>([]);

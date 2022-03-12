@@ -7,6 +7,8 @@ import AuthService from '../../../../services/AuthService';
 import { reduxStoreMock } from '../../../../common/tests/mockData/redux-store-mock';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
+import taskActions from "../../../../redux/actions/loadTasks";
+import notesActions from "../../../../redux/actions/loadNotes";
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
@@ -17,6 +19,10 @@ describe('SiteWrapper', () => {
   });
 
   beforeAll(() => {
+    // @ts-ignore
+    jest.spyOn(taskActions, 'loadTasks').mockReturnValue({ type: '', payload: {} });
+    // @ts-ignore
+    jest.spyOn(notesActions, 'loadNotes').mockReturnValue({ type: '', payload: {} });
     AccountService.getUserMetadata = jest.fn(() => Promise.resolve({ data: { theme: 'noir' } })) as any;
     projectsRequests.fetchProjects = jest.fn(() => Promise.resolve([...projectsMock]));
     AuthService.getUserInfo = jest.fn(() => Promise.resolve() as any);

@@ -9,9 +9,7 @@ import { useIsMobile } from '../../../../../../../common/hooks/common/useIsMobil
 import { Box } from '@mui/system';
 import ValidationService from '../../../../../../../services/ValidationService';
 import { PASSWORD_STRENGTH_STATUS } from '../../../../../../../common/constants/enums';
-import AccountService from '../../../../../../../services/AccountService';
-import { useSnackbar } from 'notistack';
-import { SNACKBAR_POSITIONS } from '../../../../../../../common/constants/constants';
+import { usePasswordUpdate } from '../../../../../../../common/hooks/settings/usePasswordUpdate';
 
 type Props = {
   onBackClick: () => void;
@@ -27,8 +25,8 @@ export const PasswordChange: FC<Props> = ({ onBackClick }) => {
   const { t } = useTranslation('settings');
   const additionalClasses = useEmailChangeStyles();
   const [loading, setLoading] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
   const isMobile = useIsMobile();
+  const { updatePassword } = usePasswordUpdate();
 
   const doPasswordsMatch = (newPassword: string, confirmPassword: string) => {
     return newPassword === confirmPassword;
@@ -46,14 +44,7 @@ export const PasswordChange: FC<Props> = ({ onBackClick }) => {
     }
 
     setLoading(true);
-    try {
-      const apiResult = await AccountService.updateUserPassword(oldPassword, newPassword);
-      if (apiResult.status === 204) {
-        enqueueSnackbar('Password updated', { variant: 'info' });
-      }
-    } catch (e) {
-      enqueueSnackbar('Old password is wrong.', { variant: 'error' });
-    }
+    await updatePassword(oldPassword, newPassword);
     setLoading(false);
   };
 
@@ -68,7 +59,7 @@ export const PasswordChange: FC<Props> = ({ onBackClick }) => {
 
   return (
     <div>
-      <Button startIcon={<ChevronLeftIcon />} onClick={onBackClick}>
+      <Button data-testid="back-btn" startIcon={<ChevronLeftIcon />} onClick={onBackClick}>
         {t('change.back')}
       </Button>
 

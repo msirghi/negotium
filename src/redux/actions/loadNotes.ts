@@ -9,3 +9,9 @@ export const loadNotes = () => {
     });
   };
 };
+
+const notesActions = {
+  loadNotes,
+};
+
+export default notesActions;

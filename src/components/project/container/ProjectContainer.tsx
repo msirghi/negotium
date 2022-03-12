@@ -25,7 +25,7 @@ import { useSnackbar } from 'notistack';
 import { ProjectSettingsOption } from '../../../common/constants/enums';
 import { useAtom } from 'jotai';
 import { showCompletedAtom } from '../../../atoms/showCompleted/showCompleted.atom';
-import { useHandleTaskUpdate } from '../../../hooks/useHandleTaskUpdate/useHandleTaskUpdate';
+import { useHandleTaskUpdate } from '../../../common/hooks/tasks/useHandleTaskUpdate';
 
 type Props = {
   projectId: string;

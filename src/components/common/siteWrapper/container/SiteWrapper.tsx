@@ -25,7 +25,8 @@ import { RootState } from '../../../../redux/store';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
-import { loadNotes } from '../../../../redux/actions/loadNotes';
+import notesActions from '../../../../redux/actions/loadNotes';
+import taskActions from "../../../../redux/actions/loadTasks";
 
 const drawerWidth = 240;
 
@@ -74,15 +75,20 @@ export const SiteWrapper: FC = ({ children }) => {
     } catch (e) {}
   };
 
-  const fetchNotes = async () => {
-    dispatch(loadNotes());
+  const fetchNotes = () => {
+    dispatch(notesActions.loadNotes());
   };
+
+  const fetchTasks = () => {
+    dispatch(taskActions.loadTasks());
+  }
 
   useEffect(() => {
     if (!isPageWithoutWrapper) {
       fetchUserInfo();
       fetchUserMetadata();
       fetchNotes();
+      fetchTasks();
     }
   }, [isPageWithoutWrapper]);
 

@@ -18,10 +18,8 @@ describe('TaskUtils', () => {
   describe('markAsDone', () => {
     it('should call task service to mark as done and fire callback', async () => {
       TaskService.markTaskAsDone = jest.fn(() => Promise.resolve({})) as any;
-      const spy = jest.fn();
-      await TaskUtils.markAsDone('id', spy);
+      await TaskUtils.markAsDone('id');
       expect(TaskService.markTaskAsDone).toBeCalled();
-      expect(spy).toBeCalled();
     });
   });
 

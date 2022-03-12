@@ -1,14 +1,10 @@
 import { TaskWrapper } from '../../common/content/taskWrapper';
 import { TaskItem } from '../../common/content/taskWrapper/taskItem/TaskItem';
-import { FC, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Task } from '../../../common/types/tasks.types';
-import { useFetchTasks } from '../../../common/hooks/tasks/useFetchTasks';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
-import TaskService from '../../../services/TaskService';
-import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import { useSnackbar } from 'notistack';
 import { SNACKBAR_POSITIONS } from '../../../common/constants/constants';
-import { TaskSkeleton } from '../../common/skeletons/taskSkeleton/TaskSkeleton';
 import { Row } from '../../common/utilities/row/Row';
 import { SelectedTaskSection } from '../../common/content/selectedTask';
 import { Nullable } from '../../../common/types/common.types';
@@ -16,33 +12,26 @@ import { ContentBox } from '../../common/boxes/content/ContentBox';
 
 import { DndTaskWrapper } from '../../common/dnd/taskWrapper/DndTaskWrapper';
 import useTranslation from 'next-translate/useTranslation';
+import { useSelector } from 'react-redux';
+import { tasksSelector } from '../../../redux/selectors/tasks.selectors';
+import { useTasksActions } from '../../../common/hooks/tasks/useTasksActions';
 
 type Props = {
-  useData?: boolean;
+  title: string;
+  subtitle: string;
+  predefinedTasks: Task[];
 };
 
-export const InboxContainer: FC<Props> = ({ useData }) => {
-  const { isLoading, data, refetch } = useFetchTasks();
-  const [tasks, setTasks] = useState<Task[]>([]);
+export const InboxContainer = ({ title, subtitle, predefinedTasks }: Partial<Props>) => {
+  const tasks = useSelector(tasksSelector);
   const { enqueueSnackbar } = useSnackbar();
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { t } = useTranslation('common');
+  const { handleTaskAdd, handleMarkTaskAsDone, handleTaskUpdate } = useTasksActions();
+  const [selectedTask, setSelectedTask] = useState<Nullable<Task>>(null);
 
-  useEffect(() => {
-    if (data) {
-      setTasks(data.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!));
-    }
-  }, [data]);
-
-  const onAddTask = async (title: string, date: Nullable<Date>) => {
-    const orderNumber = TaskUtils.getMaxTaskOrderNumber(tasks) + 1;
-    const newTask: Omit<Task, 'id'> = TaskUtils.getNewTaskObject(title, date, orderNumber);
-    setTasks((prevState) => [...prevState, newTask as Task]);
-    enqueueSnackbar(t('snackbarTitles.taskAdded'), {
-      anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
-    });
-    await TaskService.createTask(newTask);
-    await refetch();
+  const onAddTask = (title: string, date: Nullable<Date>) => {
+    handleTaskAdd(title, date);
+    enqueueSnackbar(t('snackbarTitles.taskAdded'), { anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER });
   };
 
   const markAsDone = async (taskId: Task['id']) => {
@@ -50,14 +39,11 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
       anchorOrigin: SNACKBAR_POSITIONS.BOTTOM_CENTER,
     });
     setSelectedTask(null);
-    await TaskUtils.markAsDone(taskId, refetch);
+    handleMarkTaskAsDone(taskId);
   };
 
   const onTaskUpdate = (updatedTask: Task, options?: { deselectTask: boolean }) => {
-    const { id } = updatedTask;
-    const updatedTasks = tasks.map((task) => (task.id === id ? updatedTask : task));
-    setTasks([...updatedTasks]);
-    updateSelectedTask(updatedTasks);
+    handleTaskUpdate(updatedTask, updateSelectedTask);
     if (options && options.deselectTask) {
       deselectTask();
     }
@@ -71,19 +57,16 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
     setSelectedTask(task);
   };
 
-  const deselectTask = () => setSelectedTask(null);
-
-  if (isLoading || !data) {
-    return <TaskSkeleton />;
-  }
+  const deselectTask = () => {
+    setSelectedTask(null);
+  };
 
   return (
     <Row fullWidth>
       <ContentBox>
-        <DndTaskWrapper tasks={tasks} updateTasks={setTasks}>
-          <TaskWrapper title={t('pageTitles.inbox')} upperHeaderTitle={t('pageTitles.inbox')}>
-            {/*{SortUtils.sortByDate(useData ? data : tasks)*/}
-            {tasks
+        <DndTaskWrapper tasks={predefinedTasks || tasks} updateTasks={() => {}}>
+          <TaskWrapper title={title || t('pageTitles.inbox')} upperHeaderTitle={subtitle || t('pageTitles.inbox')}>
+            {(predefinedTasks || tasks)
               .filter((task) => !task.completed && !task.projectId)
               .map((task, index) => (
                 <TaskItem
@@ -100,7 +83,7 @@ export const InboxContainer: FC<Props> = ({ useData }) => {
       </ContentBox>
       <SelectedTaskSection
         markAsDone={markAsDone}
-        key={selectedTask ? `${selectedTask.id}` : ''}
+        key={selectedTask ? selectedTask.id : ''}
         deselectTask={deselectTask}
         task={selectedTask}
         onTaskUpdate={onTaskUpdate}
