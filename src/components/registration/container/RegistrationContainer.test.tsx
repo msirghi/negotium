@@ -14,21 +14,21 @@ jest.mock('next/router', () => ({
 }));
 
 describe('Registration container', () => {
-  it('should match the snapshot', () => {
-    const tree = renderer.create(
+  const getComponent = () => {
+    return (
       <SnackbarProvider>
         <RegistrationContainer />
       </SnackbarProvider>
     );
+  };
+
+  it('should match the snapshot', () => {
+    const tree = renderer.create(getComponent());
     expect(tree).toMatchSnapshot();
   });
 
   it('should handle sign in click', () => {
-    const wrapper = mount(
-      <SnackbarProvider>
-        <RegistrationContainer />
-      </SnackbarProvider>
-    );
+    const wrapper = mount(getComponent());
     act(() => {
       wrapper.find('#sign-in-link').at(0).simulate('click');
     });

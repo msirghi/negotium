@@ -1,5 +1,4 @@
 import { Sounds } from '../../constants/enums';
-import NotificationSound from '../../../assets/sounds/notification.mp3';
 import useSound from 'use-sound';
 import { useSelector } from 'react-redux';
 import { notificationsEnabledSelector } from '../../../redux/selectors/account.selector';
@@ -9,7 +8,7 @@ export const usePlaySound = (type: Sounds) => {
 
   const getSoundByType = () => {
     if (type === Sounds.NOTIFICATION && notificationsEnabled) {
-      return NotificationSound;
+      return '/sounds/notification.mp3';
     }
   };
   const [play] = useSound(getSoundByType()!);

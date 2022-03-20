@@ -4,8 +4,8 @@
   "pages": {
     "*": ["common", "settings"],
     "/inbox": ["settings"],
-    "/login": ["auth"],
-    "/registration": ["auth"],
+    "/login": ["auth", "common"],
+    "/registration": ["auth", "common"],
     "/home/projects/[id]": ["settings"],
     "/home/notes": ["notes"]
   }

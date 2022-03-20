@@ -68,7 +68,7 @@ export const LoginForm = () => {
         inputProps={{ 'data-testid': 'email-input' }}
         onChange={handleEmailChange()}
         style={{ marginTop: 30 }}
-        size={'small'}
+        // size={'small'}
         fullWidth
         label={t('common.email')}
       />
@@ -78,7 +78,7 @@ export const LoginForm = () => {
         inputProps={{ 'data-testid': 'password-input' }}
         onChange={handlePasswordChange()}
         style={{ marginTop: 30 }}
-        size={'small'}
+        // size={'small'}
         fullWidth
         type={'password'}
         label={t('common.password')}
@@ -88,6 +88,7 @@ export const LoginForm = () => {
           data-testid={'submit-button'}
           disabled={!email || !password}
           loading={loading}
+          size={'large'}
           type={'submit'}
           color={'primary'}
           variant={'contained'}

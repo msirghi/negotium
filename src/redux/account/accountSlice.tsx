@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AccountInfo, AccountMetadata } from '../../common/types/account.types';
+import StorageUtils from '../../common/utils/storageUtils';
 
 export interface AccountState {
   info: AccountInfo;
@@ -17,7 +18,7 @@ const initialState: AccountState = {
     theme: '',
     language: '',
   },
-  notificationsEnabled: Boolean(window.localStorage.getItem('notifications-enabled')),
+  notificationsEnabled: Boolean(StorageUtils.localStorage.get('notifications-enabled')),
 };
 
 export const accountSlice = createSlice({
@@ -43,7 +44,7 @@ export const accountSlice = createSlice({
       state.info.email = action.payload;
     },
     setNotificationsEnabled: (state, action: PayloadAction<boolean>) => {
-      window.localStorage.setItem('notifications-enabled', `${action.payload}`);
+      StorageUtils.localStorage.set('notifications-enabled', `${action.payload}`);
       state.notificationsEnabled = action.payload;
     },
   },

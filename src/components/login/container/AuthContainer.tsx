@@ -1,22 +1,18 @@
 import { LoginForm } from '../form/LoginForm';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import { Row } from '../../common/utilities/row/Row';
-import { LoginFooter } from '../footer/LoginFooter';
 import { FC, ReactNode, useEffect, useState } from 'react';
-import { useAuthContainerStyles } from './styles';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import AccountService from '../../../services/AccountService';
 import { ACTIVATION_CODE_VAR_NAME } from '../../../common/constants/constants';
 import { useSnackbar } from 'notistack';
 import { FullscreenLoader } from '../../common/spinners/fullscreen/FullscreenLoader';
+import SideContainer from './wrapper/SideContainer';
 
 type Props = {
   footer?: () => ReactNode;
 };
 
 export const AuthContainer: FC<Props> = ({ children, footer }) => {
-  const classes = useAuthContainerStyles();
   const { t } = useTranslation('auth');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -45,17 +41,10 @@ export const AuthContainer: FC<Props> = ({ children, footer }) => {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.contentCard}>
-        <div className={classes.title}>{t('common.welcome')}</div>
-        <Row fullWidth alignHorizontalCenter className={classes.iconContainer}>
-          <AcUnitIcon className={classes.icon} color={'primary'} />
-        </Row>
-        <div className={classes.loginForm}>{children || <LoginForm />}</div>
-        <div className={classes.loginFooter}>
-          {footer ? footer() : <LoginFooter />}
-        </div>
-      </div>
+    <div>
+      <SideContainer title={t('common.welcome')} renderFooter={footer}>
+        {children || <LoginForm />}
+      </SideContainer>
     </div>
   );
 };

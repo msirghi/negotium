@@ -11,13 +11,20 @@ export const useAuthContainerStyles = makeStyles({
   },
   contentCard: {
     display: 'flex',
-    flexDirection: 'column',
-    maxWidth: 390,
     minHeight: 650,
     borderRadius: 20,
     boxShadow: '0 5px 10px 0px rgb(0 0 0 / 10%)',
     backgroundColor: colors.white,
     padding: '77px 55px 33px 55px',
+  },
+  imageContainer: {
+    width: '60%',
+  },
+  image: {
+    width: '90%',
+  },
+  formContainer: {
+    width: '40%',
   },
   title: {
     fontWeight: 'bold',

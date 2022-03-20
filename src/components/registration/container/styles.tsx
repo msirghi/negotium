@@ -7,7 +7,8 @@ export const useRegistrationContainerStyles = makeStyles({
     color: colors.primaries.lightBlue_1,
   },
   container: {
-    fontSize: 13,
+    fontSize: 14,
+    marginTop: 20,
     textAlign: 'center',
   },
 });

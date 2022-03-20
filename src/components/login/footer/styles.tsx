@@ -7,7 +7,8 @@ export const useFooterStyles = makeStyles({
     color: colors.primaries.lightBlue_1,
   },
   container: {
-    fontSize: 13,
+    fontSize: 15,
+    marginTop: 20,
     textAlign: 'center',
   },
 });

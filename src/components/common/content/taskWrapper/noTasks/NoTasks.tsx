@@ -9,7 +9,7 @@ import { Fade } from '@mui/material';
 
 const useStyles = makeStyles({
   title: {
-    fontSize: 18,
+    fontSize: 16,
   },
 });
 

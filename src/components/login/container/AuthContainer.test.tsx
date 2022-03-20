@@ -4,6 +4,7 @@ import { LoginForm } from '../form/LoginForm';
 import { LoginFooter } from '../footer/LoginFooter';
 import { MockReduxProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
+import { ReactChildren, ReactNode } from 'react';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -13,36 +14,28 @@ jest.mock('next/router', () => ({
 }));
 
 describe('AuthContainer', () => {
-  it('should render login form if children were not provided', async () => {
-    const wrapper = await mount(
+  const getComponent = (footer?: () => ReactNode, children?: ReactChildren) => {
+    return (
       <MockReduxProvider reduxStore={{}}>
         <SnackbarProvider>
-          <AuthContainer />
+          <AuthContainer footer={footer}>{children}</AuthContainer>
         </SnackbarProvider>
       </MockReduxProvider>
     );
+  };
+
+  it('should render login form if children were not provided', async () => {
+    const wrapper = await mount(getComponent());
     expect(wrapper.find(LoginForm)).toHaveLength(1);
   });
 
   it('should render login footer if prop was not provided', () => {
-    const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
-        <SnackbarProvider>
-          <AuthContainer />
-        </SnackbarProvider>
-      </MockReduxProvider>
-    );
+    const wrapper = mount(getComponent());
     expect(wrapper.find(LoginFooter)).toHaveLength(1);
   });
 
   it('should render custom footer if prop was provided', () => {
-    const wrapper = mount(
-      <MockReduxProvider reduxStore={{}}>
-        <SnackbarProvider>
-          <AuthContainer footer={() => <div className={'content'} />} />
-        </SnackbarProvider>
-      </MockReduxProvider>
-    );
+    const wrapper = mount(getComponent(() => <div className={'content'} />));
     expect(wrapper.find('.content')).toHaveLength(1);
   });
 

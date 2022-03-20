@@ -81,7 +81,6 @@ export const RegistrationForm = () => {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
           style={{ marginTop: 30 }}
-          size={'small'}
           fullWidth
           name={'name'}
           autoComplete={'on'}
@@ -96,7 +95,6 @@ export const RegistrationForm = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           style={{ marginTop: 30 }}
-          size={'small'}
           autoComplete={'on'}
           name={'email'}
           fullWidth
@@ -110,7 +108,6 @@ export const RegistrationForm = () => {
           value={formik.values.password}
           style={{ marginTop: 30 }}
           type={'password'}
-          size={'small'}
           name={'password'}
           fullWidth
           label={t('common.password')}
@@ -128,7 +125,6 @@ export const RegistrationForm = () => {
           helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
           type={'password'}
           style={{ marginTop: 30 }}
-          size={'small'}
           fullWidth
           label={t('common.repeatPassword')}
         />
@@ -140,6 +136,7 @@ export const RegistrationForm = () => {
             type={'submit'}
             color={'primary'}
             variant={'contained'}
+            size={'large'}
             fullWidth
           >
             {t('registration.signIn')}
