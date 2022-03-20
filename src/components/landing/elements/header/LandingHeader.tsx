@@ -4,26 +4,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
+import useTranslation from 'next-translate/useTranslation';
+import { HeaderLink } from './link/HeaderLink';
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
   children: React.ReactElement;
 }
 
-const ElevationScroll = (props: Props) => {
-  const { children } = props;
-
-  return React.cloneElement(children, {
-    elevation: 2,
-  });
+const ElevationScroll = ({ children }: Props) => {
+  return React.cloneElement(children, { elevation: 2 });
 };
 
 export const LandingHeader = (props: Props) => {
+  const { t } = useTranslation('landing');
+
   return (
     <>
       <CssBaseline />
@@ -35,15 +29,9 @@ export const LandingHeader = (props: Props) => {
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex', padding: '0 10%' } }}>
-              <Box style={{ padding: '0 10px' }}>
-                <Button color={'inherit'}>Features</Button>
-              </Box>
-              <Box style={{ padding: '0 10px' }}>
-                <Button color={'inherit'}>Help</Button>
-              </Box>
-              <Box style={{ padding: '0 10px' }}>
-                <Button color={'inherit'}>Download</Button>
-              </Box>
+              <HeaderLink title={t('features')} />
+              <HeaderLink title={t('help')} />
+              <HeaderLink title={t('download')} />
             </Box>
           </Toolbar>
         </AppBar>

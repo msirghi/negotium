@@ -3,6 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common", "settings"],
+    "/": ["common", "landing"],
     "/inbox": ["settings"],
     "/login": ["auth", "common"],
     "/registration": ["auth", "common"],

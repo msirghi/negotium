@@ -1,29 +1,21 @@
 import { FC } from 'react';
+import { useLandingSectionStyles } from './styles';
+import { Box } from '@mui/system';
 
 type Props = {
   backgroundColor: string;
   textColor?: string;
-  styles: any;
-  className: any;
+  styles?: object;
+  className: string;
 };
 
 export const LandingSection: FC<Props> = ({ className, styles = {}, backgroundColor, children, textColor }) => {
+  const classes = useLandingSectionStyles();
+
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        // alignItems: 'center',
-        minHeight: 400,
-        // padding: '100px 10vw',
-        background: backgroundColor,
-        color: textColor || '#fff',
-        ...styles,
-      }}
-      className={className}
-    >
+    // @ts-ignore
+    <Box style={{ background: backgroundColor, color: textColor || '#fff', ...styles }} className={[className, classes.container]}>
       {children}
-    </div>
+    </Box>
   );
 };

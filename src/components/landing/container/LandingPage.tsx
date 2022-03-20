@@ -7,9 +7,11 @@ const LandingPage = () => {
   return (
     <div style={{ backgroundColor: '#202731' }}>
       <LandingHeader>
-        <HeroSection />
-        <FeaturesSection />
-        <StartSection />
+        <>
+          <HeroSection />
+          <FeaturesSection />
+          <StartSection />
+        </>
       </LandingHeader>
     </div>
   );

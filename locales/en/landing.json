@@ -1,0 +1,19 @@
+{
+  "titles": {
+    "hero": "Always stay on track",
+    "feature_1": "Feature 1",
+    "feature_2": "Feature 2",
+    "feature_3": "Feature 3",
+    "start": "Ready to start?"
+  },
+  "subtitles": {
+    "hero": "The simplest todo and notes application.\n\nWe kept it simple for you.",
+    "feature_1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!",
+    "feature_2": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!",
+    "feature_3": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!"
+  },
+  "signUp": "Sign up to Negotium",
+  "features": "Features",
+  "help": "Help",
+  "download": "Download"
+}

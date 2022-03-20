@@ -41,10 +41,16 @@ const testData = {
   fakeTitle: '[{"type":"paragraph","children":[{"text":"new task for 123 "},{"text":""}]}]',
 };
 
+const resize = (width: number) => {
+  global['innerWidth'] = width;
+  global.dispatchEvent(new Event('resize'));
+};
+
 const TestUtils = {
   createMatchMedia,
   runAllPromises,
   testData,
+  resize,
 };
 
 export default TestUtils;
