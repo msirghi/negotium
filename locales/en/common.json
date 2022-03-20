@@ -12,7 +12,8 @@
     "upcoming": "Upcoming",
     "login": "Login",
     "registration": "Registration",
-    "notes": "Notes"
+    "notes": "Notes",
+    "landing": "Home"
   },
   "buttonLabels": {
     "cancel": "Cancel",

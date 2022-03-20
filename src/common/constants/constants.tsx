@@ -109,7 +109,7 @@ export const tempAccountInfo = {
   name: 'Mihail',
 };
 
-export const pagesWithoutWrapper = ['/login', '/registration'];
+export const pagesWithoutWrapper = ['/login', '/registration', '/'];
 
 export const passwordStatusColors = {
   tooWeak: 'red',

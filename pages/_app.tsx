@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         await router.push(Routes.inbox);
       }
     } catch (e) {
-      if (router.route !== Routes.registration) {
+      if (router.route !== Routes.registration && router.route !== Routes.landing) {
         await router.push(Routes.login);
       }
     }

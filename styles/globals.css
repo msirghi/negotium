@@ -26,3 +26,23 @@ body > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-10nakn3-MuiModal-root-
     min-height: 230px !important;
 }
 
+.custom-shape-divider-bottom-1647769171 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1647769171 svg {
+    position: relative;
+    display: block;
+    width: calc(136% + 1.3px);
+    height: 96px;
+}
+
+.custom-shape-divider-bottom-1647769171 .shape-fill {
+    /*fill: #FFFFFF;*/
+}
