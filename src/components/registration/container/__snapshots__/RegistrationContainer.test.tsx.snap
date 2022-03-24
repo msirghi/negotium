@@ -319,7 +319,7 @@ exports[`Registration container should match the snapshot 1`] = `
               >
                 Copyright © 
                 <a
-                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1kgfegd-MuiTypography-root-MuiLink-root"
+                  className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1iwtne7-MuiTypography-root-MuiLink-root"
                   href="https://mui.com/"
                   onBlur={[Function]}
                   onFocus={[Function]}

@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import { StartSection } from './StartSection';
 import { Button } from '@mui/material';
 import mockRouter from 'next-router-mock';
+import '../../../../../__mocks__/intersectionObserverMock';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 

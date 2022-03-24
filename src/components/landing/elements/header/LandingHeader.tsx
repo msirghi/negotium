@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -48,7 +48,7 @@ export const LandingHeader = (props: Props) => {
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex', padding: '0 10%' } }}>
               <HeaderLink title={t('features')} onClick={onFeaturesClick} />
-              <HeaderLink title={t('help')} />
+              <HeaderLink title={t('help')} onClick={() => {}}/>
               <HeaderLink title={t('start')} onClick={onStartClick}/>
             </Box>
           </Toolbar>

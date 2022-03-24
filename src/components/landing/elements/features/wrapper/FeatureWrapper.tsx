@@ -19,9 +19,7 @@ export const FeatureWrapper = ({ image, subtitle, title, revert, imageStyles = {
           <p className={classes.subtitle}>{subtitle}</p>
         </div>
 
-        {/*<div>*/}
-          <img className={classes.image} style={{...imageStyles}} src={image} />
-        {/*</div>*/}
+        <img className={classes.image} style={{ ...imageStyles }} src={image} />
       </div>
     );
   }

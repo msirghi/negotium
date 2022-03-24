@@ -1,4 +1,3 @@
-import { Curve } from '../curve/Curve';
 import { LandingSection } from '../section/LandingSection';
 import { Row } from '../../../common/utilities/row/Row';
 import { useIsMobile } from '../../../../common/hooks/common/useIsMobile';
@@ -12,7 +11,13 @@ export const HeroSection = () => {
   const { t } = useTranslation('landing');
 
   return (
-    <LandingSection className={classes.landingSection} backgroundColor={'white'} textColor={'black'}>
+    <LandingSection
+      curveColor={'whitesmoke'}
+      className={classes.landingSection}
+      backgroundColor={'white'}
+      textColor={'black'}
+      disableAnimation
+    >
       <Row alignVerticalCenter fullWidth direction={isMobile ? ROW_DIRECTION.COLUMN : ROW_DIRECTION.ROW}>
         <div className={classes.textContent}>
           <h1>{t('titles.hero')}</h1>
@@ -20,7 +25,6 @@ export const HeroSection = () => {
         </div>
         <img className={classes.image} src={'/static/landing-hero.png'} />
       </Row>
-      <Curve fill={'whitesmoke'} />
     </LandingSection>
   );
 };
