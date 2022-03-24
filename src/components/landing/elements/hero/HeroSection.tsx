@@ -18,9 +18,9 @@ export const HeroSection = () => {
           <h1>{t('titles.hero')}</h1>
           <p>{t('subtitles.hero')}</p>
         </div>
-        <img className={classes.image} src={'https://miro.medium.com/max/1400/1*8ygFKYb0Yo6Hc-vnScGA9A.png'} />
+        <img className={classes.image} src={'/static/landing-hero.png'} />
       </Row>
-      <Curve fill={'aliceblue'} />
+      <Curve fill={'whitesmoke'} />
     </LandingSection>
   );
 };

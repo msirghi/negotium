@@ -2,8 +2,8 @@ import { makeStyles } from '@mui/styles';
 
 export const useHeroSectionStyles = makeStyles({
   image: {
-    width: '40%',
-    height: '40%',
+    width: '35%',
+    height: '35%',
     ['@media (max-width:768px)']: {
       width: '80%',
       height: '80%',

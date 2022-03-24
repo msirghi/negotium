@@ -18,13 +18,30 @@ export const FeaturesSection = () => {
   const { t } = useTranslation('landing');
 
   return (
-    <LandingSection backgroundColor={'aliceblue'} textColor={'black'} className={classes.container}>
-      <FeatureWrapper title={t('titles.feature_1')} subtitle={t('subtitles.feature_1')} image={'/static/feature1.jpg'} />
+    <>
+      <div id="landing-features" />
+      <LandingSection backgroundColor={'whitesmoke'} textColor={'black'} className={classes.container}>
+        <>
+          <FeatureWrapper title={t('titles.feature_1')} subtitle={t('subtitles.feature_1')} image={'/static/feature1.jpg'} />
+          <Curve fill={'white'} />
+        </>
+      </LandingSection>
+      <LandingSection backgroundColor={'white'} textColor={'black'} className={classes.container}>
+        <FeatureWrapper
+          title={t('titles.feature_2')}
+          imageStyles={{ width: '50%' }}
+          subtitle={t('subtitles.feature_2')}
+          image={'/static/devices-landing.png'}
+          revert
+        />
+        <Curve fill={'whitesmoke'} />
+      </LandingSection>
 
-      <FeatureWrapper title={t('titles.feature_2')} subtitle={t('subtitles.feature_2')} image={'/static/feature2.jpg'} revert />
-
-      <FeatureWrapper title={t('titles.feature_3')} subtitle={t('subtitles.feature_3')} image={'/static/feature1.jpg'} />
-      <Curve fill={'white'} />
-    </LandingSection>
+      <LandingSection backgroundColor={'whitesmoke'} textColor={'black'} className={classes.container}>
+        <Curve fill={'whitesmoke'} />
+        <FeatureWrapper title={t('titles.feature_3')} subtitle={t('subtitles.feature_3')} image={'/static/feature1.jpg'} />
+        <Curve fill={'white'} />
+      </LandingSection>
+    </>
   );
 };

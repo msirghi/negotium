@@ -6,6 +6,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import useTranslation from 'next-translate/useTranslation';
 import { HeaderLink } from './link/HeaderLink';
+import Image from 'next/image';
+import { Row } from '../../../common/utilities/row/Row';
+import { useLandingHeaderStyles } from './styles';
 
 interface Props {
   children: React.ReactElement;
@@ -17,21 +20,36 @@ const ElevationScroll = ({ children }: Props) => {
 
 export const LandingHeader = (props: Props) => {
   const { t } = useTranslation('landing');
+  const classes = useLandingHeaderStyles();
+
+  const scroll = (id: string) => {
+    document.getElementById(id)!.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  const onLogoClick = () => scroll('landing-start')
+
+  const onFeaturesClick = () => scroll('landing-features');
+
+  const onStartClick = () => scroll('start-section')
 
   return (
     <>
+      <div id="landing-start"/>
       <CssBaseline />
       <ElevationScroll {...props}>
-        <AppBar sx={{ backgroundColor: '#fff', color: 'black', padding: '0 8%' }}>
+        <AppBar className={classes.appBar}>
           <Toolbar>
-            <Typography variant="h6" component="div">
-              Negotium
+            <Typography variant="h6" component="div" onClick={onLogoClick}>
+              <Row alignVerticalCenter className={classes.logoContainer}>
+                <Image src={'/static/logo.png'} width={50} height={50} />
+                <span className={classes.logoText}>Negotium</span>
+              </Row>
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex', padding: '0 10%' } }}>
-              <HeaderLink title={t('features')} />
+              <HeaderLink title={t('features')} onClick={onFeaturesClick} />
               <HeaderLink title={t('help')} />
-              <HeaderLink title={t('download')} />
+              <HeaderLink title={t('start')} onClick={onStartClick}/>
             </Box>
           </Toolbar>
         </AppBar>

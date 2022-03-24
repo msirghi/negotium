@@ -24,6 +24,7 @@ export const StartSection = () => {
 
   return (
     <LandingSection backgroundColor={'white'} className={classes.container} textColor={'black'}>
+      <div id="start-section" />
       <h1>{t('titles.start')}</h1>
       <Button variant={'contained'} color={'primary'} onClick={onClick}>
         {t('signUp')}

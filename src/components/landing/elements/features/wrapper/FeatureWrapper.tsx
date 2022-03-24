@@ -5,9 +5,10 @@ type Props = {
   subtitle: string;
   image: string;
   revert?: boolean;
+  imageStyles?: object;
 };
 
-export const FeatureWrapper = ({ image, subtitle, title, revert }: Props) => {
+export const FeatureWrapper = ({ image, subtitle, title, revert, imageStyles = {} }: Props) => {
   const classes = useFeatureWrapperStyles();
 
   if (revert) {
@@ -18,9 +19,9 @@ export const FeatureWrapper = ({ image, subtitle, title, revert }: Props) => {
           <p className={classes.subtitle}>{subtitle}</p>
         </div>
 
-        <div>
-          <img className={classes.image} src={image} />
-        </div>
+        {/*<div>*/}
+          <img className={classes.image} style={{...imageStyles}} src={image} />
+        {/*</div>*/}
       </div>
     );
   }

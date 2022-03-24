@@ -1,16 +1,16 @@
 {
   "titles": {
     "hero": "Always stay on track",
-    "feature_1": "Feature 1",
-    "feature_2": "Feature 2",
-    "feature_3": "Feature 3",
+    "feature_1": "Todos made simple.",
+    "feature_2": "Accessed anywhere.",
+    "feature_3": "Customize your experience.",
     "start": "Ready to start?"
   },
   "subtitles": {
     "hero": "The simplest todo and notes application.\n\nWe kept it simple for you.",
-    "feature_1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!",
-    "feature_2": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!",
-    "feature_3": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, et!"
+    "feature_1": "Keep track of your progress - just write them down.",
+    "feature_2": "Sync your tasks between any devices.",
+    "feature_3": "Make interface meet your preferences."
   },
   "signUp": "Sign up to Negotium",
   "features": "Features",
