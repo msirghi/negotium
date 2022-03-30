@@ -67,7 +67,7 @@ export const InboxContainer = ({ title, subtitle, predefinedTasks }: Partial<Pro
       <ContentBox>
         <DndTaskWrapper tasks={predefinedTasks || tasks} updateTasks={() => {}}>
           <TaskWrapper title={title || t('pageTitles.inbox')} upperHeaderTitle={subtitle || t('pageTitles.inbox')}>
-            {(predefinedTasks || SortUtils.sortByDate(tasks))
+            {(predefinedTasks || SortUtils.sortTasksByDate(tasks))
               .filter((task) => !task.completed && !task.projectId)
               .map((task, index) => (
                 <TaskItem

@@ -17,7 +17,7 @@ export const UpcomingContainer = () => {
     <InboxContainer
       title={t('pageTitles.upcoming')}
       subtitle={t('pageTitles.upcoming')}
-      predefinedTasks={SortUtils.sortByDate(tasks).filter(
+      predefinedTasks={SortUtils.sortTasksByDate(tasks).filter(
         ({ dueDate, completed }) => !DateUtils.isTodayDate(dueDate!) && DateUtils.getDateDifference(dueDate!) < 1 && !completed
       )}
     />

@@ -40,8 +40,8 @@ export const SiteWrapperMainList = () => {
       {MAIN_MENU_ITEMS.map((item) => ({ ...item, title: t(item.title) })).map(({ Icon, title, route }) => {
         const isItemActive = isActive(route);
         return (
-          <Box key={title} className={isItemActive ? classes.activeItem : ''} sx={{ borderRadius: 15 }}>
-            <ListItem button onClick={() => onItemClick(route)} sx={{ borderRadius: 5 }}>
+          <Box key={title} className={isItemActive ? classes.activeItem : ''} style={{ borderRadius: 10 }}>
+            <ListItem button onClick={() => onItemClick(route)} style={{ borderRadius: 10 }}>
               <ListItemIcon>
                 <Icon fontSize={'small'} className={isItemActive ? classes.activeIcon : ''} />
               </ListItemIcon>

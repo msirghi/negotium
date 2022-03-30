@@ -43,7 +43,7 @@ export const SectionWrapper: FC<Props> = ({
     return onSectionRemove(sectionId);
   };
 
-  const displayTasks = SortUtils.sortByDate(tasks);
+  const displayTasks = SortUtils.sortTasksByDate(tasks);
 
   return (
     <div className={styles.swContainer}>

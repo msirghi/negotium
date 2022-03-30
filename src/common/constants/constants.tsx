@@ -7,8 +7,14 @@ import { SnackbarOrigin } from 'notistack';
 import colors from '../styles/colors';
 import { Descendant } from 'slate';
 import DescriptionIcon from '@mui/icons-material/Description';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
+  {
+    Icon: TimelineIcon,
+    title: 'pageTitles.timeline',
+    route: '/home/timeline',
+  },
   {
     Icon: InboxIcon,
     title: 'pageTitles.inbox',

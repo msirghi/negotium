@@ -13,7 +13,7 @@ export const defaultLightTheme = createTheme({
   palette: {
     primary: {
       main: colors.primaries.lightBlue,
-      light: colors.primaries.lightBlue,
+      light: colors.primaries.lightBlue_1,
       dark: colors.primaries.lightBlue,
     },
     custom: {
@@ -32,7 +32,7 @@ export const noirAppTheme = createTheme({
   palette: {
     primary: {
       main: colors.greys['900'],
-      light: colors.primaries.teal,
+      light: colors.greys['800'],
       dark: colors.primaries.teal,
     },
     custom: {

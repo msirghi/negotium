@@ -117,7 +117,7 @@ export const ProjectContainer: FC<Props> = ({ projectId }) => {
     await ProjectService.deleteProjectSection(projectId, sectionId);
   };
 
-  const displayTasks = SortUtils.sortByDate(tasks).filter(({ completed }) => (showCompleted ? true : !completed));
+  const displayTasks = SortUtils.sortTasksByDate(tasks).filter(({ completed }) => (showCompleted ? true : !completed));
 
   const onSettingsChange = (option: ProjectSettingsOption) => {
     if (option === ProjectSettingsOption.SHOW_COMPLETED) {

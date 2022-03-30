@@ -4,7 +4,8 @@
     "today": "Today",
     "upcoming": "Upcoming",
     "addProject": "Add project",
-    "projects": "Projects"
+    "projects": "Projects",
+    "timeline": "Timeline"
   },
   "pageTitles": {
     "inbox": "Inbox",
@@ -13,7 +14,8 @@
     "login": "Login",
     "registration": "Registration",
     "notes": "Notes",
-    "landing": "Home"
+    "landing": "Home",
+    "timeline": "Timeline"
   },
   "buttonLabels": {
     "cancel": "Cancel",

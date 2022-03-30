@@ -1,5 +1,6 @@
 import { Section, Task } from '../types/tasks.types';
 import { Note } from '../types/notes.types';
+import dayjs from 'dayjs';
 
 const sortByOrder = (list: Section[] | Task[]) => {
   return list.sort((s1, s2) => s1.orderNumber! - s2.orderNumber!);
@@ -13,13 +14,20 @@ const sortItemsByOrder = (items: Task[]) => {
   return sortByOrder(items);
 };
 
-const sortByDate = (tasks: Task[]) => {
+const sortTasksByDate = (tasks: Task[]) => {
   const distantFuture = new Date(8640000000000000);
   return [...tasks].sort((a, b) => {
     const dateA = a.dueDate ? new Date(a.dueDate) : distantFuture;
     const dateB = b.dueDate ? new Date(b.dueDate) : distantFuture;
     return dateA.getTime() - dateB.getTime();
   });
+};
+
+const sortByDate = (date1: string, date2: string) => {
+  const distantFuture = new Date(8640000000000000);
+  const dateA = date1 && dayjs(date1).isValid() ? new Date(date1) : distantFuture;
+  const dateB = date2 && dayjs(date2).isValid() ? new Date(date2) : distantFuture;
+  return dateA.getTime() - dateB.getTime();
 };
 
 const sortNotesByUpdatedDate = (notes: Note[]) => {
@@ -40,10 +48,11 @@ const sortByCompletedFlag = (tasks: Task[]) => {
 
 const SortUtils = {
   sortSectionsByOrder,
-  sortByDate,
+  sortTasksByDate,
   sortItemsByOrder,
   sortNotesByUpdatedDate,
   sortByCompletedFlag,
+  sortByDate,
 };
 
 export default SortUtils;

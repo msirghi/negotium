@@ -27,7 +27,7 @@ describe('Sort Utils', () => {
 
   describe('sortByDate', () => {
     it('should sort by date', () => {
-      const result = SortUtils.sortByDate(TasksMock);
+      const result = SortUtils.sortTasksByDate(TasksMock);
       expect(result[0].id).toEqual('uuid-1');
       expect(result[1].id).toEqual('uuid-2');
     });
