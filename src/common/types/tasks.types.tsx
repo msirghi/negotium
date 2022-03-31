@@ -16,3 +16,8 @@ export interface Section extends Pick<Task, 'orderNumber'>, Id<string>, Title {
   title: string;
   projectId: string;
 }
+
+export interface TimelineGroup {
+  date: string;
+  tasks: Task[];
+}

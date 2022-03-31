@@ -14,7 +14,7 @@ describe('NotificationsSettings', () => {
     );
   };
 
-  it('should render button group', () => {
+  it('should render button section', () => {
     const wrapper = mount(renderComponent());
     expect(wrapper.find(ToggleButtonGroup)).toHaveLength(1);
   });

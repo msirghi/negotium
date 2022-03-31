@@ -14,9 +14,5 @@ type Props = {
 export const TimelineTitle: FC<Props> = ({ title }) => {
   const classes = useStyles();
 
-  return (
-    <>
-      <p className={classes.title}>{title}</p>
-    </>
-  );
+  return <p className={classes.title}>{title}</p>;
 };

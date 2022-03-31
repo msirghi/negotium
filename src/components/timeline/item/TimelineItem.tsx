@@ -2,7 +2,7 @@ import { Task } from '../../../common/types/tasks.types';
 import { FC } from 'react';
 import { useTimelineItemStyles } from './styles';
 import DateUtils from '../../../common/utils/dateUtils';
-import {useTheme} from "@mui/system";
+import { useTheme } from '@mui/system';
 
 type Props = {
   task: Task;
@@ -15,7 +15,6 @@ export const TimelineItem: FC<Props> = ({ task, onClick, active }) => {
   const defaultColor = theme.palette.primary.light;
   const activeColor = theme.palette.primary.main;
   const classes = useTimelineItemStyles({ active, activeColor, defaultColor });
-  console.log(theme);
   const date = DateUtils.formatDateForTask(task.dueDate);
 
   const handleClick = () => onClick(task);
