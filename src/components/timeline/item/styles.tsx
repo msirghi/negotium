@@ -19,4 +19,8 @@ export const useTimelineItemStyles = makeStyles({
     marginTop: -5,
     fontSize: 12,
   },
+  checkbox: {
+    marginRight: '.5rem',
+    color: '#fff'
+  },
 });

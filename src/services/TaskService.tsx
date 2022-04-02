@@ -6,44 +6,25 @@ import { TaskOrderUpdateDto } from '../components/common/dnd/taskWrapper/types';
 import { HttpMethod } from '../common/constants/enums';
 
 const createTask = (task: Omit<Task, 'id'>) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks`,
-    HttpMethod.POST,
-    task
-  );
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks`, HttpMethod.POST, task);
 };
 
-const markTaskAsDone = (id: Task['id']) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks/${id}`,
-    HttpMethod.PATCH,
-    {
-      completed: true,
-    }
-  );
+const markTaskAsDone = (id: Task['id'], completed: boolean) => {
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks/${id}`, HttpMethod.PATCH, {
+    completed,
+  });
 };
 
 const updateTaskName = (id: Task['id'], title: Task['title']) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks/${id}`,
-    HttpMethod.PATCH,
-    {
-      title,
-    }
-  );
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks/${id}`, HttpMethod.PATCH, {
+    title,
+  });
 };
 
-const updateTaskDescription = (
-  id: Task['id'],
-  description: Task['description']
-) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks/${id}`,
-    HttpMethod.PATCH,
-    {
-      description,
-    }
-  );
+const updateTaskDescription = (id: Task['id'], description: Task['description']) => {
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks/${id}`, HttpMethod.PATCH, {
+    description,
+  });
 };
 
 const updateTaskDueDate = (id: Task['id'], dueDate: Task['dueDate']) => {
@@ -51,21 +32,13 @@ const updateTaskDueDate = (id: Task['id'], dueDate: Task['dueDate']) => {
   if (dayjs(dueDate).isValid()) {
     validatedDate = dueDate;
   }
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks/${id}`,
-    HttpMethod.PATCH,
-    {
-      dueDate: validatedDate,
-    }
-  );
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks/${id}`, HttpMethod.PATCH, {
+    dueDate: validatedDate,
+  });
 };
 
 const updateOrderNumbers = (dto: TaskOrderUpdateDto) => {
-  return Requests.restApiCallWithBearer(
-    `${BASE_API_URL_V1}/tasks/meta/order`,
-    HttpMethod.PATCH,
-    dto
-  );
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/tasks/meta/order`, HttpMethod.PATCH, dto);
 };
 
 const TaskService = {

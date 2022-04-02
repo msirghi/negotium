@@ -1,7 +1,7 @@
 import { Nullable } from '../../types/common.types';
 import TaskUtils from '../../../components/common/utilities/taskUtils/TaskUtils';
 import { Task } from '../../types/tasks.types';
-import {addTaskToList, markTaskAsDone, setTasksList} from '../../../redux/tasks/tasksSlice';
+import { addTaskToList, markTaskAsDone, setTasksList } from '../../../redux/tasks/tasksSlice';
 import { SNACKBAR_POSITIONS } from '../../constants/constants';
 import TaskService from '../../../services/TaskService';
 import taskActions from '../../../redux/actions/loadTasks';
@@ -21,7 +21,8 @@ export const useTasksActions = () => {
   };
 
   const handleMarkTaskAsDone = async (taskId: Task['id']) => {
-    await TaskUtils.markAsDone(taskId);
+    const task = tasks.find((t) => t.id === taskId);
+    await TaskUtils.markAsDone(taskId, !task?.completed);
     dispatch(markTaskAsDone(taskId));
   };
 

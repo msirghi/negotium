@@ -10,7 +10,7 @@ import useTranslation from 'next-translate/useTranslation';
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   color: 'grey',
   width: '100%',
-  marginTop: 10
+  marginTop: 10,
 }));
 
 const useStyles = makeStyles({
@@ -28,9 +28,7 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   const [editMode, setEditMode] = useState(false);
   const [fieldValue, setFieldValue] = useState('');
   const classes = useStyles();
-  const selectedDate = useRef<Nullable<Date>>(
-    defaultDate || null
-  ) as MutableRefObject<Nullable<Date>>;
+  const selectedDate = useRef<Nullable<Date>>(defaultDate || null) as MutableRefObject<Nullable<Date>>;
   const { t } = useTranslation('common');
 
   const toggleEditMode = () => {
@@ -56,25 +54,14 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   return (
     <>
       <If condition={!editMode}>
-        <CustomButton
-          id={'tab-add-button'}
-          data-testid={'tab-add-button'}
-          startIcon={<AddIcon />}
-          disableRipple
-          onClick={toggleEditMode}
-        >
+        <CustomButton id={'tab-add-button'} data-testid={'tab-add-button'} startIcon={<AddIcon />} disableRipple onClick={toggleEditMode}>
           <span>{t('buttonLabels.add')}</span>
         </CustomButton>
       </If>
       <If condition={editMode}>
-        <Box sx={{ marginTop: '1rem' }}>
+        <Box sx={{ marginTop: '1rem', width: '100%' }}>
           <form onSubmit={onSave} data-testid={'tab-title-field'}>
-            <EditForm
-              defaultDate={defaultDate}
-              fieldValue={fieldValue}
-              setFieldValue={setFieldValue}
-              onDateSelect={onDateSelect}
-            />
+            <EditForm defaultDate={defaultDate} fieldValue={fieldValue} setFieldValue={setFieldValue} onDateSelect={onDateSelect} />
             <Box sx={{ marginTop: '.5rem' }}>
               <Button
                 variant={'contained'}

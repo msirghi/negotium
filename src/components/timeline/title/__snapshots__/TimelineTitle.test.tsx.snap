@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineTitle should match the snapshot 1`] = `
+<p
+  className="makeStyles-title-1 makeStyles-title-2"
+>
+  Title
+</p>
+`;

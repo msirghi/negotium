@@ -36,8 +36,8 @@ const getMaxTaskOrderNumber = (tasks: Task[]) => {
   return maxTaskOrder;
 };
 
-const markAsDone = async (taskId: string) => {
-  await TaskService.markTaskAsDone(taskId);
+const markAsDone = async (taskId: string, completed = true) => {
+  await TaskService.markTaskAsDone(taskId, completed);
 };
 
 const TaskUtils = {

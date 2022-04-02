@@ -38,7 +38,7 @@ export const noirAppTheme = createTheme({
     custom: {
       menuIconBackground: colors.greys['800'],
       headerSearchBackground: colors.greys['800'],
-    },
+    }
   },
 });
 

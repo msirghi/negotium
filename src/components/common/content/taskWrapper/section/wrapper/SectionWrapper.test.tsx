@@ -18,6 +18,7 @@ describe('SectionWrapper', () => {
     markAsDone: jest.fn(),
     onTaskSelect: jest.fn(),
     onSectionUpdate: jest.fn(),
+    onSectionRemove: jest.fn(),
   };
 
   afterEach(() => {

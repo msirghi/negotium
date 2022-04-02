@@ -9,6 +9,6 @@
     "/registration": ["auth", "common"],
     "/home/projects/[id]": ["settings"],
     "/home/notes": ["notes"],
-    "/home/timeline": ["timeline"]
+    "/home/timeline": ["timeline", "common"]
   }
 }

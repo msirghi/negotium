@@ -26,7 +26,7 @@ describe('Tasks slice', () => {
 
   it('should handle mark task as done', () => {
     const result = reducer({ tasks: TasksMock }, markTaskAsDone(TasksMock[0].id));
-    expect(result.tasks.find((t) => t.id === TasksMock[0].id)!.completed).toBeTruthy();
+    expect(result.tasks.find((t) => t.id === TasksMock[0].id)!.completed).toBeFalsy();
   });
 
   it('should handle task removal from state', () => {
