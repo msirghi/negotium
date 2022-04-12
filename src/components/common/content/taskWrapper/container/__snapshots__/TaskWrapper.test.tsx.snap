@@ -16,7 +16,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
       }
     >
       <p
-        className="MuiTypography-root MuiTypography-body1 css-c1e8lb-MuiTypography-root"
+        className="MuiTypography-root MuiTypography-body1 css-149qrrd-MuiTypography-root"
       >
         Title
       </p>
@@ -43,7 +43,7 @@ exports[`TaskWrapper should match the snapshot 1`] = `
       >
         <button
           aria-selected={true}
-          className="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+          className="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-1tsjlaf-MuiButtonBase-root-MuiTab-root"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}
@@ -62,10 +62,25 @@ exports[`TaskWrapper should match the snapshot 1`] = `
           tabIndex={0}
           type="button"
         >
-           common.todos
           <span
-            className="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
-            style={Object {}}
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+          >
+            
+             
+            common.todos
+            \`
+          </span>
+          <span
+            className="MuiTabs-indicator css-e3zhew-MuiTabs-indicator"
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           />
         </button>
       </div>

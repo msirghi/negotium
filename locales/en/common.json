@@ -39,7 +39,10 @@
     "notes": "Notes",
     "show": "Show",
     "hide": "Hide",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "name": "Name",
+    "add": "Add"
   },
   "snackbarTitles": {
     "taskAdded": "Task added",

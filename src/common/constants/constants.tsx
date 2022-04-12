@@ -135,6 +135,12 @@ export const siteThemes: SiteTheme[] = [
     label: 'Noir',
     internalKey: 'noir',
   },
+  {
+    color: colors.primaries.lightGrey,
+    label: 'Light Grey',
+    internalKey: 'lightGrey',
+    textColor: colors.black
+  },
 ];
 
 export const initialRichTextValue: Descendant[] = [

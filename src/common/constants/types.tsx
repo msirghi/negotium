@@ -43,6 +43,7 @@ export type SiteTheme = {
   label: string;
   color: string;
   internalKey: string;
+  textColor?: string;
 };
 
 export type TextInputChangeEvent = ChangeEvent<

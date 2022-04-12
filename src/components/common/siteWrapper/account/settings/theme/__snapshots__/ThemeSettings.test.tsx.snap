@@ -262,6 +262,120 @@ exports[`ThemeSettings should match the snapshot 1`] = `
         </div>
       </div>
     </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        className="makeStyles-container-2"
+        id="theme-Light Grey"
+        onClick={[Function]}
+      >
+        <div>
+          <div
+            className="makeStyles-title-3 makeStyles-title-15"
+          >
+            Light Grey
+          </div>
+          <div
+            className="makeStyles-skeleton-4"
+          >
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "width": "initial",
+                }
+              }
+            >
+              <span
+                className="MuiSkeleton-root MuiSkeleton-rectangular css-14wtl70-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 9,
+                    "width": 10,
+                  }
+                }
+              />
+              <span
+                className="MuiSkeleton-root MuiSkeleton-text makeStyles-textSkeleton-5 css-1l6af8c-MuiSkeleton-root"
+                style={
+                  Object {
+                    "height": 15,
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

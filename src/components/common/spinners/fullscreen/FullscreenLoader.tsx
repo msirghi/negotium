@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles';
 import Loader from 'react-loader-spinner';
-import { noirAppTheme } from '../../../../common/theme/appTheme';
 import { Box } from '@mui/system';
+import colors from '../../../../common/styles/colors';
 
 const useStyles = makeStyles({
   container: {
@@ -22,12 +22,7 @@ export const FullscreenLoader = () => {
   return (
     <Box className={classes.container}>
       <div className={classes.spinner}>
-        <Loader
-          type="Watch"
-          color={noirAppTheme.palette.primary.main}
-          height={100}
-          width={100}
-        />
+        <Loader type="Watch" color={colors.primaries.darkBlue} height={100} width={100} />
       </div>
     </Box>
   );

@@ -1,6 +1,6 @@
 import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TasksMock } from '../../../common/tests/mockData/tasks-mock';
-import { MockReduxProvider } from '../../../common/tests/TestUtils';
+import { MockReduxProvider, MockThemeProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
 import { TodayContainer } from './TodayContainer';
 import { mount } from 'enzyme';
@@ -21,9 +21,11 @@ describe('TodayContainer', () => {
   const renderComponent = () => {
     return (
       <MockReduxProvider reduxStore={reduxStore}>
-        <SnackbarProvider>
-          <TodayContainer />
-        </SnackbarProvider>
+        <MockThemeProvider>
+          <SnackbarProvider>
+            <TodayContainer />
+          </SnackbarProvider>
+        </MockThemeProvider>
       </MockReduxProvider>
     );
   };

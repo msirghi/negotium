@@ -1,7 +1,7 @@
 import { projectsMock, sectionsMock } from '../../../common/tests/mockData/projects-mock';
 import { tasksRequests } from '../../../common/requests/tasksRequests';
 import { TasksMock } from '../../../common/tests/mockData/tasks-mock';
-import TestUtils, { MockReduxProvider } from '../../../common/tests/TestUtils';
+import TestUtils, { MockReduxProvider, MockThemeProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
 import { ProjectContainer } from './ProjectContainer';
 import { mount } from 'enzyme';
@@ -46,15 +46,17 @@ describe('ProjectContainer', () => {
     projects: {
       projects: [...projectsMock],
     },
-    account: {}
+    account: {},
   };
 
   const renderComponent = () => {
     return (
       <MockReduxProvider reduxStore={reduxStore}>
-        <SnackbarProvider>
-          <ProjectContainer projectId={mockProjects[0].id} />
-        </SnackbarProvider>
+        <MockThemeProvider>
+          <SnackbarProvider>
+            <ProjectContainer projectId={mockProjects[0].id} />
+          </SnackbarProvider>
+        </MockThemeProvider>
       </MockReduxProvider>
     );
   };

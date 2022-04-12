@@ -19,7 +19,7 @@ export const ProjectDialogWrapper: FC<Props> = ({ project, open, setOpen }) => {
   const onSubmit = async (title: string, color: Project['color']) => {
     await ProjectService.updateProjectName(project.id, title);
     await ProjectService.updateProjectColor(project.id, color);
-    const updatedProject = { ...project, name: title };
+    const updatedProject = { ...project, name: title, color };
     const updatedProjects = projects.map((p) => (p.id === project.id ? updatedProject : p));
     dispatch(setProjectsList(updatedProjects));
   };

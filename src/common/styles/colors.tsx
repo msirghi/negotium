@@ -6,6 +6,7 @@ const primaries = {
   lightBlue_1: '#5886ff',
   darkBlue: '#25417c',
   teal: '#db4a00',
+  lightGrey: '#f7f7f7'
 };
 
 const blues = {

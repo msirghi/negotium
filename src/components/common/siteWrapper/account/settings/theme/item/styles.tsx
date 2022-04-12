@@ -15,8 +15,8 @@ export const useThemeItemStyles = makeStyles({
   title: {
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    backgroundColor: (props: { color?: string }) => props.color,
-    color: colors.white,
+    backgroundColor: (props: { color?: string, textColor?: string }) => props.color,
+    color: (props: { textColor?: string, color?: string }) => props.textColor || colors.white,
     height: 35,
     padding: 6,
     fontSize: 14,

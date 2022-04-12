@@ -30,13 +30,13 @@ exports[`Fullscreen loader should match the snapshot 1`] = `
           cy="50"
           fill="none"
           r={48}
-          stroke="#272727"
+          stroke="#25417c"
           strokeMiterlimit="10"
           strokeWidth="4"
         />
         <line
           fill="none"
-          stroke="#272727"
+          stroke="#25417c"
           strokeLinecap="round"
           strokeMiterlimit="10"
           strokeWidth="4"
@@ -56,7 +56,7 @@ exports[`Fullscreen loader should match the snapshot 1`] = `
         </line>
         <line
           fill="none"
-          stroke="#272727"
+          stroke="#25417c"
           strokeLinecap="round"
           strokeMiterlimit="10"
           strokeWidth="4"

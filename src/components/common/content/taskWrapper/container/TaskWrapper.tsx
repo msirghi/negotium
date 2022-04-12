@@ -10,6 +10,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { DndTaskWrapperProps } from '../../../dnd/taskWrapper/types';
 import { If } from '../../../utilities/if/If';
 import { NoTasks } from '../noTasks/NoTasks';
+import { useTheme } from '@mui/styles';
 
 type Props = {
   title: string;
@@ -34,6 +35,7 @@ export const TaskWrapper: FC<Props> = ({
   taskCount,
 }) => {
   const { t } = useTranslation('common');
+  const theme: any = useTheme();
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (!React.isValidElement(child) || !child.props.task) return;
@@ -50,9 +52,22 @@ export const TaskWrapper: FC<Props> = ({
         settingsOptions={settingsOptions}
         projectOptions={projectOptions}
       />
-      <Tabs value={1}>
-        <Tab label={`${taskCount || ''} ${t('common.todos')}`} value={1} />
-        {/*<Tab label={t('common.notes')} value={2} />*/}
+      <Tabs
+        value={1}
+        TabIndicatorProps={{
+          style: {
+            backgroundColor: theme.palette.custom.tabsColor,
+          },
+        }}
+      >
+        <Tab
+          label={
+            <span style={{ color: theme.palette.custom.tabsColor }}>
+              {taskCount || ''} {t('common.todos')}`
+            </span>
+          }
+          value={1}
+        />
       </Tabs>
 
       <div role={'tabpanel'} style={{ marginTop: '1rem' }}>

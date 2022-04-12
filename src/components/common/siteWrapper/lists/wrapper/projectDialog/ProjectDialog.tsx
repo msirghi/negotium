@@ -10,6 +10,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { PROJECT_COLORS } from '../../../../../../common/constants/constants';
 import { InputChangeEvent } from '../../../../../../common/types/common.types';
 import { useProjectDialogStyles } from './styles';
+import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   selectedProject?: Project;
@@ -29,6 +30,7 @@ export const ProjectDialog: FC<Props> = ({ open, setOpen, dialogTitle, onSubmit,
   const classes = useProjectDialogStyles(isMobile);
   const [selectedColor, setSelectedColor] = useState(PROJECT_COLORS[0].color);
   const [name, setName] = useState('');
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if (selectedProject && selectedProject.name) {
@@ -75,7 +77,7 @@ export const ProjectDialog: FC<Props> = ({ open, setOpen, dialogTitle, onSubmit,
           <TextField
             className={classes.input}
             size={'small'}
-            label={'Name'}
+            label={t('common.name')}
             inputProps={{ 'data-testid': 'name-field' }}
             onChange={handleNameChange()}
             value={name}
@@ -84,10 +86,10 @@ export const ProjectDialog: FC<Props> = ({ open, setOpen, dialogTitle, onSubmit,
         </Box>
         <DialogActions className={classes.buttons}>
           <Button fullWidth={isMobile} onClick={handleClose} data-testid={'cancel-button'} size={'small'}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button size={'small'} variant={'contained'} data-testid={'save-button'} fullWidth={isMobile} disabled={!name} onClick={onSave}>
-            {submitButtonTitle || 'Add'}
+            {submitButtonTitle || t('common.add')}
           </Button>
         </DialogActions>
       </DialogContent>

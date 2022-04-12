@@ -13,8 +13,8 @@ type Props = {
 };
 
 export const ThemeItem: FC<Props> = ({ theme, selected, onClick }) => {
-  const { color, label } = theme;
-  const classes = useThemeItemStyles({ color });
+  const { color, label, textColor } = theme;
+  const classes = useThemeItemStyles({ color, textColor });
 
   const handleClick = () => {
     onClick(theme.internalKey);

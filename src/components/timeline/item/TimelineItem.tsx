@@ -16,8 +16,8 @@ type Props = {
 export const TimelineItem: FC<Props> = ({ task, onClick, active, markAsDone }) => {
   const theme = useTheme();
   const date = DateUtils.formatDateForTask(task.dueDate);
-  const defaultColor = theme.palette.primary.light;
-  const activeColor = theme.palette.primary.main;
+  const defaultColor = theme.palette.custom.mainBackgroundColor;
+  const activeColor = theme.palette.custom.activeMainBackgroundColor;
   const classes = useTimelineItemStyles({ active, activeColor, defaultColor });
 
   const handleClick = () => onClick(task);
