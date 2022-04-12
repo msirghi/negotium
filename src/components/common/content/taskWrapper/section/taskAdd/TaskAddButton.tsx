@@ -22,10 +22,12 @@ const useStyles = makeStyles({
 type Props = {
   onTaskAdd: (title: string, date: Nullable<Date>) => void;
   defaultDate?: Date;
+  defaultOpened?: boolean;
+  cancelCallback?: () => void;
 };
 
-export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
-  const [editMode, setEditMode] = useState(false);
+export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate, defaultOpened = false, cancelCallback }) => {
+  const [editMode, setEditMode] = useState(defaultOpened);
   const [fieldValue, setFieldValue] = useState('');
   const classes = useStyles();
   const selectedDate = useRef<Nullable<Date>>(defaultDate || null) as MutableRefObject<Nullable<Date>>;
@@ -36,6 +38,10 @@ export const TaskAddButton: FC<Props> = ({ onTaskAdd, defaultDate }) => {
   };
 
   const onCancelClick = () => {
+    if (cancelCallback) {
+      cancelCallback();
+      return;
+    }
     setEditMode(false);
     setFieldValue('');
   };

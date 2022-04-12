@@ -63,7 +63,7 @@ export const TaskWrapper: FC<Props> = ({
         <Tab
           label={
             <span style={{ color: theme?.palette?.custom.tabsColor }}>
-              {taskCount || ''} {t('common.todos')}`
+              {taskCount || ''} {t('common.todos')}
             </span>
           }
           value={1}

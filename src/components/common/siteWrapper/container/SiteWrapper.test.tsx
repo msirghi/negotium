@@ -7,8 +7,9 @@ import AuthService from '../../../../services/AuthService';
 import { reduxStoreMock } from '../../../../common/tests/mockData/redux-store-mock';
 import AccountService from '../../../../services/AccountService';
 import ThemeUtils from '../../../../common/utils/themeUtils';
-import taskActions from "../../../../redux/actions/loadTasks";
-import notesActions from "../../../../redux/actions/loadNotes";
+import taskActions from '../../../../redux/actions/loadTasks';
+import notesActions from '../../../../redux/actions/loadNotes';
+import { SnackbarProvider } from 'notistack';
 
 jest.mock('next/dist/client/router', () => require('next-router-mock'));
 
@@ -28,26 +29,26 @@ describe('SiteWrapper', () => {
     AuthService.getUserInfo = jest.fn(() => Promise.resolve() as any);
   });
 
-  it('should render children', () => {
-    const wrapper = mount(
+  const renderComponent = () => {
+    return (
       <MockReduxProvider reduxStore={reduxStore}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
+        <SnackbarProvider>
+          <SiteWrapper>
+            <div id={'content'} />
+          </SiteWrapper>
+        </SnackbarProvider>
       </MockReduxProvider>
     );
+  };
+
+  it('should render children', () => {
+    const wrapper = mount(renderComponent());
     expect(wrapper.find('#content')).toHaveLength(1);
   });
 
   it('should handle drawer status on open drawer button click', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
-    const wrapper = mount(
-      <MockReduxProvider reduxStore={reduxStore}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </MockReduxProvider>
-    );
+    const wrapper = mount(renderComponent());
     wrapper.update();
     const button = wrapper.find('#menu-icon').at(0);
     button.simulate('click');
@@ -56,36 +57,18 @@ describe('SiteWrapper', () => {
   });
 
   it('should get user info on mount', () => {
-    mount(
-      <MockReduxProvider reduxStore={reduxStore}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </MockReduxProvider>
-    );
+    mount(renderComponent());
     expect(AuthService.getUserInfo).toBeCalled();
   });
 
   it('should fetch user metadata on mount', () => {
-    mount(
-      <MockReduxProvider reduxStore={reduxStore}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </MockReduxProvider>
-    );
+    mount(renderComponent());
     expect(AccountService.getUserMetadata).toBeCalled();
   });
 
   it('should validate fetched theme', async () => {
     ThemeUtils.isValidTheme = jest.fn(() => false);
-    await mount(
-      <MockReduxProvider reduxStore={reduxStore}>
-        <SiteWrapper>
-          <div id={'content'} />
-        </SiteWrapper>
-      </MockReduxProvider>
-    );
+    await mount(renderComponent());
     expect(ThemeUtils.isValidTheme).toBeCalled();
   });
 });

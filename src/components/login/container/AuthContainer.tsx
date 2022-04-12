@@ -7,6 +7,8 @@ import { ACTIVATION_CODE_VAR_NAME } from '../../../common/constants/constants';
 import { useSnackbar } from 'notistack';
 import { FullscreenLoader } from '../../common/spinners/fullscreen/FullscreenLoader';
 import SideContainer from './wrapper/SideContainer';
+import authorizationStore from "../../../common/requests/authorizationStore";
+import Routes from "../../../common/config/routes";
 
 type Props = {
   footer?: () => ReactNode;
@@ -31,6 +33,10 @@ export const AuthContainer: FC<Props> = ({ children, footer }) => {
   };
 
   useEffect(() => {
+    if (authorizationStore.getAuthToken()) {
+      router.push(Routes.inbox);
+      return;
+    }
     if (router.query[ACTIVATION_CODE_VAR_NAME]) {
       activateAccount();
     }

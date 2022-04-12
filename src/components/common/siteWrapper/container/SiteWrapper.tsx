@@ -27,6 +27,7 @@ import ThemeUtils from '../../../../common/utils/themeUtils';
 import { Theme } from '@mui/system';
 import notesActions from '../../../../redux/actions/loadNotes';
 import taskActions from "../../../../redux/actions/loadTasks";
+import {TaskAdd} from "../taskAdd/TaskAdd";
 
 const drawerWidth = 240;
 
@@ -128,7 +129,7 @@ export const SiteWrapper: FC = ({ children }) => {
               <HeaderSearch />
             </Row>
             <Box sx={{ flexGrow: 1 }} />
-
+            <TaskAdd />
             <AccountMenu />
           </Toolbar>
         </AppBar>

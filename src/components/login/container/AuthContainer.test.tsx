@@ -5,11 +5,15 @@ import { LoginFooter } from '../footer/LoginFooter';
 import { MockReduxProvider } from '../../../common/tests/TestUtils';
 import { SnackbarProvider } from 'notistack';
 import { ReactChildren, ReactNode } from 'react';
+import authorizationStore from "../../../common/requests/authorizationStore";
+
+const mockPush = jest.fn();
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
     route: 'registration',
     query: {},
+    push: mockPush
   }),
 }));
 
@@ -50,5 +54,17 @@ describe('AuthContainer', () => {
       </MockReduxProvider>
     );
     expect(wrapper.find('#children')).toHaveLength(1);
+  });
+
+  it('should not push the route if user is not logged', async () => {
+    jest.spyOn(authorizationStore, 'getAuthToken').mockReturnValue('');
+    await mount(getComponent());
+    expect(mockPush).not.toBeCalled();
+  });
+
+  it('should push the route if user is already logged', async () => {
+    jest.spyOn(authorizationStore, 'getAuthToken').mockReturnValue('token');
+    await mount(getComponent());
+    expect(mockPush).toBeCalled();
   });
 });

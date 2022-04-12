@@ -3,6 +3,7 @@ import { TaskAddButton } from './TaskAddButton';
 import { mount } from 'enzyme';
 import { EditForm } from './editForm/EditForm';
 import FeatureToggles from '../../../../../../utilities/featureToggles/FeatureToggles';
+import { Button } from '@mui/material';
 
 describe('TaskAddButton', () => {
   const defaultProps = {
@@ -11,7 +12,7 @@ describe('TaskAddButton', () => {
 
   beforeEach(() => {
     FeatureToggles.isFeatureEnabled = jest.fn(() => true);
-    cleanup()
+    cleanup();
   });
 
   afterEach(() => {
@@ -32,6 +33,21 @@ describe('TaskAddButton', () => {
     });
     return wrapper;
   };
+
+  it('should fire callback on cancel click if callback is provided', () => {
+    const spy = jest.fn();
+    const wrapper = mount(<TaskAddButton {...defaultProps} cancelCallback={spy} defaultOpened />);
+    const cancelButton = wrapper.find(Button).at(1);
+    act(() => {
+      cancelButton.simulate('click');
+    });
+    expect(spy).toBeCalled();
+  });
+
+  it('should have opened state by default if it is provided', () => {
+    const wrapper = mount(<TaskAddButton {...defaultProps} defaultOpened />);
+    expect(wrapper.find('form')).not.toHaveLength(0);
+  });
 
   it('should render button on initial render', () => {
     const { getByTestId } = render(<TaskAddButton {...defaultProps} />);

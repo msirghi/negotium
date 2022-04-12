@@ -72,7 +72,6 @@ exports[`TaskWrapper should match the snapshot 1`] = `
             
              
             common.todos
-            \`
           </span>
           <span
             className="MuiTabs-indicator css-e3zhew-MuiTabs-indicator"
