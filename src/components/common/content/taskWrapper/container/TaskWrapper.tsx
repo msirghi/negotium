@@ -56,13 +56,13 @@ export const TaskWrapper: FC<Props> = ({
         value={1}
         TabIndicatorProps={{
           style: {
-            backgroundColor: theme.palette.custom.tabsColor,
+            backgroundColor: theme?.palette?.custom.tabsColor,
           },
         }}
       >
         <Tab
           label={
-            <span style={{ color: theme.palette.custom.tabsColor }}>
+            <span style={{ color: theme?.palette?.custom.tabsColor }}>
               {taskCount || ''} {t('common.todos')}`
             </span>
           }
