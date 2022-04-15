@@ -21,6 +21,7 @@ export const defaultLightTheme = createTheme({
       headerSearchBackground: colors.blues.light,
       mainBackgroundColor: colors.primaries.lightBlue,
       activeMainBackgroundColor: colors.primaries.darkBlue,
+      progressBarColor: colors.primaries.lightBlue_1
     },
   },
 });
@@ -46,6 +47,7 @@ export const lightGreyTheme = createTheme({
       iconColor: colors.black,
       mainBackgroundColor: colors.greys['600'],
       activeMainBackgroundColor: colors.greys['800'],
+      progressBarColor: colors.primaries.lightBlue
     },
   },
   components: {
@@ -74,6 +76,7 @@ export const noirAppTheme = createTheme({
       headerSearchBackground: colors.greys['800'],
       mainBackgroundColor: colors.greys['800'],
       activeMainBackgroundColor: colors.greys['900'],
+      progressBarColor: colors.primaries.lightBlue
     },
   },
 });
