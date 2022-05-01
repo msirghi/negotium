@@ -8,7 +8,7 @@ import { LoadingButton } from '@mui/lab';
 import { useIsMobile } from '../../../../../../../common/hooks/common/useIsMobile';
 import { Box } from '@mui/system';
 import ValidationService from '../../../../../../../services/ValidationService';
-import { PASSWORD_STRENGTH_STATUS } from '../../../../../../../common/constants/enums';
+import { PasswordStrengthStatus } from '../../../../../../../common/constants/enums';
 import { usePasswordUpdate } from '../../../../../../../common/hooks/settings/usePasswordUpdate';
 
 type Props = {
@@ -34,7 +34,7 @@ export const PasswordChange: FC<Props> = ({ onBackClick }) => {
 
   const onSubmit = async (values: FormValues) => {
     const { confirmNewPassword, newPassword, oldPassword } = values;
-    if (ValidationService.getPasswordStrength(newPassword) === PASSWORD_STRENGTH_STATUS.WEAK) {
+    if (ValidationService.getPasswordStrength(newPassword) === PasswordStrengthStatus.WEAK) {
       formik.setErrors({ newPassword: t('change.passwordTooWeak') });
       return;
     }

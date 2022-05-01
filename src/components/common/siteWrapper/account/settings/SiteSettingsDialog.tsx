@@ -12,7 +12,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { ThemeSettings } from './theme/ThemeSettings';
 import { useSiteSettingsDialogStyles } from './styles';
 import { useIsMobile } from '../../../../../common/hooks/common/useIsMobile';
-import { ROW_DIRECTION } from '../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../common/constants/enums';
 
 type Props = {
   open: boolean;
@@ -59,7 +59,7 @@ export const SiteSettingsDialog: FC<Props> = ({ open, setOpen, defaultPage }) =>
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'md'}>
       <DialogContent style={{ minHeight: 500 }}>
-        <Row className={classes.container} direction={isMobile ? ROW_DIRECTION.COLUMN : ROW_DIRECTION.ROW}>
+        <Row className={classes.container} direction={isMobile ? RowDirection.COLUMN : RowDirection.ROW}>
           <SettingsDialogMenu selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
           <Box className={classes.rightContainer}>
             <Box className={classes.title}>{getTitle()}</Box>

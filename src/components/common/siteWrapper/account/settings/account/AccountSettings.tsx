@@ -16,7 +16,7 @@ import AccountService from '../../../../../../services/AccountService';
 import { LoadingButton } from '@mui/lab';
 import { setUserName } from '../../../../../../redux/account/accountSlice';
 import { useSnackbar } from 'notistack';
-import { ACCOUNT_SETTINGS_CHANGE_MODE } from '../../../../../../common/constants/enums';
+import { AccountSettingsChangeMode } from '../../../../../../common/constants/enums';
 import { EmailChange } from './email/EmailChange';
 import { PasswordChange } from './password/PasswordChange';
 
@@ -40,7 +40,7 @@ export const AccountSettings = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('settings');
   const [isSubmitting, setSubmitting] = useState(false);
-  const [changeMode, setChangeMode] = useState<ACCOUNT_SETTINGS_CHANGE_MODE | null>(null);
+  const [changeMode, setChangeMode] = useState<AccountSettingsChangeMode | null>(null);
 
   const [name, setName] = useState(accountInfo.name);
 
@@ -49,11 +49,11 @@ export const AccountSettings = () => {
   };
 
   const onEmailChangeButtonClick = () => {
-    setChangeMode(ACCOUNT_SETTINGS_CHANGE_MODE.EMAIL);
+    setChangeMode(AccountSettingsChangeMode.EMAIL);
   };
 
   const onPasswordChangeButtonClick = () => {
-    setChangeMode(ACCOUNT_SETTINGS_CHANGE_MODE.PASSWORD);
+    setChangeMode(AccountSettingsChangeMode.PASSWORD);
   };
 
   const updateName = async () => {
@@ -72,12 +72,12 @@ export const AccountSettings = () => {
 
   return (
     <Box>
-      <If condition={changeMode === ACCOUNT_SETTINGS_CHANGE_MODE.EMAIL}>
+      <If condition={changeMode === AccountSettingsChangeMode.EMAIL}>
         <div data-testid={'email-change'}>
           <EmailChange onBackClick={onChangeModeBackClick} />
         </div>
       </If>
-      <If condition={changeMode === ACCOUNT_SETTINGS_CHANGE_MODE.PASSWORD}>
+      <If condition={changeMode === AccountSettingsChangeMode.PASSWORD}>
         <PasswordChange onBackClick={onChangeModeBackClick} />
       </If>
       <If condition={!changeMode}>

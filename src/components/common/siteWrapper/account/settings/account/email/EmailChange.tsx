@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Row } from '../../../../../utilities/row/Row';
-import { ROW_DIRECTION } from '../../../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../../../common/constants/enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../../../../redux/store';
 import { useIsMobile } from '../../../../../../../common/hooks/common/useIsMobile';
@@ -102,7 +102,7 @@ export const EmailChange: FC<Props> = ({ onBackClick }) => {
             {error}
           </Box>
         </If>
-        <Row direction={ROW_DIRECTION.COLUMN} className={classes.formContainer}>
+        <Row direction={RowDirection.COLUMN} className={classes.formContainer}>
           <TextField
             value={formik.values.newEmail}
             inputProps={{ 'data-testid': 'new-email-field' }}

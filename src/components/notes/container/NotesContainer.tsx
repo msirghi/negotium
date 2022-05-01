@@ -12,7 +12,7 @@ import { useSnackbar } from 'notistack';
 import useTranslation from 'next-translate/useTranslation';
 import { EmptyListMessage } from '../../common/emptyListMessage/EmptyListMessage';
 import { Row } from '../../common/utilities/row/Row';
-import { ROW_DIRECTION } from '../../../common/constants/enums';
+import { RowDirection } from '../../../common/constants/enums';
 import { If } from '../../common/utilities/if/If';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
@@ -51,7 +51,7 @@ export const NotesContainer = () => {
         <NotesAddInput onNoteAdd={onNoteAdd} />
         <div className={classes.itemList}>
           <If condition={!notes.length}>
-            <Row fullWidth alignVerticalCenter direction={ROW_DIRECTION.COLUMN}>
+            <Row fullWidth alignVerticalCenter direction={RowDirection.COLUMN}>
               <EmptyListMessage imageSrc={'/static/clouds.png'} message={t('noNotesMessage')} />
             </Row>
           </If>

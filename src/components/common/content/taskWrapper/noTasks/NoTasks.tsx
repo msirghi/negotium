@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Row } from '../../../utilities/row/Row';
-import { ROW_DIRECTION } from '../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../common/constants/enums';
 import BalloonsImage from '../../../../../assets/balloons.png';
 import Image from 'next/image';
 import useTranslation from 'next-translate/useTranslation';
@@ -20,7 +20,7 @@ export const NoTasks = () => {
   return (
     <Fade in>
       <div>
-        <Row alignVerticalCenter alignHorizontalCenter direction={ROW_DIRECTION.COLUMN}>
+        <Row alignVerticalCenter alignHorizontalCenter direction={RowDirection.COLUMN}>
           <Image alt="no-tasks" src={BalloonsImage} width={150} height={150} />
           <p className={classes.title}>{t('enjoyFreeTime')}</p>
         </Row>

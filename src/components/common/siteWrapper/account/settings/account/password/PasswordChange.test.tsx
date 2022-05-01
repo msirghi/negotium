@@ -4,7 +4,7 @@ import { SnackbarProvider } from 'notistack';
 import { PasswordChange } from './PasswordChange';
 import { act } from 'react-test-renderer';
 import ValidationService from '../../../../../../../services/ValidationService';
-import { PASSWORD_STRENGTH_STATUS } from '../../../../../../../common/constants/enums';
+import { PasswordStrengthStatus } from '../../../../../../../common/constants/enums';
 
 describe('PasswordChange', () => {
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('PasswordChange', () => {
   };
 
   it('should check password strength on submit', async () => {
-    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PASSWORD_STRENGTH_STATUS.STRONG);
+    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PasswordStrengthStatus.STRONG);
     renderAndFillTheForm('old', 'new', 'new');
     await waitFor(() => {
       expect(AccountService.updateUserPassword).toBeCalled();
@@ -50,7 +50,7 @@ describe('PasswordChange', () => {
   });
 
   it('should show the error if new password is too weak', async () => {
-    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PASSWORD_STRENGTH_STATUS.WEAK);
+    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PasswordStrengthStatus.WEAK);
     const { getByText } = renderAndFillTheForm('old', 'new', 'new');
     await waitFor(() => {
       expect(getByText('change.passwordTooWeak')).toBeInTheDocument();
@@ -58,7 +58,7 @@ describe('PasswordChange', () => {
   });
 
   it('should show the error if passwords do not match', async () => {
-    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PASSWORD_STRENGTH_STATUS.STRONG);
+    jest.spyOn(ValidationService, 'getPasswordStrength').mockImplementation(() => PasswordStrengthStatus.STRONG);
     const { getByText } = renderAndFillTheForm('old', 'new', 'new1');
     await waitFor(() => {
       expect(getByText('change.passwordMismatch')).toBeInTheDocument();

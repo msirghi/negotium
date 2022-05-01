@@ -8,7 +8,7 @@ import { mount } from 'enzyme';
 import { SettingsMenuListItem } from './item/SettingsMenuListItem';
 import { act } from 'react-test-renderer';
 import { Row } from '../../../../utilities/row/Row';
-import { ROW_DIRECTION } from '../../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../../common/constants/enums';
 
 describe('SettingsDialogMenu', () => {
   const defaultProps = {
@@ -97,7 +97,7 @@ describe('SettingsDialogMenu', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
     const wrapper = mount(renderContent());
     expect(wrapper.find(Row).at(0).props().direction).toEqual(
-      ROW_DIRECTION.ROW
+      RowDirection.ROW
     );
   });
 
@@ -105,7 +105,7 @@ describe('SettingsDialogMenu', () => {
     window.matchMedia = TestUtils.createMatchMedia(1024) as any;
     const wrapper = mount(renderContent());
     expect(wrapper.find(Row).at(0).props().direction).toEqual(
-      ROW_DIRECTION.COLUMN
+      RowDirection.COLUMN
     );
   });
 });

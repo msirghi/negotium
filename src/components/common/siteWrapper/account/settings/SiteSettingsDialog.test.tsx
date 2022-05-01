@@ -12,7 +12,7 @@ import TestUtils, {
 import { ThemeSettings } from './theme/ThemeSettings';
 import { reduxStoreMock } from '../../../../../common/tests/mockData/redux-store-mock';
 import { Row } from '../../../utilities/row/Row';
-import { ROW_DIRECTION } from '../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../common/constants/enums';
 import { SnackbarProvider } from 'notistack';
 
 describe('SiteSettingsDialog', () => {
@@ -90,7 +90,7 @@ describe('SiteSettingsDialog', () => {
     window.matchMedia = TestUtils.createMatchMedia(500) as any;
     const wrapper = mount(renderContent());
     expect(wrapper.find(Row).at(0).props().direction).toEqual(
-      ROW_DIRECTION.COLUMN
+      RowDirection.COLUMN
     );
   });
 
@@ -98,7 +98,7 @@ describe('SiteSettingsDialog', () => {
     window.matchMedia = TestUtils.createMatchMedia(1024) as any;
     const wrapper = mount(renderContent());
     expect(wrapper.find(Row).at(0).props().direction).toEqual(
-      ROW_DIRECTION.ROW
+      RowDirection.ROW
     );
   });
 });

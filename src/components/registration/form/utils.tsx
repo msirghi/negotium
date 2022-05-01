@@ -1,5 +1,5 @@
 import ValidationService from '../../../services/ValidationService';
-import { PASSWORD_STRENGTH_STATUS } from '../../../common/constants/enums';
+import { PasswordStrengthStatus } from '../../../common/constants/enums';
 import { passwordStatusColors } from '../../../common/constants/constants';
 
 const getPasswordConfig = (password: string | undefined) => {
@@ -7,16 +7,16 @@ const getPasswordConfig = (password: string | undefined) => {
     return null;
   }
   const passwordStrength = ValidationService.getPasswordStrength(password);
-  if (passwordStrength === PASSWORD_STRENGTH_STATUS.TOO_WEAK) {
+  if (passwordStrength === PasswordStrengthStatus.TOO_WEAK) {
     return { title: 'Too weak', color: passwordStatusColors.tooWeak };
   }
-  if (passwordStrength === PASSWORD_STRENGTH_STATUS.WEAK) {
+  if (passwordStrength === PasswordStrengthStatus.WEAK) {
     return { title: 'Weak', color: passwordStatusColors.weak };
   }
-  if (passwordStrength === PASSWORD_STRENGTH_STATUS.MEDIUM) {
+  if (passwordStrength === PasswordStrengthStatus.MEDIUM) {
     return { title: 'Medium', color: passwordStatusColors.medium };
   }
-  if (passwordStrength === PASSWORD_STRENGTH_STATUS.STRONG) {
+  if (passwordStrength === PasswordStrengthStatus.STRONG) {
     return { title: 'Strong', color: passwordStatusColors.strong };
   }
 };

@@ -10,7 +10,7 @@ import { SETTINGS_OPTIONS } from '../../../../../../common/types/enums';
 import useTranslation from 'next-translate/useTranslation';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
 import { Row } from '../../../../utilities/row/Row';
-import { ROW_DIRECTION } from '../../../../../../common/constants/enums';
+import { RowDirection } from '../../../../../../common/constants/enums';
 import { useSettingsDialogMenuStyles } from './styles';
 
 type Props = {
@@ -36,7 +36,7 @@ export const SettingsDialogMenu: FC<Props> = ({
         <Box className={classes.title}>Settings</Box>
 
         <Box className={classes.menuContainer}>
-          <Row direction={isMobile ? ROW_DIRECTION.ROW : ROW_DIRECTION.COLUMN}>
+          <Row direction={isMobile ? RowDirection.ROW : RowDirection.COLUMN}>
             <SettingsMenuListItem
               onClick={() => onOptionSelect(SETTINGS_OPTIONS.ACCOUNT)}
               isActive={selectedItem === SETTINGS_OPTIONS.ACCOUNT}

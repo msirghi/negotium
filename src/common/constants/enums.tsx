@@ -1,16 +1,16 @@
-export enum PASSWORD_STRENGTH_STATUS {
+export enum PasswordStrengthStatus {
   TOO_WEAK = 'Too weak',
   WEAK = 'Weak',
   MEDIUM = 'Medium',
   STRONG = 'Strong',
 }
 
-export enum ROW_DIRECTION {
+export enum RowDirection {
   ROW = 'row',
   COLUMN = 'column',
 }
 
-export enum ACCOUNT_SETTINGS_CHANGE_MODE {
+export enum AccountSettingsChangeMode {
   EMAIL = 'EMAIL',
   PASSWORD = 'PASSWORD',
 }

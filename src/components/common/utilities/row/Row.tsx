@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ROW_DIRECTION } from '../../../../common/constants/enums';
+import { RowDirection } from '../../../../common/constants/enums';
 
 type Props = {
   alignVerticalCenter?: boolean;
@@ -7,7 +7,7 @@ type Props = {
   className?: string;
   fullWidth?: boolean;
   onClick?: () => void;
-  direction?: ROW_DIRECTION;
+  direction?: RowDirection;
 };
 
 export const Row: FC<Props> = ({
