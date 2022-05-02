@@ -4,10 +4,13 @@ import { Checkbox, IconButton } from '@mui/material';
 import { TaskAddButton } from '../../common/content/taskWrapper/section/taskAdd/TaskAddButton';
 import TodayIcon from '@mui/icons-material/Today';
 import { act } from '@testing-library/react';
+import { TimelineView } from '../../../common/constants/enums';
 
 describe('TimelineOptions', () => {
   const defaultProps = {
     onTaskAdd: jest.fn(),
+    onViewSwitch: jest.fn(),
+    currentView: TimelineView.DEFAULT,
   };
 
   afterEach(jest.clearAllMocks);
@@ -15,7 +18,26 @@ describe('TimelineOptions', () => {
   it('should render task add button & icon button', () => {
     const wrapper = shallow(<TimelineOptions {...defaultProps} />);
     expect(wrapper.find(TaskAddButton)).toHaveLength(1);
-    expect(wrapper.find(IconButton)).toHaveLength(1);
+    expect(wrapper.find(IconButton)).toHaveLength(2);
+  });
+
+  it('should handle change view button click', () => {
+    const wrapper = shallow(<TimelineOptions {...defaultProps} />);
+    const button = wrapper.find('#change-view-btn');
+    button.simulate('click');
+    expect(defaultProps.onViewSwitch).toBeCalled();
+  });
+
+  it('should render disabled checkbox if current view is LIST', () => {
+    const wrapper = shallow(<TimelineOptions {...defaultProps} currentView={TimelineView.LIST} />);
+    const checkbox = wrapper.find(Checkbox);
+    expect(checkbox.props().disabled).toBeTruthy();
+  });
+
+  it('should render enabled checkbox if current view is not LIST', () => {
+    const wrapper = shallow(<TimelineOptions {...defaultProps} currentView={TimelineView.DEFAULT} />);
+    const checkbox = wrapper.find(Checkbox);
+    expect(checkbox.props().disabled).toBeFalsy();
   });
 
   it('should scroll to the today section', () => {

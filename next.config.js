@@ -1,6 +1,17 @@
 const nextTranslate = require('next-translate');
 
-module.exports = nextTranslate({
+const withTM = require("next-transpile-modules")([
+  "@fullcalendar/list",
+  "@fullcalendar/common",
+  "@babel/preset-react",
+  "@fullcalendar/common",
+  "@fullcalendar/daygrid",
+  "@fullcalendar/interaction",
+  "@fullcalendar/react",
+  "@fullcalendar/timegrid",
+]);
+
+module.exports = withTM(nextTranslate({
   webpack: (config, options) => {
     config.resolve.fallback = { fs: false, path: false };
     const { isServer } = options;
@@ -24,4 +35,4 @@ module.exports = nextTranslate({
 
     return config;
   },
-});
+}));

@@ -43,6 +43,14 @@ body > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-10nakn3-MuiModal-root-
     height: 96px;
 }
 
-.custom-shape-divider-bottom-1647769171 .shape-fill {
-    /*fill: #FFFFFF;*/
+.fc-theme-standard .fc-list {
+    border: none !important;
+}
+
+.fc-event {
+    cursor: pointer !important;
+}
+
+.fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+    height: 50vh;
 }

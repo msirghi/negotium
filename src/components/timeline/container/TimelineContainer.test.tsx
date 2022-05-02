@@ -10,6 +10,9 @@ import { act } from '@testing-library/react';
 import TaskUtils from '../../common/utilities/taskUtils/TaskUtils';
 import TaskService from '../../../services/TaskService';
 import { TimelineOptions } from '../options/TimelineOptions';
+import { ListCalendar } from '../../calendar/list/ListCalendar';
+import StorageUtils from "../../../common/utils/storageUtils";
+import {TimelineView} from "../../../common/constants/enums";
 
 describe('TimelineContainer', () => {
   const reduxStore = {
@@ -88,5 +91,45 @@ describe('TimelineContainer', () => {
     const options = wrapper.find(TimelineOptions);
     act(() => options.props().onTaskAdd('title', null));
     expect(TaskService.createTask).toBeCalled();
+  });
+
+  it('should handle view switch', () => {
+    const wrapper = mount(renderComponent());
+    const options = wrapper.find(TimelineOptions);
+    act(() => options.props().onViewSwitch());
+    wrapper.update();
+    expect(wrapper.find(ListCalendar)).toHaveLength(1);
+  });
+
+  it('should handle view switch if current view is LIST', () => {
+    StorageUtils.localStorage.getTimelineDefaultView = jest.fn(() => TimelineView.LIST);
+    const wrapper = mount(renderComponent());
+    const options = wrapper.find(TimelineOptions);
+    act(() => options.props().onViewSwitch());
+    wrapper.update();
+    expect(wrapper.find(ListCalendar)).not.toHaveLength(1);
+  });
+
+  it('should render calendar based on local cache', () => {
+    StorageUtils.localStorage.getTimelineDefaultView = jest.fn(() => TimelineView.LIST);
+    const wrapper = mount(renderComponent());
+    expect(wrapper.find(ListCalendar)).toHaveLength(1);
+  });
+
+  it('should render timeline options based on local cache', () => {
+    StorageUtils.localStorage.getTimelineDefaultView = jest.fn(() => TimelineView.DEFAULT);
+    const wrapper = mount(renderComponent());
+    expect(wrapper.find(TimelineOptions)).toHaveLength(1);
+  });
+
+  it('should handle task selection from list view', () => {
+    StorageUtils.localStorage.getTimelineDefaultView = jest.fn(() => TimelineView.LIST);
+    const wrapper = mount(renderComponent());
+    const calendar = wrapper.find(ListCalendar);
+    act(() => {
+      calendar.props().onTaskClick(TasksMock[0].id);
+    })
+    wrapper.update();
+    expect(wrapper.find(SelectedTaskSection).props().task).toBeDefined();
   });
 });

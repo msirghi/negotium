@@ -38,3 +38,8 @@ export enum ProjectSettingsOption {
 export enum Sounds {
   NOTIFICATION,
 }
+
+export enum TimelineView {
+  DEFAULT = 'DEFAULT',
+  LIST = 'LIST'
+}

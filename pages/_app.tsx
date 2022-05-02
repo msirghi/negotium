@@ -21,6 +21,10 @@ import createEmotionCache from '../src/common/config/cache/createEmotionCache';
 import { FullscreenLoader } from '../src/components/common/spinners/fullscreen/FullscreenLoader';
 import { REFRESH_TOKEN_URL } from '../src/common/constants/constants';
 
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
+
 const generateClassName = createGenerateClassName({
   productionPrefix: 'c',
 });

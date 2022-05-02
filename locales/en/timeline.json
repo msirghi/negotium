@@ -1,4 +1,9 @@
 {
+  "title": "Timeline",
   "scrollToToday": "Scroll to today",
-  "showCompleted": "Show completed"
+  "showCompleted": "Show completed",
+  "switchView": "Switch View",
+  "listView": {
+    "noteMessage": "This view shows only the events of the current week."
+  }
 }

@@ -1,7 +1,7 @@
 import React, { Children, FC } from 'react';
 import { PageTitle } from '../../pageTitle/PageTitle';
 import { TaskWrapperTitleOptions } from '../../types';
-import { Tab, Tabs } from '@mui/material';
+import { Tab, Tabs, useTheme } from '@mui/material';
 import { AddSectionRow } from '../section/add/AddSectionRow';
 import { SettingsOptions } from '../../pageTitle/types';
 import SmoothList from 'react-smooth-list';
@@ -10,7 +10,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { DndTaskWrapperProps } from '../../../dnd/taskWrapper/types';
 import { If } from '../../../utilities/if/If';
 import { NoTasks } from '../noTasks/NoTasks';
-import { useTheme } from '@mui/styles';
 
 type Props = {
   title: string;
@@ -56,13 +55,13 @@ export const TaskWrapper: FC<Props> = ({
         value={1}
         TabIndicatorProps={{
           style: {
-            backgroundColor: theme?.palette?.custom.tabsColor,
+            backgroundColor: theme.palette.custom.tabsColor,
           },
         }}
       >
         <Tab
           label={
-            <span style={{ color: theme?.palette?.custom.tabsColor }}>
+            <span style={{ color: theme.palette.custom.tabsColor }}>
               {taskCount || ''} {t('common.todos')}
             </span>
           }
