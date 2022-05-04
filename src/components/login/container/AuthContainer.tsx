@@ -16,7 +16,7 @@ type Props = {
 
 export const AuthContainer: FC<Props> = ({ children, footer }) => {
   const { t } = useTranslation('auth');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -40,6 +40,7 @@ export const AuthContainer: FC<Props> = ({ children, footer }) => {
     if (router.query[ACTIVATION_CODE_VAR_NAME]) {
       activateAccount();
     }
+    setLoading(false);
   }, []);
 
   if (loading) {

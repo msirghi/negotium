@@ -13,6 +13,7 @@ import { TimelineOptions } from '../options/TimelineOptions';
 import { ListCalendar } from '../../calendar/list/ListCalendar';
 import StorageUtils from "../../../common/utils/storageUtils";
 import {TimelineView} from "../../../common/constants/enums";
+import {SnackbarProvider} from "notistack";
 
 describe('TimelineContainer', () => {
   const reduxStore = {
@@ -24,9 +25,11 @@ describe('TimelineContainer', () => {
   const renderComponent = () => {
     return (
       <MockReduxProvider reduxStore={reduxStore}>
-        <ThemeProvider theme={noirAppTheme}>
-          <TimelineContainer />
-        </ThemeProvider>
+        <SnackbarProvider>
+          <ThemeProvider theme={noirAppTheme}>
+            <TimelineContainer />
+          </ThemeProvider>
+        </SnackbarProvider>
       </MockReduxProvider>
     );
   };

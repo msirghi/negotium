@@ -31,8 +31,8 @@ export const ListCalendar = ({ tasks, onTaskClick }: Props) => {
   };
 
   useEffect(() => {
-    CalendarUtils.updateCalendarStyles(theme);
-  }, [theme]);
+    setTimeout(() => CalendarUtils.updateCalendarStyles(theme), 200);
+  }, [theme, tasks]);
 
   return (
     <div id="calendar" className={classes.container}>
@@ -41,7 +41,7 @@ export const ListCalendar = ({ tasks, onTaskClick }: Props) => {
         eventClick={onEventClick}
         headerToolbar={{ left: '', right: '' }}
         // @ts-ignore
-        events={CalendarUtils.convertTasksToEvents(tasks)}
+        events={CalendarUtils.convertTasksToEvents(tasks.filter(({completed}) => !completed))}
         initialView="listWeek"
         plugins={[listPlugin, timeGridPlugin, interactionPlugin]}
         selectable

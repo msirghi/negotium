@@ -44,7 +44,7 @@ export const LandingSection: FC<Props> = ({
       // @ts-ignore
       <Box style={boxStyles} className={[className, classes.container]}>
         <>
-          {curveColor && <Curve fill={curveColor} />}
+          {/*{curveColor && <Curve fill={curveColor} />}*/}
           {children}
         </>
       </Box>
@@ -58,7 +58,7 @@ export const LandingSection: FC<Props> = ({
         <motion.div ref={ref} animate={controls} initial="hidden" variants={squareVariants}>
           {children}
         </motion.div>
-        {curveColor && <Curve fill={curveColor} />}
+        {/*{curveColor && <Curve fill={curveColor} />}*/}
       </Box>
     </div>
   );

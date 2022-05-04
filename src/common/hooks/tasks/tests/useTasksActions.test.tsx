@@ -5,6 +5,7 @@ import { MockReduxProvider } from '../../../tests/TestUtils';
 import { TasksMock } from '../../../tests/mockData/tasks-mock';
 import taskActions from '../../../../redux/actions/loadTasks';
 import TaskUtils from '../../../../components/common/utilities/taskUtils/TaskUtils';
+import { SnackbarProvider } from 'notistack';
 
 describe('useTasksActions', () => {
   beforeEach(() => {
@@ -17,7 +18,11 @@ describe('useTasksActions', () => {
   afterEach(jest.clearAllMocks);
 
   const reduxStore = { tasks: { tasks: TasksMock } };
-  const componentWithRedux = ({ children }: any) => <MockReduxProvider reduxStore={reduxStore}>{children}</MockReduxProvider>;
+  const componentWithRedux = ({ children }: any) => (
+    <SnackbarProvider>
+      <MockReduxProvider reduxStore={reduxStore}>{children}</MockReduxProvider>;
+    </SnackbarProvider>
+  );
 
   it('should handle task add', async () => {
     const { result } = renderHook(() => useTasksActions(), { wrapper: componentWithRedux });

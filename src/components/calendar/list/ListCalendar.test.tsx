@@ -21,7 +21,9 @@ describe('ListCalendar', () => {
   });
 
   it('should update calendar styles on mount', () => {
+    jest.useFakeTimers();
     mount(<ListCalendar {...defaultProps} tasks={[]} />);
+    jest.runAllTimers();
     expect(CalendarUtils.updateCalendarStyles).toBeCalled();
   });
 
