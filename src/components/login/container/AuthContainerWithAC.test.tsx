@@ -40,6 +40,6 @@ describe('AuthContainer with account activation', () => {
       </MockReduxProvider>
     );
     wrapper.update();
-    expect(wrapper.find(LoginForm)).toHaveLength(0);
+    expect(wrapper.find(LoginForm)).toHaveLength(1);
   });
 });
