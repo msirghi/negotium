@@ -5,9 +5,10 @@ import reducer, {
   setUserName,
   setLanguage,
   setUserEmail,
-  setNotificationsEnabled,
+  setNotificationsEnabled, setDefaultHomeView,
 } from './accountSlice';
 import { tempAccountInfo } from '../../common/constants/constants';
+import {DefaultHomePage} from "../../common/constants/enums";
 
 describe('Account slice', () => {
   const testState = {
@@ -16,7 +17,7 @@ describe('Account slice', () => {
       name: 'Name',
       email: 'mail',
     },
-    metadata: { theme: 'Noir', language: 'ru' },
+    metadata: { theme: 'Noir', language: 'ru', defaultHomeView: '' },
     notificationsEnabled: false,
   };
 
@@ -30,16 +31,17 @@ describe('Account slice', () => {
       metadata: {
         theme: '',
         language: '',
+        defaultHomeView: '',
       },
-      notificationsEnabled: false
+      notificationsEnabled: false,
     });
   });
 
   it('should handle account info set', () => {
     expect(reducer(testState, setAccountInfo(tempAccountInfo))).toEqual({
       info: tempAccountInfo,
-      metadata: { theme: 'Noir', language: 'ru' },
-      notificationsEnabled: false
+      metadata: { theme: 'Noir', language: 'ru', defaultHomeView: '' },
+      notificationsEnabled: false,
     });
   });
 
@@ -58,9 +60,10 @@ describe('Account slice', () => {
         setMetadata({
           theme: 'theme',
           language: '',
+          defaultHomeView: '',
         })
       ).metadata
-    ).toEqual({ theme: 'theme', language: '' });
+    ).toEqual({ theme: 'theme', language: '', defaultHomeView: '' });
   });
 
   it('should set user language', () => {
@@ -73,5 +76,9 @@ describe('Account slice', () => {
 
   it('should set notificationsEnabled flag', () => {
     expect(reducer(testState, setNotificationsEnabled(true)).notificationsEnabled).toBeTruthy();
+  });
+
+  it('should set default home view', () => {
+    expect(reducer(testState, setDefaultHomeView(DefaultHomePage.INBOX)).metadata.defaultHomeView).toBe(DefaultHomePage.INBOX);
   });
 });

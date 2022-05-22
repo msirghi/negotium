@@ -4,7 +4,6 @@ import { Project } from '../common/types/projects.types';
 import { Section, Task } from '../common/types/tasks.types';
 import ServiceResultFactory from '../common/requests/serviceResultFactory';
 import { HttpMethod } from '../common/constants/enums';
-import { GetProjectResponse } from '../common/requests/types';
 
 const addProject = (project: Omit<Project, 'id'>) => {
   return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/projects`, HttpMethod.POST, {
@@ -80,6 +79,13 @@ const getProjects = () => {
     .catch(ServiceResultFactory.fromError);
 };
 
+const getAllProjectTasks = () => {
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/projects/tasks/all`, HttpMethod.GET)
+    .then(ServiceResultFactory.fromResponse)
+    .then((res) => ServiceResultFactory.convertMongoIdToJSId(res.data))
+    .catch(ServiceResultFactory.fromError);
+};
+
 const ProjectService = {
   addProject,
   getProjects,
@@ -94,5 +100,7 @@ const ProjectService = {
   updateProjectSectionTitle,
   deleteProjectSection,
   updateProjectColor,
+  getAllProjectTasks,
 };
+
 export default ProjectService;

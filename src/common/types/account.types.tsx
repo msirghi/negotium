@@ -8,4 +8,5 @@ export interface AccountInfo extends Id<string> {
 export type AccountMetadata = {
   theme: string;
   language: string;
+  defaultHomeView: string;
 };

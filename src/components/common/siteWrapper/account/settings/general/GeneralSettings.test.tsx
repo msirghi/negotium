@@ -16,15 +16,7 @@ jest.mock('next/router', () => ({
 describe('GeneralSettings', () => {
   const renderComponent = () => {
     return (
-      <MockReduxProvider
-        reduxStore={{
-          account: {
-            metadata: {
-              language: 'en',
-            },
-          },
-        }}
-      >
+      <MockReduxProvider reduxStore={{ account: { metadata: { language: 'en' } } }}>
         <GeneralSettings />
       </MockReduxProvider>
     );

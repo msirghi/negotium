@@ -98,4 +98,20 @@ describe('AccountService', () => {
       expect(ServiceResultFactory.fromError).toBeCalled();
     });
   });
+
+  describe('updateUserHomeView', () => {
+    it('should handle success response', async () => {
+      ServiceResultFactory.fromResponse = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await AccountService.updateUserHomeView('token');
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle error response', async () => {
+      ServiceResultFactory.fromError = jest.fn() as any;
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await AccountService.updateUserHomeView('token');
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
+  });
 });

@@ -4,8 +4,6 @@ import { TaskAddButton } from '../../../content/taskWrapper/section/taskAdd/Task
 import { Nullable } from '../../../../../common/types/common.types';
 import { useTasksActions } from '../../../../../common/hooks/tasks/useTasksActions';
 import { makeStyles } from '@mui/styles';
-import { useSnackbar } from 'notistack';
-import useTranslation from 'next-translate/useTranslation';
 
 type Props = {
   open: boolean;
@@ -22,13 +20,10 @@ const useStyles = makeStyles({
 export const TaskAddDialog = ({ open, handleClose }: Props) => {
   const { handleTaskAdd } = useTasksActions();
   const classes = useStyles();
-  const { enqueueSnackbar } = useSnackbar();
-  const { t } = useTranslation('common');
 
   const onTaskAdd = (title: string, date: Nullable<Date>) => {
     handleTaskAdd(title, date);
     handleClose();
-    enqueueSnackbar(t('snackbarTitles.taskAdded'));
   };
 
   return (

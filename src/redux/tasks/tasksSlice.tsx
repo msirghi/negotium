@@ -3,10 +3,12 @@ import { Task } from '../../common/types/tasks.types';
 
 export interface TasksState {
   tasks: Task[];
+  projectTasks: Task[];
 }
 
 const initialState: TasksState = {
   tasks: [],
+  projectTasks: [],
 };
 
 export const tasksSlice = createSlice({
@@ -28,11 +30,14 @@ export const tasksSlice = createSlice({
           task.completed = !task.completed;
         }
         return task;
-      })
-    }
+      });
+    },
+    setProjectTasks: (state, action: PayloadAction<Task[]>) => {
+      state.projectTasks = action.payload;
+    },
   },
 });
 
-export const { removeTaskFromList, setTasksList, addTaskToList, markTaskAsDone } = tasksSlice.actions;
+export const { removeTaskFromList, setTasksList, addTaskToList, markTaskAsDone, setProjectTasks } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

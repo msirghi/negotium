@@ -8,6 +8,7 @@ import colors from '../styles/colors';
 import { Descendant } from 'slate';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import { DefaultHomePage } from './enums';
 
 export const MAIN_MENU_ITEMS: MainMenuItem[] = [
   {
@@ -90,11 +91,18 @@ export const SUPPORTED_LANGUAGES = [
 export const HOME_VIEW_LIST = [
   {
     title: 'Inbox',
+    key: DefaultHomePage.INBOX,
     url: '/home/inbox',
   },
   {
     title: 'Today',
+    key: DefaultHomePage.TODAY,
     url: '/home/today',
+  },
+  {
+    title: 'Timeline',
+    key: DefaultHomePage.TIMELINE,
+    url: '/home/timeline',
   },
 ];
 
@@ -139,7 +147,7 @@ export const siteThemes: SiteTheme[] = [
     color: colors.primaries.lightGrey,
     label: 'Light Grey',
     internalKey: 'lightGrey',
-    textColor: colors.black
+    textColor: colors.black,
   },
 ];
 

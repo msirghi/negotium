@@ -167,4 +167,23 @@ describe('ProjectService', () => {
       expect(Requests.restApiCallWithBearer).toBeCalled();
     });
   });
+
+  describe('getAllProjectTasks', () => {
+    it('should handle success response', async () => {
+      jest.spyOn(ServiceResultFactory, 'fromError').mockImplementation();
+      ServiceResultFactory.fromResponse = jest.fn(() => Promise.resolve() as any);
+      ServiceResultFactory.convertMongoIdToJSId = jest.fn(() => Promise.resolve() as any);
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.resolve()) as any;
+      await ProjectService.getAllProjectTasks();
+      expect(ServiceResultFactory.fromResponse).toBeCalled();
+    });
+
+    it('should handle failed response', async () => {
+      // @ts-ignore
+      ServiceResultFactory.fromError = jest.fn();
+      Requests.restApiCallWithBearer = jest.fn(() => Promise.reject()) as any;
+      await ProjectService.getAllProjectTasks();
+      expect(ServiceResultFactory.fromError).toBeCalled();
+    });
+  });
 });

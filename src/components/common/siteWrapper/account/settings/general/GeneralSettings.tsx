@@ -1,16 +1,14 @@
 import { makeStyles } from '@mui/styles';
 import { Divider, MenuItem, TextField } from '@mui/material';
-import { HOME_VIEW_LIST, SUPPORTED_LANGUAGES, TIME_FORMATS } from '../../../../../../common/constants/constants';
+import { TIME_FORMATS } from '../../../../../../common/constants/constants';
 import useTranslation from 'next-translate/useTranslation';
 import { Box } from '@mui/system';
 import { useCommonStyles } from '../../styles';
 import { useIsMobile } from '../../../../../../common/hooks/common/useIsMobile';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../../../redux/store';
-import AccountService from '../../../../../../services/AccountService';
-import { setLanguage } from '../../../../../../redux/account/accountSlice';
-import { useRouter } from 'next/router';
 import { NotificationsSettings } from './notifications/NotificationsSettings';
+import { HomeViewSelector } from './homeViewSelector/HomeviewSelector';
+import { LanguageSelector } from './languageSelector/LanguageSelector';
+import { GeneralSettingsSection } from './section/GeneralSettingsSection';
 
 const useStyles = makeStyles({
   dropdown: {
@@ -23,51 +21,16 @@ export const GeneralSettings = () => {
   const classes = useStyles();
   const { t } = useTranslation('settings');
   const isMobile = useIsMobile();
-  const router = useRouter();
-  const userMetadata = useSelector((state: RootState) => state.account.metadata);
-  const dispatch = useDispatch();
-
-  const updateLanguage = async (evt: { target: { value: string } }) => {
-    const language = evt.target.value;
-    dispatch(setLanguage(language));
-    await AccountService.updateUserLanguage(language);
-    await router.push(router.route, router.route, { locale: language });
-  };
 
   return (
     <div>
-      <Box className={commonClasses.sectionTitle}>{t('language')}</Box>
-      <Box className={commonClasses.sectionBody}>
-        <TextField
-          select
-          value={userMetadata.language}
-          size={'small'}
-          className={classes.dropdown}
-          fullWidth={isMobile}
-          onChange={updateLanguage}
-        >
-          {SUPPORTED_LANGUAGES.map(({ code, title }) => {
-            return (
-              <MenuItem key={code} value={code}>
-                {title}
-              </MenuItem>
-            );
-          })}
-        </TextField>
-      </Box>
+      <GeneralSettingsSection title={t('language')}>
+        <LanguageSelector className={classes.dropdown} />
+      </GeneralSettingsSection>
 
-      <Box className={commonClasses.sectionTitle}>{t('homeView')}</Box>
-      <Box className={commonClasses.sectionBody}>
-        <TextField select value={'Inbox'} size={'small'} className={classes.dropdown} fullWidth={isMobile}>
-          {HOME_VIEW_LIST.map(({ title }) => {
-            return (
-              <MenuItem key={title} value={title}>
-                {title}
-              </MenuItem>
-            );
-          })}
-        </TextField>
-      </Box>
+      <GeneralSettingsSection title={t('homeView')}>
+        <HomeViewSelector className={classes.dropdown} />
+      </GeneralSettingsSection>
 
       <Box className={commonClasses.sectionTitle}>
         <Divider />

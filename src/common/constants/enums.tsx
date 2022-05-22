@@ -41,5 +41,11 @@ export enum Sounds {
 
 export enum TimelineView {
   DEFAULT = 'DEFAULT',
-  LIST = 'LIST'
+  LIST = 'LIST',
+}
+
+export enum DefaultHomePage {
+  TODAY = 'today',
+  INBOX = 'inbox',
+  TIMELINE = 'timeline'
 }

@@ -17,6 +17,7 @@ const initialState: AccountState = {
   metadata: {
     theme: '',
     language: '',
+    defaultHomeView: '',
   },
   notificationsEnabled: Boolean(StorageUtils.localStorage.get('notifications-enabled')),
 };
@@ -47,10 +48,21 @@ export const accountSlice = createSlice({
       StorageUtils.localStorage.set('notifications-enabled', `${action.payload}`);
       state.notificationsEnabled = action.payload;
     },
+    setDefaultHomeView: (state, action: PayloadAction<string>) => {
+      state.metadata.defaultHomeView = action.payload;
+    },
   },
 });
 
-export const { setAccountInfo, setSiteTheme, setMetadata, setUserName, setLanguage, setUserEmail, setNotificationsEnabled } =
-  accountSlice.actions;
+export const {
+  setAccountInfo,
+  setSiteTheme,
+  setMetadata,
+  setUserName,
+  setLanguage,
+  setUserEmail,
+  setNotificationsEnabled,
+  setDefaultHomeView,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

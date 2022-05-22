@@ -46,6 +46,12 @@ const updateUserPassword = (oldPassword: string, newPassword: string) => {
   });
 };
 
+const updateUserHomeView = (defaultHomeView: string) => {
+  return Requests.restApiCallWithBearer(`${BASE_API_URL_V1}/metadata`, HttpMethod.PATCH, { defaultHomeView })
+    .then(ServiceResultFactory.fromResponse)
+    .catch(ServiceResultFactory.fromError);
+};
+
 const AccountService = {
   getUserMetadata,
   updateUserTheme,
@@ -54,6 +60,7 @@ const AccountService = {
   updateUserLanguage,
   updateUserEmail,
   updateUserPassword,
+  updateUserHomeView
 };
 
 export default AccountService;

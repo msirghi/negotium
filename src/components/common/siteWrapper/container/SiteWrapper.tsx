@@ -20,6 +20,7 @@ import taskActions from '../../../../redux/actions/loadTasks';
 import NextNProgress from 'nextjs-progressbar';
 import { SiteWrapperHeader } from '../header/SiteWrapperHeader';
 import { SiteWrapperNavigation } from '../navigation/SiteWrapperNavigation';
+import { useMetadataActions } from '../account/settings/general/hooks/useMetadataActions';
 
 const drawerWidth = 240;
 
@@ -31,16 +32,17 @@ export const SiteWrapper: FC = ({ children }) => {
   const isPageWithoutWrapper = pagesWithoutWrapper.includes(router.route);
   const [selectedTheme, setSelectedTheme] = useState<Theme>();
   const dispatch = useDispatch();
+  const { routeToHomePage, loading: routerLoading } = useMetadataActions();
 
   const fetchUserMetadata = async () => {
     try {
       const response = await AccountService.getUserMetadata();
-      let { theme, language } = response.data;
+      let { theme, language, defaultHomeView } = response.data;
       if (!ThemeUtils.isValidTheme(theme)) {
         theme = siteThemes[0].internalKey;
       }
-      dispatch(setMetadata({ theme, language }));
-      await router.push(router.route, router.route, { locale: language });
+      dispatch(setMetadata({ theme, language, defaultHomeView }));
+      routeToHomePage(defaultHomeView, language);
     } catch (e) {}
   };
 
@@ -76,7 +78,7 @@ export const SiteWrapper: FC = ({ children }) => {
     }
   }, [isPageWithoutWrapper]);
 
-  if (!selectedTheme && !isPageWithoutWrapper) {
+  if ((!selectedTheme && !isPageWithoutWrapper) || routerLoading) {
     return <div />;
   }
 
