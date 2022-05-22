@@ -30,11 +30,10 @@ export const useMetadataActions = () => {
   const updateDefaultHomeView = async (newView: string) => {
     setLoading(true);
     try {
-      console.log(newView);
       await AccountService.updateUserHomeView(newView.toLowerCase());
       dispatch(setDefaultHomeView(newView));
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     setLoading(false);
   };
